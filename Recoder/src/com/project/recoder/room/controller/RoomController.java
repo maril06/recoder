@@ -30,6 +30,7 @@ public class RoomController extends HttpServlet {
 		String cp = request.getParameter("cp");
 		
 		try {
+			
 			RoomService service = new RoomService();
 			if(command.equals("/roomInsertForm.do")) {
 				
