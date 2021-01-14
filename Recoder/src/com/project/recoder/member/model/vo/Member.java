@@ -55,5 +55,4 @@ public class Member {
 		return "Member [memNo2=" + memNo2 + ", brokderCreti=" + brokderCreti + ", brokderAddr=" + brokderAddr
 				+ ", approveFl=" + approveFl + "]";
 	}
-	
 }

@@ -151,6 +151,10 @@ $("#addRoom").on("click", function(e){
   
   $.each(having,  function(index, item){ 
     options[index] = item.id;
+
+	// form태그 요소 선택
+	// <input type="hidden" name="options" value="item.value">
+	// form.append(input)
     
   })
   
@@ -163,16 +167,17 @@ $("#addRoom").on("click", function(e){
 
   // 배열 받기 request.getParameterValues()
 
-		
 			// 회원번호를 얻어와서 변수에 저장
 			// var replyWriter = "${loginMember.memberNo}";
 		
+		
+		/*
 			
 			//  js 배열 형식을 바꾸기위한 구문
 			$.ajaxSettings.traditional = true;
 			//	options=1&optinos=2&options=3
 			$.ajax({
-				url : "roomInsertForm.do",
+				url : "roomInsert.do",
 				data : {"replyWriter" : replyWriter,
 						"options" : options,
 			            "roomTitle" : roomTitle, 
@@ -200,12 +205,47 @@ $("#addRoom").on("click", function(e){
 					
 			});
 		
-e.preventDefault(); // 임시 
+
+*/
+// e.preventDefault(); // 임시 
 	
 });
 
+function insertteValidate(e){
+	// 유효성 검사
+	var airCon = $('#airCon');
+	var washing = $('#washing');
+	var bed = $('#bed');
+	var parking = $('#parking');
+	var closet = $('#closet');
+	var tv = $('#tv');
+	var internet = $('#internet');
+	var fridge = $('#fridge');
+	var womanOnly = $('#womanOnly');
+	var pet = $('#pet');
+	
+	var having = $('#having > li')
+	var optionList = $("#optionList > li");
+	
+	var options = [];
+	
+	
+	$.each(having,  function(index, item){ 
+		options[index] = item.id;
+	
+		var input = $("<input type='hidden' name='options'>").val(item.id);
+		$("#insertForm").append(input);
+		
+	
+		// form태그 요소 선택
+		// <input type="hidden" name="options" value="item.value">
+		// form.append(input)
+	    
+		alert(input);
+	  })
 
 
+}
 
 
 

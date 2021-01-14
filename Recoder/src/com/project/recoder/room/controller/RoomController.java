@@ -33,13 +33,12 @@ public class RoomController extends HttpServlet {
 			RoomService service = new RoomService();
 			if(command.equals("/roomInsertForm.do")) {
 				
-				
 				path = "/WEB-INF/views/room/roomsInfoInsert.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
 		        }
 			
-			if(command.equals("/roomInsert.do")) {
+			else if(command.equals("/roomInsert.do")) {
 				
 				String roomTitle = request.getParameter("roomTitle");
 				String roomInfo = request.getParameter("roomInfo");
@@ -58,11 +57,12 @@ public class RoomController extends HttpServlet {
 
 				
 				System.out.println(roomTitle);
+				System.out.println(roomInfo);
 				System.out.println(options);
-//				for (int i = 0; i < options.length; i++) {
-//					System.out.println(options);
-//					
-//				}
+				for (int i = 0; i < options.length; i++) {
+					System.out.println(options[i]);
+					
+				}
 				
 				
 				
@@ -72,7 +72,7 @@ public class RoomController extends HttpServlet {
 //				request.setAttribute("");
 
 				
-				
+				path = "/WEB-INF/views/room/roomsInfo.jsp";
 				view = request.getRequestDispatcher(path);
 				view.forward(request, response);
 				
