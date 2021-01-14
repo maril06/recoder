@@ -36,11 +36,12 @@
 <body>
     <div class="wrapper">
         <!-- header -->
-        
+        <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
+		<jsp:include page="../common/header.jsp"></jsp:include>
 
         <h2>매물 올리기</h2>
         
-        <form action="" method="POST" onsubmit="return updateValidate();">
+        <form action="${contextPath}/room/roomInsert.do" method="POST" onsubmit="return updateValidate();">
         
             <!-- update image -->
             <section class="images">
@@ -221,6 +222,8 @@
         </form>
         
         <!-- footer -->
+        <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
+		<jsp:include page="../common/footer.jsp"></jsp:include>
         
         
     </div>

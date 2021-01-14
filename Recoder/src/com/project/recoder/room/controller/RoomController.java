@@ -31,22 +31,52 @@ public class RoomController extends HttpServlet {
 		
 		try {
 			RoomService service = new RoomService();
+			if(command.equals("/roomInsertForm.do")) {
+				
+				
+				path = "/WEB-INF/views/room/roomsInfoInsert.jsp";
+			    view = request.getRequestDispatcher(path);
+			    view.forward(request, response);
+		        }
 			
+			if(command.equals("/roomInsert.do")) {
+				
+				String roomTitle = request.getParameter("roomTitle");
+				String roomInfo = request.getParameter("roomInfo");
+				String[] options = request.getParameterValues("options");
+				String roomAddr = request.getParameter("roomAddr");
+				String careFee = request.getParameter("careFee");
+				String typeOfRent = request.getParameter("typeOfRent");
+				String deposit = request.getParameter("deposit");
+				String monthRent = request.getParameter("monthRent");
+				String roomStruc = request.getParameter("roomStruc");
+				String roomFloor = request.getParameter("roomFloor");
+				String pubSize = request.getParameter("pubSize");
+				String realSize = request.getParameter("realSize");
+				String roomCount = request.getParameter("roomCount");
+				String stationAddr = request.getParameter("stationAddr");
+
+				
+				System.out.println(roomTitle);
+				System.out.println(options);
+//				for (int i = 0; i < options.length; i++) {
+//					System.out.println(options);
+//					
+//				}
+				
+				
+				
+				
 			
-			if(command.equals("/roomUpdate.do")) {
-				
-				
-				
-				
-				
-				
-				
-				path = "/WEB-INF/views/room/roomsInfoUpdate.jsp";
 //				request.setAttribute("");
 //				request.setAttribute("");
-					
+
+				
+				
 				view = request.getRequestDispatcher(path);
 				view.forward(request, response);
+				
+//				response.getWriter().print(result);
 			}
 			
 		} catch (Exception e) {
