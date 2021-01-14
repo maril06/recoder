@@ -116,7 +116,7 @@ function LoadImg(value, num) {
 
 
 // 매물 등록 (ajax)
-$("#addRoom").on("click", function(e){
+$("#addRoom").on("click", function(){
   var roomTitle = $('#roomTitle').val().trim();
   var roomInfo = $('#roomInfo').val().trim();
 
@@ -212,7 +212,13 @@ $("#addRoom").on("click", function(e){
 });
 
 function insertteValidate(e){
-	// 유효성 검사
+	// 옵션 유효성 검사
+	if($("#optionList > li").length>0){
+		alert("모든 옵션을 옮겨주세요");
+		return false;
+	}
+	
+	// 변수들
 	var airCon = $('#airCon');
 	var washing = $('#washing');
 	var bed = $('#bed');
@@ -225,23 +231,61 @@ function insertteValidate(e){
 	var pet = $('#pet');
 	
 	var having = $('#having > li')
+	var none = $("#none > li")
+	
 	var optionList = $("#optionList > li");
 	
 	var options = [];
+	var options2 = [];
+	var options3 = [];
+	var yes = [];
+	var no = []
 	
-	
+	// 있을 때
 	$.each(having,  function(index, item){ 
 		options[index] = item.id;
 	
-		var input = $("<input type='hidden' name='options'>").val(item.id);
-		$("#insertForm").append(input);
+//		var input = $("<input type='hidden' name='options[index]'>").val(item.id);
+//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+		
+		// var input = $("<input type='hidden' name='"+ yes[index] +"'>").val(item.id);
+		//  yes = $("<input type='hidden' name='"+ options[index] +"'>").val("Y");
+		
+		
+		
+		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+		//var input = $("<input type='hidden' name='"+ options[index] +"'>").val("Y");
+		yes = $("<input type='hidden' name='"+ options[index] +"'>").val("Y");
+		$("#insertForm").append(yes);
+		$("#insertForm").append(input2);
 		
 	
 		// form태그 요소 선택
 		// <input type="hidden" name="options" value="item.value">
 		// form.append(input)
 	    
-		alert(input);
+	  })
+
+	// 없을 때
+	$.each(none,  function(index, item){ 
+		options3[index] = item.id;
+	
+//		var input = $("<input type='hidden' name='options[index]'>").val(item.id);
+//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+		
+		// var input = $("<input type='hidden' name='"+ yes[index] +"'>").val(item.id);
+		
+		var input3 = $("<input type='hidden' name='options3'>").val(item.id);
+		no = $("<input type='hidden' name='"+ options3[index] +"'>").val("N");
+		$("#insertForm").append(no);
+		$("#insertForm").append(input3);
+		
+	
+		// form태그 요소 선택
+		// <input type="hidden" name="options" value="item.value">
+		// form.append(input)
 	  })
 
 
