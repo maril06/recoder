@@ -24,27 +24,7 @@
 <body>
     <div class="wrapper">
         <!-- header -->
-        <header>
-            <div class="menu_wrapper clearfix">
-                <div class="logo">
-                    <a href="#"><img src="images/logo.png" alt="로고"></a>
-                </div>
-                <div class="menu_left clearfix">
-                    <ul class="menu_left_title clearfix ft">
-                        <li><a href="#"><span><b>방찾기</b></span></></li>
-                            <li><a href="#"><span><b>방 내놓기</b></span></a></li>
-                        <li><a href="#"><span><b>찜 방</b></span></a></li>
-                        <li><a href="#"><span><b>게시판</b></span></a></li>
-                    </ul>
-                </div>
-                <div class="menu_right">
-                    <ul class="menu_right_title clearfix ft">
-                        <li><a href=""><span>SignUp</span></a></li>
-                        <li><a href=""><span>Login</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+
 
         <!-- message -->
         <section class="message clearfix">
@@ -53,7 +33,7 @@
                 <ul>
                     <li class="member_list clearfix">
                         <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
+                            <img src="images/homepage/mail_open.png" alt="">
                             <div class="circle"></div>
                             <div class="mcnt" id="mcnt">3</div>
                             <span class="name">김이름</span>
@@ -71,7 +51,7 @@
                     </li>
                     <li class="member_list clearfix">
                         <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
+                            <img src="images/homepage/mail_open.png" alt="">
                             <div class="circle"></div>
                             <div class="mcnt" id="mcnt">3</div>
                             <span class="name">김이름</span>

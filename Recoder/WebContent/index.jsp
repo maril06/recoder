@@ -48,7 +48,7 @@
             <!-- visual -->
             <ul class="slide">
                 <li>
-                    <img src="resources/images/bg1.jpg" alt="배경1">
+                    <img src="resources/images/homepage/bg1.jpg" alt="배경1">
                     <div class="mainTitle">
                         <strong>
                             어떤 방에서<br>
@@ -57,7 +57,7 @@
                     </div>
                 </li>
                 <li>
-                    <img src="resources/images/bg2.jpg" alt="배경2">
+                    <img src="resources/images/homepage/bg2.jpg" alt="배경2">
                     <div class="mainTitle">
                         <strong>
                             어떤 동네에서<br>
@@ -66,7 +66,7 @@
                     </div>
                 </li>
                 <li>
-                    <img src="resources/images/bg3.jpg" alt="배경3">
+                    <img src="resources/images/homepage/bg3.jpg" alt="배경3">
                     <div class="mainTitle">
                         <strong>
                             어떤 이웃과<br>
@@ -75,7 +75,7 @@
                     </div>
                 </li>
                 <li>
-                    <img src="resources/images/bg4.jpg" alt="배경4">
+                    <img src="resources/images/homepage/bg4.jpg" alt="배경4">
                     <div class="mainTitle">
                         <strong>
                             어떤 집에서<br>

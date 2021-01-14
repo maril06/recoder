@@ -49,7 +49,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light head">
         <div class="container-fluid">
             <div class="logo">
-                <a href="#"><img src="${contextPath}/resources/images/logo.png" alt="로고" id="logo"></a>
+                <a href="#"><img src="${contextPath}/resources/images/homepage/logo.png" alt="로고" id="logo"></a>
             </div>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
