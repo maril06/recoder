@@ -57,7 +57,7 @@
                 <a class="nav-link" href="#">방찾기</a>
               </li>
               <li class="nav-item mx-3">
-                <a class="nav-link" href="#">방내놓기</a>
+                <a class="nav-link" href="${contextPath}/room/roomInsertForm.do">방내놓기</a>
               </li>
               <li class="nav-item mx-3">
                 <a class="nav-link" href="#">찜한방</a>
@@ -69,7 +69,7 @@
                 <a class="nav-link" href="#">자유게시판</a>
               </li>
               <li class="nav-item mx-3">
-                <a class="nav-link" href="#">쪽지함</a>
+                <a class="nav-link" href="${contextPath}/message/message.do">쪽지함</a>
               </li>
             </ul>
         </div>

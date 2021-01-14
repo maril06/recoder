@@ -36,11 +36,12 @@
 <body>
     <div class="wrapper">
         <!-- header -->
-        
+        <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
+		<jsp:include page="../common/header.jsp"></jsp:include>
 
         <h2>매물 올리기</h2>
         
-        <form action="" method="POST" onsubmit="return updateValidate();">
+        <form action="${contextPath}/room/roomInsert.do" id="insertForm" method="POST" onsubmit="return insertteValidate();">
         
             <!-- update image -->
             <section class="images">
@@ -95,8 +96,8 @@
             <!-- update roomInfo -->
             <section class="room_info">
                 <div class="room_content">
-                    제목을 작성해주세요 <input type="text" class="title" id="roomTitle" placeholder="제목">
-                    내용을 작성해주세요 <textarea class="about" id="roomInfo"></textarea>
+                    제목을 작성해주세요 <input type="text" class="title" id="roomTitle" name="roomTitle" placeholder="제목">
+                    내용을 작성해주세요 <textarea class="about" id="roomInfo" name="roomInfo"></textarea>
                 </div>
 
                 <div class="room_detail">
@@ -221,6 +222,8 @@
         </form>
         
         <!-- footer -->
+        <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
+		<jsp:include page="../common/footer.jsp"></jsp:include>
         
         
     </div>
