@@ -32,6 +32,23 @@ public class RoomController extends HttpServlet {
 		try {
 			RoomService service = new RoomService();
 			
+			
+			if(command.equals("/roomUpdate.do")) {
+				
+				
+				
+				
+				
+				
+				
+				path = "/WEB-INF/views/room/roomsInfoUpdate.jsp";
+//				request.setAttribute("");
+//				request.setAttribute("");
+					
+				view = request.getRequestDispatcher(path);
+				view.forward(request, response);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			path = "/WEB-INF/views/common/errorPage.jsp"; // 수정
