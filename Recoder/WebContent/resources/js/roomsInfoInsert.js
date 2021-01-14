@@ -116,7 +116,7 @@ function LoadImg(value, num) {
 
 
 // 매물 등록 (ajax)
-$("#addRoom").on("click", function(e){
+$("#addRoom").on("click", function(){
   var roomTitle = $('#roomTitle').val().trim();
   var roomInfo = $('#roomInfo').val().trim();
 
@@ -151,47 +151,52 @@ $("#addRoom").on("click", function(e){
   
   $.each(having,  function(index, item){ 
     options[index] = item.id;
+
+	// form태그 요소 선택
+	// <input type="hidden" name="options" value="item.value">
+	// form.append(input)
     
   })
   
+  console.log(roomTitle);
+  console.log(roomInfo);
   console.log(options);
 
+//  
+//	options=1&optinos=2&options=3
+
   // 배열 받기 request.getParameterValues()
-e.preventDefault(); // 임시 
 
-
-	if(loginMemberId == ""){
-		alert("로그인 후 이용해 주세요");
-	}else{ // 로그인이 되어있는 경우 
-		
-		// 댓글 내용이 작성되어 있는지 확인
-		if(replyContent.length == 0){
-			alert("댓글 작성 후 클릭해주세요");
-		}else{ // 로그인이 되어있고, 댓글도 작성되어 있는 경우
-			
 			// 회원번호를 얻어와서 변수에 저장
-			var replyWriter = "${loginMember.memberNo}";
+			// var replyWriter = "${loginMember.memberNo}";
+		
+		
+		/*
 			
+			//  js 배열 형식을 바꾸기위한 구문
+			$.ajaxSettings.traditional = true;
+			//	options=1&optinos=2&options=3
 			$.ajax({
-				url : "${contextPath}/reply/insertReply.do",
+				url : "roomInsert.do",
 				data : {"replyWriter" : replyWriter,
 						"options" : options,
-            "roomTitle" : roomTitle, 
-            "roomInfo" : roomInfo,
-            "roomAddr" : roomAddr,
-            "careFee" : careFee,
-            "typeOfRent" : typeOfRent,
-            "deposit" : deposit,
-            "monthRent" : monthRent,
-            "roomStruc" : roomStruc,
-            "roomFloor" : roomFloor,
-            "pubSize" : pubSize,
-            "realSize" : realSize,
-            "roomCount" : roomCount,
-            "stationAddr" : stationAddr            
-          },
+			            "roomTitle" : roomTitle, 
+			            "roomInfo" : roomInfo,
+			            "roomAddr" : roomAddr,
+			            "careFee" : careFee,
+			            "typeOfRent" : typeOfRent,
+			            "deposit" : deposit,
+			            "monthRent" : monthRent,
+			            "roomStruc" : roomStruc,
+			            "roomFloor" : roomFloor,
+			            "pubSize" : pubSize,
+			            "realSize" : realSize,
+			            "roomCount" : roomCount,
+			            "stationAddr" : stationAddr            
+			          },
 				type : "post",
 				success : function(result){
+						console.log("성공");
 
 				},
 				error : function(){
@@ -199,17 +204,92 @@ e.preventDefault(); // 임시
 				}
 					
 			});
-		}
-	}
-	
-	
-	
-	
+		
+
+*/
+// e.preventDefault(); // 임시 
 	
 });
 
+function insertteValidate(e){
+	// 옵션 유효성 검사
+	if($("#optionList > li").length>0){
+		alert("모든 옵션을 옮겨주세요");
+		return false;
+	}
+	
+	// 변수들
+	var airCon = $('#airCon');
+	var washing = $('#washing');
+	var bed = $('#bed');
+	var parking = $('#parking');
+	var closet = $('#closet');
+	var tv = $('#tv');
+	var internet = $('#internet');
+	var fridge = $('#fridge');
+	var womanOnly = $('#womanOnly');
+	var pet = $('#pet');
+	
+	var having = $('#having > li')
+	var none = $("#none > li")
+	
+	var optionList = $("#optionList > li");
+	
+	var options = [];
+	var options2 = [];
+	var options3 = [];
+	var yes = [];
+	var no = []
+	
+	// 있을 때
+	$.each(having,  function(index, item){ 
+		options[index] = item.id;
+	
+//		var input = $("<input type='hidden' name='options[index]'>").val(item.id);
+//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+		
+		// var input = $("<input type='hidden' name='"+ yes[index] +"'>").val(item.id);
+		//  yes = $("<input type='hidden' name='"+ options[index] +"'>").val("Y");
+		
+		
+		
+		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+		//var input = $("<input type='hidden' name='"+ options[index] +"'>").val("Y");
+		yes = $("<input type='hidden' name='"+ options[index] +"'>").val("Y");
+		$("#insertForm").append(yes);
+		$("#insertForm").append(input2);
+		
+	
+		// form태그 요소 선택
+		// <input type="hidden" name="options" value="item.value">
+		// form.append(input)
+	    
+	  })
+
+	// 없을 때
+	$.each(none,  function(index, item){ 
+		options3[index] = item.id;
+	
+//		var input = $("<input type='hidden' name='options[index]'>").val(item.id);
+//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
+		
+		// var input = $("<input type='hidden' name='"+ yes[index] +"'>").val(item.id);
+		
+		var input3 = $("<input type='hidden' name='options3'>").val(item.id);
+		no = $("<input type='hidden' name='"+ options3[index] +"'>").val("N");
+		$("#insertForm").append(no);
+		$("#insertForm").append(input3);
+		
+	
+		// form태그 요소 선택
+		// <input type="hidden" name="options" value="item.value">
+		// form.append(input)
+	  })
 
 
+}
 
 
 

@@ -39,7 +39,7 @@
                 </div>
                 <div class="menu_left clearfix">
                     <ul class="menu_left_title clearfix ft">
-                        <li><a href="#"><span><b>방찾기</b></span></></li>
+                        <li><a href="#"><span><b>방찾기</b></span></a></li>
                             <li><a href="#"><span><b>방 내놓기</b></span></a></li>
                         <li><a href="#"><span><b>찜 방</b></span></a></li>
                         <li><a href="#"><span><b>게시판</b></span></a></li>
@@ -59,7 +59,7 @@
         <form action="" method="POST" onsubmit="return updateValidate();">
         
             <!-- update image -->
-            <section class="images">
+            <section class="imaes">
                 <h3>사진 올리기</h3>
                 <span>빈 공간을 클릭해주세요</span>
                 <div class="images_wrapper">
@@ -92,7 +92,7 @@
                     </div>
                 </div>
 
-                <id id="fileArea">
+                <div id="fileArea">
                     <input type="file" id="img0" onchange="LoadImg(this,0)" name="img0">
                     <input type="file" id="img1" onchange="LoadImg(this,1)" name="img1">
                     <input type="file" id="img2" onchange="LoadImg(this,2)" name="img2">
@@ -125,11 +125,11 @@
                         <tbody>
                             <tr>
                                 <th scope="row" >지역</th>
-                                <td colspan="3"><input type="text" id="roomAddr"></td>
+                                <td colspan="3"><input type="text" id="roomAddr" name="roomAddr"></td>
                             </tr>
                             <tr>
                                 <th scope="row" >관리비</th>
-                                <td><input type="text" id="careFee"></td>
+                                <td><input type="text" id="careFee" name="careFee"></td>
                                 <th scope="row">월세/전세</th>
                                 <td>
                                     <select name="" id="typeOfRent">
@@ -140,38 +140,38 @@
                             </tr>
                             <tr>
                                 <th scope="row">보증금</th>
-                                <td><input type="text" id="deposit"></td>
+                                <td><input type="text" id="deposit" name="deposit"></td>
                                 <th scope="row">월세</th>
-                                <td><input type="text" id="monthRent"></td>
+                                <td><input type="text" id="monthRent" name="monthRent"></td>
                             </tr>
                             <tr>
                                 <th scope="row">구조</th>
                                 <td>
-                                    <select name="" id="roomStruc">
+                                    <select name="roomStruc" id="roomStruc">
                                         <option value="분리형원룸">분리형원룸</option>
                                         <option value="복층">복층</option>
                                         <option value="단층">단층</option>
                                     </select>
                                 </td>
                                 <th scope="row">층수</th>
-                                <td><input type="text" id="roomFloor"></td>
+                                <td><input type="text" id="roomFloor" name="roomFloor"></td>
                             </tr>
                             <tr>
                                 <th scope="row">공급면적</th>
-                                <td><input type="text" id="pubSize"></td>
+                                <td><input type="text" id="pubSize" name="pubSize"></td>
                                 <th scope="row">전용면적</th>
-                                <td><input type="text" id="realSize"></td>
+                                <td><input type="text" id="realSize" name="realSize"></td>
                             </tr>
                             <tr>
                                 <th scope="row">방갯수</th>
                                 <td>
-                                    <select name="" id="roomCount">
+                                    <select name="roomCount" id="roomCount">
                                         <option value="원룸">원룸</option>
                                         <option value="투룸">투룸</option>
                                     </select>
                                 </td>
                                 <th scope="row">근쳐 지하철역</th>
-                                <td><input type="text" id="stationAddr"></td>
+                                <td><input type="text" id="stationAddr" name="stationAddr"></td>
                             </tr>
                         </tbody>
                     </table>

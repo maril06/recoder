@@ -36,11 +36,12 @@
 <body>
     <div class="wrapper">
         <!-- header -->
-        
+        <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
+		<jsp:include page="../common/header.jsp"></jsp:include>
 
         <h2>매물 올리기</h2>
         
-        <form action="" method="POST" onsubmit="return updateValidate();">
+        <form action="${contextPath}/room/roomInsert.do" id="insertForm" method="POST" enctype="multipart/form-data" role="form"  onsubmit="return insertteValidate();">
         
             <!-- update image -->
             <section class="images">
@@ -95,8 +96,8 @@
             <!-- update roomInfo -->
             <section class="room_info">
                 <div class="room_content">
-                    제목을 작성해주세요 <input type="text" class="title" id="roomTitle" placeholder="제목">
-                    내용을 작성해주세요 <textarea class="about" id="roomInfo"></textarea>
+                    제목을 작성해주세요 <input type="text" class="title" id="roomTitle" name="roomTitle" placeholder="제목">
+                    내용을 작성해주세요 <textarea class="about" id="roomInfo" name="roomInfo"></textarea>
                 </div>
 
                 <div class="room_detail">
@@ -109,14 +110,14 @@
                         <tbody>
                             <tr>
                                 <th scope="row" >지역</th>
-                                <td colspan="3"><input type="text" id="roomAddr"></td>
+                                <td colspan="3"><input type="text" id="roomAddr" name="roomAddr"></td>
                             </tr>
                             <tr>
                                 <th scope="row" >관리비</th>
-                                <td><input type="text" id="careFee"></td>
+                                <td><input type="text" id="careFee" name="careFee"></td>
                                 <th scope="row">월세/전세</th>
                                 <td>
-                                    <select name="" id="typeOfRent">
+                                    <select name="typeOfRent" id="typeOfRent">
                                         <option value="월세">월세</option>
                                         <option value="전세">전세</option>
                                     </select>
@@ -124,9 +125,9 @@
                             </tr>
                             <tr>
                                 <th scope="row">보증금</th>
-                                <td><input type="text" id="deposit"></td>
+                                <td><input type="text" id="deposit" name="deposit"></td>
                                 <th scope="row">월세</th>
-                                <td><input type="text" id="monthRent"></td>
+                                <td><input type="text" id="monthRent" name="monthRent"></td>
                             </tr>
                             <tr>
                                 <th scope="row">구조</th>
@@ -138,18 +139,18 @@
                                     </select>
                                 </td>
                                 <th scope="row">층수</th>
-                                <td><input type="text" id="roomFloor"></td>
+                                <td><input type="text" id="roomFloor" name="roomFloor"></td>
                             </tr>
                             <tr>
                                 <th scope="row">공급면적</th>
-                                <td><input type="text" id="pubSize"></td>
+                                <td><input type="text" id="pubSize" name="pubSize"></td>
                                 <th scope="row">전용면적</th>
-                                <td><input type="text" id="realSize"></td>
+                                <td><input type="text" id="realSize" name="realSize"></td>
                             </tr>
                             <tr>
                                 <th scope="row">방갯수</th>
                                 <td>
-                                    <select name="" id="roomCount">
+                                    <select name="roomCount" id="roomCount">
                                         <option value="원룸">원룸</option>
                                         <option value="투룸">투룸</option>
                                     </select>
@@ -180,7 +181,7 @@
                             
                         </ul>
                         
-                        <ul class="none" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)" class="items">
+                        <ul id="none" class="none" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)" class="items">
                             
                         </ul>
                         
@@ -221,6 +222,8 @@
         </form>
         
         <!-- footer -->
+        <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
+		<jsp:include page="../common/footer.jsp"></jsp:include>
         
         
     </div>
