@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<!-- 전체(삭제/등록된 모든)룸 개수 반환 -->
+<entry key="getListCount">
+SELECT COUNT(*) FROM AV_ROOM
+</entry>
+
+<!-- 전체 ROOM (삭제여부 관계없이 모두) 조회 SQL -->
+<entry key="selectRoomList">
+SELECT * FROM
+(SELECT ROWNUM, V.*
+FROM
+(SELECT * FROM AV_ROOM ORDER BY ROOM_NO DESC) V)
+WHERE ROWNUM BETWEEN ? AND ?
+</entry>
+
+
+</properties>
