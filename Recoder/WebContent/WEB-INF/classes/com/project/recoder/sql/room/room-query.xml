@@ -9,13 +9,19 @@
 
 	<!-- 매물 삽입 -->
 	<entry key="roomInsert">
-		INSERT INTO ROOM (ROOM_NO ,ROOM_ADDR ,TYPE_OF_RENT ,DEPOSIT ,MONTH_RENT ,CARE_FEE ,PUB_SIZE ,REAL_SIZE ,ROOM_FLOOR ,ROOM_STRUC ,ROOM_COUNT ,
-                    TV ,INTERNET ,AIR_CON ,WASHING ,FRIDGE ,BED ,CLOSET ,WOMEN_ONLY ,PET ,PARKING ,REPORT_COUNT ,
-                    DELETE_FL ,ROOM_TITLE ,ROOM_INFO ,SELL_FL ,STATION_ADDR ,GMEM_NO ) 
+		INSERT INTO ROOM (ROOM_NO ,ROOM_ADDR ,TYPE_OF_RENT ,DEPOSIT ,MONTH_RENT ,
+						  CARE_FEE ,PUB_SIZE ,REAL_SIZE ,ROOM_FLOOR ,ROOM_STRUC ,
+						  ROOM_COUNT , TV ,INTERNET ,AIR_CON ,WASHING ,
+						  FRIDGE ,BED ,CLOSET ,WOMEN_ONLY ,PET ,
+						  PARKING ,REPORT_COUNT ,DELETE_FL ,ROOM_TITLE ,ROOM_INFO ,
+						  SELL_FL ,STATION_ADDR ,GMEM_NO ) 
         VALUES
-	                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
-	                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0,
-	                'N', ?, ?, 'N', ?, ?)
+	                (?, ?, ?, ?, ?,
+	                 ?, ?, ?, ?, ?, 
+	                 ?, ?, ?, ?, ?, 
+	                 ?, ?, ?, ?, ?,
+	                 ?, 0, 'N', ?, ?,
+	                 'N',?, ?)
 	</entry>
 	
 	<!-- 사진 정보 삽입 -->
