@@ -41,7 +41,7 @@ public class RoomService {
 				List<RoomImg> mList = (List<RoomImg>)map.get("mList");
 				
 				if(result > 0 && !mList.isEmpty()) {
-					
+					 
 					result = 0; 
 					
 					for(RoomImg img : mList) {
