@@ -48,7 +48,7 @@ public class RoomController extends HttpServlet {
 			// 매물 등록 창 =================================================================================================
 			if(command.equals("/roomInsertForm.do")) {
 				
-				path = "/WEB-INF/views/room/roomsInfo.jsp";
+				path = "/WEB-INF/views/room/roomsInfoUpdate.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
 		    }

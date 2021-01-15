@@ -101,7 +101,7 @@
                     <tbody>
                         <tr>
                             <th scope="row">지역</th>
-                            <td colspan="3">${room.roomAddr }</td>
+                            <td colspan="3" id="area">${room.roomAddr }</td>
                         </tr>
                         <tr>
                             <th scope="row">관리비</th>
@@ -186,6 +186,8 @@
                 <div id="map" class="map_area"></div>
             </div>
         </section>
+ 
+      
         
         <!-- section reviw -->
         <section class="review">
@@ -269,27 +271,56 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="${contextPath}/resources/js/roomsInfo.js"></script>
-    <script type="text/javascript">
-        function initMap(){
-          const myLatLng= {
-            lat: 37.499878229497895,
-            lng: 127.03293045767072
-          }
-          const map = new google.maps.Map(
-            document.getElementById('map'),
-            {
-              center: myLatLng,
-              scrollwheel: false,
-              zoom: 18
-            }
-          );
-          const marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'KH정보교육원'
-          });
-        }
-      </script>
-      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCTQIlxBn5AfKGvsfJiormAE1esN3fcCkg&callback=initMap" async defer></script>
+
+      <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8035352f3860f77b021b6c64824a3b93&libraries=services"></script>
+<script>
+
+
+	
+// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 장소 검색 객체를 생성합니다
+var ps = new kakao.maps.services.Places(); 
+
+// 키워드로 장소를 검색합니다
+ps.keywordSearch($("#area").text(), placesSearchCB); 
+
+// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+function placesSearchCB (data, status, pagination) {
+    if (status === kakao.maps.services.Status.OK) {
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        var bounds = new kakao.maps.LatLngBounds();
+
+   
+            bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+              
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+        
+        
+        var markerPosition  = new kakao.maps.LatLng(map.getCenter().getLat(), map.getCenter().getLng()); 
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+marker.setMap(map);
+    } 
+}
+
+</script>
 </body>
 </html>
