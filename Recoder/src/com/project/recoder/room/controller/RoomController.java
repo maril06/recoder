@@ -167,11 +167,9 @@ public class RoomController extends HttpServlet {
 				
 
 				// 서비스 실행 
-				/*
+				int result = service.roomInsert(map);
 				
 				
-				
-				*/
 				
 				// 2번재로 받아온 뒤
 //				for (int i = 0; i < options2.length; i++) {
