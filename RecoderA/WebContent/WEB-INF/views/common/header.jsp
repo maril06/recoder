@@ -47,7 +47,7 @@
                 <li><a href="#">매물관리</a>
                     <ul>
                         <li><a href="${contextPath}/room/roomStatus.do">매물 삭제/복구</a></li>
-                        <li><a href="">허위 매물 관리</a></li>
+                        <li><a href="${contextPath}/room }">허위 매물 관리</a></li>
                     </ul>
                 </li>
                 <li><a href="#">게시판 관리</a>
