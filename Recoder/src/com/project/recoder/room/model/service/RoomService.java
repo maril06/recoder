@@ -3,12 +3,12 @@ package com.project.recoder.room.model.service;
 import static com.project.recoder.common.JDBCTemplate.*;
 
 import java.io.File;
-import java.net.ConnectException;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
 import com.project.recoder.room.model.dao.RoomDAO;
+import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.room.model.vo.RoomImg;
 
 public class RoomService {
@@ -36,31 +36,20 @@ public class RoomService {
 			
 			
 			try {
-				// 4. 게시글 부분 (제목, 내용, 카테고리)만 BOARD 테이블에 삽입하는 DAO 호출
 				result = dao.roomInsert(conn, map);
-				// autoCommit(false) : Connection 반환하거나 사용자가 commit 지정할때만 commit 한다 
 				
-				// 5. 파일 정보 부분만 ATTACHMENT 테이블에 삽입하는  DAO 호툴
-				List<RoomImg> mList = (List<RoomImg>)map.get("fList");
+				List<RoomImg> mList = (List<RoomImg>)map.get("mList");
 				
-				// 게시글 부분 삽입 성공 && 파일 정보가 있을 경우
 				if(result > 0 && !mList.isEmpty()) {
 					
-					result = 0; // result 재활용 하기 위해 0으로 초기화
+					result = 0; 
 					
-					// fList의 요소를 하나씩 반복 접근하여 
-					// DAO 메소드를 반복 호출해 정보를 삽입한다.
 					for(RoomImg img : mList) {
 						
-						// 파일 정보가 저장된 Attachment 객체에
-						// 해당 파일이 작성된 게시글 번호 추가 세팅
 						img.setParentRoomNo(roomNo);
 						result = dao.insertImg(conn, img);
 						
-						if(result == 0) { // 파일 정보 삽입 실패
-							// break; // 보류
-							
-							// 강제로 예외를 발생
+						if(result == 0) { 
 							throw new FileInsertFailedException("파일 정보 삽입 실패");
 							
 						}
@@ -72,7 +61,7 @@ public class RoomService {
 				// 게시글 또는 파일 정보 삽입 중 에러 발생 시
 				// 서버에 저장된 파일을 삭제하는 방법이 필요.
 				
-				List<RoomImg> mList = (List<RoomImg>)map.get("fList");
+				List<RoomImg> mList = (List<RoomImg>)map.get("mList");
 				
 				if (!mList.isEmpty()) {
 					for(RoomImg img : mList) {
@@ -91,13 +80,17 @@ public class RoomService {
 				throw e;
 			} 
 			
-			
-			
-			
-			
-			
-		}
+			if(result > 0) {
+				commit(conn);
+				
+				result = roomNo;
+				
+			}else {
+				rollback(conn);
+			}
 		
+		}
+		close(conn);
 		
 		return result;
 	}
@@ -115,4 +108,56 @@ public class RoomService {
 		}
 		return result;
 	}
+
+	public Room updateView(int roomNo) throws Exception {
+		Connection conn = getConnection();
+		
+		return null;
+	}
+
+
+	public List<RoomImg> selectRoomImg(int roomNo) throws Exception {
+		Connection conn = getConnection();
+		
+		return null;
+	}
+
+
+	public int roomUpdate(Map<String, Object> map) throws Exception {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+
+	public int updateRoomStatus(int roomNo) throws Exception {
+		Connection conn = getConnection();
+		int result =0;
+		
+		result = dao.updateRoomStatus(conn, roomNo);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+
+
 }

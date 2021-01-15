@@ -31,6 +31,7 @@ public class MessageController extends HttpServlet {
 			if (command.equals("/message.do")) {
 				
 				
+				
 				path = "/WEB-INF/views/message/message.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
