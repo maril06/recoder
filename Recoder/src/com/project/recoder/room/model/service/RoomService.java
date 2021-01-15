@@ -33,11 +33,11 @@ public class RoomService {
 			
 			map.put("roomTitle", replaceParameter((String)map.get("roomTitle")));
 			map.put("roomInfo", replaceParameter((String)map.get("roomInfo")));
-			
+			System.out.println("roomNo받아옴");
 			
 			try {
 				result = dao.roomInsert(conn, map);
-				
+				System.out.println("인ㅓ트"+result);
 				List<RoomImg> mList = (List<RoomImg>)map.get("mList");
 				
 				if(result > 0 && !mList.isEmpty()) {
@@ -57,12 +57,8 @@ public class RoomService {
 				}
 			
 			} catch (Exception e) {
-				// 4, 5 번에 대한 추가 작업
-				// 게시글 또는 파일 정보 삽입 중 에러 발생 시
-				// 서버에 저장된 파일을 삭제하는 방법이 필요.
-				
+				e.printStackTrace();
 				List<RoomImg> mList = (List<RoomImg>)map.get("mList");
-				
 				if (!mList.isEmpty()) {
 					for(RoomImg img : mList) {
 						String filePath = img.getRoomImgPath();

@@ -45,7 +45,7 @@ public class RoomController extends HttpServlet {
 			
 			RoomService service = new RoomService();
 			
-			// 매물 등록 창
+			// 매물 등록 창 =================================================================================================
 			if(command.equals("/roomInsertForm.do")) {
 				
 				path = "/WEB-INF/views/room/roomsInfoInsert.jsp";
@@ -54,7 +54,7 @@ public class RoomController extends HttpServlet {
 		    }
 			
 			
-			// 매물 등록 시작
+			// 매물 등록 시작 =================================================================================================
 			else if(command.equals("/roomInsert.do")) {
 /*	
 				System.out.println("washing: " + washing);
@@ -111,6 +111,7 @@ public class RoomController extends HttpServlet {
 	        		}
 				} // end while
 	        	
+	        	
 //				String[] options2 = multiRequest.getParameterValues("options2");
 	        	
 	        	String roomAddr = multiRequest.getParameter("roomAddr");
@@ -120,7 +121,7 @@ public class RoomController extends HttpServlet {
 	        	int careFee = Integer.parseInt(multiRequest.getParameter("careFee"));
 	        	int pubSize = Integer.parseInt(multiRequest.getParameter("pubSize"));
 	        	int realSize = Integer.parseInt(multiRequest.getParameter("realSize"));
-	        	int roomCount = Integer.parseInt(multiRequest.getParameter("roomCount"));
+	        	String roomCount = multiRequest.getParameter("roomCount");
 	        	String roomFloor = multiRequest.getParameter("roomFloor");
 	        	String roomStruc = multiRequest.getParameter("roomStruc");
 				
@@ -143,6 +144,7 @@ public class RoomController extends HttpServlet {
 				
 				Member loginMember = (Member)request.getSession().getAttribute(""); // 로그인 얻어와야함!!
 //				int roomBroker = loginMember.getMemNo2();
+				int roomBroker = 3;
 				/*
 				 
 				
@@ -175,12 +177,18 @@ public class RoomController extends HttpServlet {
 				map.put("womanOnly", womanOnly);
 				map.put("pet", pet);
 				
-//				map.put("roomBroker", roomBroker);
+				map.put("roomBroker", roomBroker);
 				
 				// 서비스 실행 
 				int result = service.roomInsert(map);
 				
-				
+				if(result > 0) { // DB 삽입 성공 시 result에는 삽입한 글 번홀가 저장되어있다. 
+	        		path = "view.do?cp=1&no=" + result;
+	        		System.out.println("성공");
+	        	}else {
+	        		path="list.do"; // 게시글 목록
+	        		System.out.println("실패");
+	        	}
 				// 2번재로 받아온 뒤
 //				for (int i = 0; i < options2.length; i++) {
 //					System.out.println(options2[i]);
@@ -200,11 +208,12 @@ public class RoomController extends HttpServlet {
 				
 			}
 			
+			// 매물 수정 창=================================================================================================
 			else if(command.equals("/roomUpdateForm.do")) {
 				
 				// 매물 번호
 				//int roomNo = Integer.parseInt(request.getParameter("no"));
-				int roomNo = 1;
+				int roomNo = 3;
 				
 				Room room = service.updateView(roomNo);
 				

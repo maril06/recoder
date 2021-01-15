@@ -118,8 +118,8 @@
                                 <th scope="row">월세/전세</th>
                                 <td>
                                     <select name="typeOfRent" id="typeOfRent">
-                                        <option value="월세">월세</option>
-                                        <option value="전세">전세</option>
+                                        <option value="1">월세</option>
+                                        <option value="2">전세</option>
                                     </select>
                                 </td>
                             </tr>
@@ -132,7 +132,7 @@
                             <tr>
                                 <th scope="row">구조</th>
                                 <td>
-                                    <select name="" id="roomStruc">
+                                    <select name="roomStruc" id="roomStruc">
                                         <option value="분리형원룸">분리형원룸</option>
                                         <option value="복층">복층</option>
                                         <option value="단층">단층</option>
@@ -151,12 +151,12 @@
                                 <th scope="row">방갯수</th>
                                 <td>
                                     <select name="roomCount" id="roomCount">
-                                        <option value="원룸">원룸</option>
-                                        <option value="투룸">투룸</option>
+                                        <option value="1">원룸</option>
+                                        <option value="2">투룸</option>
                                     </select>
                                 </td>
                                 <th scope="row">근쳐 지하철역</th>
-                                <td><input type="text" id="stationAddr"></td>
+                                <td><input type="text" id="stationAddr" name="stationAddr"></td>
                             </tr>
                         </tbody>
                     </table>

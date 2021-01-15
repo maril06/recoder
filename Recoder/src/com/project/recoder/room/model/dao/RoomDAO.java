@@ -36,12 +36,11 @@ public class RoomDAO {
 	 */
 	public int selectNextNo(Connection conn) throws Exception{
 		int result = 0;
-		String query = prop.getProperty("selectNextRoom");
+		String query = prop.getProperty("selectNextNo");
 		
 		try {
-			pstmt = conn.prepareStatement(query);
+			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
-			
 			if(rset.next()) {
 				result = rset.getInt(1);
 			}
@@ -64,41 +63,43 @@ public class RoomDAO {
 	public int roomInsert(Connection conn, Map<String, Object> map) throws Exception{
 		int result = 0;
 		String query = prop.getProperty("roomInsert");
-		
+		System.out.println(map.get("typeOfRent"));
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, (int)map.get("roomNo"));
 			pstmt.setString(2, (String) map.get("roomAddr"));
 			pstmt.setString(3, (String) map.get("typeOfRent"));
+			
 			pstmt.setInt(4, (int) map.get("deposit"));
 			pstmt.setInt(5, (int) map.get("monthRent"));
+			
 			pstmt.setInt(6, (int) map.get("careFee"));
 			pstmt.setInt(7, (int) map.get("pubSize"));
 			pstmt.setInt(8, (int) map.get("realSize"));
 			pstmt.setString(9, (String) map.get("roomFloor"));
 			pstmt.setString(10, (String) map.get("roomStruc"));
-			pstmt.setInt(11, (int) map.get("roomCount"));
 			
+			pstmt.setString(11, (String) map.get("roomCount"));
 			pstmt.setString(12, (String) map.get("tv"));
-			pstmt.setString(13, (String) map.get("washing"));
-			pstmt.setString(14, (String) map.get("internet"));
-			pstmt.setString(15, (String) map.get("airCon"));
+			pstmt.setString(13, (String) map.get("internet"));
+			pstmt.setString(14, (String) map.get("airCon"));
+			pstmt.setString(15, (String) map.get("washing"));
+			
 			pstmt.setString(16, (String) map.get("fridge"));
 			pstmt.setString(17, (String) map.get("bed"));
 			pstmt.setString(18, (String) map.get("closet"));
 			pstmt.setString(19, (String) map.get("womanOnly"));
-			pstmt.setString(10, (String) map.get("pet"));
-			pstmt.setString(21, (String) map.get("parking"));
+			pstmt.setString(20, (String) map.get("pet"));
 			
+			pstmt.setString(21, (String) map.get("parking"));
 			pstmt.setString(22, (String) map.get("roomTitle"));
 			pstmt.setString(23, (String) map.get("roomInfo"));
 			pstmt.setString(24, (String) map.get("stationAddr"));
-			
 			pstmt.setInt(25, (int)map.get("roomBroker")); // 회원번호
 
 			
 			result = pstmt.executeUpdate();
-			
+			System.out.println("DAO result =  "+result+"");
 		} finally{
 			close(pstmt);
 		}
