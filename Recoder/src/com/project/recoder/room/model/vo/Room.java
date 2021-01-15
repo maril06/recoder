@@ -70,6 +70,23 @@ public class Room {
 		this.stationAddr = stationAddr;
 		this.gMemNo = gMemNo;
 	}
+	
+	
+
+	public Room(String tv, String internet, String airCon, String washing, String fridge, String bed, String closet,
+			String womanOnly, String pet, String parking) {
+		super();
+		this.tv = tv;
+		this.internet = internet;
+		this.airCon = airCon;
+		this.washing = washing;
+		this.fridge = fridge;
+		this.bed = bed;
+		this.closet = closet;
+		this.womanOnly = womanOnly;
+		this.pet = pet;
+		this.parking = parking;
+	}
 
 	public int getRoomNo() {
 		return roomNo;

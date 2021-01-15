@@ -33,13 +33,10 @@ public class RoomService {
 			
 			map.put("roomTitle", replaceParameter((String)map.get("roomTitle")));
 			map.put("roomInfo", replaceParameter((String)map.get("roomInfo")));
-			System.out.println("roomNo받아옴");
 			
 			try {
 				result = dao.roomInsert(conn, map);
-				System.out.println("인ㅓ트"+result);
 				List<RoomImg> mList = (List<RoomImg>)map.get("mList");
-				
 				if(result > 0 && !mList.isEmpty()) {
 					 
 					result = 0; 
@@ -110,14 +107,7 @@ public class RoomService {
 		
 		return null;
 	}
-
-
-	public List<RoomImg> selectRoomImg(int roomNo) throws Exception {
-		Connection conn = getConnection();
-		
-		return null;
-	}
-
+	
 
 	public int roomUpdate(Map<String, Object> map) throws Exception {
 		Connection conn = getConnection();
@@ -151,6 +141,30 @@ public class RoomService {
 		close(conn);
 		
 		return result;
+	}
+
+
+	public Room selectRoom(int roomNo) throws Exception{
+		
+		Connection conn = getConnection();
+		Room room = dao.selectRoom(conn, roomNo);
+		
+		
+		if(room != null) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+			      
+		close(conn);
+		return room;
+	}
+	
+	public List<RoomImg> selectRoomImg(int roomNo) throws Exception {
+		Connection conn = getConnection();
+		List<RoomImg> mList = dao.selectRoomImg(conn, roomNo);
+		close(conn);
+		return mList;
 	}
 
 

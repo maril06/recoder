@@ -7,9 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.room.model.vo.RoomImg;
 
 public class RoomDAO {
@@ -63,7 +66,6 @@ public class RoomDAO {
 	public int roomInsert(Connection conn, Map<String, Object> map) throws Exception{
 		int result = 0;
 		String query = prop.getProperty("roomInsert");
-		System.out.println(map.get("typeOfRent"));
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, (int)map.get("roomNo"));
@@ -99,7 +101,6 @@ public class RoomDAO {
 
 			
 			result = pstmt.executeUpdate();
-			System.out.println("DAO result =  "+result+"");
 		} finally{
 			close(pstmt);
 		}
@@ -148,6 +149,91 @@ public class RoomDAO {
 		}
 		return result;
 	}
+
+	public Room selectRoom(Connection conn, int roomNo) throws Exception{
+		Room room = null;
+		String query = prop.getProperty("selectRoom");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				room = new Room();
+				
+				room.setRoomNo(rset.getInt("ROOM_NO"));
+				room.setRoomAddr(rset.getString("ROOM_ADDR"));
+				room.setTypeOfRent(rset.getString("TYPE_OF_RENT"));
+				room.setDeposit(rset.getInt("DEPOSIT"));
+				room.setMonthRent(rset.getInt("MONTH_RENT"));
+				room.setCareFee(rset.getInt("CARE_FEE"));
+				room.setPubSize(rset.getInt("PUB_SIZE"));
+				room.setRealSize(rset.getInt("REAL_SIZE"));
+				room.setRoomFloor(rset.getString("ROOM_FLOOR"));
+				room.setRoomStruc(rset.getString("ROOM_STRUC"));
+				
+				room.setRoomCount(rset.getInt("ROOM_COUNT"));
+				room.setTv(rset.getString("TV"));
+				room.setInternet(rset.getString("INTERNET"));
+				room.setAirCon(rset.getString("AIR_CON"));
+				room.setWashing(rset.getString("WASHING"));
+				room.setFridge(rset.getString("FRIDGE"));
+				room.setBed(rset.getString("BED"));
+				room.setCloset(rset.getString("CLOSET"));
+				room.setWomanOnly(rset.getString("WOMEN_ONLY"));
+				room.setPet(rset.getString("PET"));
+				
+				room.setParking(rset.getString("PARKING"));
+				room.setRoomTitle(rset.getString("ROOM_TITLE"));
+				room.setRoomInfo(rset.getString("ROOM_INFO"));
+				room.setStationAddr(rset.getString("STATION_ADDR"));
+				room.setgMemNo(rset.getInt("GMEM_NO"));
+				
+				
+				
+			}
+			
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return room;
+	}
+
+	public List<RoomImg> selectRoomImg(Connection conn, int roomNo) throws Exception{
+		List<RoomImg> mList = null;
+		String query = prop.getProperty("selectRoomImg");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			mList = new ArrayList<RoomImg>();
+			while (rset.next()) {
+				RoomImg rm = new RoomImg(
+						rset.getInt("ROOM_IMG_NO"), 
+						rset.getString("ROOM_IMG_NAME"), 
+						rset.getInt("ROOM_IMG_LEVEL"));
+				
+						rm.setRoomImgPath(rset.getNString("ROOM_IMG_PATH"));
+						
+				mList.add(rm);
+			}
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mList;
+	}
+
 	
 	
 	

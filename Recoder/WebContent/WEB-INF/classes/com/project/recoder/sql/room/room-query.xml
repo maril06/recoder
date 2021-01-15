@@ -26,17 +26,37 @@
 	
 	<!-- 사진 정보 삽입 -->
 	<entry key="insertImg">
-		INSERT INTO ATTACHMENT VALUES(SEQ_ROOMIMGNO.NEXTVAL, ?, ?, ?, ?)
+		INSERT INTO ROOM_IMG VALUES(SEQ_ROOMIMGNO.NEXTVAL, ?, ?, ?, ?)
+	</entry>
+	
+	<!-- 매물 정보 -->
+	<entry key="selectRoom">
+		SELECT ROOM_NO ,ROOM_ADDR ,TYPE_OF_RENT ,DEPOSIT ,MONTH_RENT ,CARE_FEE ,PUB_SIZE ,REAL_SIZE ,ROOM_FLOOR ,ROOM_STRUC ,ROOM_COUNT ,TV ,INTERNET ,AIR_CON ,WASHING ,FRIDGE ,BED ,CLOSET ,WOMEN_ONLY ,PET ,PARKING ,ROOM_TITLE ,ROOM_INFO ,STATION_ADDR ,GMEM_NO 
+		FROM ROOM
+		WHERE ROOM_NO = ?
+	</entry>
+
+	<!-- 매물 삭제 -->
+	<entry key="updateRoomStatus">
+		UPDATE ROOM SET DELETE_FL = 'Y' WHERE ROOM_NO = ?
+	</entry>
+	
+	<!--  -->
+	<entry key="selectRoomImg">
+		SELECT ROOM_IMG_NO, ROOM_IMG_NAME, ROOM_IMG_LEVEL, ROOM_IMG_PATH
+		FROM ROOM_IMG
+		WHERE ROOM_NO = ?
+		ORDER BY ROOM_IMG_LEVEL
 	</entry>
 	
 	<!--  -->
 	<entry key="">
-	
+		
 	</entry>
 	
-	<!-- 매물 삭제 -->
-	<entry key="updateRoomStatus">
-		UPDATE ROOM SET DELETE_FL = 'Y' WHERE ROOM_NO = ?
+	<!--  -->
+	<entry key="">
+		
 	</entry>
 
 </properties>
