@@ -14,39 +14,10 @@
 <!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<style>
- @font-face {
-    font-family: 'TmoneyRoundWindExtraBold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
- }
+<!-- header.css -->
+<link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 
-
-.head{
-    font-family: 'TmoneyRoundWindExtraBold';
-    height: 80px;
-    line-height: 80px;
-    top: 0;
-    z-index: 10;
-    background-color: rgba(255, 255 , 255, .5);
-    transition-duration: 1s;
-    transition-delay: .1s;
-}
-
-#logo{
-    width: 80px;
-    height: 80px;
-
-}
-.menu_right{
-    float: right;
-    height: 100%;
-    width: 80px;
-}
-</style>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light head">
+    <nav class="head navbar fixed-top navbar-expand-lg navbar-light ">
         <div class="container-fluid">
             <div class="logo">
                 <a href="#"><img src="${contextPath}/resources/images/homepage/logo.png" alt="로고" id="logo"></a>
@@ -73,17 +44,30 @@
               </li>
             </ul>
         </div>
-        <div>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
-                <li class="nav-item">
-                    <a class="nav-link" href="#modal-container-1">로그인</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="#modal-container-1">회원가입</a>
-                </li>
-            </ul>
-        </div>
+           	<c:choose>
+				<c:when test="${empty loginMember }">            
+		            <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
+		                <li class="nav-item">
+		                    <a class="nav-link" href="${contextPath}/member/loginForm.do">로그인</a>
+		                </li>
+		                
+		                <li class="nav-item">
+		                    <a class="nav-link" href="#modal-container-1">회원가입</a>
+		                </li>
+		            </ul>
+                </c:when>
+	                
+                <c:otherwise>
+	           <div class="loginInfoArea">
+                <div class="loginInfo">
+                  <span id="nickName">${loginMember.memNick}님</span>
+	                  <a href="${contextPath}/member/myPage.do" id="myPage">마이페이지</a>
+	                  <a href="${contextPath}/member/logout.do" id="logout">Logout</a>
+                 </div>
+          		</div>
+	                
+                </c:otherwise>
+           	</c:choose>
         </div>
       </nav>
       

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"></c:set>
 
 <!DOCTYPE html>
@@ -32,13 +33,20 @@
     
 </head>
 <body>
+
     <div class="wrapper">
         <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
 		<jsp:include page="../common/header.jsp"></jsp:include>
 
-        <h2>매물 올리기</h2>
+
+		<c:if test="${!empty param.sk && !empty param.sv}">
+			<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/>
+		</c:if>
+		
+		
+        <h2>매물 수정</h2>
         
-        <form action="" method="POST" onsubmit="return updateValidate();">
+        <form action="roomUpdate.do?cp=${param.cp}&no=${param.no}${searchStr}" method="POST"  enctype="multipart/form-data" role="form" onsubmit="return updateValidate();">
         
             <!-- update image -->
             <section class="images">
@@ -93,8 +101,8 @@
             <!-- update roomInfo -->
             <section class="room_info">
                 <div class="room_content">
-                    제목을 작성해주세요 <input type="text" class="title" id="roomTitle" placeholder="제목">
-                    내용을 작성해주세요 <textarea class="about" id="roomInfo"></textarea>
+                    제목을 수정해주세요 <input type="text" class="title" id="roomTitle" name="roomTitle" placeholder="제목">
+                    내용을 수정해주세요 <textarea class="about" id="roomInfo" name="roomInfo"></textarea>
                 </div>
 
                 <div class="room_detail">
@@ -107,53 +115,53 @@
                         <tbody>
                             <tr>
                                 <th scope="row" >지역</th>
-                                <td colspan="3"><input type="text" id="roomAddr"></td>
+                                <td colspan="3" id="area"><input type="text" id="roomAddr" name="roomAddr"></td>
                             </tr>
                             <tr>
                                 <th scope="row" >관리비</th>
-                                <td><input type="text" id="careFee"></td>
+                                <td><input type="text" id="careFee" name="careFee"></td>
                                 <th scope="row">월세/전세</th>
                                 <td>
-                                    <select name="" id="typeOfRent">
-                                        <option value="월세">월세</option>
-                                        <option value="전세">전세</option>
+                                    <select name="typeOfRent" id="typeOfRent">
+                                        <option value="1">월세</option>
+                                        <option value="2">전세</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">보증금</th>
-                                <td><input type="text" id="deposit"></td>
+                                <td><input type="text" id="deposit" name="deposit"></td>
                                 <th scope="row">월세</th>
-                                <td><input type="text" id="monthRent"></td>
+                                <td><input type="text" id="monthRent" name="monthRent"></td>
                             </tr>
                             <tr>
                                 <th scope="row">구조</th>
                                 <td>
-                                    <select name="" id="roomStruc">
+                                    <select name="roomStruc" id="roomStruc">
                                         <option value="분리형원룸">분리형원룸</option>
                                         <option value="복층">복층</option>
                                         <option value="단층">단층</option>
                                     </select>
                                 </td>
                                 <th scope="row">층수</th>
-                                <td><input type="text" id="roomFloor"></td>
+                                <td><input type="text" id="roomFloor" name="roomFloor"></td>
                             </tr>
                             <tr>
                                 <th scope="row">공급면적</th>
-                                <td><input type="text" id="pubSize"></td>
+                                <td><input type="text" id="pubSize" name="pubSize"></td>
                                 <th scope="row">전용면적</th>
-                                <td><input type="text" id="realSize"></td>
+                                <td><input type="text" id="realSize" name="realSize"></td>
                             </tr>
                             <tr>
                                 <th scope="row">방갯수</th>
                                 <td>
-                                    <select name="" id="roomCount">
+                                    <select name="roomCount" id="roomCount">
                                         <option value="원룸">원룸</option>
                                         <option value="투룸">투룸</option>
                                     </select>
                                 </td>
                                 <th scope="row">근쳐 지하철역</th>
-                                <td><input type="text" id="stationAddr"></td>
+                                <td><input type="text" id="stationAddr" name="stationAddr"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -206,11 +214,11 @@
             
             <!-- section map -->
             <section class="map">
-                <div class="map_wrapper">
-                    <h3>위치</h3>
-                    <div id="map" class="map_area"></div>
-                </div>
-            </section>
+	            <div class="map_wrapper">
+	                <h3>위치</h3>
+	                <div id="map" class="map_area"></div>
+	            </div>
+	        </section>
             
             <div class="form_btn">
                 <button type="submit" class="btn btn-primary" id="addRoom">완료</button>
@@ -224,27 +232,54 @@
     </div>
     
     <script src="${contextPath}/resources/js/roomsInfoInsert.js"></script>
-    <script type="text/javascript">
-        function initMap(){
-          const myLatLng= {
-            lat: 37.499878229497895,
-            lng: 127.03293045767072
-          }
-          const map = new google.maps.Map(
-            document.getElementById('map'),
-            {
-              center: myLatLng,
-              scrollwheel: false,
-              zoom: 18
-            }
-          );
-          const marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'KH정보교육원'
-          });
-        }
-      </script>
-      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCTQIlxBn5AfKGvsfJiormAE1esN3fcCkg&callback=initMap" async defer></script>
+
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8035352f3860f77b021b6c64824a3b93&libraries=services"></script>
+	<script>
+	
+	console.log($("#area"))
+	$("#roomAddr").blur(function(){
+		
+		// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+		
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };  
+		
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		// 장소 검색 객체를 생성합니다
+		var ps = new kakao.maps.services.Places(); 
+		
+		// 키워드로 장소를 검색합니다
+		ps.keywordSearch($("#roomAddr").val(), placesSearchCB); 
+		
+		// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+		function placesSearchCB (data, status, pagination) {
+		    if (status === kakao.maps.services.Status.OK) {
+		
+		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+		        // LatLngBounds 객체에 좌표를 추가합니다
+		        var bounds = new kakao.maps.LatLngBounds();
+		   
+		            bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+		              
+		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+		        map.setBounds(bounds);
+		        
+		        var markerPosition  = new kakao.maps.LatLng(map.getCenter().getLat(), map.getCenter().getLng()); 
+		
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		    position: markerPosition
+		});
+		marker.setMap(map);
+		    } 
+		}
+	})
+	</script>
 </body>
 </html>

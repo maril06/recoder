@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- reset -->
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/message.css">
+    <link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
+    <link rel="stylesheet" href="${contextPath}/resources/css/message.css">
 
 
     <!-- jQuery -->
@@ -24,6 +24,8 @@
 <body>
     <div class="wrapper">
         <!-- header -->
+		<!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
+		<jsp:include page="../common/header.jsp"></jsp:include>
 
 
         <!-- message -->
@@ -33,7 +35,7 @@
                 <ul>
                     <li class="member_list clearfix">
                         <div class="msg_left">
-                            <img src="images/homepage/mail_open.png" alt="">
+                            <img src="${contextPath}/resources/images/homepage/mail_open.png" alt="">
                             <div class="circle"></div>
                             <div class="mcnt" id="mcnt">3</div>
                             <span class="name">김이름</span>
@@ -51,7 +53,7 @@
                     </li>
                     <li class="member_list clearfix">
                         <div class="msg_left">
-                            <img src="images/homepage/mail_open.png" alt="">
+                            <img src="${contextPath}/resources/images/homepage/mail_open.png" alt="">
                             <div class="circle"></div>
                             <div class="mcnt" id="mcnt">3</div>
                             <span class="name">김이름</span>
@@ -375,6 +377,6 @@
         </footer>
     </div>
 
-    <script src="js/message.js"></script>
+    <script src="${contextPath}/resources/js/message.js"></script>
 </body>
 </html>

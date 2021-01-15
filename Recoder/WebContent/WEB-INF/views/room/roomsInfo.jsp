@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"></c:set>
 
 <!DOCTYPE html>
@@ -83,18 +85,9 @@
         <!-- section roomInfo -->
         <section class="room_info">
             <div class="room_content">
-                <h3 class="title">이곳은 매물 제목이 오는 공간입니당</h3>
+                <h3 class="title">${room.roomTitle }</h3>
                 <p class="about">
-                    이곳은 매물 내용이 오는 공간입니당 내용이곳은 매물 내용이 오는 공간입니당 
-                    내용 이곳은 매물 내용이 오는 공간입니당 내용이곳은 매물 내용이 오는 공간입니당
-                    내용 이곳은 매물 내용이 오는 공간입니당 내용이곳은 매물 내용이 오는 공간입니당 내용
-                    이곳은 매물 내용이 오는 공간입니당 내용이곳은 매물 내용이 오는 공간입니당 
-                    내용 이곳은 매물 내용이 오는 공간입니당 내용이곳은 매물 내용이 오는 공간입니당
-                    내용 이곳은 매물 내용이 오는 공간입니당 내용이곳은 매물 내용이 오는 공간입니당 내용
-                    이곳은 매물 내용이 오는 공간입니당 내용이곳은 매물 내용이 오는 공간입니당 
-                    내용 이곳은 매물 내용이 오는 공간입니당 내용이곳은 매물 내용이 오는 공간입니당
-                    내용 이곳은 매물 내용이 오는 공간입니당 내용이곳은 매물 내용이 오는 공간입니당 내용
-                    
+                    ${room.roomInfo}
                 </p>
             </div>
 
@@ -108,23 +101,25 @@
                     <tbody>
                         <tr>
                             <th scope="row">지역</th>
-                            <td colspan="3">서울특별시 중구 신당동</td>
+                            <td colspan="3" id="area">${room.roomAddr }</td>
                         </tr>
                         <tr>
                             <th scope="row">관리비</th>
-                            <td colspan="3">15만원</td>
+                            <td>${room.careFee }만원</td>
+                            <th scope="row">근쳐 지하철역</th>
+                            <td>${room.stationAddr }</td>
                         </tr>
                         <tr>
                             <th scope="row">구조</th>
-                            <td>원룸</td>
+                            <td>${room.roomStruc }</td>
                             <th scope="row">층수</th>
                             <td>1</td>
                         </tr>
                         <tr>
                             <th scope="row">공급면적</th>
-                            <td>10</td>
+                            <td>${room.pubSize }</td>
                             <th scope="row">전용면적</th>
-                            <td>8</td>
+                            <td>${room.realSize }</td>
                         </tr>
                     </tbody>
                 </table>
@@ -134,15 +129,15 @@
                 <ul>
                     <li>
                         <span class="title">원룸</span>
-                        <span class="info">월세 300/33만원</span>
+                        <span class="info">월세 ${room.monthRent}만원</span>
                     </li>
                     <li>
                         <span class="title">전용면적</span>
-                        <span class="info">11평</span>
+                        <span class="info">11111평</span>
                     </li>
                     <li>
                         <span class="title">보증금</span>
-                        <span class="info">40만원</span>
+                        <span class="info">${room.deposit}만원</span>
                     </li>
                 </ul>
             </div>
@@ -155,19 +150,27 @@
                 </div>
                 <div class="option_info">
                     <ul class="having">
-                        <li><span><i class="fad fa-air-conditioner"></i>에어컨</span></li>
-                        <li><span><i class="fas fa-washer"></i>세탁기</span></li>
-                        <li><span><i class="fad fa-bed-empty"></i>침대</span></li>
-                        <li><span><i class="fad fa-parking"></i>주차</span></li>
-                        <li><span><i class="fas fa-tshirt"></i>옷장</span></li>
+                    	<c:forEach var="font" items="${font }">
+                    		<c:forEach var="item" items="${options}">
+                    			<c:choose>
+                    				<c:when test="${item.value == 'Y' && font.key == item.key }">
+			                        	<li><span><i class="${font.value }"></i><c:out value="${item.key }"></c:out></span></li>
+                    				</c:when>
+                    			</c:choose>
+                    		</c:forEach>
+                    	</c:forEach>
                     </ul>
                     
                     <ul class="none">
-                        <li><span><i class="fad fa-tv-retro"></i>텔레비전</span></li>
-                        <li><span><i class="fas fa-wifi"></i>인터넷</span></li>
-                        <li><span><i class="fas fa-refrigerator"></i>냉장고</span></li>
-                        <li><span><i class="fas fa-female"></i>여성전용</span></li>
-                        <li><span><i class="fad fa-dog"></i>반려동물</span></li>
+                        <c:forEach var="font" items="${font }">
+                    		<c:forEach var="item" items="${options}">
+                    			<c:choose>
+                    				<c:when test="${item.value == 'N' && font.key == item.key }">
+			                        	<li><span><i class="${font.value }"></i><c:out value="${item.key }"></c:out></span></li>
+                    				</c:when>
+                    			</c:choose>
+                    		</c:forEach>
+                    	</c:forEach>
                     </ul>
 
                 </div>
@@ -183,6 +186,8 @@
                 <div id="map" class="map_area"></div>
             </div>
         </section>
+ 
+      
         
         <!-- section reviw -->
         <section class="review">
@@ -266,27 +271,56 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="${contextPath}/resources/js/roomsInfo.js"></script>
-    <script type="text/javascript">
-        function initMap(){
-          const myLatLng= {
-            lat: 37.499878229497895,
-            lng: 127.03293045767072
-          }
-          const map = new google.maps.Map(
-            document.getElementById('map'),
-            {
-              center: myLatLng,
-              scrollwheel: false,
-              zoom: 18
-            }
-          );
-          const marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'KH정보교육원'
-          });
-        }
-      </script>
-      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCTQIlxBn5AfKGvsfJiormAE1esN3fcCkg&callback=initMap" async defer></script>
+
+      <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8035352f3860f77b021b6c64824a3b93&libraries=services"></script>
+<script>
+
+
+	
+// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 장소 검색 객체를 생성합니다
+var ps = new kakao.maps.services.Places(); 
+
+// 키워드로 장소를 검색합니다
+ps.keywordSearch($("#area").text(), placesSearchCB); 
+
+// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+function placesSearchCB (data, status, pagination) {
+    if (status === kakao.maps.services.Status.OK) {
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        var bounds = new kakao.maps.LatLngBounds();
+
+   
+            bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+              
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+        
+        
+        var markerPosition  = new kakao.maps.LatLng(map.getCenter().getLat(), map.getCenter().getLng()); 
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+marker.setMap(map);
+    } 
+}
+
+</script>
 </body>
 </html>
