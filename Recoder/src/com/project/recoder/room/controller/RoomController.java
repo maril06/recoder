@@ -48,7 +48,7 @@ public class RoomController extends HttpServlet {
 			// 매물 등록 창 =================================================================================================
 			if(command.equals("/roomInsertForm.do")) {
 				
-				path = "/WEB-INF/views/room/roomsInfoInsert.jsp";
+				path = "/WEB-INF/views/room/roomsInfo.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
 		    }
@@ -178,6 +178,7 @@ public class RoomController extends HttpServlet {
 				map.put("pet", pet);
 				
 				map.put("roomBroker", roomBroker);
+				map.put("mList" ,mList);
 				
 				// 서비스 실행 
 				int result = service.roomInsert(map);
@@ -208,7 +209,7 @@ public class RoomController extends HttpServlet {
 				
 			}
 			
-			// 매물 수정 창=================================================================================================
+			// 매물 수정 창 =================================================================================================
 			else if(command.equals("/roomUpdateForm.do")) {
 				
 				// 매물 번호
@@ -354,6 +355,7 @@ public class RoomController extends HttpServlet {
 	        	response.sendRedirect(path);
 			}
 			
+			// 매물 삭제 =================================================================================================
 			else if(command.equals("/delete.do")) {
 				
 //				int roomNo = Integer.parseInt(request.getParameter("no")); // 매물 번호 받아오기
@@ -373,6 +375,77 @@ public class RoomController extends HttpServlet {
 	        	response.sendRedirect(path);
 			}
 			
+			// 매물 상세 =================================================================================================
+			else if(command.equals("/view.do")) {
+				int roomNo = 28; // 임시
+				
+				Room room = service.selectRoom(roomNo);
+				
+//				Room option = new Room(
+//					room.getTv(), room.getInternet(), room.getAirCon(), room.getWashing(), 
+//					room.getFridge(), room.getBed(), room.getCloset(), room.getWomanOnly(), 
+//					room.getPet(), room.getParking());
+//				
+				Map<String, String> a = new HashMap<String, String>();
+				a.put("tv",room.getTv());
+				a.put("인터넷",room.getInternet());
+				a.put("에어컨",room.getAirCon());
+				a.put("세탁기",room.getWashing());
+				a.put("냉장고",room.getFridge());
+				a.put("침대",room.getBed());
+				a.put("옷장",room.getCloset());
+				a.put("여성전용",room.getWomanOnly());
+				a.put("반려동물",room.getPet());
+				a.put("주차",room.getParking());
+				
+				Map<String, String> b = new HashMap<String, String>();
+				b.put("tv", "fad fa-tv-retro");
+				b.put("인터넷", "fas fa-wifi");
+				b.put("에어컨", "fad fa-air-conditioner");
+				b.put("세탁기", "fas fa-washer");
+				b.put("냉장고", "fas fa-refrigerator");
+				b.put("침대", "fad fa-bed-empty");
+				b.put("옷장", "fas fa-tshirt");
+				b.put("여성전용", "fas fa-female");
+				b.put("반려동물", "fad fa-dog");
+				b.put("주차", "fad fa-parking");
+				
+//				option.setTv(room.getTv());
+//				option.setInternet(room.getInternet());
+//				option.setAirCon(room.getAirCon());
+//				option.setWashing(room.getWashing());
+//				option.setFridge(room.getFridge());
+//				option.setBed(room.getBed());
+//				option.setCloset(room.getCloset());
+//				option.setWomanOnly(room.getWomanOnly());
+//				option.setPet(room.getPet());
+//				option.setParking(room.getParking());
+				
+				System.out.println(room);
+				System.out.println(a);
+				
+				
+				if(room != null) {
+					List<RoomImg> mList = service.selectRoomImg(roomNo);
+					
+					System.out.println(roomNo);
+					if(!mList.isEmpty()) {
+						request.setAttribute("mList", mList);
+					}
+					
+					path = "/WEB-INF/views/room/roomsInfo.jsp";
+					request.setAttribute("room", room);
+					request.setAttribute("options", a);
+					request.setAttribute("font", b);
+				    view = request.getRequestDispatcher(path);
+				    view.forward(request, response);
+					
+				} else {
+					response.sendRedirect(request.getHeader("referer"));	
+				}
+				
+				
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

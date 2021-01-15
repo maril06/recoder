@@ -8,7 +8,6 @@ public class RoomImg {
 	private int parentRoomNo;
 	
 	public RoomImg() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public RoomImg(int roomImgNo, String roomImgName, String roomImgPath, int roomImgLevel, int parentRoomNo) {
@@ -18,6 +17,15 @@ public class RoomImg {
 		this.roomImgPath = roomImgPath;
 		this.roomImgLevel = roomImgLevel;
 		this.parentRoomNo = parentRoomNo;
+	}
+	
+	
+
+	public RoomImg(int roomImgNo, String roomImgName, int roomImgLevel) {
+		super();
+		this.roomImgNo = roomImgNo;
+		this.roomImgName = roomImgName;
+		this.roomImgLevel = roomImgLevel;
 	}
 
 	public int getRoomImgNo() {
