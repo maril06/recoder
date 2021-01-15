@@ -141,7 +141,7 @@
                 <ul class="clearfix ft">
                     <li>
                         <p class="img">
-                            <a href=""><img src="resources/images/pp1.jpg" alt=""></a>
+                            <a href="#"><img src="${contextPath}/resources/images/homepage/pp1.jpg" alt=""></a>
                         </p>
                         <h3>월세 300/28</h3>
                         <p class="text">
@@ -155,7 +155,7 @@
                     </li>
                     <li>
                         <p class="img">
-                            <a href=""><img src="resources/images/pp2.png" alt=""></a>
+                            <a href=""><img src="${contextPath}/resources/images/homepage/pp2.png" alt=""></a>
                         </p>
                         <h3>월세 300/28</h3>
                         <p class="text">
@@ -168,7 +168,7 @@
                     </li>
                     <li>
                         <p class="img">
-                            <a href=""><img src="resources/images/pp3.png" alt=""></a>
+                            <a href=""><img src="${contextPath}/resources/images/homepage/pp3.png" alt=""></a>
                         </p>
                         <h3>월세 300/28</h3>
                         <p class="text">
@@ -181,7 +181,7 @@
                     </li>
                     <li>
                         <p class="img">
-                            <a href=""><img src="resources/images/pp4.jpg" alt=""></a>
+                            <a href=""><img src="${contextPath}/resources/images/homepage/pp4.jpg" alt=""></a>
                         </p>
                         <h3>월세 300/28</h3>
                         <p class="text">
