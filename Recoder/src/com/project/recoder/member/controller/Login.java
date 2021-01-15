@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.service.MemberService;
 import com.project.recoder.member.model.vo.Member;
 
@@ -46,6 +47,11 @@ public class Login extends HttpServlet {
 		//4. Member 객체를 Service로 전달하여 결과를 반환받기
 		//(로그인이란? id/pw가 일치하는 회원정보를 DB에서 조회해 오는 것)
 			Member loginMember = new MemberService().loginMember(member);
+			
+			//공인중개사회원일때 broker정보 추가로 가져오기
+			if(loginMember.getMemGrade().equals("B")) {
+				Broker broker = new MemberService().loginBroker(loginMember);
+			}
 			
 		// 6. Session 객체를 얻어와 로그인 정보를 추가함
 			HttpSession session = request.getSession();

@@ -1,5 +1,6 @@
 package com.project.recoder.member.model.service;
 
+import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.dao.MemberDAO;
 import com.project.recoder.member.model.vo.Member;
 import static com.project.recoder.common.JDBCTemplate.*;
@@ -23,6 +24,21 @@ public class MemberService {
 		close(conn);
 		
 		return loginMember;
+	}
+
+	/** 공인중개사 로그인 추가정보 Service
+	 * @param loginMember
+	 * @return broker
+	 * @throws Exception
+	 */
+	public Broker loginBroker(Member loginMember) throws Exception {
+		Connection conn = getConnection();
+		
+		Broker loginBroker = dao.loginBroker(loginMember,conn);
+		
+		close(conn);
+		
+		return loginBroker;
 	}
 	
 	

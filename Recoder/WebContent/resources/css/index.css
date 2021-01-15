@@ -1,9 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400&display=swap');
+ @font-face {
+    font-family: 'TmoneyRoundWindExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+ }
+ 
 .ft {
     font-family: 'Noto Sans KR', sans-serif;
 }
+
+header{
+	font-family: 'TmoneyRoundWindExtraBold';
+}
 .wrapper {
     margin: 0 auto;
+    
 }
 .clearfix::after {
     content: "";
@@ -14,9 +26,96 @@
 body {
     margin: 0 auto;
 }
-a {
-    text-decoration: none;
+
+
+
+/* header */
+
+body{
+	margin-top:80px
+} 
+
+
+#logo{
+    width: 80px;
+    height: 80px;
+
 }
+.menu_right{
+    float: right;
+    height: 100%;
+    width: 80px;
+}
+
+
+/* 로그인 영역 */
+@font-face {
+    font-family: 'IBMPlexSansKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+ }
+
+.loginInfoArea{
+  width: 250px;
+  height: 80px;
+  position: absolute;
+  right: 0;
+  
+}
+
+.loginInfoArea li{
+	display: block;
+    float: right;
+    margin-right: 30px;
+    box-sizing: border-box;
+    height: 100%;
+    
+}
+
+.loginInfoArea a, .loginInfo a{
+font-family: 'IBMPlexSansKR-Regular';
+color: #748194;
+text-decoration :none;
+}
+
+.loginInfoArea a:hover{
+	color: black;
+}
+.loginInfo{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  line-height: 20px;
+}
+
+.loginInfo> a{
+  position: absolute;
+  font-family: 'IBMPlexSansKR-Regular';
+  bottom: 10px;
+  font-size: 15px;
+color: #748194;
+}
+.loginInfo> a:hover{
+	
+  color: pink;
+}
+
+#nickName{
+  position: absolute;
+  top: 17px;
+  left:30px;
+  font-size: 1.5em;
+}
+
+#myPage{
+  right: 150px;
+}
+
+#logout{
+  right: 80px;
+}
+
 
 
 /* header */
@@ -39,61 +138,62 @@ header.on {
     z-index: 10;
     box-shadow:  0px 5px 10px  rgba(0, 0, 0, .2);
 }
-header .menu_wrapper{
+.menu_wrapper{
     overflow: hidden;
     width: 100%;
     height: 100%;
 }
-header .menu_wrapper .logo {
+.logo {
     height: 100%;
     float: left;
-    margin: 0 100px;
+    margin-left : 30px;
+    margin-right: 150px
 }
-header .menu_wrapper .logo a{
+.logo a{
     display: block;
     height: 100%;
 }
-header .menu_wrapper .logo a img{
+.logo a img{
     display: inline-block;
     width: 80px;
 }
-header .menu_wrapper .menu_left{
+.menu_left{
     float: left;
     height: 100%;
 }
-header .menu_wrapper .menu_left .menu_left_title{
+.menu_left_title{
     height: 100%;
     letter-spacing: 2px;
 }
 
-header .menu_wrapper .menu_left .menu_left_title li{
+.menu_left_title li{
     display: block;
     float: left;
     margin-right: 100px;
     box-sizing: border-box;
     height: 100%;
 }
-header .menu_wrapper .menu_left .menu_left_title li:first-child{
+.menu_left_title li:first-child{
     margin-left: 10px;
 }
-header .menu_wrapper .menu_left .menu_left_title li:last-child{
+.menu_left_title li:last-child{
     margin-right: 0;
 }
-header .menu_wrapper .menu_left .menu_left_title li a{
+ .menu_left_title li a{
     display: block;
 }
-header .menu_wrapper .menu_left .menu_left_title li a span{
+.menu_left_title li a span{
     font-size: 18px;
     display: inline-block;
     color: #000;
     position: relative;
     box-sizing: border-box; 
 }
-header .menu_wrapper .menu_left .menu_left_title li a span:active{
+.menu_left_title li a span:active{
     transform: scale(1.1);
     transition-duration: .1s;
 }
-header .menu_wrapper .menu_left .menu_left_title li a span:after{
+.menu_left_title li a span:after{
     content: '';
     position: absolute;
     left: 0;
@@ -103,39 +203,13 @@ header .menu_wrapper .menu_left .menu_left_title li a span:after{
     background: #000;
     transition: all .5s;
 }
-header .menu_wrapper .menu_left .menu_left_title li a span:hover:after{
+.menu_left_title li a span:hover:after{
     width: 100%;
 }
-header .menu_wrapper .menu_right{
-    float: right;
-    height: 100%;
-}
-header .menu_wrapper .menu_right .menu_right_title {
-    height: 100%;
-    letter-spacing: -1px;
-    overflow: hidden;
-    margin-right: 100px;
-}
-header .menu_wrapper .menu_right .menu_right_title li{
-    float: right;
-    margin-left: 10px;
-    height: 100%;
-    box-sizing: border-box;
-}
-header .menu_wrapper .menu_right .menu_right_title li:first-child{
-    margin-right: 10px;
-}
-header .menu_wrapper .menu_right .menu_right_title li:last-child{
-    margin-left: 0;
-}
-header .menu_wrapper .menu_right .menu_right_title li a{
-    display: block;
-    font-size: 18px;
-    color: #000;
-}
-header .menu_wrapper .menu_right .menu_right_title li a:active{
-    opacity: .3;
-}
+
+
+
+
 
 
 /* visual */

@@ -1,5 +1,6 @@
 package com.project.recoder.member.model.dao;
 
+import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.vo.Member;
 import static com.project.recoder.common.JDBCTemplate.*;
 
@@ -67,6 +68,11 @@ public class MemberDAO {
 		}
 		
 		return loginMember;
+	}
+
+	public Broker loginBroker(Member loginMember, Connection conn) throws Exception{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

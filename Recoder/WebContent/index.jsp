@@ -33,7 +33,7 @@
     <div class="wrapper">
 	
 		<!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
-		<jsp:include page="WEB-INF/views/common/header.jsp"></jsp:include>
+		<jsp:include page="WEB-INF/views/common/header2.jsp"></jsp:include>
 
         <!-- visual -->
         <section class="visual">
