@@ -35,7 +35,7 @@ public class JDBCTemplate {
 		
 		// JNDI(Java Naming and Directory Interface API)
 		/*디렉터리 서비스에 접근하는데 사용하는 API
-		어플리케이션은 JNDI를 사용하여 서버의 resource를 찾는다.
+		 JNDI를 사용하여 서버의어플리케이션은 resource를 찾는다.
 		특히 JDBC resource를 data source라고 부른다.
 		
 		Resource를 서버에 등록할 때 고유한 JNDI 이름을 붙이는데, JNDI 이름은 디렉터리 경로 형태를 가진다.

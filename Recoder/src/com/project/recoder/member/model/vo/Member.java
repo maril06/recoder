@@ -27,6 +27,17 @@ public class Member {
 		this.memGrade = memGrade;
 	}
 
+	//로그인용 생성자
+	public Member(int memNo, String memId, String memNick, String memTel, String memEmail, String memGrade) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memNick = memNick;
+		this.memTel = memTel;
+		this.memEmail = memEmail;
+		this.memGrade = memGrade;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}
