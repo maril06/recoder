@@ -8,6 +8,8 @@ FROM MEMBER
 WHERE MEM_ID = ?
 AND MEM_PW = ?
 AND  SCSN_FL = 'N'
+AND MEM_GRADE ='G'
 </entry>
+
 
 </properties>

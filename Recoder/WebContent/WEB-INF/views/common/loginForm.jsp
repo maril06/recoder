@@ -31,16 +31,19 @@
          <div id="right"><h3 class="s2class"><span>일반</span><span class="su">회원</span></h3></div>
       </div>
       <div class="c2">
-         <form class="signup" method="POST" action="${contextPath}/member/login.do" >
+      <!-- right : 일반회원 -->
+         <form class="signup" method="POST" action="${contextPath}/login.do" >
             <h1 class="signup1">일반회원 로그인</h1>
             <br><br><br><br>
             <input name="userId" type="text" placeholder="User ID*" class="username" value="${cookie.saveId.value}"/>
             
             <input name="userPw" type="password" placeholder="Password*" class="username"/>
+            
+            <input type="checkbox" display="none" name="memberLogin" id="memberLogin"/>
             <button class="btn" type="submit">Login</button>
             
             <div id="rememberId">
-               <input type="checkbox" name="remember" id="remember" <c:if test="${!empty cookie.saveId.value }">checked</c:if>><label for="remember">아이디 저장</label> <br>
+               <input type="checkbox" name="remember" id="remember"><label for="remember">아이디 저장</label> <br>
             </div>
             
             <div id="else">
@@ -49,22 +52,19 @@
             </div>
          </form>
          
-
-         <form class="signin"  method="POST" action="${contextPath}/broker/login.do">
+	<!-- left 공인중개사 -->
+         <form class="signin"  method="POST" action="${contextPath}/login.do">
             
-            <h1 class="signup1">공인중개사 로그인</h1>
+            <h1 class="signup1" name="broker">공인중개사 로그인</h1>
             <br><br><br><br>
             <input name="userId" type="text" placeholder="User ID*" class="username" value="${cookie.saveId.value}"/>
             
             <input name="userPw" type="password" placeholder="Password*" class="username"/>
+            <input type="checkbox" display="none" name="brokerLogin" id="brokerLogin"/>
             <button class="btn" type="submit" id="l">Login</button>
 
             <div id="rememberId">
-<<<<<<< HEAD
-               <input type="checkbox" name="remember" id="remember"><label for="remember">아이디 저장</label>
-=======
-               <input type="checkbox" <c:if test="${!empty cookie.saveId.value }">checked</c:if>><label for="rememberId" >아이디 저장</label>
->>>>>>> branch 'master' of https://github.com/maril06/recoder.git
+               <input type="checkbox"><label for="rememberId">아이디 저장</label>
             </div>
             
             <div id="else">

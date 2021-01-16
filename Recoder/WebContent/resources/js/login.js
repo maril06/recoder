@@ -7,6 +7,8 @@ $(document).ready(function(){
     $(".signin").css({"display":"none"});
     $(".signup").css({"display":""});
  });
+
+/*(right)일반회원 클릭시*/
  $("#right").click(function(){
     $("#left").removeClass("left_hover");
     $(".s2class").css({"color":"#EE9BA3"});
@@ -15,6 +17,8 @@ $(document).ready(function(){
     $(".signin").css({"display":"none"});
     $(".signup").css({"display":""});
  });
+
+/*(left)공인중개사 클릭시*/
  $("#left").click(function(){
     $(".s1class").css({"color":"#EE9BA3"});
     $(".s2class").css({"color":"#748194"}); 

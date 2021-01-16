@@ -1,5 +1,6 @@
 package com.project.recoder.member.model.service;
 
+import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.dao.MemberDAO;
 import com.project.recoder.member.model.vo.Member;
 import static com.project.recoder.common.JDBCTemplate.*;
@@ -24,6 +25,8 @@ public class MemberService {
 		
 		return loginMember;
 	}
+
+	
 	
 	
 	
