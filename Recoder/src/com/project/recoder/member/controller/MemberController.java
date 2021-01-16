@@ -44,7 +44,7 @@ public class MemberController extends HttpServlet {
 				member.setMemId(memId);
 				member.setMemPw(memPw);
 				
-					Member loginMember = new MemberService().loginMember(member);
+					Member loginMember = service.loginMember(member);
 					
 					HttpSession session = request.getSession();
 					
@@ -56,7 +56,7 @@ public class MemberController extends HttpServlet {
 						session.setAttribute("loginMember", loginMember);
 						
 						
-						Cookie cookie = new Cookie("saveId", memId);
+						Cookie cookie = new Cookie("saveIdG", memId);
 
 						if(remember != null) {
 							cookie.setMaxAge(60*60*24*7);

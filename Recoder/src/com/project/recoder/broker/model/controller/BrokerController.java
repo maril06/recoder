@@ -77,7 +77,7 @@ public class BrokerController extends HttpServlet {
 					//6-4 아이디를 Cookie에 저장하기
 					
 						//1) 쿠키 객체 생성
-						Cookie cookie = new Cookie("saveId", memId);
+						Cookie cookie = new Cookie("saveIdB", memId);
 					
 						//2) 아이디 저장 checkbox가 체크 되었을 때 쿠키 저장
 						if(remember != null) {

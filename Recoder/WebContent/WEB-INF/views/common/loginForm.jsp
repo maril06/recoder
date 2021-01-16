@@ -34,13 +34,13 @@
          <form class="signup" method="POST" action="${contextPath}/member/login.do" >
             <h1 class="signup1">일반회원 로그인</h1>
             <br><br><br><br>
-            <input name="userId" type="text" placeholder="User ID*" class="username" value="${cookie.saveId.value}"/>
+            <input name="userId" type="text" placeholder="User ID*" class="username" value="${cookie.saveIdG.value}"/>
             
             <input name="userPw" type="password" placeholder="Password*" class="username"/>
             <button class="btn" type="submit">Login</button>
             
             <div id="rememberId">
-               <input type="checkbox" <c:if test="${!empty cookie.saveId.value }">checked</c:if>name="remember" id="remember"><label for="remember">아이디 저장</label> <br>
+               <input type="checkbox" <c:if test="${!empty cookie.saveIdG.value}">checked</c:if> name="remember" id="remember"><label for="remember">아이디 저장</label> <br>
             </div>
             
             <div id="else">
@@ -54,13 +54,13 @@
             
             <h1 class="signup1">공인중개사 로그인</h1>
             <br><br><br><br>
-            <input name="userId" type="text" placeholder="User ID*" class="username" value="${cookie.saveId.value}"/>
+            <input name="userId" type="text" placeholder="User ID*" class="username" value="${cookie.saveIdB.value}"/>
             
             <input name="userPw" type="password" placeholder="Password*" class="username"/>
             <button class="btn" type="submit" id="l">Login</button>
 
             <div id="rememberId">
-               <input type="checkbox" <c:if test="${!empty cookie.saveId.value }">checked</c:if> name="remember" id="remember"><label for="remember">아이디 저장</label>
+               <input type="checkbox" <c:if test="${!empty cookie.saveIdB.value}">checked</c:if> name="remember" id="remember"><label for="remember">아이디 저장</label>
             </div>
             
             <div id="else">
