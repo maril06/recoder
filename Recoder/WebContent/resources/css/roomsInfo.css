@@ -685,18 +685,23 @@ header .menu_wrapper .menu_right .menu_right_title li a:active{
     font-size: 14px;
     resize: none;
 }
-#other_label{
-    float: left;
-}
 #reason{
     display: block;
     margin-left :180px;
     padding: 10px 0;
 }
 
+#other{
+	display: block;
+    margin-left :90px;
+    padding: 10px 0;
+}
 
-
-
+#rpinfo{
+	display: block;
+    margin-left :180px;
+    padding: 10px 0;
+}
 
 
 
