@@ -15,4 +15,32 @@ AND MEM_GRADE ='G'
 INSERT INTO MEMBER
 VALUES(SEQ_MEMNO.NEXTVAL,?,?,?,?,?,DEFAULT, 'G')
 </entry>
+
+<entry key="chkPwd">
+SELECT COUNT(*) FROM MEMBER
+WHERE MEM_NO = ?
+AND MEM_PW = ?
+</entry>
+
+<entry key="updateStatus">
+UPDATE MEMBER
+SET SCSN_FL = 'Y'
+WHERE MEM_NO=?
+</entry>
+
+<entry key="updateMember">
+UPDATE MEMBER 
+SET MEM_EMAIL=?,
+      MEM_TEL=?,
+      MEM_PW=?,
+      MEM_NICK=?
+WHERE MEM_NO=? 
+</entry>
+
+<entry key="currentPW">
+SELECT MEM_PW
+FROM MEMBER
+WHERE MEM_NO = ?
+</entry>
+
 </properties>

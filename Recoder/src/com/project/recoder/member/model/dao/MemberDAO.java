@@ -104,4 +104,88 @@ public class MemberDAO {
 		return result;
 	}
 
+	public int chkPwd(Member loginMember, String chkPw, Connection conn) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("chkPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, loginMember.getMemNo());
+			pstmt.setString(2, chkPw);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateStatus(Connection conn, Member loginMember) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("updateStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, loginMember.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String currentPW(Connection conn, Member member) throws Exception{
+		String currentPw = null;
+		String query = prop.getProperty("currentPW");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, member.getMemNo());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				currentPw = rset.getString(1);
+			}
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return currentPw;
+	}
+
+	public int updateMember(Connection conn, Member member) throws Exception{
+int result =0; 
+		
+		try {
+			String query = prop.getProperty("updateMember");
+
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, member.getMemEmail());
+			pstmt.setString(2, member.getMemTel());
+			pstmt.setString(3, member.getMemPw());
+			pstmt.setString(4, member.getMemNick());
+			pstmt.setInt(5, member.getMemNo());
+
+			
+			result = pstmt.executeUpdate();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+
 }

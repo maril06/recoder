@@ -461,6 +461,19 @@ public class RoomController extends HttpServlet {
 				System.out.println(reportTitle);
 			}
 			
+			
+			
+			
+			
+			
+			//-------------------------------------------------------------------------------------------------------------
+			//매물 검색폼 컨트롤러
+			else if(command.equals("/searchRoom.do")){
+				path = "/WEB-INF/views/room/searchRoom.jsp";
+	    		view = request.getRequestDispatcher(path);
+	    		view.forward(request, response);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			path = "/WEB-INF/views/common/errorPage.jsp"; // 수정
