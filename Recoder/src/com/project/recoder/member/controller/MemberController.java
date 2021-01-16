@@ -21,7 +21,7 @@ public class MemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = request.getRequestURI(); // 
 		String contextPath = request.getContextPath(); // 
-		String command = uri.substring((contextPath + "/member").length()); 
+		String command = uri.substring((contextPath + "/member").length());  
 		
 		String path = null;
 		RequestDispatcher view = null;
