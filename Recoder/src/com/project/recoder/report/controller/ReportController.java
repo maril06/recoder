@@ -1,4 +1,4 @@
-package com.project.recoder.report.model.controller;
+package com.project.recoder.report.controller;
 
 import java.io.IOException;
 
@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.report.model.service.ReportService;
 
-@WebServlet("/repot/*")
+@WebServlet("/report/*")
 public class ReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -19,7 +20,7 @@ public class ReportController extends HttpServlet {
 
 		String uri = request.getRequestURI(); // 
 		String contextPath = request.getContextPath(); // 
-		String command = uri.substring((contextPath + "/repot").length()); 
+		String command = uri.substring((contextPath + "/report").length()); 
 		
 		String path = null;
 		RequestDispatcher view = null;
@@ -31,6 +32,23 @@ public class ReportController extends HttpServlet {
 		
 		try {
 			ReportService service = new ReportService();
+			
+			if(command.equals("/reportSend.do")) {
+				String reportTitle = request.getParameter("reportTitle");
+				String reportInfo = request.getParameter("reportInfo");
+				int roomNo = Integer.parseInt(request.getParameter("roomNo"));
+				int categoryCD = Integer.parseInt(request.getParameter("category"));
+				
+				int memNo = ((Member)request.getSession().getAttribute("loginMember")).getMemNo();
+				int result = service.reportSend(reportTitle, reportInfo, roomNo, categoryCD, memNo);
+				
+				if (result > 0) {
+					System.out.println("성공");
+				}else {
+					System.out.println("실패");
+				}
+				
+			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();

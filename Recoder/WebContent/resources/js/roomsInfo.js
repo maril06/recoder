@@ -63,6 +63,8 @@ function initMap(){
 }
 
 
+/*
+
 $('#report').on('click', () => {
 
   Swal.fire({
@@ -70,20 +72,20 @@ $('#report').on('click', () => {
     icon: 'warning',
     html:
       '<form action="" method="POST" id="report_form">'+
-        '신고제목: <input type="text" id="reportTitle"><br>'+
+        '신고제목: <input type="text" id="reportTitle" name="reportTitle"><br>'+
         '작성자 아이디: <br>'+
         '<b id="reason">신고 사유</b>'+
         '<input type="radio" id="fake" name="report" value="1">'+
         '<label for="fake">허위매물</label><br>'+
         '<input type="radio" id="illegal" name="report" value="2">'+
         '<label for="illegal">불법 및 음란 광고</label><br>'+
-        '<input type="radio" id="private" name="report" value="3">'+
+        '<input type="radio" id="info" name="report" value="3">'+
         '<label for="private">개인정보노출 / 사생활 침해</label><br>'+
         '<div id="other_label">'+
-          '<input type="radio" id="other" name="report" value="3">'+
+          '<input type="radio"  name="report" value="3">'+
           '<label for="other">기타사유: </label>'+
         '</div>'+
-        '<textarea name="" id="other" cols="30" rows="5"></textarea>'+
+        '<textarea name="other" id="other" cols="30" rows="5"></textarea>'+
       '</form>',
     showCloseButton: true,
     showCancelButton: true,
@@ -95,11 +97,63 @@ $('#report').on('click', () => {
       '취소',
     cancelButtonAriaLabel: 'Thumbs down'
   }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
     // 값 보낼 함수 시작 가능
 
-    Swal.fire('신고했습니다!', '', 'success')
+	
+	$.ajax({
+		 		url : "message/messageSend.do",
+				type : "post",
+				data : {
+					"reportTitle" : reportTitle,
+					},
+				success : function(result){
+					if(result > 0){
+						
+						console.log("성공");
+	
+					}
+					
+				}, error : function(){
+					console.log("댓글 수정 실패");
+				}		
+			});
+	
 
+
+	console.log(result)
+	Swal.fire('신고했습니다!', '', 'success')
   });
 
 });
+
+
+
+*/
+
+
+/*
+
+		$.ajax({
+				url : "/viewReport.do",
+			type : "post",
+			data : {
+				"reportTitle" : reportTitle,
+				"fake" : fake,
+				"illegal" : illegal,
+				"info" : info,
+				"other" : other
+				},
+			success : function(result){
+				console.log("성공!!");
+				
+			}, error : function(){
+				console.log("댓글 수정 실패");
+			}		
+		}); 
+
+	    */
+
+
+
+		
+

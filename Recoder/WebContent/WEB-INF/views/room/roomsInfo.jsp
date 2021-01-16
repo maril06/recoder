@@ -47,7 +47,7 @@
             <div class="info_wrapper">
                 <div class="left_btn">
                     <a id="report"><span class="clearfix"><i class="fas fa-siren-on"></i>신고</span></a>
-                    <a href=""><span class="clearfix"><i class="fas fa-envelope"></i>쪽지</span></a>
+                    <a id="msg"><span class="clearfix"><i class="fas fa-envelope"></i>쪽지</span></a>
                     <a href=""><span class="clearfix"><i class="far fa-heart"></i>찜하기</span></a>
                 </div>
                 <div class="broker_info">
@@ -320,6 +320,121 @@ var marker = new kakao.maps.Marker({
 marker.setMap(map);
     } 
 }
+
+
+
+	// 쪽지 보내기
+	
+	$("#msg").on('click', ()=>{
+		
+		Swal.fire({
+		  title: '쪽지 보내기',
+		  input: 'text',
+		  inputAttributes: {
+		    autocapitalize: 'off'
+		  },
+		  showCancelButton: true,
+		  confirmButtonText: '보내기',
+		  showLoaderOnConfirm: true,
+		  preConfirm: (login) => {
+			if(result.isConfirmed){
+		  		
+			  	$.ajax({
+			 		url : "${contextPath}/message/messageSend.do",
+					type : "post",
+					data : {
+						"msgContext" : login,
+						"brokerNo" : ${room.gMemNo},
+			 			"myNo" : ${loginMember.memNo}
+						},
+					success : function(result){
+						if(result > 0){
+							
+							console.log("성공");
+		
+						}
+						
+					}, error : function(){
+						console.log("댓글 수정 실패");
+					}		
+				});
+			  	
+			  	
+			  	console.log(login)
+			  	
+			}
+		}
+	})
+		
+});
+	
+
+
+
+
+$('#report').on('click', () => {
+
+	  Swal.fire({
+	    title: '<strong>신고하기</strong>',
+	    icon: 'warning',
+	    html:
+	    	'<form action="" method="POST" id="report_form">'+
+	        '신고제목: <input type="text" id="reportTitle" name="reportTitle"><br>'+
+	        '작성자 아이디: <br>'+
+	        '<b id="reason">신고 사유</b>'+
+	        '<input type="radio" id="fake" name="report" value="1">'+
+	        '<label for="fake">허위매물</label><br>'+
+	        '<input type="radio" id="illegal" name="report" value="2">'+
+	        '<label for="illegal">불법 및 음란 광고</label><br>'+
+	        '<input type="radio" id="info" name="report" value="3">'+
+	        '<label for="private">개인정보노출 / 사생활 침해</label><br>'+
+	        '<input type="radio" name="report" value="4">'+
+	        '<label for="other">기타사유</label>'+
+	        '<strong id="rpinfo">신고 내용</strong>'+
+	        '<textarea name="other" id="other" cols="30" rows="5"></textarea>'+
+	      '</form>',
+	    showCloseButton: true,
+	    showCancelButton: true,
+	    focusConfirm: false,
+	    confirmButtonText:
+	      '신고',
+	    confirmButtonAriaLabel: 'Thumbs up, great!',
+	    cancelButtonText:
+	      '취소',
+	    cancelButtonAriaLabel: 'Thumbs down'
+	  }).then((result) => {
+	    // 값 보낼 함수 시작 가능
+		if(result.isConfirmed){
+			
+		
+		$.ajax({
+			 		url : "${contextPath}/report/reportSend.do",
+					type : "post",
+					data : {
+						"reportTitle" : $("#reportTitle").val(),
+						"reportInfo" : $("#other").val(),
+						"roomNo" :  ${room.roomNo },
+						"category" :$("input[name=report]").val()
+						
+						},
+					success : function(result){
+						Swal.fire('신고했습니다!', '', 'success')
+						
+					}, error : function(){
+						console.log("신고 실패");
+					}		
+				});
+		 
+
+
+		}
+		
+	  });
+
+	});
+
+
+
 
 </script>
 </body>

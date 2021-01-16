@@ -48,6 +48,7 @@ public class RoomController extends HttpServlet {
 			// 매물 등록 창 =================================================================================================
 			if(command.equals("/roomInsertForm.do")) {
 
+				System.out.println(1);
 				path = "/WEB-INF/views/room/roomsInfoInsert.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
@@ -428,17 +429,15 @@ public class RoomController extends HttpServlet {
 //				option.setPet(room.getPet());
 //				option.setParking(room.getParking());
 				
-				System.out.println(room);
-				System.out.println(a);
-				
 				
 				if(room != null) {
 					List<RoomImg> mList = service.selectRoomImg(roomNo);
 					
-					System.out.println(roomNo);
 					if(!mList.isEmpty()) {
 						request.setAttribute("mList", mList);
 					}
+					
+					System.out.println(room);
 					
 					path = "/WEB-INF/views/room/roomsInfo.jsp";
 					request.setAttribute("room", room);
@@ -452,6 +451,12 @@ public class RoomController extends HttpServlet {
 				}
 				
 				
+			}
+			// 신고 =================================================================================================
+			else if(command.equals("/viewReport.do")) {
+				String  reportTitle = request.getParameter("reportTitle");
+				System.out.println(3);
+				System.out.println(reportTitle);
 			}
 			
 		} catch (Exception e) {
