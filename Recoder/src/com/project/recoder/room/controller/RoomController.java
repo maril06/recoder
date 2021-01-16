@@ -47,8 +47,8 @@ public class RoomController extends HttpServlet {
 			
 			// 매물 등록 창 =================================================================================================
 			if(command.equals("/roomInsertForm.do")) {
-				
-				path = "/WEB-INF/views/room/roomsInfoUpdate.jsp";
+
+				path = "/WEB-INF/views/room/roomsInfoInsert.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
 		    }
@@ -140,11 +140,11 @@ public class RoomController extends HttpServlet {
 				String roomInfo = multiRequest.getParameter("roomInfo");
 				String stationAddr = multiRequest.getParameter("stationAddr");
 				
-				//로그인 얻어오기
+				// 로그인 얻어오기
+				Member loginMember = (Member)request.getSession().getAttribute("loginMember");
 				
-				Member loginMember = (Member)request.getSession().getAttribute(""); // 로그인 얻어와야함!!
 //				int roomBroker = loginMember.getMemNo2();
-				int roomBroker = 3;
+				int roomBroker = loginMember.getMemNo();
 				/*
 				 
 				
@@ -236,6 +236,8 @@ public class RoomController extends HttpServlet {
 				
 			}
 			
+			// 매물 수정 시작 =================================================================================================
+			
 			else if(command.equals("/roomUpdate.do")) {
 				int maxSize = 20 * 1024 * 1024; // 20MB == 20 * 1024KB == 20 * 1024 * 1024Byte
 	        	String root = request.getSession().getServletContext().getRealPath("/");
@@ -270,7 +272,8 @@ public class RoomController extends HttpServlet {
 	        	String stationAddr = mRequest.getParameter("stationAddr");
 	        	
 	        	// 매물 번호 받아오기
-	        	int roomNo = Integer.parseInt(mRequest.getParameter("번호받아오기"));
+//	        	int roomNo = Integer.parseInt(mRequest.getParameter(""));
+	        	int roomNo = 33;
 	        	
 	        	
 	        	List<RoomImg> mList = new ArrayList<RoomImg>();
@@ -307,6 +310,8 @@ public class RoomController extends HttpServlet {
 	        		}
 				} // end while
 	        	
+	        	int memNo = ((Member)request.getSession().getAttribute("loginMember")).getMemNo();
+	        	
 	        	Map<String, Object> map = new HashMap<String, Object>();
 				
 				map.put("roomTitle", roomTitle);
@@ -333,6 +338,7 @@ public class RoomController extends HttpServlet {
 				map.put("fridge", fridge);
 				map.put("womanOnly", womanOnly);
 				map.put("pet", pet);
+				map.put("memNo", memNo);
 				
 				int result = service.roomUpdate(map);
 				
@@ -377,8 +383,9 @@ public class RoomController extends HttpServlet {
 			
 			// 매물 상세 =================================================================================================
 			else if(command.equals("/view.do")) {
-				int roomNo = 28; // 임시
+				int roomNo = 3; // 임시
 				
+
 				Room room = service.selectRoom(roomNo);
 				
 //				Room option = new Room(

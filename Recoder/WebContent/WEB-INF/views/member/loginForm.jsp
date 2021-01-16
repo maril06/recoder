@@ -40,7 +40,7 @@
             <button class="btn" type="submit">Login</button>
             
             <div id="rememberId">
-               <input type="checkbox" name="remember" id="remember"><label for="remember">아이디 저장</label> <br>
+               <input type="checkbox" name="remember" id="remember" <c:if test="${!empty cookie.saveId.value }">checked</c:if>><label for="remember">아이디 저장</label> <br>
             </div>
             
             <div id="else">
@@ -60,7 +60,11 @@
             <button class="btn" type="submit" id="l">Login</button>
 
             <div id="rememberId">
+<<<<<<< HEAD
                <input type="checkbox" name="remember" id="remember"><label for="remember">아이디 저장</label>
+=======
+               <input type="checkbox" <c:if test="${!empty cookie.saveId.value }">checked</c:if>><label for="rememberId" >아이디 저장</label>
+>>>>>>> branch 'master' of https://github.com/maril06/recoder.git
             </div>
             
             <div id="else">

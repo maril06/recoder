@@ -156,8 +156,8 @@
                                 <th scope="row">방갯수</th>
                                 <td>
                                     <select name="roomCount" id="roomCount">
-                                        <option value="원룸">원룸</option>
-                                        <option value="투룸">투룸</option>
+                                        <option value="1">원룸</option>
+                                        <option value="2">투룸</option>
                                     </select>
                                 </td>
                                 <th scope="row">근쳐 지하철역</th>
@@ -221,8 +221,8 @@
 	        </section>
             
             <div class="form_btn">
-                <button type="submit" class="btn btn-primary" id="addRoom">완료</button>
-                <button type="button" class="btn btn-secondary">취소</button>
+                <button type="submit" class="btn btn-primary" id="addRoom">수정</button>
+                <button type="button" class="btn btn-secondary">이전으로</button>
             </div>
         </form>
 
@@ -231,7 +231,7 @@
         
     </div>
     
-    <script src="${contextPath}/resources/js/roomsInfoInsert.js"></script>
+    <script src="${contextPath}/resources/js/roomsInfoUpdate.js"></script>
 
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8035352f3860f77b021b6c64824a3b93&libraries=services"></script>
 	<script>
