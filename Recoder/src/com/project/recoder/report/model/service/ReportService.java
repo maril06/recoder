@@ -29,6 +29,5 @@ public class ReportService {
 		}
 		return result;
 	}
-	
 
 }
