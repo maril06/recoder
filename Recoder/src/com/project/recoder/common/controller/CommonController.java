@@ -1,4 +1,4 @@
-package com.project.recoder.common;
+package com.project.recoder.common.controller;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.project.recoder.common.service.CommonService;
 import com.project.recoder.member.model.service.MemberService;
 
 
@@ -28,6 +29,8 @@ public class CommonController extends HttpServlet {
 		
 		// 현재 페이지를 얻어옴
 		String cp = request.getParameter("cp");
+		
+		CommonService service = new CommonService();
 		
 		
 		try {
@@ -56,17 +59,41 @@ public class CommonController extends HttpServlet {
 			
 			//회원가입 버튼 눌렀을 때 회원가입 폼으로 이동 Controller------------------------------------------------
 			else if(command.equals("/signUpForm.do")) {
-				path = "/WEB-INF/views/common/signUpForm.jsp";
 				
-				if(request.getSession().getAttribute("beforeUrl") == null) {
-					request.getSession().setAttribute("beforeUrl", request.getHeader("referer"));
+				if(request.getSession().getAttribute("Burl") == null) {
+					request.getSession().setAttribute("Burl", request.getHeader("referer"));
 				}
+
+				path = "/WEB-INF/views/common/signUpForm.jsp";
 				
 				view = request.getRequestDispatcher(path);
 				
 				view.forward(request, response);
 			}
 			
+
+			//회원가입 id 중복검사 controller-----------------------------
+			else if(command.equals("/idDupCheck.do")) {
+				errorMsg = "id 중복검사 과정에서 오류 발생";
+				String id = request.getParameter("userid");
+				
+				int result = service.idDupCheck(id);
+				//0이면 사용해도 되는거
+				
+				response.getWriter().print(result);
+				
+				
+			}
+			
+			else if(command.equals("/nickDupCheck.do")) {
+				errorMsg = "닉네임 중복검사 과정에서 오류 발생";
+				String nickname = request.getParameter("nickname");
+				
+				int result = service.nickDupCheck(nickname);
+				//0이면 사용해도 되는거
+				
+				response.getWriter().print(result);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

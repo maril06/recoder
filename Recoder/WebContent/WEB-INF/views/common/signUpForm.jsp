@@ -34,13 +34,13 @@
              <div class="validate-area checkId"></div>
              <input name="password" id="password" type="password" placeholder="비밀번호 *" class="username"/>
              <div class="validate-area checkPw"></div>
-             <input name="confirm-password" id="confirm-password" type="password" placeholder="비밀번호 확인 *" class="username"/>
+             <input name="confirmpassword" id="confirmpassword" type="password" placeholder="비밀번호 확인 *" class="username"/>
              <div class="validate-area checkPw2" ></div>
              <input name="email" id="email" type="email" placeholder="이메일 *" class="username"/>
              <div class="validate-area checkEmail"></div>
              <input name="nickname" id="nickname" type="text" placeholder="닉네임 " class="username"/>
              <div class="validate-area checkNick"></div>
-             <input name="usertel" id="usertel" type="tel" placeholder="전화번호 " class="username"/>
+             <input name="usertel" id="usertel" type="tel" placeholder="전화번호(-포함) " class="username"/>
              <div class="validate-area checkPhone"></div>
 
              <div id="agreementDivArea" class="agreement">

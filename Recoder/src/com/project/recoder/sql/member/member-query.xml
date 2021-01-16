@@ -11,5 +11,8 @@ AND  SCSN_FL = 'N'
 AND MEM_GRADE ='G'
 </entry>
 
-
+<entry key="signUp">
+INSERT INTO MEMBER
+VALUES(SEQ_MEMNO.NEXTVAL,?,?,?,?,?,DEFAULT, 'G')
+</entry>
 </properties>

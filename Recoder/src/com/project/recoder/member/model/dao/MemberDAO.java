@@ -70,34 +70,38 @@ public class MemberDAO {
 		return loginMember;
 	}
 
-	/** 공인중개사 추가정보 조회 DAO
-	 * @param memNo2
+
+	/** 회원가입 dao
+	 * @param member
 	 * @param conn
-	 * @return broker
+	 * @return result
 	 * @throws Exception
 	 */
-	public Broker loginBroker(int memNo2, Connection conn) throws Exception{
-		Broker loginBroker = null;
-		
-		String query = prop.getProperty("loginBroker");
+	public int signUp(Member member, Connection conn) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("signUp");
 		
 		try {
+			// 3) PreparedStatement 객체를 얻어와 SQL구문을 세팅
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setInt(1, memNo2);
-			rset = pstmt.executeQuery();
+			// 4)위치홀더(?)에 알맞은 값 세팅
+			pstmt.setString(1, member.getMemId());
+			pstmt.setString(2, member.getMemPw());
+			pstmt.setString(3, member.getMemNick());
+			pstmt.setString(4, member.getMemTel());
+			pstmt.setString(5, member.getMemEmail());
 			
-			if(rset.next()) {
-				loginBroker = new Broker();
-				loginBroker.setBrokderCreti(rset.getString(1));
-				loginBroker.setBrokderAddr(rset.getString(2));
-			}
+			// 5) SQL 구문 수행 후 반환값 저장
+			result = pstmt.executeUpdate();
+			
 		} finally {
-			close(rset);
+			// 6) 사용한 JDBC 자원 반환
 			close(pstmt);
 		}
 		
-		return loginBroker;
+		// 7) 결과 반환
+		return result;
 	}
 
 }
