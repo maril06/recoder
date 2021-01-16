@@ -41,6 +41,48 @@ public class MemberService {
 		return result;
 	}
 
+	public int chkPwd(Member loginMember, String chkPw) throws Exception{
+		Connection conn = getConnection();	 
+		int result = dao.chkPwd(loginMember, chkPw, conn);
+		close(conn);
+		return result;
+	}
+
+	public int updateStatus(Member loginMember, String chkPw) throws Exception{
+		Connection conn = getConnection();
+		int result = dao.chkPwd(loginMember, chkPw, conn);
+		
+		if(result > 0) {
+			result = dao.updateStatus(conn, loginMember);
+			
+			if(result > 0) commit(conn);
+			else			rollback(conn);
+			
+		}else {
+			result = -1;
+			System.out.println(result);
+		}
+		
+		return result;
+	}
+
+	public int updateMember(Member member, String memberPw) throws Exception{
+		Connection conn = getConnection();
+		if(memberPw == "") {
+			memberPw = dao.currentPW(conn, member);
+		}
+		member.setMemPw(memberPw);
+
+		int result = dao.updateMember(conn, member);
+		//3) 트랜잭션 처리
+		if(result >0) {commit(conn);}
+		else {rollback(conn);}
+		//4) connection 반환
+		close(conn);
+		//5) retrun
+		return result;
+	}
+
 	
 	
 	

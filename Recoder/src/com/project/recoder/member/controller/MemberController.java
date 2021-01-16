@@ -23,6 +23,7 @@ public class MemberController extends HttpServlet {
 		String contextPath = request.getContextPath(); // 
 		String command = uri.substring((contextPath + "/member").length());  
 		
+		String url = null;
 		String path = null;
 		RequestDispatcher view = null;
 		
@@ -34,6 +35,12 @@ public class MemberController extends HttpServlet {
 		
 		MemberService service = new MemberService();
 		
+		
+		String chkPw = request.getParameter("chkPw");
+		Member member = null;
+		Member loginMember = (Member)session.getAttribute("loginMember");
+
+		
 		try {
 			//일반회원 로그인 controller
 			if (command.equals("/login.do")) {
@@ -42,15 +49,15 @@ public class MemberController extends HttpServlet {
 				String memPw = request.getParameter("userPw"); //비번
 				String remember = request.getParameter("remember"); //아이디 저장
 				
-				Member member = new Member();
+				member = new Member();
 				member.setMemId(memId);
 				member.setMemPw(memPw);
 				
-					Member loginMember = service.loginMember(member);
+					loginMember = service.loginMember(member);
 					
 					session = request.getSession();
 					
-					String url = null;
+					url = null;
 					
 					if(loginMember != null) {
 						session.setMaxInactiveInterval(60 * 30);
@@ -100,10 +107,9 @@ public class MemberController extends HttpServlet {
 				String memNick = request.getParameter("nickname");
 				String memTel = request.getParameter("usertel");
 				
-				String url = null;
 				
 				//Member객체를 생성하여 파라미터를 모두 저장
-				Member member = new Member(memId, memPw, memNick, memTel, memEmail);
+				member = new Member(memId, memPw, memNick, memTel, memEmail);
 				
 					int result = service.signUp(member);
 
@@ -138,16 +144,113 @@ public class MemberController extends HttpServlet {
 					
 			}
 			
+			//마이페이지폼 컨트롤러------------------
 			else if(command.equals("/memberMyPage.do")) {
 	    		path = "/WEB-INF/views/member/memberMyPage.jsp";
 	    		view = request.getRequestDispatcher(path);
 	    		view.forward(request, response);
 	    	}
 			
+			//정보수정폼 컨트롤러---------------------
 			else if(command.equals("/updateMember.do")) {
 	    		path = "/WEB-INF/views/member/updateMember.jsp";
 	    		view = request.getRequestDispatcher(path);
 	    		view.forward(request, response);
+	    	}
+			
+			//비밀번호 체크 컨트롤러-------------------------------------
+			else if (command.equals("/checkMember.do")) {
+		         // 비즈니스 로직 처리 후 결과 반환 받기
+		         int result = new MemberService().chkPwd(loginMember, chkPw);
+//		         System.out.println("result : " + result);
+//		         System.out.println("chkPwd : " + chkPw);
+		         
+		         if(result > 0) { 
+
+		            url = "updateMember.do";
+		            
+		         }else { 
+
+		            url = request.getHeader("referer");
+		         }
+		         
+		         
+		         // 요청했던 페이지로 다시 돌아가라
+		         response.sendRedirect(url);
+		    	}
+			
+			//탈퇴 컨트롤러----------------------------
+			else if(command.equals("/secessionMember.do")){
+		         int result = new MemberService().updateStatus(loginMember, chkPw);
+		         
+		         if(result > 0) { // 비밀번호 변경 성공
+
+			            // 로그아웃 == 세션 무효화
+			            session.invalidate();
+			            // 세션 무효화 시 현재 얻어온 세션을 사용할 수 없는 문제점이 있다!
+			            // -> 새로운 세션을 얻어와야한다.
+			            session = request.getSession();
+			            
+			            // 시작 주소
+			            url = request.getContextPath();
+			            
+			         }else if(result == 0) { 
+
+			            url = request.getHeader("referer");
+			            
+			         }else { // 현재 비밀번호 불일치
+
+			            url = request.getHeader("referer");
+			         }
+			         
+
+			         response.sendRedirect(url);
+	    	}
+	    	
+			//정보수정 컨츠롤러---------------------------
+	    	else if(command.equals("/updateMemberServlet.do")){
+	    		String pw1 = request.getParameter("pw1");
+	    		
+	    		
+	    		//전송된 파라미터를 변수에 저장
+	    		String memberNickname = request.getParameter("userNickname");
+	    		String memberPw = request.getParameter("pw1");
+	    		String memberEmail = request.getParameter("userEmail");
+	    		
+	    		String phone1 = request.getParameter("phone1");
+	    		String phone2 = request.getParameter("phone2");
+	    		String phone3 = request.getParameter("phone3");
+	    		String memberPhone = phone1 + "-" + phone2 + "-" + phone3; //전화번호를 '-' 구분자로 하여 하나로 합치기
+	    		session = request.getSession();
+	    		loginMember = (Member)session.getAttribute("loginMember");
+	    		
+	    		System.out.println(memberPw);
+	    		//얻어온 수정ㅇ 정보와 회원번호를 하나의 Member객체에 저장
+	    		member = new Member();
+	    		member.setMemNo( loginMember.getMemNo() );
+	    		member.setMemNick(memberNickname);
+	    		member.setMemEmail(memberEmail);
+	    		member.setMemTel(memberPhone);
+	    		
+	    			//비즈니스 로직 수행 후 결과 반환
+	    			int result = new MemberService().updateMember(member, memberPw); 	 
+	    			
+	    	         if(result > 0) { // 성공
+
+	    	            
+	    	            //DB데이터가 갱신된 경우 Session에 있는 회원 정보도 갱신되어야함
+	    	            //기존 로그인 정보에서 id를 얻어와 갱신에 사용된 member 객체에 저장
+	    	            member.setMemId(loginMember.getMemId());
+	    	            member.setMemGrade(loginMember.getMemGrade());
+	    	            
+	    	            //Session에 있는 loginmember 정보를 mmember로 갱신
+	    	            session.setAttribute("loginMember", member);
+	    	            System.out.println(loginMember);
+	    	            
+	    	         }
+	    	        
+	    	        //수정 완료 후 다시 내정보 페이지로 재요청
+	    	        response.sendRedirect("memberMyPage.do");
 	    	}
 			
 		} catch (Exception e) {
