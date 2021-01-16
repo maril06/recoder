@@ -48,7 +48,7 @@
 
 		<div class="search-area">
 
-			<form action="" method="GET" class="search-form" id="searchForm">
+			<form action="${contextPath}/searchNotice.do" method="GET" class="search-form" id="searchForm">
 
 				<input type="text" name="sv" class="form-control"
 					style="width: 150px; display: inline-block;" placeholder="제목으로 검색">
@@ -136,20 +136,77 @@
 
 		</div>
 
-
-
+		<c:choose>
+			
+					<%-- 검색 내용이 파라미터에 존재 할 때 == 검색을 통해 만들어진 페이지인가?--%>
+				<c:when test="${!empty param.sk && !empty param.sv }">
+					<c:url var="pageUrl" value="/searchNotice.do"/>				
+					
+					
+					<%-- 쿼리스트링으로 사용할 내용을 변수에 저장 --%>
+					<c:set var="searchStr" value="&sv=${param.sv}" />
+				</c:when>
+				
+				<c:otherwise>
+					<c:url var="pageUrl" value="/notice/list.do"/>
+				</c:otherwise>
+				
+		</c:choose>
+		<%-- 첫 페이지로 돌아가는 화살표 주소 --%>
+		<c:set var="fistPage" value="${pageUrl}?cp=1${searchStr}"/>
+		<%-- 마지막 페이지로 돌아가는 화살표 주소 --%>
+		<c:set var="lastPage" value="${pageUrl}?cp=${pInfo.maxPage}${searchStr}"/>
+			
+		<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
+		<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
 		
+		<c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr}"/>
+		
+		<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true"/>
+		<fmt:parseNumber var="next" value="${c2 * 10 + 1}" integerOnly="true"/>
+		
+		<c:set var="nextPage" value="${pageUrl}?cp=${next}${searchStr}"/>
 		
 		
 		<div class="my-5">
 			<ul class="pagination">
-				<li><a class="page-link" href="#">&lt;</a></li>
-				<li><a class="page-link" href="#">1</a></li>
-				<li><a class="page-link" href="#">2</a></li>
-				<li><a class="page-link" href="#">3</a></li>
-				<li><a class="page-link" href="#">4</a></li>
-				<li><a class="page-link" href="#">5</a></li>
-				<li><a class="page-link" href="#">&gt;</a></li>
+			
+			<c:if test="${pInfo.currentPage > 10}">
+				<li>
+					<a class="page-link" href="${fistPage}">&lt;&lt;</a>
+				</li>
+				<li>
+					<a class="page-link" href="${prevPage}">&lt;</a>
+				</li>
+			</c:if>
+			
+			<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}">
+				<c:choose>						<%--page는 1부터 10까지 --%>
+					<c:when test="${pInfo.currentPage == page}"> <%--페이지가 현재페이지와 같을 경우 --%>
+						<li>		
+							<a class="page-link">${page}</a> 
+						</li>
+					</c:when>
+					
+				<c:otherwise>
+					<li>
+						<a class="page-link" href="${pageUrl}?cp=${page}${searchStr}">${page}</a>	
+					</li>
+				</c:otherwise>
+				</c:choose>
+					
+			</c:forEach>			
+				<c:if test="${next <= pInfo.maxPage}">
+					<li>
+						<!-- 다음 페이지로 이동 (>) -->
+						<a class="page-link" href="${nextPage}">&gt;</a>
+					</li>
+					<li>
+						<!-- 마지막 페이지로 이동(>>) -->
+						<a class="page-link" href="${lastPage}">&gt;&gt;</a>
+					</li>
+				</c:if>
+
 			</ul>
 		</div>
 

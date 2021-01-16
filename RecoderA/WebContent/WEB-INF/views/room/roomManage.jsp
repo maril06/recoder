@@ -136,10 +136,10 @@
 		<%----------------- Pagination -------------------%>
 		<c:choose>
 
-			<c:when test="${!empty param.sk && !empty param.sv }">
+			<c:when test="${!empty param.sk}">
 				<c:url var="pageUrl" value="/searchRoom.do" />
 
-				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
+				<c:set var="searchStr" value="&sk=${param.sk}" />
 			</c:when>
 
 			<c:otherwise>
