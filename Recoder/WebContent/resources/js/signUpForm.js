@@ -111,25 +111,21 @@ $("#userid").on("input", function(){
 	
 });
 
-//이름 유효성 검사
-$("#name").on("input",function(){
-    var regExp = /^[가-힣]{2,}$/; // 한글 두 글자 이상
+
+
+//이메일 유효성 검사
+$("#email").on("input",function(){
+    var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/; // 4글자 아무단어 @ 아무단어 . * 3
     
-    var value = $("#name").val();
+    var value = $("#email").val();
     if(!regExp.test(value)){
-        $("#checkName").text("이름 형식이 유효하지 않습니다.").css("color","red");
-        validateCheck.name = false;
+        $("#checkEmail").text("이메일 형식이 유효하지 않습니다.").css("color","red");
+        validateCheck.email = false;
     }else{
-        $("#checkName").text("유효한 이름 형식입니다.").css("color","green");
-        validateCheck.name = true;
+        $("#checkEmail").text("유효한 이메일 형식입니다.").css("color","green");
+        validateCheck.email = true;
     }
 });
-
-
-
-
-
-
 
 
 
