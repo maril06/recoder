@@ -1,7 +1,6 @@
-package com.project.recoder.searchRoom.controller;
+package com.project.recoder.searchNotice.controller;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,55 +12,47 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.project.recoder.room.model.vo.PageInfo;
-import com.project.recoder.room.model.vo.Room;
-import com.project.recoder.searchRoom.model.service.SearchRoomService;
+import com.project.recoder.notice.model.vo.Notice;
+import com.project.recoder.notice.model.vo.PageInfo;
+import com.project.recoder.searchNotice.model.service.SearchNoticeService;
 
-
-@WebServlet("/searchRoom.do")
-public class SearchRoomController extends HttpServlet {
+@WebServlet("/searchNotice.do")
+public class SearchNoticeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-  
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String searchValue = request.getParameter("sv");
 	
-		String searchKey = request.getParameter("sk");
-		
-		
 		String cp = request.getParameter("cp");
 		
 		try {
-			
-			
-			SearchRoomService service = new SearchRoomService();
+			SearchNoticeService service = new SearchNoticeService();
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			map.put("searchKey", searchKey);
+			map.put("searchValue", searchValue);
 			
 			map.put("currentPage", cp);
 			
 			PageInfo pInfo = service.getPageInfo(map);
 			
-			List<Room> rList = service.searchRoomList(map, pInfo);
+			// 결과확인
+			System.out.println(pInfo);
 			
-//			System.out.println(pInfo);
-//			
-//			for(Room r : rList) {
-//				System.out.println(r);
+			List<Notice> nList = service.searchNoticeList(map, pInfo);
+			
+			//결과확인
+//			for(Notice n : nList) {
+//				System.out.println(n);
 //			}
 			
-			if(!rList.isEmpty()) {
-				request.setAttribute("rList", rList);
-			}
-			
-			String path = "/WEB-INF/views/room/roomManage.jsp";
-			request.setAttribute("rList", rList);
+			String path = "/WEB-INF/views/notice/noticeList.jsp";
+			request.setAttribute("nList", nList);
+			request.setAttribute("pInfo", pInfo);
 			
 			RequestDispatcher view = request.getRequestDispatcher(path);
 			view.forward(request, response);
-			
-			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -70,10 +61,9 @@ public class SearchRoomController extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher(path);
 			view.forward(request, response);
 		}
-		
-		
+	
+	
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
