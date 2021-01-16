@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import com.project.recoder.wrapper.EncryptWrapper;
 
 
-@WebFilter(urlPatterns = {"/member/login.do"})
+@WebFilter(urlPatterns = {"/login.do"})
 public class EncryptFilter implements Filter {
 	
     public EncryptFilter() {}
