@@ -144,6 +144,11 @@ public class MemberController extends HttpServlet {
 	    		view.forward(request, response);
 	    	}
 			
+			else if(command.equals("/updateMember.do")) {
+	    		path = "/WEB-INF/views/member/updateMember.jsp";
+	    		view = request.getRequestDispatcher(path);
+	    		view.forward(request, response);
+	    	}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
