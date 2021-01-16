@@ -35,7 +35,7 @@ public class CommonController extends HttpServlet {
 			//헤더에서 로그인 버튼 눌렀을 때 로그인 폼으로 이동 Controller------------------------------------------------
 			if (command.equals("/loginForm.do")) {
 				
-				path = "/WEB-INF/views/member/loginForm.jsp";
+				path = "/WEB-INF/views/common/loginForm.jsp";
 				
 				if(request.getSession().getAttribute("beforeUrl") == null) {
 					request.getSession().setAttribute("beforeUrl", request.getHeader("referer"));
@@ -52,6 +52,19 @@ public class CommonController extends HttpServlet {
 				
 				response.sendRedirect(request.getContextPath()); //메인으로
 				
+			}
+			
+			//회원가입 버튼 눌렀을 때 회원가입 폼으로 이동 Controller------------------------------------------------
+			else if(command.equals("/signUpForm.do")) {
+				path = "/WEB-INF/views/common/signUpForm.jsp";
+				
+				if(request.getSession().getAttribute("beforeUrl") == null) {
+					request.getSession().setAttribute("beforeUrl", request.getHeader("referer"));
+				}
+				
+				view = request.getRequestDispatcher(path);
+				
+				view.forward(request, response);
 			}
 			
 			

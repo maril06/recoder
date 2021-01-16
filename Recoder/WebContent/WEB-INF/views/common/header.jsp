@@ -40,7 +40,7 @@
               <c:choose>
             	<c:when test="${ empty sessionScope.loginMember}">      
                     <ul>
-                        <li><a href="${contextPath}/common/signUp.do">회원가입</a></li>
+                        <li><a href="${contextPath}/common/signUpForm.do">회원가입</a></li>
                         <li><a href="${contextPath}/common/loginForm.do">로그인</a></li>
                     </ul>
                 </c:when>
