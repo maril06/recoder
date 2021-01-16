@@ -70,12 +70,14 @@ $(".agree-item").on("click", function(){
 var validateCheck = {
 	"userid" : false,
 	"password" : false,
-	"confirm-password" : false,
+	"confirmpassword" : false,
 	"email" : false,
 	"nickname" : false,
-	"usertel" : false,
-	"agreement" : false
+	"usertel" : false
 }
+
+
+
 
 //아이디 유효성 검사
 //영어 대,소문자 + 숫자, 총 5-20글자
@@ -130,10 +132,10 @@ $("#email").on("input",function(){
 
 
 //비밀번호 검사
-$("#password").on("input",function(){
+$("#password, #confirmpassword").on("input",function(){
 	var regExp =/^[a-zA-Z\d]{6,20}$/;
     var value1= $("#password").val(); 
-	var value2 = $("#confirm-password").val(); 
+	var value2 = $("#confirmpassword").val(); 
 	
 	if(!regExp.test(value1)){
         $(".checkPw").text("비밀번호 형식이 유효하지 않습니다.").css("color","red");
@@ -145,25 +147,25 @@ $("#password").on("input",function(){
 	//비밀번호가 유효하지 않은 상태에서 비밀번호 확인 작성 시
     if(!validateCheck.password && value2.length > 0){
         swal("유효한 비밀번호를 먼저 작성해주세요");
-        $("#confirm-password").val(""); 
+        $("#confirmpassword").val(""); 
         $("#password").focus(); 
     }else{
         // + 비밀번호, 비밀번호 확인의 일치여부 
         if(value1.length == 0 || value2.length == 0){
             $(".checkPw2").html("&nbsp;");
-        }else if(v1 == v2){
+        }else if(value1 == value2){
             $(".checkPw2").text("비밀번호 일치").css("color","green");
-            validateCheck.pwd2 = true;
+            validateCheck.confirmpassword = true;
         }else{
             $(".checkPw2").text("비밀번호 불일치").css("color","red");
-            validateCheck.pwd2 = false;
+            validateCheck.confirmpassword = false;
         }
     }
 });
 
 //닉네임 유효성 검사
 $("#nickname").on("input",function(){
-	 var regExp = /^[가-힣]{2,}$/; // 한글 두 글자 이상
+	 var regExp = /^[가-힣a-zA-Z\d]{3,10}$/; //
     
     var value = $("#nickname").val();
     if(!regExp.test(value)){
@@ -193,7 +195,7 @@ $("#nickname").on("input",function(){
 
 //전화번호 유효성 검사
 // 전화번호 유효성 검사
-$(".usertel").on("input", function(){
+$("#usertel").on("input", function(){
     // input 태그에 number 타입은 maxvalue 설정이 안되기때문에
     // 전화번호 input 태그에 4글자 초과 입력하지 못하게 하는 이벤트
    if ($(this).val().length > 13) {
@@ -201,10 +203,10 @@ $(".usertel").on("input", function(){
     }
     
     var regExp = /^[\d]{3}-[\d]{4}-[\d]{4}$/;
-
+// /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
     var value = $("#usertel").val();
 
-    if(!regExp1.test(value)){
+    if(!regExp.test(value)){
         $(".checkPhone").text("전화번호 형식이 유효하지 않습니다.").css("color", "red");
         validateCheck.usertel = false;
     }else{
@@ -217,8 +219,41 @@ $(".usertel").on("input", function(){
 
 
 
+	
 //------------------------------------------------------------------
 function validate(){
+	//약관동의 검사
+	//동의체크
+	var agreeCheck = {
+		"agree1" : false,
+		"agree2" : false,
+		"agree3" : false,
+	}
+	if($("#agreeCheckbox").is(":checked")){
+		agreeCheck.agree1=true ;
+	}
+	
+	if($("#useTermsCheckbox").is(":checked")){
+		agreeCheck.agree2=true ;
+	}
+	
+	if($("#ageAgreeCheckbox").is(":checked")){
+		agreeCheck.agree3=true ;
+	}
+	
+	for(var a in agreeCheck){
+		if(!agreeCheck[a]){
+			var msg;
+			switch(a){
+				case "agree1": msg = "개인정보 수집 이용동의"; break;
+                case "agree2": msg = "my room 이용약관 "; break;
+                case "agree3": msg = "만 14세 미만 가입 제한"; break;
+			}
+			swal(msg + "에 동의해주세요.");
+			return false; 
+		}
+	}
+	
 	// 유효성 검사 여부 확인
     for(var key in validateCheck){
         if(!validateCheck[key]){
@@ -226,7 +261,7 @@ function validate(){
             switch(key){
                 case "userid"  : msg = "아이디가"; break;
                 case "password":  
-                case "confirm-password": msg = "비밀번호가"; break;
+                case "confirmpassword": msg = "비밀번호가"; break;
                 case "nickname": msg = "닉네임이 "; break;
                 case "usertel": msg = "전화번호가"; break;
                 case "email": msg = "이메일이"; break;
@@ -240,12 +275,5 @@ function validate(){
         }
     }
 
-	//약관동의 검사
-	if($("input:checkbox[class=required-agree-item]:checked").length == 3) {
-		validateCheck.agreement = true;
-	}else{
-		swal("필수 약관에 동의해주세요.");
-		return false;
-	}
 
 }

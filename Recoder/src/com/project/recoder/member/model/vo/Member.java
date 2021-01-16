@@ -38,6 +38,18 @@ public class Member {
 		this.memGrade = memGrade;
 	}
 
+	
+	
+	//회원가입용 생성자
+	public Member(String memId, String memPw, String memNick, String memTel, String memEmail) {
+		super();
+		this.memId = memId;
+		this.memPw = memPw;
+		this.memNick = memNick;
+		this.memTel = memTel;
+		this.memEmail = memEmail;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}

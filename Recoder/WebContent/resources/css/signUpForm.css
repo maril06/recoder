@@ -15,7 +15,6 @@
  body {
     background:#FAF3EC;
     font-family: 'TmoneyRoundWindExtraBold';
-    /* font-family: 'Roboto'; */
  }
  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
    /* color: #748194; */
@@ -155,8 +154,14 @@
 }
 
  .validate-area{
+ 	display:inline-block;
      height: 25px;
+     margin: 0 180px;
+     font-size: 10px;
+     font-family: 'IBMPlexSansKR-Regular';
+     
  }
+ 
  .btn{
    font-family: 'IBMPlexSansKR-Regular';
     font-weight: bold;

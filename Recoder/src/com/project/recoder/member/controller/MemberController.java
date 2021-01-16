@@ -28,6 +28,7 @@ public class MemberController extends HttpServlet {
 		
 		String errorMsg = null;
 		
+		HttpSession session = request.getSession();
 		// 현재 페이지를 얻어옴
 		String cp = request.getParameter("cp");
 		
@@ -36,6 +37,7 @@ public class MemberController extends HttpServlet {
 		try {
 			//일반회원 로그인 controller
 			if (command.equals("/login.do")) {
+				errorMsg = "로그인 과정에서 오류 발생";
 				String memId = request.getParameter("userId"); //아이디
 				String memPw = request.getParameter("userPw"); //비번
 				String remember = request.getParameter("remember"); //아이디 저장
@@ -46,7 +48,7 @@ public class MemberController extends HttpServlet {
 				
 					Member loginMember = service.loginMember(member);
 					
-					HttpSession session = request.getSession();
+					session = request.getSession();
 					
 					String url = null;
 					
@@ -82,6 +84,57 @@ public class MemberController extends HttpServlet {
 					}
 					
 					response.sendRedirect(url);
+					
+			}
+			
+			
+			//회원가입 contolloer -------------------------------------------------------------------------------
+			else if(command.equals("/signUp.do")) {
+				errorMsg = "회원가입 과정에서 오류 발생";
+				
+				//전달받은 파라미터를 모두 변수에 저장
+				String memId = request.getParameter("userid");
+				String memPw = request.getParameter("password");
+				String confirmpassword = request.getParameter("confirmpassword");
+				String memEmail = request.getParameter("email");
+				String memNick = request.getParameter("nickname");
+				String memTel = request.getParameter("usertel");
+				
+				String url = null;
+				
+				//Member객체를 생성하여 파라미터를 모두 저장
+				Member member = new Member(memId, memPw, memNick, memTel, memEmail);
+				
+					int result = service.signUp(member);
+
+					String swalIcon = null;
+					String swalTitle = null;
+					String swalText = null;
+					
+					if(result>0) { //성공
+						swalIcon = "success";
+						swalTitle = "회원가입 성공!";
+						swalText = memNick + "님의 회원가입을 환영합니다.";
+						url = (String)session.getAttribute("beforeUrl");
+					}else { //실패
+						swalIcon = "error";
+						swalTitle = "회원가입 실패!";
+						swalText = "문제가 지속될 경우 고객센터로 문의 바랍니다.";
+						url = request.getHeader("referer"); 
+						
+						String Burl = (String)session.getAttribute("Burl");
+						session.setAttribute("Burl",  Burl);
+					}
+					
+					session = request.getSession();
+					
+					session.setAttribute("swalIcon", swalIcon);
+					session.setAttribute("swalTitle", swalTitle);
+					session.setAttribute("swalText", swalText);
+					
+					//회원가입 진행 후 메인 페이지로 이동(메인 화면 재요청)
+					response.sendRedirect(request.getContextPath());
+					
 					
 			}
 			
