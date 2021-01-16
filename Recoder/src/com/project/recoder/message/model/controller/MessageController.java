@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.project.recoder.message.model.service.MessageService;
+
 @WebServlet("/message/*")
 public class MessageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,13 +30,40 @@ public class MessageController extends HttpServlet {
 		String cp = request.getParameter("cp");
 		
 		try {
-			if (command.equals("/message.do")) {
+			
+			MessageService service = new MessageService();
+			
+			// 쪽지 보내기 ======================================================================================
+			if (command.equals("/messageSend.do")) {
+				
+				String msgContext = request.getParameter("msgContext");
+				int brokerNo = Integer.parseInt(request.getParameter("brokerNo"));
+				int myNo = Integer.parseInt(request.getParameter("myNo"));
+				System.out.println(msgContext);
+				System.out.println(brokerNo);
+				System.out.println(myNo);
+				
+				int result = service.messageSend(msgContext, brokerNo, myNo);
+				
+				if(result > 0) {
+					System.out.println("메시지 전달 성공");
+					
+					path = "/WEB-INF/views/message/message.jsp";
+				    view = request.getRequestDispatcher(path);
+				    view.forward(request, response);
+				}
+
+			}
+			
+			else if(command.equals("/messageSend")) {
 				
 				
 				
-				path = "/WEB-INF/views/message/message.jsp";
-			    view = request.getRequestDispatcher(path);
-			    view.forward(request, response);
+				
+				
+				
+				
+				
 			}
 			
 			
