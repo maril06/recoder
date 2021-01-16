@@ -35,7 +35,7 @@
              <input name="password" id="password" type="password" placeholder="비밀번호 *" class="username"/>
              <div class="validate-area checkPw"></div>
              <input name="confirm-password" id="confirm-password" type="password" placeholder="비밀번호 확인 *" class="username"/>
-             <div class="validate-area"></div>
+             <div class="validate-area checkPw2" ></div>
              <input name="email" id="email" type="email" placeholder="이메일 *" class="username"/>
              <div class="validate-area"></div>
              <input name="nickname" id="nickname" type="text" placeholder="닉네임 " class="username"/>

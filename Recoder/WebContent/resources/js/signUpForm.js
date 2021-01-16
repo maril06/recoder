@@ -111,10 +111,19 @@ $("#userid").on("input", function(){
 	
 });
 
+//닉네임 유효성 검사 & 중복검사
+
+
+
+
+
+
+
 //비밀번호 유효성 검사
 $("#password").on("input", function(){
+	
 	var regExp = /^[a-zA-Z\d]{5,20}$/;
-	var value1 = $("#password").val(); 
+	var  = $("#password").val(); 
 	var value2 = $("#confirm-password").val(); 
 	
 	if(!regExp.test(value)){
@@ -122,8 +131,25 @@ $("#password").on("input", function(){
         validateCheck.password = false;
     }else{
 		 $(".checkPw").text("유효한 비밀번호 형식입니다.").css("color","green");
-        validateCheck.pwd1 = true;
+        validateCheck.password = true;
 	
+	//비밀번호가 유효하지 않은 상태에서 비밀번호 확인 작성 시
+    if(!validateCheck.password && value2.length > 0){
+        swal("유효한 비밀번호를 먼저 작성해주세요");
+        $("#confirm-password").val(""); //비밀번호 확인에 입력한값 삭제
+        $("#password").focus(); // pwd1으로 포커스 이동
+    }else{
+        // + 비밀번호, 비밀번호 확인의 일치여부 
+        if(value1.length == 0 || value2.length == 0){
+            $(".checkPw2").html("&nbsp;");
+        }else if(v1 == v2){
+            $(".checkPw2").text("비밀번호 일치").css("color","green");
+            validateCheck.pwd2 = true;
+        }else{
+            $(".checkPw2").text("비밀번호 불일치").css("color","red");
+            validateCheck.pwd2 = false;
+        }
+    }
 }
 	
 });
