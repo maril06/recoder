@@ -111,23 +111,21 @@ $("#userid").on("input", function(){
 	
 });
 
-//비밀번호 유효성 검사
-$("#password").on("input", function(){
-	var regExp = /^[a-zA-Z\d]{5,20}$/;
-	var value1 = $("#password").val(); 
-	var value2 = $("#confirm-password").val(); 
-	
-	if(!regExp.test(value)){
-        $(".checkPw").text("비밀번호 형식이 유효하지 않습니다.").css("color","red");
-        validateCheck.password = false;
-    }else{
-		 $(".checkPw").text("유효한 비밀번호 형식입니다.").css("color","green");
-        validateCheck.pwd1 = true;
-	
-}
-	
-});
 
+
+//이메일 유효성 검사
+$("#email").on("input",function(){
+    var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/; // 4글자 아무단어 @ 아무단어 . * 3
+    
+    var value = $("#email").val();
+    if(!regExp.test(value)){
+        $("#checkEmail").text("이메일 형식이 유효하지 않습니다.").css("color","red");
+        validateCheck.email = false;
+    }else{
+        $("#checkEmail").text("유효한 이메일 형식입니다.").css("color","green");
+        validateCheck.email = true;
+    }
+});
 
 
 
