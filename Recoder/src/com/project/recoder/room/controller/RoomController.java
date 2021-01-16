@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
+import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.common.MyFileRenamePolicy;
 import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.room.model.service.RoomService;
@@ -48,7 +49,6 @@ public class RoomController extends HttpServlet {
 			// 매물 등록 창 =================================================================================================
 			if(command.equals("/roomInsertForm.do")) {
 
-				System.out.println(1);
 				path = "/WEB-INF/views/room/roomsInfoInsert.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
@@ -142,7 +142,7 @@ public class RoomController extends HttpServlet {
 				String stationAddr = multiRequest.getParameter("stationAddr");
 				
 				// 로그인 얻어오기
-				Member loginMember = (Member)request.getSession().getAttribute("loginMember");
+				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
 				
 //				int roomBroker = loginMember.getMemNo2();
 				int roomBroker = loginMember.getMemNo();
@@ -215,14 +215,11 @@ public class RoomController extends HttpServlet {
 				
 				// 매물 번호
 				//int roomNo = Integer.parseInt(request.getParameter("no"));
-				int roomNo = 3;
-				
+				int roomNo = 41;
 				Room room = service.updateView(roomNo);
-				
 				if(room !=null) {
 					List<RoomImg> mList = service.selectRoomImg(roomNo);
-					
-					if(mList.isEmpty()) {
+					if(!mList.isEmpty()) {
 						request.setAttribute("mList", mList);
 					}
 					
@@ -230,6 +227,7 @@ public class RoomController extends HttpServlet {
 	        		path = "/WEB-INF/views/room/roomsInfoUpdate.jsp";
 				    view = request.getRequestDispatcher(path);
 				    view.forward(request, response);
+				    
 	        		
 				}else {
 	        		response.sendRedirect(request.getHeader("referer"));
@@ -274,7 +272,7 @@ public class RoomController extends HttpServlet {
 	        	
 	        	// 매물 번호 받아오기
 //	        	int roomNo = Integer.parseInt(mRequest.getParameter(""));
-	        	int roomNo = 33;
+	        	int roomNo = 41;
 	        	
 	        	
 	        	List<RoomImg> mList = new ArrayList<RoomImg>();
@@ -311,7 +309,7 @@ public class RoomController extends HttpServlet {
 	        		}
 				} // end while
 	        	
-	        	int memNo = ((Member)request.getSession().getAttribute("loginMember")).getMemNo();
+	        	int memNo = ((Broker)request.getSession().getAttribute("loginMember")).getMemNo();
 	        	
 	        	Map<String, Object> map = new HashMap<String, Object>();
 				
@@ -339,7 +337,9 @@ public class RoomController extends HttpServlet {
 				map.put("fridge", fridge);
 				map.put("womanOnly", womanOnly);
 				map.put("pet", pet);
-				map.put("memNo", memNo);
+				map.put("roomNo", roomNo);
+				
+				map.put("mList" ,mList);
 				
 				int result = service.roomUpdate(map);
 				
@@ -354,7 +354,7 @@ public class RoomController extends HttpServlet {
 	        	}
 	        	
 	        	if(result > 0){
-	        		System.out.println("성공");
+	        		System.out.println("수정 성공");
 	        	}else {
 	        		System.out.println("실패");
 	        	}
@@ -384,7 +384,9 @@ public class RoomController extends HttpServlet {
 			
 			// 매물 상세 =================================================================================================
 			else if(command.equals("/view.do")) {
-				int roomNo = 3; // 임시
+				
+				int roomNo = 41; // 임시
+				// request.getParameter로 얻어와야함!!
 				
 
 				Room room = service.selectRoom(roomNo);

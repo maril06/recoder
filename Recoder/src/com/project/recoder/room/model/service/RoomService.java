@@ -105,8 +105,10 @@ public class RoomService {
 
 	public Room updateView(int roomNo) throws Exception {
 		Connection conn = getConnection();
-		
-		return null;
+		Room room = dao.selectRoom(conn, roomNo);
+		room.setRoomInfo(room.getRoomInfo().replaceAll("<br>", "\r\n"));
+		close(conn);
+		return room;
 	}
 	
 
@@ -114,13 +116,16 @@ public class RoomService {
 		Connection conn = getConnection();
 		int result = 0;
 		
+		
+		System.out.println(map);
 		List<RoomImg> deleteFiles = null; 
 		
 		map.put("roomTitle", replaceParameter((String)map.get("roomTitle")));
 		map.put("roomInfo", replaceParameter((String)map.get("roomInfo")));
 		try {
-			result = dao.roomInsert(conn, map);
+			result = dao.roomUpdate(conn, map);
 			List<RoomImg> newImgList = (List<RoomImg>)map.get("mList");
+			System.out.println(newImgList);
 			if(result > 0 && !newImgList.isEmpty()) {
 				
 				List<RoomImg> oldImgList = dao.selectRoomImg(conn, (int)map.get("boardNo"));
@@ -173,6 +178,8 @@ public class RoomService {
 			
 		}catch (Exception e) {
 			List<RoomImg> mList = (List<RoomImg>)map.get("mList");
+			
+			System.out.println(mList);
 			
 			if (!mList.isEmpty()) {
 				for(RoomImg img : mList) {
