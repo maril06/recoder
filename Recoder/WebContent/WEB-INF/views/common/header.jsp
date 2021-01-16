@@ -38,7 +38,7 @@
                <%--헤더 오른쪽 영역 --%>
                  <div class="loginInfoArea">
               <c:choose>
-            <c:when test="${ empty sessionScope.loginMember}">      
+            	<c:when test="${ empty sessionScope.loginMember}">      
                     <ul>
                         <li><a href="${contextPath}/common/signUp.do">회원가입</a></li>
                         <li><a href="${contextPath}/common/loginForm.do">로그인</a></li>
@@ -47,10 +47,14 @@
                 <c:otherwise>
                 <div class="loginInfo">
                   <span id="nickName">${loginMember.memNick}님</span>
-                     <a href="${contextPath}/member/myPage.do" id="myPage">마이페이지</a>
-                     <a href="${contextPath}/member/logout.do" id="logout">Logout</a>
+                  	<c:if test="${sessionScope.loginMember.memGrade =='G'}">
+                     <a href="${contextPath}/member/myPage.do" id="myPage">G마이페이지</a>
+                    </c:if>
+                 	<c:if test="${sessionScope.loginMember.memGrade =='B'}">
+                      <a href="${contextPath}/broker/myPage.do" id="myPage">B마이페이지</a>
+                	</c:if>
+                     <a href="${contextPath}/common/logout.do" id="logout">Logout</a>
                  </div>
-                </div>
                 </div>
                    
                 </c:otherwise>
