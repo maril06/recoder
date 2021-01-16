@@ -138,6 +138,12 @@ public class MemberController extends HttpServlet {
 					
 			}
 			
+			else if(command.equals("/memberMyPage.do")) {
+	    		path = "/WEB-INF/views/member/memberMyPage.jsp";
+	    		view = request.getRequestDispatcher(path);
+	    		view.forward(request, response);
+	    	}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
