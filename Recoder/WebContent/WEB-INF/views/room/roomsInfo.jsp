@@ -40,7 +40,7 @@
         <!-- header -->
 		<jsp:include page="../common/header.jsp"></jsp:include>
 
-        
+         
         
         <!-- section menu -->
         <section class="menu">
