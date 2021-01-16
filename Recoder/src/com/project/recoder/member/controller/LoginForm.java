@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/member/loginForm.do")
+@WebServlet("/common/loginForm.do")
 public class LoginForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -70,9 +70,34 @@ public class MemberDAO {
 		return loginMember;
 	}
 
-	public Broker loginBroker(Member loginMember, Connection conn) throws Exception{
-		// TODO Auto-generated method stub
-		return null;
+	/** 공인중개사 추가정보 조회 DAO
+	 * @param memNo2
+	 * @param conn
+	 * @return broker
+	 * @throws Exception
+	 */
+	public Broker loginBroker(int memNo2, Connection conn) throws Exception{
+		Broker loginBroker = null;
+		
+		String query = prop.getProperty("loginBroker");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, memNo2);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				loginBroker = new Broker();
+				loginBroker.setBrokderCreti(rset.getString(1));
+				loginBroker.setBrokderAddr(rset.getString(2));
+			}
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return loginBroker;
 	}
 
 }
