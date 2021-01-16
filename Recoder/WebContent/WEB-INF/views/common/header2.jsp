@@ -28,7 +28,9 @@
                         <li><a href="#"><span><b>방찾기</b></span></a></li>
                         <li><a href="${contextPath}/room/roomUpdate.do"><span><b>방 내놓기</b></span></a></li>
                         <li><a href="#"><span><b>찜 방</b></span></a></li>
-                        <li><a href="#"><span><b>게시판</b></span></a></li>
+                        <li><a href="#"><span><b>공지사항</b></span></a></li>
+                        <li><a href="#"><span><b>자유게시판</b></span></a></li>
+                        <li><a href="#"><span><b>쪽지함</b></span></a></li>
                     </ul>
                 </div>
                 <div class="menu_right">

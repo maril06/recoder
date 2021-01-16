@@ -4,6 +4,7 @@ import static com.project.recoder.common.JDBCTemplate.*;
 
 import java.io.File;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -113,13 +114,106 @@ public class RoomService {
 		Connection conn = getConnection();
 		int result = 0;
 		
+		List<RoomImg> deleteFiles = null; 
 		
-		
-		if (result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
+		map.put("roomTitle", replaceParameter((String)map.get("roomTitle")));
+		map.put("roomInfo", replaceParameter((String)map.get("roomInfo")));
+		try {
+			result = dao.roomInsert(conn, map);
+			List<RoomImg> newImgList = (List<RoomImg>)map.get("mList");
+			if(result > 0 && !newImgList.isEmpty()) {
+				
+				List<RoomImg> oldImgList = dao.selectRoomImg(conn, (int)map.get("boardNo"));
+				
+				result = 0; // result 재활용
+				deleteFiles = new ArrayList<RoomImg>();
+				
+				
+				for(RoomImg newFile: newImgList) {
+					
+					// flag가 false인 경우 : 새 이미지와 기존 이미지의 파일 레벨이 중복되는 경우 -> update
+					// flag가 true인 경우 : 새 이미지와 기존 이미지의 파일 레벨이 중복되지 않은 경우 -> insert
+					boolean flag = true;
+					
+					// 기존 이미지 정보 반복 접근
+					for (RoomImg oldFile: oldImgList) {
+						
+						// 새로운 이미지와 기존 이미지의 파일레벨이 동일한 파일이 있다면 
+						if(newFile.getRoomImgLevel() == oldFile.getRoomImgLevel()	) {
+							
+							// 기존 파일을 삭제 List에 추가
+							deleteFiles.add(oldFile);
+							
+							// 새 이미지 정보에 이전 파일 번호를 추가 -> 파일 번호를 이용한 수정 진행
+							newFile.setRoomImgNo(oldFile.getRoomImgNo());
+							
+							flag = false;
+						
+							break;
+						}
+						
+					}
+					
+					// flag 값에 따라 파일 정보 insert 또는 update 수행
+					if(flag) {
+						result = dao.insertImg(conn, newFile);
+					}else {
+						result = dao.updateImgFile(conn, newFile);
+					}
+					
+					// 파일 정보 삽입 또는 수정 중 실패 시 
+					if(result == 0) {
+						// 강제로 사용자 정의 예외 발생
+						throw new FileInsertFailedException("사진 정보 삽입 또는 수정 실패");
+					}
+					
+				}
+				
+			}
+			
+		}catch (Exception e) {
+			List<RoomImg> mList = (List<RoomImg>)map.get("mList");
+			
+			if (!mList.isEmpty()) {
+				for(RoomImg img : mList) {
+					String filePath = img.getRoomImgPath();
+					String fileName = img.getRoomImgName();
+					
+					File deleteFile = new File(filePath + fileName);
+					
+					if (deleteFile.exists()) {
+						deleteFile.delete(); 
+						
+					}
+				}
+			}
+			
+			throw e;
 		}
+		
+				 
+		result = dao.roomUpdate(conn, map);
+		
+			if(result > 0) {
+				commit(conn);
+				
+				// DB 정보와 맞지 않는 파일 (deleteFiles) 삭제 진행
+				if(deleteFiles != null) {
+					for(RoomImg img : deleteFiles) {
+						
+						String filePath = img.getRoomImgPath();
+						String fileName = img.getRoomImgName();
+						
+						File deleteFile = new File(filePath + fileName);
+						
+						if(deleteFile.exists()) {
+							deleteFile.delete();
+						}
+					}
+				}
+			} else {
+				rollback(conn);
+			}
 		
 		close(conn);
 		return result;

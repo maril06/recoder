@@ -46,7 +46,7 @@ public class Login extends HttpServlet {
 		//4. Member 객체를 Service로 전달하여 결과를 반환받기
 		//(로그인이란? id/pw가 일치하는 회원정보를 DB에서 조회해 오는 것)
 			Member loginMember = new MemberService().loginMember(member);
-			
+
 		// 6. Session 객체를 얻어와 로그인 정보를 추가함
 			HttpSession session = request.getSession();
 			

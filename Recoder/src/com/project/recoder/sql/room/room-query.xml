@@ -50,6 +50,21 @@
 	</entry>
 	
 	<!--  -->
+	<entry key="updateImgFile">
+		UPDATE ROOM_IMG SET ROOM_IMG_PATH = ?, ROOM_IMG_NAME = ? WHERE ROOM_IMG_NO = ?
+	</entry>
+	
+	<!--  -->
+	<entry key="">
+		
+	</entry>
+	
+	<!--  -->
+	<entry key="">
+		
+	</entry>
+	
+	<!--  -->
 	<entry key="">
 		
 	</entry>

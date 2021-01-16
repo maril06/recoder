@@ -234,6 +234,46 @@ public class RoomDAO {
 		return mList;
 	}
 
+	public int roomUpdate(Connection conn, Map<String, Object> map) throws Exception{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int insertImgFile(Connection conn, RoomImg newFile) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("insertImgFile");
+		
+		try {
+			
+	
+			pstmt = conn.prepareStatement(query);
+			
+			result = pstmt.executeUpdate();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateImgFile(Connection conn, RoomImg newFile) throws Exception {
+		int result = 0;
+		String query = prop.getProperty("updateAttachment");
+		
+				
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, newFile.getRoomImgPath());
+			pstmt.setString(2, newFile.getRoomImgName());
+			pstmt.setInt(3,newFile.getRoomImgNo());
+			
+			result = pstmt.executeUpdate();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 	
 	
