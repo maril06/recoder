@@ -138,6 +138,7 @@ a:hover{
     margin-bottom: 30px;
 }
 .images .images_wrapper .main_image img {
+    height: 600px;
 
 }
 .images .images_wrapper .mini_image {

@@ -61,20 +61,19 @@
         <section class="images">
             <div class="images_wrapper">
                 <div class="main_image slider-for">
-                    <img src="images/bg1.jpg" alt="">
-                    <img src="images/bg2.jpg" alt="">
-                    <img src="images/bg3.jpg" alt="">
-                    <img src="images/bg1.jpg" alt="">
-                    <img src="images/bg2.jpg" alt="">
-                    <img src="images/bg3.jpg" alt="">
+                <c:if test="${!empty mList }">
+	                <c:forEach var="file" items="${mList}" varStatus="vs" >
+	                    <img src="${contextPath}/resources/images/rooms/${file.roomImgName}" alt="" id="${file.roomImgNo}">
+                    </c:forEach>
+                </c:if>
+                    
                 </div>
                 <div class="mini_image slider-nav">
-                    <img src="images/bg1.jpg" alt="">
-                    <img src="images/bg2.jpg" alt="">
-                    <img src="images/bg3.jpg" alt="">
-                    <img src="images/bg1.jpg" alt="">
-                    <img src="images/bg2.jpg" alt="">
-                    <img src="images/bg3.jpg" alt="">
+                	<c:if test="${!empty mList }">
+		                <c:forEach var="file" items="${mList}" varStatus="vs" >
+		                    <img src="${contextPath}/resources/images/rooms/${file.roomImgName}" alt="" id="${file.roomImgNo}">
+	                    </c:forEach>
+	                </c:if>
                 </div>
             </div>
             

@@ -38,15 +38,10 @@
         <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
 		<jsp:include page="../common/header.jsp"></jsp:include>
 
-
-		<c:if test="${!empty param.sk && !empty param.sv}">
-			<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/>
-		</c:if>
-		
 		
         <h2>매물 수정</h2>
-        
-        <form action="roomUpdate.do?cp=${param.cp}&no=${param.no}${searchStr}" method="POST"  enctype="multipart/form-data" role="form" onsubmit="return updateValidate();">
+        <!-- ${contextPath}/room/roomUpdate.do -->
+        <form action="${contextPath}/room/roomUpdate.do" id="updateForm" method="POST"  enctype="multipart/form-data" role="form"onsubmit="return updateValidate();">
         
             <!-- update image -->
             <section class="images">
@@ -54,44 +49,44 @@
                 <span>빈 공간을 클릭해주세요</span>
                 <div class="images_wrapper">
                     <div class="img_list">
-                        <img alt="">
+                        <img alt="" id="img0">
                     </div>
                     <div class="img_list">
-                        <img alt="">
+                        <img alt="" id="img1">
                     </div>
                     <div class="img_list">
-                        <img alt="">
+                        <img alt="" id="img2">
                     </div>
                     <div class="img_list">
-                        <img alt="">
+                        <img alt="" id="img3">
                     </div>
                     <div class="img_list">
-                        <img alt="">
+                        <img alt="" id="img4">
                     </div>
                     <div class="img_list">
-                        <img alt="">
+                        <img alt="" id="img5">
                     </div>
                     <div class="img_list">
-                        <img alt="">
+                        <img alt="" id="img6">
                     </div>
                     <div class="img_list">
-                        <img alt="">
+                        <img alt="" id="img7">
                     </div>
                     <div class="img_list">
-                        <img alt="">
+                        <img alt="" id="img8">
                     </div>
                 </div>
 
                 <div id="fileArea">
-                    <input type="file" id="img0" onchange="LoadImg(this,0)" name="img0">
-                    <input type="file" id="img1" onchange="LoadImg(this,1)" name="img1">
-                    <input type="file" id="img2" onchange="LoadImg(this,2)" name="img2">
-                    <input type="file" id="img3" onchange="LoadImg(this,3)" name="img3">
-                    <input type="file" id="img4" onchange="LoadImg(this,4)" name="img4">
-                    <input type="file" id="img5" onchange="LoadImg(this,5)" name="img5">
-                    <input type="file" id="img6" onchange="LoadImg(this,6)" name="img6">
-                    <input type="file" id="img7" onchange="LoadImg(this,7)" name="img7">
-                    <input type="file" id="img8" onchange="LoadImg(this,8)" name="img8">
+                    <input type="file" id="img_0" onchange="LoadImg(this,0)" name="img0">
+                    <input type="file" id="img_1" onchange="LoadImg(this,1)" name="img1">
+                    <input type="file" id="img_2" onchange="LoadImg(this,2)" name="img2">
+                    <input type="file" id="img_3" onchange="LoadImg(this,3)" name="img3">
+                    <input type="file" id="img_4" onchange="LoadImg(this,4)" name="img4">
+                    <input type="file" id="img_5" onchange="LoadImg(this,5)" name="img5">
+                    <input type="file" id="img_6" onchange="LoadImg(this,6)" name="img6">
+                    <input type="file" id="img_7" onchange="LoadImg(this,7)" name="img7">
+                    <input type="file" id="img_8" onchange="LoadImg(this,8)" name="img8">
                 </div>
                 
             </section>
@@ -101,8 +96,8 @@
             <!-- update roomInfo -->
             <section class="room_info">
                 <div class="room_content">
-                    제목을 수정해주세요 <input type="text" class="title" id="roomTitle" name="roomTitle" placeholder="제목">
-                    내용을 수정해주세요 <textarea class="about" id="roomInfo" name="roomInfo"></textarea>
+                    제목을 수정해주세요 <input type="text" class="title" id="roomTitle" name="roomTitle" placeholder="제목" value="${room.roomTitle }">
+                    내용을 수정해주세요 <textarea class="about" id="roomInfo" name="roomInfo">${room.roomInfo }</textarea>
                 </div>
 
                 <div class="room_detail">
@@ -115,14 +110,14 @@
                         <tbody>
                             <tr>
                                 <th scope="row" >지역</th>
-                                <td colspan="3" id="area"><input type="text" id="roomAddr" name="roomAddr"></td>
+                                <td colspan="3" id="area"><input type="text" id="roomAddr" name="roomAddr" value="${room.roomAddr }"></td>
                             </tr>
                             <tr>
                                 <th scope="row" >관리비</th>
-                                <td><input type="text" id="careFee" name="careFee"></td>
+                                <td><input type="text" id="careFee" name="careFee" value="${room.careFee }"></td>
                                 <th scope="row">월세/전세</th>
                                 <td>
-                                    <select name="typeOfRent" id="typeOfRent">
+                                    <select name="typeOfRent" id="typeOfRent" value="${room.typeOfRent }">
                                         <option value="1">월세</option>
                                         <option value="2">전세</option>
                                     </select>
@@ -130,38 +125,38 @@
                             </tr>
                             <tr>
                                 <th scope="row">보증금</th>
-                                <td><input type="text" id="deposit" name="deposit"></td>
+                                <td><input type="text" id="deposit" name="deposit" value="${room.deposit }"></td>
                                 <th scope="row">월세</th>
-                                <td><input type="text" id="monthRent" name="monthRent"></td>
+                                <td><input type="text" id="monthRent" name="monthRent" value="${room.monthRent }"></td>
                             </tr>
                             <tr>
                                 <th scope="row">구조</th>
                                 <td>
-                                    <select name="roomStruc" id="roomStruc">
+                                    <select name="roomStruc" id="roomStruc" value="${room.roomStruc }">
                                         <option value="분리형원룸">분리형원룸</option>
                                         <option value="복층">복층</option>
                                         <option value="단층">단층</option>
                                     </select>
                                 </td>
                                 <th scope="row">층수</th>
-                                <td><input type="text" id="roomFloor" name="roomFloor"></td>
+                                <td><input type="text" id="roomFloor" name="roomFloor" value="${room.roomFloor }"></td>
                             </tr>
                             <tr>
                                 <th scope="row">공급면적</th>
-                                <td><input type="text" id="pubSize" name="pubSize"></td>
+                                <td><input type="text" id="pubSize" name="pubSize" value="${room.pubSize }"></td>
                                 <th scope="row">전용면적</th>
-                                <td><input type="text" id="realSize" name="realSize"></td>
+                                <td><input type="text" id="realSize" name="realSize" value="${room.realSize }"></td>
                             </tr>
                             <tr>
                                 <th scope="row">방갯수</th>
                                 <td>
-                                    <select name="roomCount" id="roomCount">
+                                    <select name="roomCount" id="roomCount" value="${room.roomCount }">
                                         <option value="1">원룸</option>
                                         <option value="2">투룸</option>
                                     </select>
                                 </td>
                                 <th scope="row">근쳐 지하철역</th>
-                                <td><input type="text" id="stationAddr" name="stationAddr"></td>
+                                <td><input type="text" id="stationAddr" name="stationAddr"  value="${room.stationAddr }"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -186,7 +181,7 @@
                             
                         </ul>
                         
-                        <ul class="none" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)" class="items">
+                        <ul id="none" class="none" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)" class="items">
                             
                         </ul>
                         
@@ -221,7 +216,7 @@
 	        </section>
             
             <div class="form_btn">
-                <button type="submit" class="btn btn-primary" id="addRoom">수정</button>
+                <button type="submit" class="btn btn-primary" id="update">수정</button>
                 <button type="button" class="btn btn-secondary">이전으로</button>
             </div>
         </form>
@@ -235,8 +230,7 @@
 
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8035352f3860f77b021b6c64824a3b93&libraries=services"></script>
 	<script>
-	
-	console.log($("#area"))
+
 	$("#roomAddr").blur(function(){
 		
 		// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -280,6 +274,21 @@
 		    } 
 		}
 	})
+
+	$(function () {
+       $("#fileArea").hide();
+
+      $(".img_list").on("click",function(){
+        var index = $(".img_list").index(this);
+        $("#img_" + index).click();
+      });
+    });
+		 
+	
+	
+	<c:forEach var="mFile" items="${mList}">
+ 			$(".img_list").eq(${mFile.roomImgLevel}).children("img").attr("src", "${contextPath}/resources/images/rooms/${mFile.roomImgName}"); 
+	</c:forEach>
 	</script>
 </body>
 </html>

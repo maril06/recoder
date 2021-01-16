@@ -55,8 +55,14 @@
 	</entry>
 	
 	<!--  -->
-	<entry key="">
-		
+	<entry key="roomUpdate">
+		UPDATE ROOM SET ROOM_ADDR = ? ,TYPE_OF_RENT = ?,DEPOSIT = ? ,MONTH_RENT = ?,
+						  CARE_FEE = ?,PUB_SIZE = ?,REAL_SIZE = ?,ROOM_FLOOR = ?,ROOM_STRUC = ?,
+						  ROOM_COUNT = ?, TV = ?,INTERNET = ?,AIR_CON = ?,WASHING = ?,
+						  FRIDGE = ?,BED = ?,CLOSET = ?,WOMEN_ONLY = ?,PET = ?,
+						  PARKING = ?,ROOM_TITLE = ?,ROOM_INFO = ?,
+						  STATION_ADDR = ?
+                          WHERE ROOM_NO = ?
 	</entry>
 	
 	<!--  -->

@@ -235,8 +235,43 @@ public class RoomDAO {
 	}
 
 	public int roomUpdate(Connection conn, Map<String, Object> map) throws Exception{
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		String query = prop.getProperty("roomUpdate");
+			try {
+				pstmt = conn.prepareStatement(query);
+				
+				pstmt.setString(1, (String)map.get("roomAddr"));
+				pstmt.setString(2, (String)map.get("typeOfRent"));
+				pstmt.setInt(3, (int)map.get("deposit"));
+				pstmt.setInt(4, (int)map.get("monthRent"));
+				pstmt.setInt(5, (int)map.get("careFee"));
+				pstmt.setInt(6, (int)map.get("pubSize"));
+				pstmt.setInt(7, (int)map.get("realSize"));
+				pstmt.setString(8, (String)map.get("roomFloor"));
+				pstmt.setString(9, (String)map.get("roomStruc"));
+				pstmt.setInt(10, (int)map.get("roomCount"));
+				pstmt.setString(11, (String)map.get("tv"));
+				pstmt.setString(12, (String)map.get("internet"));
+				pstmt.setString(13, (String)map.get("airCon"));
+				pstmt.setString(14, (String)map.get("washing"));
+				pstmt.setString(15, (String)map.get("fridge"));
+				pstmt.setString(16, (String)map.get("bed"));
+				pstmt.setString(17, (String)map.get("closet"));
+				pstmt.setString(18, (String)map.get("womanOnly"));
+				pstmt.setString(19, (String)map.get("pet"));
+				pstmt.setString(20, (String)map.get("parking"));
+				pstmt.setString(21, (String)map.get("roomTitle"));
+				pstmt.setString(22, (String)map.get("roomInfo"));
+				pstmt.setString(23, (String)map.get("stationAddr"));
+				pstmt.setInt(24, (int)map.get("roomNo"));
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				close(pstmt);
+			}
+		
+		return result;
 	}
 
 	public int insertImgFile(Connection conn, RoomImg newFile) throws Exception{

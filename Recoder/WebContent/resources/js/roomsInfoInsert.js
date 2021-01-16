@@ -213,10 +213,12 @@ $("#addRoom").on("click", function(){
 
 function insertteValidate(e){
 	// 옵션 유효성 검사
-//	if($("#optionList > li").length>0){
-//		alert("모든 옵션을 옮겨주세요");
-//		return false;
-//	}
+	
+	if($("#optionList > li").length>0){
+		alert("모든 옵션을 옮겨주세요");
+		return false;
+	}
+		
 	
 	// 변수들
 	var airCon = $('#airCon');
@@ -287,6 +289,7 @@ function insertteValidate(e){
 		// <input type="hidden" name="options" value="item.value">
 		// form.append(input)
 	  })
+
 
 
 }

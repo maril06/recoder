@@ -41,7 +41,7 @@
 
         <h2>매물 올리기</h2>
         
-        <form action="${contextPath}/room/roomInsert.do" id="insertForm" method="POST" enctype="multipart/form-data" role="form"  onsubmit="return insertteValidate();">
+        <form action="${contextPath}/room/view.do" id="insertForm" method="POST" enctype="multipart/form-data" role="form"  onsubmit="return insertteValidate();">
         
             <!-- update image -->
             <section class="images">
