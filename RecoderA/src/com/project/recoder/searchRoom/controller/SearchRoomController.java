@@ -25,18 +25,19 @@ public class SearchRoomController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		String searchKey = request.getParameter("sk");
-		String searchValue = request.getParameter("sv");
+		
 		
 		String cp = request.getParameter("cp");
 		
 		try {
+			
 			
 			SearchRoomService service = new SearchRoomService();
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			map.put("searchKey", searchKey);
-			map.put("searchValue", searchValue);
+			
 			map.put("currentPage", cp);
 			
 			PageInfo pInfo = service.getPageInfo(map);
@@ -58,6 +59,8 @@ public class SearchRoomController extends HttpServlet {
 			
 			RequestDispatcher view = request.getRequestDispatcher(path);
 			view.forward(request, response);
+			
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();

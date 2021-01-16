@@ -27,8 +27,8 @@ public class SearchRoomDAO {
 	public int getListCount(Connection conn, String condition) throws Exception{
 		
 		int listCount = 0;
-		
-		String query = "SELECT COUNT(*) FROM AV_ROOM WHERE" + condition;
+	
+		String query = "SELECT COUNT(*) FROM AV_ROOM " + condition;
 		
 		try {
 			stmt = conn.createStatement();
@@ -60,13 +60,12 @@ public class SearchRoomDAO {
 		
 			
 		String query = 
-				"SELECT * FROM" + 
-				"	(SELECT ROWNUM RNUM, V.*" + 
-				"	FROM" + 
-				"		(SELECT * FROM AV_ROOM " + 
-				"		WHERE " + condition + 
-				"		ORDER BY ROOM_NO DESC) V )" + 
-				"WHERE RNUM BETWEEN ? AND ?";
+				"SELECT * FROM " + 		
+				"(SELECT ROWNUM RNUM, V.* " +
+				"FROM " + 
+				"(SELECT * FROM AV_ROOM " + condition +
+				"ORDER BY ROOM_NO DESC) V) " +
+				"WHERE RNUM BETWEEN ? AND ? ";
 		
 		try {
 			int startRow = (pInfo.getCurrentPage() - 1) * pInfo.getLimit() + 1;

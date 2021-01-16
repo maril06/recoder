@@ -47,19 +47,19 @@
                 <li><a href="#">매물관리</a>
                     <ul>
                         <li><a href="${contextPath}/room/roomStatus.do">매물 삭제/복구</a></li>
-                        <li><a href="${contextPath}/room }">허위 매물 관리</a></li>
+                        <li><a href="${contextPath}/room/fakeRoom.do">허위 매물 관리</a></li>
                     </ul>
                 </li>
                 <li><a href="#">게시판 관리</a>
                     <ul>
-                        <li><a href="">공지글 관리</a></li>
-                        <li><a href="">게시글 삭제/복구</a></li>
+                        <li><a href="${contextPath}/notice/list.do">공지글 관리</a></li>
+                        <li><a href="${contextPath}/board/list.do">게시글 삭제/복구</a></li>
                     </ul>
                 </li>
                 <li><a href="#">회원관리</a>
                     <ul>
-                        <li><a href="">회원 정지/복구</a></li>
-                        <li><a href="">회원 승인</a></li>
+                        <li><a href="${contextPath}/member/list.do">회원 정지/복구</a></li>
+                        <li><a href="${contextPath}/broker/list.do">회원 승인</a></li>
                     </ul>
                 </li>
             </ul>

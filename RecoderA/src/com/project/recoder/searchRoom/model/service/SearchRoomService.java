@@ -47,17 +47,13 @@ public class SearchRoomService {
 		String condition = null;
 		
 		String searchKey = (String)map.get("searchKey");
-		String searchValue = (String)map.get("searchValue");
-		
 		
 		switch(searchKey) {
-		case "totalRoom" : condition = " ROOM_NO LIKE '%' || '" + searchValue + "' || '%' ";
+		case "totalRoom" : condition = "";
 							break;
-		case "enrollRoom" : condition =" (ROOM_NO LIKE '%' || '" + searchValue + "' || '%' "
-										+ "AND DELETE_FL = 'N')";
-							break;
-		case "deleteRoom" : condition =" (ROOM_NO LIKE '%' || '" + searchValue + "' || '%' "
-									+ "AND DELETE_FL = 'Y')";
+		case "enrollRoom" : condition =" WHERE DELETE_FL = 'N' "; //등록된매물
+							break; 
+		case "deleteRoom" : condition =" WHERE DELETE_FL = 'Y' ";
 							break;
 		}
 		
