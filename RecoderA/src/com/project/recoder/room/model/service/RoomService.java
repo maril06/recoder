@@ -2,6 +2,7 @@ package com.project.recoder.room.model.service;
 
 import static com.project.recoder.common.JDBCTemplate.*;
 
+
 import java.sql.Connection;
 import java.util.List;
 
@@ -46,6 +47,14 @@ public class RoomService {
 		close(conn);
 		
 		return rList;
+	}
+
+
+
+
+	public List<Room> selectFakeList(PageInfo pInfo) throws Exception{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

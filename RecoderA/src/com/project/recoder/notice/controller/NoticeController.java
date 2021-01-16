@@ -1,4 +1,4 @@
-package com.project.recoder.room.controller;
+package com.project.recoder.notice.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,20 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.project.recoder.room.model.service.RoomService;
+import com.project.recoder.notice.model.service.NoticeService;
+import com.project.recoder.notice.model.vo.Notice;
 import com.project.recoder.room.model.vo.PageInfo;
-import com.project.recoder.room.model.vo.Room;
 
 
-@WebServlet("/room/*")
-public class RoomController extends HttpServlet {
+@WebServlet("/notice/*")
+public class NoticeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		String uri = request.getRequestURI();
 		String contextPath = request.getContextPath();
-		String command = uri.substring((contextPath + "/room").length());
+		String command = uri.substring((contextPath + "/notice").length());
 
 		String path = null;
 		RequestDispatcher view = null;
@@ -35,55 +36,34 @@ public class RoomController extends HttpServlet {
 		String errorMsg = null;
 	
 		try {
-			RoomService service = new RoomService();
+			NoticeService service = new NoticeService();
 			
 			String cp = request.getParameter("cp");
 			
-			// 매물 목록 조회 Controller
-			if(command.equals("/roomStatus.do")) {
-				errorMsg = "매물 목록 조회 과정에서 오류 발생";
+			if(command.equals("/list.do")) {
+				errorMsg = "공지사항 조회 과정에서 오류 발생";
 				
 				PageInfo pInfo = service.getPageInfo(cp);
 				//System.out.println(pInfo);
-				List<Room> rList = service.selectRoomList(pInfo);
 				
-				for(Room r : rList) {
-					System.out.println(r);
+				
+				List<Notice> nList = service.selectNoticeList(pInfo);
+				
+				for(Notice n : nList) {
+					System.out.println(n);
 				}
 				
+				path = "/WEB-INF/views/notice/noticeList.jsp";
 				
-				path = "/WEB-INF/views/room/roomManage.jsp";
-				
-				request.setAttribute("rList", rList);
+				request.setAttribute("nList", nList);
 				request.setAttribute("pInfo", pInfo);
 				
 				view=request.getRequestDispatcher(path);
 				view.forward(request, response);
 			}
 			
-			else if(command.equals("/fakeRoom.do")){
-				errorMsg = "허위 매물 조회 과정에서 오류 발생";
-				
-				PageInfo pInfo = service.getPageInfo(cp);
-				
-				List<Room> rList = service.selectFakeList(pInfo);
-				
-				path = "/WEB-INF/views/room/fakeRoom.jsp";
-				
-				view=request.getRequestDispatcher(path);
-				view.forward(request, response);
-				
 			
-			}
 			
-			else if(command.equals("/deleteRoom.do")){
-				
-				String[] numberList = request.getParameterValues("numberList");
-				
-				System.out.println(numberList[3]);
-				System.out.println(numberList[5]);
-				
-			}
 			
 			
 			
@@ -93,18 +73,9 @@ public class RoomController extends HttpServlet {
 			request.setAttribute("errorMsg", errorMsg);
 			view = request.getRequestDispatcher(path);
 			view.forward(request, response);
-		
 		}
-	
-	
 	}
 
-	
-	
-	
-	
-	
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

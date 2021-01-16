@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+
+
+<entry key="getListCount">
+SELECT COUNT(*) FROM BOARD 
+WHERE BOARD_CD = '20'
+</entry>
+
+
+<entry key="selectNoticeList">
+SELECT * FROM
+(SELECT ROWNUM NNUM, V.*
+FROM
+(SELECT * FROM AV_NOTICE ORDER BY BOARD_NO DESC) V)
+WHERE NNUM BETWEEN ? AND ?
+</entry>
+
+
+
+
+
+
+
+</properties>
