@@ -48,21 +48,21 @@
                     <table class="table table-dark">
                         <thead>
                             <tr>
-                              <th colspan="4">김테스님의 정보</th>
+                              <th colspan="4">${broker.brokerNick }님의 정보</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                               <th scope="row"><i class="far fa-map-marker-alt"></i></th>
-                              <td colspan="3">서울 특별시 어딘가</td>
+                              <td colspan="3">${broker.broderAddr }</td>
                             </tr>
                             <tr>
                               <th scope="row"><i class="fas fa-phone-office"></i></th>
-                              <td colspan="3">010-0101-0101</td>
+                              <td colspan="3">${broker.brokerTel }</td>
                             </tr>
                             <tr>
                               <th scope="row"><i class="fas fa-at"></i></th>
-                              <td colspan="3">test@naver.com</td>
+                              <td colspan="3">${broker.brokerEmail }</td>
                             </tr>
                           </tbody>
                       </table>
