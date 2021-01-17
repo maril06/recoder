@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<% request.setCharacterEncoding("UTF-8"); %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -85,7 +85,7 @@
         <div id="title">
             <h1>내 정보 수정</h1>
         </div><br>
-        <form method="POST" action="updateMemberServlet.do" accept-charset="utf-8">
+        <form method="POST" action="updateMemberServlet.do" accept-charset="utf-8" onsubmit="return validate();">
             <table>
                 <tr>
                     <td id="td1">아이디</td>
@@ -102,8 +102,7 @@
                 </tr>
                 <tr>
                     <td id="td1">닉네임</td>
-                    <td><input type="text" id="userNickname" name="userNickname" value="${loginMember.memNick }" class="input_control nickname">&nbsp &nbsp&nbsp&nbsp<button
-                            type="button" class="btn btn-primary">중복확인</button>
+                    <td><input type="text" id="userNickname" name="userNickname" value="${loginMember.memNick }" class="input_control nickname">&nbsp &nbsp&nbsp&nbsp
                             <span id="checkNick"></span>
                     </td>
                 </tr>
@@ -133,6 +132,9 @@
                             <input type="number" class="form-control phone" id="phone3" name="phone3"
                                 value="${phone[2]}">
                         </div>
+                        <div>
+                        	<span id="checkPhone">&nbsp;</span>
+                        </div>
                     </td>
                 </tr>
             </table><br><Br>
@@ -142,7 +144,7 @@
             </div>
         </form>
     </div>
-    <script src="js/member_update.js"></script>
+    <script src="${contextPath}/resources/js/memberUpdate.js"></script>
 </body>
 
 </html>

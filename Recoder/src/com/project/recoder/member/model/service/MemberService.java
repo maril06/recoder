@@ -85,6 +85,47 @@ public class MemberService {
 		//5) retrun
 		return result;
 	}
+	
+	public int heartInsert(String room_no, String mem_no) throws Exception{
+		Connection conn = getConnection();
+		int result = dao.heartInsert(conn, room_no, mem_no);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int heartcheck(String room_no, String mem_no) throws Exception{
+		Connection conn = getConnection();
+		int result = dao.heartcheck(conn, room_no, mem_no);
+		close(conn);
+		return result;
+	}
+
+	public int heartDelete(String room_no, String mem_no) throws Exception{
+		Connection conn = getConnection();
+		int result = dao.heartDelete(conn, room_no, mem_no);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int nickDupCheck(String nickname) throws Exception{
+		Connection conn = getConnection();
+		
+		int result = dao.nickDupCheck(conn, nickname);
+		
+		close(conn);
+		
+		return result;
+	}
 
 	
 	

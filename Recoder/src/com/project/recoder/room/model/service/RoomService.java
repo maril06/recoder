@@ -256,7 +256,51 @@ public class RoomService {
 		close(conn);
 		return mList;
 	}
+	
+	
+	public PageInfo getPageInfo(String cp) throws Exception{
+		Connection conn = getConnection();
 
+		// cp가 null일 경우
+		int currentPage = cp == null ? 1 : Integer.parseInt(cp);
+		// (삼항 연산자)cp가 null이라면, true일 경우 1, false일 경우 Intefer.parseInt(cp)
+
+		// DB에서 전체 게시글 수를 조회하여 반환 받기
+		int listCount = dao.getListCount(conn);
+
+		close(conn);
+
+		// 얻어온 현재 페이지와, DB에서 조회한 전체 게시글 수를 이용하여
+		// PageInfo 객체를 생성함
+		return new PageInfo(currentPage, listCount);
+	}
+
+
+	public List<Room> selectRoomList(PageInfo pInfo) throws Exception{
+		Connection conn = getConnection();
+
+		List<Room> bList = dao.selectList(conn, pInfo);
+
+		close(conn);
+
+		return bList;
+	}
+
+
+	public List<Room> selectList(PageInfo pInfo) throws Exception{
+		Connection conn = getConnection();
+		List<Room> rList = dao.selectList(conn, pInfo);
+		close(conn);
+		return rList;
+	}
+
+
+	public List<RoomImg> selectThumbnailList(PageInfo pInfo) throws Exception{
+		Connection conn = getConnection();
+		List<RoomImg> fList = dao.selectThumbnailList(conn, pInfo);
+		close(conn);
+		return fList;
+	}
 
 
 

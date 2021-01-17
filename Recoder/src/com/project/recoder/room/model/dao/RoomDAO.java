@@ -295,4 +295,97 @@ public class RoomDAO {
 	}
 
 	
+	public int getListCount(Connection conn) throws Exception{
+		int listCount = 0;
+
+	      String query = prop.getProperty("getListCount");
+
+	      try {
+	         stmt = conn.createStatement();
+
+	         rset = stmt.executeQuery(query);
+
+	         if (rset.next()) {
+	            listCount = rset.getInt(1);
+	         }
+
+	      } finally {
+	         close(stmt);
+	         close(rset);
+	      }
+	      return listCount;
+	}
+
+
+
+	public List<Room> selectList(Connection conn, PageInfo pInfo) throws Exception{
+		List<Room> rList = null;
+		String query = prop.getProperty("selectRoomList");
+		
+		try {
+			
+			int startRow = (pInfo.getCurrentPage() - 1) * pInfo.getLimit() + 1;
+	        int endRow = startRow + pInfo.getLimit() - 1;
+	         
+	        pstmt = conn.prepareStatement(query);
+
+	         pstmt.setInt(1, startRow);
+	         pstmt.setInt(2, endRow);
+
+	         rset = pstmt.executeQuery();
+	         
+	         rList = new ArrayList<Room>();
+	         
+	         while(rset.next()) {
+	        	 Room room = new Room(rset.getInt("ROOM_NO"), rset.getString("TYPE_OF_RENT"+""), rset.getInt("DEPOSIT"), rset.getInt("MONTH_RENT"), rset.getString("ROOM_TITLE"));
+	        	 
+	        	 rList.add(room);
+	         }
+			
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rList;
+	}
+
+	public List<RoomImg> selectThumbnailList(Connection conn, PageInfo pInfo) throws Exception{
+		List<RoomImg> fList = null;
+	      
+	      String query = prop.getProperty("selectThumbnailList");
+	      
+	      try {
+	         // 위치 홀더에 들어갈 시작행, 끝 행번호 계싼
+	         int startRow = (pInfo.getCurrentPage() -1) * pInfo.getLimit() + 1;
+	         int endRow = startRow + pInfo.getLimit() - 1 ;
+	         System.out.println("STR : " + startRow);
+	         System.out.println("endRow : " + endRow);
+	         
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, startRow);
+	         pstmt.setInt(2, endRow);
+	         
+	         rset = pstmt.executeQuery();
+	         
+	         // 조회 결과를 저장할 List 생성
+	         fList = new ArrayList<RoomImg>();
+	         
+	         while(rset.next()) {
+	            
+	        	 RoomImg at = new RoomImg();
+	            at.setRoomImgNo(rset.getInt("ROOM_IMG_NO"));
+	            at.setRoomImgName(rset.getString("ROOM_IMG_NAME"));
+	            at.setParentRoomNo(rset.getInt("ROOM_NO"));
+	            
+	            fList.add(at);
+	         }
+	      } finally {
+	         close(rset);
+	         close(pstmt);
+	      }
+	      
+	      return fList;
+	}
+	
 }
