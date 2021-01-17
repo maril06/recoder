@@ -2,6 +2,7 @@ package com.project.recoder.member.controller;
 
 import java.io.IOException;
 
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.project.recoder.member.model.service.MemberService;
-import com.project.recoder.room.model.vo.PageInfo;
+import com.project.recoder.member.model.vo.PageInfo;
+
 
 
 @WebServlet("/member/*")

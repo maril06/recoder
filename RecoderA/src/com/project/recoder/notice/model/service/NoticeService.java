@@ -3,6 +3,8 @@ package com.project.recoder.notice.model.service;
 
 import static com.project.recoder.common.JDBCTemplate.*;
 
+
+
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +100,31 @@ public class NoticeService {
 			result = result.replaceAll(">", "&gt;");
 			result = result.replaceAll("\"", "&quot;");
 		}
+		
+		return result;
+	}
+	
+	
+	
+	/** 공지사항 삭제 Service
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateNoticeDelete(String numberList) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateNoticeDelete(conn, numberList);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
 		
 		return result;
 	}
