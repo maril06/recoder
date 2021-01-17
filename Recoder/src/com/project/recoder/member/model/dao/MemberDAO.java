@@ -82,7 +82,6 @@ public class MemberDAO {
 		String query = prop.getProperty("signUp");
 		
 		try {
-			// 3) PreparedStatement 객체를 얻어와 SQL구문을 세팅
 			pstmt = conn.prepareStatement(query);
 			
 			// 4)위치홀더(?)에 알맞은 값 세팅

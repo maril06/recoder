@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key="loginBroker">
+<entry key="loginBroker">
 SELECT MEM_NO, MEM_ID, MEM_NICK, MEM_TEL, MEM_EMAIL, MEM_GRADE,BROKER_CRETI, BROKER_ADDR, APPROVE_FL
 FROM V_BROKER_LOGIN
 WHERE MEM_ID = ?
@@ -10,6 +10,22 @@ AND MEM_PW = ?
 AND  SCSN_FL = 'N'
 AND APPROVE_FL = 'Y'
 AND MEM_GRADE = 'B'
-	</entry>
+</entry>
 
+<entry key="memNo">
+SELECT SEQ_MEMNO.NEXTVAL 
+FROM DUAL
+</entry>
+
+<entry key="signUp">
+INSERT INTO MEMBER
+VALUES(?,?,?,?,?,?,DEFAULT, 'B')
+</entry>
+
+<!-- 공인중개사 추가 정보 삽입 -->
+<entry key="insertBrokerInfo">
+INSERT INTO BROKER
+VALUES(?,?,?,DEFAULT,?)
+
+</entry>
 </properties>

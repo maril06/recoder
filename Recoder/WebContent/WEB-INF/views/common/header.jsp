@@ -9,9 +9,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>내 방</title>
    <link rel="stylesheet" href="${contextPath}/resources/css/header.css">
+   
+<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
 </head>
 <body>
-
+<c:if test="${!empty sessionScope.swalTitle }">
+		<script>
+			
+			swal({
+				icon:"${swalIcon}",
+				title:"${swalTitle}",
+				text: "${swalText}"
+			});
+		</script>
+		
+		<%-- 2) 한번 출력한 메세지를 Session에서 삭제 --%>
+		<c:remove var="swalIcon"/>
+		<c:remove var="swalTitle"/>
+		<c:remove var="swalText"/>
+	
+	</c:if>
 		<%--
 			프로젝트의 시작주소 (context root)를 얻어와 간단하게 사용할 수 있도록 
 			별도의 변수를 생성 

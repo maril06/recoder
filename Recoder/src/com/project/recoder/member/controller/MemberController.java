@@ -23,6 +23,7 @@ public class MemberController extends HttpServlet {
 		String contextPath = request.getContextPath(); // 
 		String command = uri.substring((contextPath + "/member").length());  
 		
+		
 		String url = null;
 		String path = null;
 		RequestDispatcher view = null;
@@ -42,6 +43,8 @@ public class MemberController extends HttpServlet {
 
 		
 		try {
+			
+			
 			//일반회원 로그인 controller
 			if (command.equals("/login.do")) {
 				errorMsg = "로그인 과정에서 오류 발생";
@@ -59,7 +62,7 @@ public class MemberController extends HttpServlet {
 					
 					url = null;
 					
-					if(loginMember != null) {
+					if(loginMember != null) { //로그인 성공
 						session.setMaxInactiveInterval(60 * 30);
 					
 						session.setAttribute("loginMember", loginMember);
@@ -78,7 +81,7 @@ public class MemberController extends HttpServlet {
 						url = (String)session.getAttribute("beforeUrl");
 						
 						
-					}else {
+					}else { //로그인 실패
 						session.setAttribute("swalIcon", "error");
 						session.setAttribute("swalTitle", "로그인 실패");
 						session.setAttribute("swalText", "아이디 또는 비밀번호를 확인해주세요");
@@ -96,23 +99,21 @@ public class MemberController extends HttpServlet {
 			
 			
 			//회원가입 contolloer -------------------------------------------------------------------------------
-			else if(command.equals("/signUp.do")) {
+			else if(command.equals("/msignUp.do")) {
 				errorMsg = "회원가입 과정에서 오류 발생";
-				
 				//전달받은 파라미터를 모두 변수에 저장
 				String memId = request.getParameter("userid");
 				String memPw = request.getParameter("password");
-				String confirmpassword = request.getParameter("confirmpassword");
 				String memEmail = request.getParameter("email");
 				String memNick = request.getParameter("nickname");
 				String memTel = request.getParameter("usertel");
 				
-				
 				//Member객체를 생성하여 파라미터를 모두 저장
 				member = new Member(memId, memPw, memNick, memTel, memEmail);
-				
 					int result = service.signUp(member);
-
+					
+					
+					//swalIcon
 					String swalIcon = null;
 					String swalTitle = null;
 					String swalText = null;
@@ -121,18 +122,14 @@ public class MemberController extends HttpServlet {
 						swalIcon = "success";
 						swalTitle = "회원가입 성공!";
 						swalText = memNick + "님의 회원가입을 환영합니다.";
-						url = (String)session.getAttribute("beforeUrl");
+						
 					}else { //실패
 						swalIcon = "error";
 						swalTitle = "회원가입 실패!";
 						swalText = "문제가 지속될 경우 고객센터로 문의 바랍니다.";
-						url = request.getHeader("referer"); 
-						
-						String Burl = (String)session.getAttribute("Burl");
-						session.setAttribute("Burl",  Burl);
 					}
 					
-					session = request.getSession();
+					 session = request.getSession();
 					
 					session.setAttribute("swalIcon", swalIcon);
 					session.setAttribute("swalTitle", swalTitle);

@@ -3,6 +3,7 @@ package com.project.recoder.common.service;
 import static com.project.recoder.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.Map;
 
 import com.project.recoder.common.dao.commonDAO;
 
@@ -38,6 +39,21 @@ public class CommonService {
 		close(conn);
 		
 		return result;
+	}
+
+	/** 아이디 찾기 service
+	 * @param map
+	 * @return result
+	 * @throws Exception
+	 */
+	public String searchId(Map<String, Object> map) throws Exception{
+		Connection conn = getConnection();
+		
+		String memId = dao.searchId(conn, map);
+		
+		close(conn);
+		
+		return memId;
 	}
 
 }

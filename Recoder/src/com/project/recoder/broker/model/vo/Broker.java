@@ -10,18 +10,18 @@ public class Broker {
 	private String memStateFl;
 	private String memGrade;
 	private int memNo2; // 회원번호
-	private String brokderCreti;
-	private String brokderAddr;
+	private String brokerFileName;
+	private String brokerCreti;
+	private String brokerAddr;
 	private String approveFl;
 	
 	public Broker() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 	public Broker(int memNo, String memId, String memPw, String memNick, String memTel, String memEmail,
-			String memStateFl, String memGrade, int memNo2, String brokderCreti, String brokderAddr, String approveFl) {
+			String memStateFl, String memGrade, int memNo2, String brokerFileName, String brokerCreti,
+			String brokerAddr, String approveFl) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -32,15 +32,16 @@ public class Broker {
 		this.memStateFl = memStateFl;
 		this.memGrade = memGrade;
 		this.memNo2 = memNo2;
-		this.brokderCreti = brokderCreti;
-		this.brokderAddr = brokderAddr;
+		this.brokerFileName = brokerFileName;
+		this.brokerCreti = brokerCreti;
+		this.brokerAddr = brokerAddr;
 		this.approveFl = approveFl;
 	}
 
-	//로그인용 생성자
 	
+	//로그인용 생성자
 	public Broker(int memNo, String memId, String memNick, String memTel, String memEmail, String memGrade,
-			String brokderCreti, String brokderAddr, String approveFl) {
+			String brokerCreti, String brokerAddr, String approveFl) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -48,17 +49,14 @@ public class Broker {
 		this.memTel = memTel;
 		this.memEmail = memEmail;
 		this.memGrade = memGrade;
-		this.brokderCreti = brokderCreti;
-		this.brokderAddr = brokderAddr;
+		this.brokerCreti = brokerCreti;
+		this.brokerAddr = brokerAddr;
 		this.approveFl = approveFl;
 	}
-	
 
 	public int getMemNo() {
 		return memNo;
 	}
-
-
 
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
@@ -128,20 +126,28 @@ public class Broker {
 		this.memNo2 = memNo2;
 	}
 
-	public String getBrokderCreti() {
-		return brokderCreti;
+	public String getBrokerFileName() {
+		return brokerFileName;
 	}
 
-	public void setBrokderCreti(String brokderCreti) {
-		this.brokderCreti = brokderCreti;
+	public void setBrokerFileName(String brokerFileName) {
+		this.brokerFileName = brokerFileName;
 	}
 
-	public String getBrokderAddr() {
-		return brokderAddr;
+	public String getBrokerCreti() {
+		return brokerCreti;
 	}
 
-	public void setBrokderAddr(String brokderAddr) {
-		this.brokderAddr = brokderAddr;
+	public void setBrokerCreti(String brokerCreti) {
+		this.brokerCreti = brokerCreti;
+	}
+
+	public String getBrokerAddr() {
+		return brokerAddr;
+	}
+
+	public void setBrokerAddr(String brokerAddr) {
+		this.brokerAddr = brokerAddr;
 	}
 
 	public String getApproveFl() {
@@ -156,9 +162,10 @@ public class Broker {
 	public String toString() {
 		return "Broker [memNo=" + memNo + ", memId=" + memId + ", memPw=" + memPw + ", memNick=" + memNick + ", memTel="
 				+ memTel + ", memEmail=" + memEmail + ", memStateFl=" + memStateFl + ", memGrade=" + memGrade
-				+ ", memNo2=" + memNo2 + ", brokderCreti=" + brokderCreti + ", brokderAddr=" + brokderAddr
-				+ ", approveFl=" + approveFl + "]";
+				+ ", memNo2=" + memNo2 + ", brokerFileName=" + brokerFileName + ", brokerCreti=" + brokerCreti
+				+ ", brokerAddr=" + brokerAddr + ", approveFl=" + approveFl + "]";
 	}
 
+	
 	
 }
