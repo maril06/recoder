@@ -1,6 +1,7 @@
 package com.project.recoder.room.model.dao;
 
 import static com.project.recoder.common.JDBCTemplate.*;
+
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -110,6 +111,56 @@ public class RoomDAO {
 		}
 		return rList;
 
+	}
+
+	/** Room 삭제 Service
+	 * @param conn
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateRoomDelete(Connection conn, String numberList) throws Exception{
+		
+		int result = 0;
+		
+		
+		String query = "UPDATE ROOM SET "
+				 + " DELETE_FL = 'Y' "
+				 + " WHERE ROOM_NO IN( " + numberList + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			
+		}finally {
+			
+			close(stmt);
+		}
+		
+		return result;
+	}
+
+	public int updateRoomRecover(Connection conn, String numberList) throws Exception {
+		
+		int result = 0;
+		
+		String query = "UPDATE ROOM SET "
+				 + " DELETE_FL = 'N' "
+				 + " WHERE ROOM_NO IN( " + numberList + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			
+		}finally {
+			
+			close(stmt);
+		}
+		
+		
+		return result;
 	}
 
 }

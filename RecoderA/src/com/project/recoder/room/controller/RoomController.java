@@ -47,9 +47,9 @@ public class RoomController extends HttpServlet {
 				//System.out.println(pInfo);
 				List<Room> rList = service.selectRoomList(pInfo);
 				
-				for(Room r : rList) {
-					System.out.println(r);
-				}
+				//for(Room r : rList) {
+				//	System.out.println(r);
+				//}
 				
 				
 				path = "/WEB-INF/views/room/roomManage.jsp";
@@ -77,11 +77,26 @@ public class RoomController extends HttpServlet {
 			}
 			
 			else if(command.equals("/deleteRoom.do")){
+				errorMsg = "매물 삭제 과정에서 오류 발생";
 				
-				String[] numberList = request.getParameterValues("numberList");
 				
-				System.out.println(numberList[3]);
-				System.out.println(numberList[5]);
+				String numberList = request.getParameter("numberList");
+				
+				//System.out.println(numberList);
+				
+				int result = service.updateRoomDelete(numberList);
+				
+				response.getWriter().print(result);
+			}
+			
+			
+			
+			else if(command.equals("/recoverRoom.do")) {
+				errorMsg = "매물 복구 과정에서 오류 발생";
+				
+				String numberList = request.getParameter("numberList");
+				int result = service.updateRoomRecover(numberList);
+				response.getWriter().print(result);
 				
 			}
 			

@@ -17,7 +17,7 @@ public class SearchRoomService {
 	
 	/** 검색 내용이 포함된 페이징 정보 생성 Service
 	 * @param map
-	 * @return map
+	 * @return PageInfo
 	 * @throws Exception
 	 */
 	public PageInfo getPageInfo(Map<String, Object> map) throws Exception {
