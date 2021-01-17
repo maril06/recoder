@@ -153,4 +153,29 @@ public class commonDAO {
 		return result;
 	}
 
+	/** 비밀번호 재설정 dao
+	 * @param conn
+	 * @param map
+	 * @return result
+	 * @throws Exception
+	 */
+	public int setPw(Connection conn, Map<String, Object> map) throws Exception{
+		int result = 0;
+		
+		String query = prop.getProperty("setPw");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, (String)map.get("password"));
+			pstmt.setString(2, (String)map.get("memId"));
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

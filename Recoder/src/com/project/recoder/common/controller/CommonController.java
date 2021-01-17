@@ -204,8 +204,14 @@ public class CommonController extends HttpServlet {
 			//비밀번호 찾기에서 비밀번호 변경하기 controller-------------------------------
 			else if(command.equals("/setPw.do")) {
 				String password = request.getParameter("password1");
+				String memId = (String) session.getAttribute("memId");
 				
-				int result = service.setPw(password);
+				Map<String, Object> map = new HashMap<String, Object>();
+				
+				map.put("memId", memId);
+				map.put("password", password);
+				System.out.println("memId : "+memId + "password" + password);
+				int result = service.setPw(map);
 				
 				String swalIcon = null;
 				String swalTitle = null;
@@ -219,8 +225,12 @@ public class CommonController extends HttpServlet {
 					swalTitle = "비밀번호가 변경되었습니다.";
 					swalText = "로그인으로 돌아갑니다.";
 					url = "loginForm.do";
-				}else {
-					
+				}else { //비번 못바꿈
+					swalIcon = "error";
+					swalTitle = "비밀번호 변경 실패!";
+					swalText = "문제가 지속될 경우 고객센터로 문의 바랍니다.";
+					 session.removeAttribute("memId");
+					url = request.getContextPath();
 				}
 				
 				session.setAttribute("swalIcon", swalIcon);

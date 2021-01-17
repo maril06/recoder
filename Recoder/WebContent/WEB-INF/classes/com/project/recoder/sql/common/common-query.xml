@@ -37,4 +37,10 @@ AND MEM_ID = ?
 AND  SCSN_FL = 'N'
 </entry>
 
+<!-- 비밀번호 재설정 -->
+<entry key="setPw">
+UPDATE MEMBER 
+SET MEM_PW =?
+WHERE MEM_ID = ?
+</entry>
 </properties>
