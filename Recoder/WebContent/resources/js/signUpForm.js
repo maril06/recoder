@@ -60,9 +60,18 @@ $("#checkAll").on("click", function(){
    }
 });
 
+$("#checkAll1").on("click", function(){
+   if($("#checkAll1").is(":checked")){
+      $(".n-check1").prop("checked", true);
+   }else{
+      $(".n-check1").prop("checked", false);
+   }
+});
+
 /* 한개 체크박스 선택해제시 전체선택 체크박스해제 */
 $(".agree-item").on("click", function(){
-   $("#checkAll").prop("checked", false)
+   $("#checkAll").prop("checked", false);
+$("#checkAll1").prop("checked", false);
 }); 
 
 /* 파일선택 버튼 클릭시 파일선택 열리게 */

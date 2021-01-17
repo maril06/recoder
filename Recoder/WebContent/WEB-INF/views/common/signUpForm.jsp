@@ -124,31 +124,31 @@
             </div>
             <div id="agreementDivArea" class="agreement">
                <div>
-                   <input type="checkbox" class="n-check" id="checkAll">
+                   <input type="checkbox" class="n-check1" id="checkAll1">
                    <label for="checkAll" class="all">약관 전체동의</label>
                </div>
                <div>
-                   <input type="checkbox" class="n-check agree-item required-agree-item" id="agreeCheckbox1" name="agreeCheckbox">
+                   <input type="checkbox" class="n-check1 agree-item required-agree-item" id="agreeCheckbox1" name="agreeCheckbox">
                    <label for="agreeCheckbox">개인정보 수집 이용동의(필수)</label>
                    <button type="button" class="open">약관보기</button>
                     <div class="terms">약관내용</div>
                </div>
 
                <div>
-                   <input type="checkbox" class="n-check agree-item required-agree-item" id="useTermsCheckbox1" name="useTermsCheckbox">
+                   <input type="checkbox" class="n-check1 agree-item required-agree-item" id="useTermsCheckbox1" name="useTermsCheckbox">
                    <label for="useTermsCheckbox">my room 이용약관(필수)</label>
                     <button type="button" class="open" >약관보기</button>
                    <div class="terms">약관내용</div>
                </div>
 
                <div>
-                   <input type="checkbox" class="n-check agree-item optional-agree-item" id="marketingReceiveAgreeYn" name="marketingReceiveAgreeYn">
+                   <input type="checkbox" class="n-check1 agree-item optional-agree-item" id="marketingReceiveAgreeYn" name="marketingReceiveAgreeYn">
                    <label for="marketingReceiveAgreeYn">마케팅 활용 및 광고성 정보 수신 동의(선택)</label>
                    <button type="button" class="open" >약관보기</button>
                    <div class="terms">약관내용</div>
                </div>
                <div>
-                   <input type="checkbox" class="n-check agree-item required-agree-item" id="ageAgreeCheckbox1" name="ageAgreeCheckbox">
+                   <input type="checkbox" class="n-check1 agree-item required-agree-item" id="ageAgreeCheckbox1" name="ageAgreeCheckbox">
                    <label for="ageAgreeCheckbox">만 14세 미만 가입 제한(필수)</label>
                </div>
            </div>
