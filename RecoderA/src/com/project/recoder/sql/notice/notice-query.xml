@@ -8,7 +8,7 @@
 SELECT COUNT(*) FROM BOARD 
 WHERE BOARD_CD = '20' AND DELETE_FL = 'N'
 </entry>
-
+ 
 
 <entry key="selectNoticeList">
 SELECT * FROM
