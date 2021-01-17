@@ -37,7 +37,7 @@ public class VisitController extends HttpServlet {
 			VisitService service = new VisitService();
 			
 			if (command.equals("/visit.do")) {
-				
+			
 			}
 			
 			else if (command.equals("/visitSend.do")) {
