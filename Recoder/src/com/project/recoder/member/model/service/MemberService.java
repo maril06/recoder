@@ -36,6 +36,9 @@ public class MemberService {
 		
 		int result = dao.signUp(member, conn);
 		
+		if(result >0 ) commit(conn);
+		else			rollback(conn);
+		
 		close(conn);
 		
 		return result;

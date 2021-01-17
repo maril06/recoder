@@ -24,7 +24,8 @@ public class EncryptWrapper extends HttpServletRequestWrapper{
 		String encPwd = null; //암호화가 적용된 비밀번호를 저장할 변수
 		
 		switch(name) {
-		case "memPw": //로그인 시 비밀번호 name 속성값
+		case "userPw": //로그인 시 비밀번호 name 속성값
+		case "password":
 			/*
 			 * case "pwd1" : //회원가입 시 비밀번호 name 속성값 case "currentPwd" : //비밀번호 변경 시 현재 비밀번호
 			 * name 속성값 case "newPwd1": //비밀번호 변경 시 새 비밀번호 name속성값

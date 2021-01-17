@@ -46,11 +46,22 @@
     box-shadow:0 0 10px grey;
     background-color:white;
     width: 700px;
-    height:950px;
+    height:1250px;
     display:inline-block;
     border-radius:15px 15px 15px 15px;
  }
- 
+  
+ .c2{
+    background-color:white;
+    width:700px;
+    height: 1170px;
+    border-radius:15px;
+    position:absolute;
+    left: 0;
+    top:80px;
+    display:inline-block;
+    z-index: 3;
+ }
  
  #left{
       border-radius:15px 0px 0px 15px;
@@ -109,18 +120,7 @@
     text-align:center;
     margin-top:50px;
  }
- 
- .c2{
-    background-color:white;
-    width:700px;
-    height: 870px;
-    border-radius:15px;
-    position:absolute;
-    left: 0;
-    top:80px;
-    display:inline-block;
-    z-index: 3;
- }
+
 /* 
  .username{
     font-weight: bold;
@@ -161,6 +161,25 @@
      font-family: 'IBMPlexSansKR-Regular';
      
  }
+ .brokerImg{
+ 	display:inline-block;
+     margin: 0 180px;
+     font-family: 'IBMPlexSansKR-Regular';
+ height: 10px;
+  font-size: 8px;
+ 
+ }
+ 
+ /* 우편 번호 */
+ #postcode{
+ width:190px;
+ 	display:inline-block;
+     margin-left: 180px;
+ }
+ .addr{
+ margin-bottom:25px;
+ }
+ 
  
  .btn{
    font-family: 'IBMPlexSansKR-Regular';
@@ -195,8 +214,6 @@
    color: white;
    font-size: 14px;
    position: absolute;
-   top : 0px;
-   left: 400px;
    line-height: 35px;
  }
 
@@ -207,7 +224,7 @@
  
 
 #brokerImg{
-   width: 210px;
+   width: 220px;
    margin-top: 0;
    margin-left: 180px; 
    height: 45px;

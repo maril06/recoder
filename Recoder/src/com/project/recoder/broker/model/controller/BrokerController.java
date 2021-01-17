@@ -1,20 +1,24 @@
 package com.project.recoder.broker.model.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import com.project.recoder.common.MyFileRenamePolicy;
+import com.oreilly.servlet.MultipartRequest;
 import com.project.recoder.broker.model.service.BrokerService;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.service.MemberService;
 import com.project.recoder.member.model.vo.Member;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 @WebServlet("/broker/*")
 public class BrokerController extends HttpServlet {
@@ -44,7 +48,7 @@ public class BrokerController extends HttpServlet {
 			    view.forward(request, response);
 			}
 			
-			//브로커 로그인 controller
+			//브로커 로그인 controller------------------------------------------------------------------
 			else if(command.equals("/login.do")) {
 				
 				String memId = request.getParameter("userId"); //아이디
@@ -114,6 +118,95 @@ public class BrokerController extends HttpServlet {
 					
 					response.sendRedirect(url);
 					
+			}
+			// 공인중개사 회원가입 ---------------------------------------------------------------------------
+			else if(command.equals("/signUp.do")) {
+				errorMsg = "회원가입 과정에서 오류 발생";
+				
+				//자격증 사진 주소
+				int maxSize = 20 * 1024 * 1024; // 20MB == 20 * 1024KB == 20 * 1024 * 1024 Byte
+				
+				String root = request.getSession().getServletContext().getRealPath("/");
+				String filePath = root + "resources/images/brokerInfo/";
+				
+				System.out.println("filePath : "+filePath);
+				
+				MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+				
+				
+				Broker broker = new Broker();
+				
+				Enumeration<String> files = multiRequest.getFileNames();
+				
+				if(files.hasMoreElements()) { //다음 요소가 있다면
+					
+					String name = files.nextElement(); //img0
+					//System.out.println("name : " + name);
+					//System.out.println("원본 파일명 : " + multiRequest.getOriginalFileName(name));
+					//System.out.println("변경된 파일명 : "+ multiRequest.getFilesystemName(name));
+					
+					if(multiRequest.getFilesystemName(name) != null) {
+						
+						
+						broker.setBrokerFileName(multiRequest.getFilesystemName(name));
+						broker.setBrokerCreti(filePath);
+						
+					}
+				
+				}
+				
+				
+			//나머지 파라미터 받아오기
+				//전달받은 파라미터를 모두 변수에 저장
+				String memId = multiRequest.getParameter("userid");
+				String memPw = multiRequest.getParameter("password");
+				String memEmail = multiRequest.getParameter("email");
+				String memNick = multiRequest.getParameter("nickname");
+				String memTel = multiRequest.getParameter("usertel");
+
+				//주소 
+				String post = multiRequest.getParameter("post"); //우편번호
+				String address1 = multiRequest.getParameter("address1"); //도로명주소
+				String address2 = multiRequest.getParameter("address2"); //상세주소
+
+				String brokerAddr= post + " , " +address1 +" , "+address2;
+				
+				broker.setMemId(memId);
+				broker.setMemPw(memPw);
+				broker.setMemEmail(memEmail);
+				broker.setMemNick(memNick);
+				broker.setMemTel(memTel);
+				broker.setBrokerAddr(brokerAddr);
+				
+				int result = service.signUp(broker); //회원가입
+				
+
+				//swalIcon
+				String swalIcon = null;
+				String swalTitle = null;
+				String swalText = null;
+				
+				if(result>0) { //성공
+					swalIcon = "success";
+					swalTitle = "회원가입 성공!";
+					swalText = memNick + "님의 회원가입을 환영합니다.";
+					
+				}else { //실패
+					swalIcon = "error";
+					swalTitle = "회원가입 실패!";
+					swalText = "문제가 지속될 경우 고객센터로 문의 바랍니다.";
+				}
+				
+				
+				
+				request.getSession().setAttribute("swalIcon", swalIcon);
+				request.getSession().setAttribute("swalTitle", swalTitle);
+				request.getSession().setAttribute("swalText", swalText);
+				
+				//회원가입 진행 후 메인 페이지로 이동(메인 화면 재요청)
+				response.sendRedirect(request.getContextPath());
+				
+				
 			}
 			
 			
