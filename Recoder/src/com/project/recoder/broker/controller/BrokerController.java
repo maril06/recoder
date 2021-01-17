@@ -20,7 +20,6 @@ import com.project.recoder.broker.model.service.BrokerService;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.service.MemberService;
 import com.project.recoder.member.model.vo.Member;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 @WebServlet("/broker/*")
 public class BrokerController extends HttpServlet {

@@ -54,7 +54,7 @@
                         <tbody>
                             <tr>
                               <th scope="row"><i class="far fa-map-marker-alt"></i></th>
-                              <td colspan="3">${broker.broderAddr }</td>
+                              <td colspan="3">${broker.brokerAddr }</td>
                             </tr>
                             <tr>
                               <th scope="row"><i class="fas fa-phone-office"></i></th>
