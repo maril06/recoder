@@ -37,6 +37,12 @@ public class VisitController extends HttpServlet {
 			VisitService service = new VisitService();
 			
 			if (command.equals("/visit.do")) {
+				
+				
+				
+				path = "/WEB-INF/views//brokerInfo.jsp";
+			    view = request.getRequestDispatcher(path);
+			    view.forward(request, response);
 			
 			}
 			

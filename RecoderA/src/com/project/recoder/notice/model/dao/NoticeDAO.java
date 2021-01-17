@@ -4,6 +4,7 @@ package com.project.recoder.notice.model.dao;
 import static com.project.recoder.common.JDBCTemplate.*;
 
 
+
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -160,6 +161,36 @@ public class NoticeDAO {
 			result =  pstmt.executeUpdate();
 		}finally {
 			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+	
+	
+	/** 공지사항 삭제 Service
+	 * @param conn
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateNoticeDelete(Connection conn, String numberList) throws Exception{
+		
+		int result = 0;
+		
+		String query = "UPDATE BOARD SET "
+				 + " DELETE_FL = 'Y' "
+				 + " WHERE BOARD_NO IN( " + numberList + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			
+		}finally {
+			
+			close(stmt);
 		}
 		
 		return result;

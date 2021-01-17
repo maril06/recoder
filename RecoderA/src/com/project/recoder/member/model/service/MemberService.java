@@ -1,6 +1,6 @@
 package com.project.recoder.member.model.service;
 
-import com.project.recoder.room.model.vo.PageInfo;
+import com.project.recoder.member.model.vo.PageInfo;
 
 public class MemberService {
 
@@ -8,5 +8,7 @@ public class MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
