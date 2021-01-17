@@ -123,23 +123,22 @@
 			</table>
 		</div>
 
-		<br>
-		<br>
 		
 		<div class="button-area">
-
+			
+			<c:if test="${loginAdmin.adminGrade =='A' }">
 			<button class="btn btn-primary float-right delete-btn" id="deleteBtn">삭제</button>
-			<button class="btn btn-primary float-right recover-btn"
-				id="recoverBtn">복구</button>
+			
 			<a class="btn btn-primary float-right write-btn" id="writeBtn"
-				href="notice_enroll.html">등록</a>
+				 onclick="location.href = 'insertForm.do';">등록</a>
+			</c:if>	
 
 		</div>
 
 		<c:choose>
 			
 					<%-- 검색 내용이 파라미터에 존재 할 때 == 검색을 통해 만들어진 페이지인가?--%>
-				<c:when test="${!empty param.sk && !empty param.sv }">
+				<c:when test="${!empty param.sv }">
 					<c:url var="pageUrl" value="/searchNotice.do"/>				
 					
 					

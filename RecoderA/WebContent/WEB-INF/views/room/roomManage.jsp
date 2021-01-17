@@ -115,16 +115,20 @@
 
 
 
-
-				<button class="btn btn-primary float-right delete-btn"
-					id="deleteBtn"
-					>삭제</button>
-
-
-				<button class="btn btn-primary float-right recover-btn"
-					id="recoverBtn"
-					>복구</button>
-
+			<c:if test="${loginAdmin.adminGrade =='A' }">
+				<c:choose>
+					<c:when test="${param.sk == 'enrollRoom'}">
+						<button class="btn btn-primary float-right delete-btn"
+							id="deleteBtn">삭제</button>
+					</c:when>
+				
+					<c:when test="${param.sk == 'deleteRoom'}"> 
+						<button class="btn btn-primary float-right recover-btn"
+							id="recoverBtn">복구</button>
+					</c:when>
+					
+				</c:choose>
+			</c:if>
 
 			</div>
 
@@ -148,62 +152,61 @@
 
 		</c:choose>
 
-		<c:set var="fistPage" value="${pageUrl}?cp=1${searchStr}" />
-
-		<c:set var="lastPage"
-			value="${pageUrl}?cp=${pInfo.maxPage}${searchStr}" />
-
-		<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }"
-			integerOnly="true" />
+		<%-- 첫 페이지로 돌아가는 화살표 주소 --%>
+		<c:set var="fistPage" value="${pageUrl}?cp=1${searchStr}"/>
+		<%-- 마지막 페이지로 돌아가는 화살표 주소 --%>
+		<c:set var="lastPage" value="${pageUrl}?cp=${pInfo.maxPage}${searchStr}"/>
+			
+		<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
 		<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
-
-		<c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr}" />
-
-		<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }"
-			integerOnly="true" />
-		<fmt:parseNumber var="next" value="${c2 * 10 + 1}" integerOnly="true" />
-
-		<c:set var="nextPage" value="${pageUrl}?cp=${next}${searchStr}" />
-
+		
+		<c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr}"/>
+		
+		<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true"/>
+		<fmt:parseNumber var="next" value="${c2 * 10 + 1}" integerOnly="true"/>
+		
+		<c:set var="nextPage" value="${pageUrl}?cp=${next}${searchStr}"/>
+		
+		
 		<div class="my-5">
 			<ul class="pagination">
-
-				<c:if test="${pInfo.currentPage > 10}">
+			
+			<c:if test="${pInfo.currentPage > 10}">
+				<li>
+					<a class="page-link" href="${fistPage}">&lt;&lt;</a>
+				</li>
+				<li>
+					<a class="page-link" href="${prevPage}">&lt;</a>
+				</li>
+			</c:if>
+			
+			<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}">
+				<c:choose>						<%--page는 1부터 10까지 --%>
+					<c:when test="${pInfo.currentPage == page}"> <%--페이지가 현재페이지와 같을 경우 --%>
+						<li>		
+							<a class="page-link">${page}</a> 
+						</li>
+					</c:when>
+					
+				<c:otherwise>
 					<li>
-						<a class="page-link" href="${fistPage}">&lt;&lt;</a>
+						<a class="page-link" href="${pageUrl}?cp=${page}${searchStr}">${page}</a>	
 					</li>
-					<li>
-						<a class="page-link" href="${prevPage}">&lt;</a>
-					</li>
-				</c:if>
-
-				<c:forEach var="page" begin="${pInfo.startPage}"
-					end="${pInfo.endPage}">
-					<c:choose>
-						<c:when test="${pInfo.currentPage == page}">
-							<li>
-								<a class="page-link">${page}</a>
-							</li>
-						</c:when>
-
-						<c:otherwise>
-							<li>
-							<a class="page-link"
-								href="${pageUrl}?cp=${page}${searchStr}">${page}</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-
+				</c:otherwise>
+				</c:choose>
+					
+			</c:forEach>			
 				<c:if test="${next <= pInfo.maxPage}">
 					<li>
+						<!-- 다음 페이지로 이동 (>) -->
 						<a class="page-link" href="${nextPage}">&gt;</a>
 					</li>
-
 					<li>
+						<!-- 마지막 페이지로 이동(>>) -->
 						<a class="page-link" href="${lastPage}">&gt;&gt;</a>
 					</li>
 				</c:if>
+
 			</ul>
 		</div>
 
@@ -218,46 +221,40 @@
             checkbox.checked = selectAll.checked;
             })
         }
-		
+ 
+        
+        
         $("#deleteBtn").on("click", function(){
         	
         	var list = [];
         	
         	$("input:checkbox[name='ck']:checked").length
-        	//console.log($("input:checkbox[name='ck']:checked").length);
-        	//console.log($("input:checkbox[name='ck']:checked").val());
-        	
-        	
-        	//list = $("input:checkbox[name='ck']:checked").val();
-        	
-        	//console.log(list);
-        	
-           
             
             $('input[type="checkbox"]:checked').each(function (index) {
-                
             		if($(this).val() != "on"){
-            			
 	  					list.push($(this).val());
-            	
             		}	
             });
-                console.log(list);
-        	
-        	
-        		
+                //console.log(list);
         	
 	       $.ajax({
 				url : "${contextPath}/room/deleteRoom.do",
-				data : {"numberList" : list},
+				data : {"numberList" : list.join()},
 				
 				type : "post",
 				
 				success : function(result){
 					
 					if(result > 0){ 
-						
-						console.log("삭제 성공");
+						swal({icon : "success" , 
+				        	title : "삭제 성공", 
+				        	buttons : {confirm : true}}
+				        ).then((result) => {
+					        	if(result) {
+									location.reload();
+					        	}	
+					        }
+				        );
 						
 					}
 				},
@@ -268,13 +265,66 @@
 	        	
         	
         });
-        
-        
-        
-        
+			$("#recoverBtn").on("click", function(){
+					
+				
+        	var list = [];
+        	
+        	$("input:checkbox[name='ck']:checked").length
+            
+            $('input[type="checkbox"]:checked').each(function (index) {
+            		if($(this).val() != "on"){
+	  					list.push($(this).val());
+            		}	
+            });
+                $.ajax({
+    				url : "${contextPath}/room/recoverRoom.do",
+    				data : {"numberList" : list.join()},
+    				
+    				type : "post",
+    				
+    				success : function(result){
+    					 if(result > 0){ 
+    						swal({icon : "success" , 
+    				        	title : "복구 성공", 
+    				        	buttons : {confirm : true}}
+    				        ).then((result) => {
+    					        	if(result) {
+    									location.reload();
+    					        	}	
+    					        }
+    				        );
+    						
+    					} 
+    				},
+    				error : function(){
+    					console.log("복구 실패");
+    				}
+    			}); 
+	        	
+        });
+			
+		
+		(function(){
+			
+			var searchKey = "${param.sk}";
+			
+			$("select[name=sk] > option").each(function(index, item){
+				
+				if( $(item).val() == searchKey){
+					$(item).prop("selected", true);
+				}
+			});
+			
+			
+		})();	
+       
+         
         
     </script>
 
+
+	<!-- <img src="/Recoder/resources/images/rooms/20210115153738_55413.png"> -->
 
 </body>
 </html>

@@ -6,9 +6,9 @@
 
 <entry key="getListCount">
 SELECT COUNT(*) FROM BOARD 
-WHERE BOARD_CD = '20'
+WHERE BOARD_CD = '20' AND DELETE_FL = 'N'
 </entry>
-
+ 
 
 <entry key="selectNoticeList">
 SELECT * FROM
@@ -18,7 +18,15 @@ FROM
 WHERE NNUM BETWEEN ? AND ?
 </entry>
 
-
+<!-- 다음번호 얻어오기 -->
+<entry key="selectNextNo">
+SELECT SEQ_BOARDNO.NEXTVAL FROM DUAL
+</entry>
+<!-- 공지사항 등록 -->
+<entry key="insertNotice">
+INSERT INTO BOARD(BOARD_NO, TITLE, CONTENT, MEM_NO, CREATE_DT, READ_COUNT, DELETE_FL,
+BOARD_CD) VALUES(?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT, 20)
+</entry>
 
 
 

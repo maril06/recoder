@@ -1,6 +1,7 @@
 package com.project.recoder.board.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.project.recoder.board.model.service.BoardService;
+import com.project.recoder.board.model.vo.Board;
 import com.project.recoder.room.model.vo.PageInfo;
 
 
@@ -41,8 +43,18 @@ public class BoardController extends HttpServlet {
 				errorMsg = "자유게시판 조회 과정에서 오류 발생";
 				
 				PageInfo pInfo = service.getPageInfo(cp);
+				//System.out.println(pInfo);
+				List<Board> bList = service.selectBoardList(pInfo);
+				
+//				for(Board b : bList) {
+//					System.out.println(b);
+//				}
 				
 				path="/WEB-INF/views/board/boardList.jsp";
+				
+				request.setAttribute("bList", bList);
+				request.setAttribute("pInfo", pInfo);
+				
 				view=request.getRequestDispatcher(path);
 				view.forward(request, response);
 			}
@@ -50,7 +62,9 @@ public class BoardController extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 			path = "/WEB-INF/views/common/errorpage.jsp";
+			
 			request.setAttribute("errorMsg", errorMsg);
+			
 			view = request.getRequestDispatcher(path);
 			view.forward(request, response);
 		}

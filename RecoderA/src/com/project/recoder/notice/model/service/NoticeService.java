@@ -5,6 +5,7 @@ import static com.project.recoder.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import com.project.recoder.notice.model.dao.NoticeDAO;
 import com.project.recoder.notice.model.vo.Notice;
@@ -40,6 +41,65 @@ public class NoticeService {
 		close(conn);
 		
 		return nList;
+	}
+
+	
+	
+	/** 공지사항 입력 Service
+	 * @param map
+	 * @return 
+	 * @throws Exception
+	 */
+	public int insertNotice(Map<String, Object> map) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		// 작성될 글 번호를 먼저 얻어오는 DAO 수행
+		int noticeNo = dao.selectNextNo(conn);
+		
+		int result = 0;
+		
+		if(noticeNo > 0) {
+			
+			map.put("noticeNo", noticeNo);
+			
+			// 크로스 사이트 스크립팅 방지 처리
+			map.put("noticeTitle", replaceParameter((String)map.get("noticeTitle")));
+			map.put("noticeContent", replaceParameter((String)map.get("noticeContent")));
+		
+			// 개행문자 변경 처리
+			map.put("noticeContent", ((String)map.get("noticeContent")).replaceAll("\r\n", "<br>"));
+			
+			result = dao.insertNotice(conn, map);
+			
+			if(result>0) {
+				commit(conn);
+				
+				result = noticeNo; // 글번호가 최종적 반환
+			}else {
+				rollback(conn);
+			}
+		}
+		close(conn);
+	
+		
+		return result;
+	}
+	
+	
+	// 크로스 사이트 스크립팅 방지
+	private Object replaceParameter(String param) {
+		
+		String result = param;
+		
+		if(result != null) {
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("\"", "&quot;");
+		}
+		
+		return result;
 	}
 
 }

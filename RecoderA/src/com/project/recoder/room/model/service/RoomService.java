@@ -3,6 +3,7 @@ package com.project.recoder.room.model.service;
 import static com.project.recoder.common.JDBCTemplate.*;
 
 
+
 import java.sql.Connection;
 import java.util.List;
 
@@ -55,6 +56,52 @@ public class RoomService {
 	public List<Room> selectFakeList(PageInfo pInfo) throws Exception{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	
+	/** Room 삭제 Service
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateRoomDelete(String numberList) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.updateRoomDelete(conn, numberList);
+		
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
+
+
+
+
+	public int updateRoomRecover(String numberList) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateRoomRecover(conn,numberList);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 
 }

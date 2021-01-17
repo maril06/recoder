@@ -27,7 +27,6 @@ public class SearchRoomController extends HttpServlet {
 	
 		String searchKey = request.getParameter("sk");
 		
-		
 		String cp = request.getParameter("cp");
 		
 		try {
@@ -45,18 +44,16 @@ public class SearchRoomController extends HttpServlet {
 			
 			List<Room> rList = service.searchRoomList(map, pInfo);
 			
-//			System.out.println(pInfo);
+			//System.out.println(pInfo);
 //			
 //			for(Room r : rList) {
 //				System.out.println(r);
 //			}
 			
-			if(!rList.isEmpty()) {
-				request.setAttribute("rList", rList);
-			}
 			
 			String path = "/WEB-INF/views/room/roomManage.jsp";
 			request.setAttribute("rList", rList);
+			request.setAttribute("pInfo", pInfo);
 			
 			RequestDispatcher view = request.getRequestDispatcher(path);
 			view.forward(request, response);

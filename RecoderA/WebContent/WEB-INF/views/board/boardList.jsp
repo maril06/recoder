@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,17 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/boardList.css">
 	<title>공지사항 게시판</title>
+	<style>
+		.delete-btn{
+			margin-top :20px;
+		}
+		.recover-btn{
+			margin-top :20px;
+		}
+		.button-area{
+			height:80px;
+		}
+	</style>
 </head>
 <body>
 	
@@ -36,16 +48,14 @@
 
         <div class="search-area">
 
-            <form action="" method="GET" class="search-form" id="searchForm">
+            <form action="${contextPath}/searchBoard.do" method="GET" class="search-form" id="searchForm">
 
                 <select name="sk" class="form-control" style="width: 140px; display: inline-block;">
-                    <option value="totalRoom">전체 게시물</option>
-                    <option value="enrollRoom">등록 게시글</option>
-                    <option value="deleteRoom">삭제 게시글</option>
+                    <option value="totalWrite">전체 게시물</option>
+                    <option value="enrollWrire">등록 게시글</option>
+                    <option value="deleteWrite">삭제 게시글</option>
                 </select>
 
-                <input type="text" name="sv" class="form-control" style="width: 170px; display: inline-block;"
-                    placeholder="게시글 번호로 검색">
                 <button class="form-control btn btn-primary search-btn"
                     style="width: 60px; display: inline-block;">검색</button>
             </form>
@@ -57,7 +67,6 @@
 
 
         <div class="content-area">
-            <form action="#" method="post" class="recover-delete-form">
                 <table class="table table-striped table-hover" id="list-table">
                     <thead>
                         <tr>
@@ -72,68 +81,126 @@
 
                     <tbody>
                         <!-- 게시글 목록 -->
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="ck" class="selectReply">
-                            </td>
-                            <td> 1 </td>
-                            <td> 집 사는건 포기 해야겠죠? </td>
+                        
+                     <c:choose>
+						<c:when test="${empty bList}">
+							<tr>
+								<td colspan="4">존재하는 게시글이 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="board" items="${bList}">
+								<tr>
+									<td>
+									<input type="checkbox" name="ck" class="selectNotice" value="${room.noticeNo}">
+									<input type ="hidden" value="${room.noticeNo}" class="roomNo">
+									</td>
+									<td>${board.boardNo}</td>
+									<td>${board.boardTitle}</td>
+									<td>${board.memberNick}</td>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>				
+						
+                 </tbody>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="ck" class="selectReply">
-                            </td>
-                            <td> 1 </td>
-                            <td> 집 사는건 포기 해야겠죠? </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="ck" class="selectReply">
-                            </td>
-                            <td> 1 </td>
-                            <td> 집 사는건 포기 해야겠죠? </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="ck" class="selectReply">
-                            </td>
-                            <td> 1 </td>
-                            <td> 집 사는건 포기 해야겠죠? </td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-                <br><br>
-                <div class="button-area">
-
-                    <button class="btn btn-primary float-right delete-btn" id="deleteBtn">삭제</button>
-                    <button class="btn btn-primary float-right recover-btn" id="recoverBtn">복구</button>
-
-                </div>
+            </table>
+            
+        </div> 
+                
+             
+         <div class="button-area">
+				
+				
+			  <c:if test="${loginAdmin.adminGrade =='A' }">
+              <button class="btn btn-primary float-right delete-btn" id="deleteBtn">삭제</button>
+              <button class="btn btn-primary float-right recover-btn" id="recoverBtn">복구</button>
+		   	  </c:if>
+         </div>
+          
+      </div>
 
 
-            </form>
-        </div>
+
+		
+		
+		<%----------------- Pagination -------------------%>
+
+		<c:choose>
+
+			<c:when test="${!empty param.sk}">
+				<c:url var="pageUrl" value="/searchBoard.do" />
+
+				<c:set var="searchStr" value="&sk=${param.sk}" />
+			</c:when>
+
+			<c:otherwise>
+				<c:url var="pageUrl" value="/board/list.do" />
+			</c:otherwise>
+
+		</c:choose>
+		
+		<%-- 첫 페이지로 돌아가는 화살표 주소 --%>
+		<c:set var="fistPage" value="${pageUrl}?cp=1${searchStr}"/>
+		<%-- 마지막 페이지로 돌아가는 화살표 주소 --%>
+		<c:set var="lastPage" value="${pageUrl}?cp=${pInfo.maxPage}${searchStr}"/>
+			
+		<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
+		<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+		
+		<c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr}"/>
+		
+		<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true"/>
+		<fmt:parseNumber var="next" value="${c2 * 10 + 1}" integerOnly="true"/>
+		
+		<c:set var="nextPage" value="${pageUrl}?cp=${next}${searchStr}"/>
+		
 
         <div class="my-5">
             <ul class="pagination">
-                <li><a class="page-link" href="#">&lt;</a></li>
-                <li><a class="page-link" href="#">1</a></li>
-                <li><a class="page-link" href="#">2</a></li>
-                <li><a class="page-link" href="#">3</a></li>
-                <li><a class="page-link" href="#">4</a></li>
-                <li><a class="page-link" href="#">5</a></li>
-                <li><a class="page-link" href="#">&gt;</a></li>
+            
+            	<c:if test="${pInfo.currentPage > 10}">
+				<li>
+					<a class="page-link" href="${fistPage}">&lt;&lt;</a>
+				</li>
+				<li>
+					<a class="page-link" href="${prevPage}">&lt;</a>
+				</li>
+			</c:if>
+			
+			<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}">
+				<c:choose>						<%--page는 1부터 10까지 --%>
+					<c:when test="${pInfo.currentPage == page}"> <%--페이지가 현재페이지와 같을 경우 --%>
+						<li>		
+							<a class="page-link">${page}</a> 
+						</li>
+					</c:when>
+					
+				<c:otherwise>
+					<li>
+						<a class="page-link" href="${pageUrl}?cp=${page}${searchStr}">${page}</a>	
+					</li>
+				</c:otherwise>
+				</c:choose>
+					
+			</c:forEach>			
+				<c:if test="${next <= pInfo.maxPage}">
+					<li>
+						<!-- 다음 페이지로 이동 (>) -->
+						<a class="page-link" href="${nextPage}">&gt;</a>
+					</li>
+					<li>
+						<!-- 마지막 페이지로 이동(>>) -->
+						<a class="page-link" href="${lastPage}">&gt;&gt;</a>
+					</li>
+				</c:if>
+            
             </ul>
         </div>
 
 
-    </div>
+    
 
 
  
