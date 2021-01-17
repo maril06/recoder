@@ -29,8 +29,8 @@
                    <h3>
                       본인확인 이메일로 인증 <br>
                      </h3>
-                     본인확인 이메일 주소와 입력한 이메일 주소가 같아야, <br>
-                     인증번호를 받을 수 있습니다. <br>
+                      가입하신 이메일로 <br>
+                  인증번호를 받을 수 있습니다. <br>
                   </div>
                   <input name="username" type="text" placeholder="닉네임" class="userInfo"/> <br>
                   <input name="userid" type="text" placeholder="아이디" class="userInfo">

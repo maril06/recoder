@@ -34,7 +34,7 @@
                   고객님의 정보와 일치하는 아이디 입니다.
                </h3>
                <div class="idArea">
-                  <span>${memId} 회원님</span>
+                  <span>${memId}</span>
                </div>
                <button class="btn"> <a href="${contextPath}/common/loginForm.do"> 로그인하기</a></button>
             </div>

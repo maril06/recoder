@@ -71,9 +71,22 @@ public class CommonService {
 		return result;
 	}
 
-	public int setPw(String password) {
-		// TODO Auto-generated method stub
-		return 0;
+	/** 비밀번호 재설정 service
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public int setPw(Map<String, Object> map) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.setPw(conn, map);
+		
+		if(result > 0) commit(conn);
+		else 			rollback(conn);
+		
+		close(conn);
+		
+		return result;
 	}
 
 }
