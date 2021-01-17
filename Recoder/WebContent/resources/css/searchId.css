@@ -234,3 +234,25 @@ a{
    font-family: 'IBMPlexSansKR-Regular';
    margin-bottom: 20px;
 }
+
+
+#searchIdForm{
+	position: absolute;
+    right: 0;
+display: inline-block;
+    width: 350px;
+    height: 700px;
+    cursor: pointer;
+    }
+
+#searchPwForm{
+	position: absolute;
+    left: 0;
+display: inline-block;
+    width: 350px;
+    height: 700px;
+    cursor: pointer;
+    }
+.btn >a{
+   color: white;
+}

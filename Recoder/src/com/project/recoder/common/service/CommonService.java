@@ -56,4 +56,24 @@ public class CommonService {
 		return memId;
 	}
 
+	/** 비밀번호 찾기 service
+	 * @param map
+	 * @return result
+	 * @throws Exception
+	 */
+	public int searchPw(Map<String, Object> map) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.searchPW(conn, map);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int setPw(String password) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
