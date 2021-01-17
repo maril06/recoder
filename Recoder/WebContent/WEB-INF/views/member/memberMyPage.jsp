@@ -187,7 +187,7 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
     <div class="wrapper">
         <div class="member_info">
-            <div class="title_area stitle"><img src="img/member.png" height="40px"> 회원정보</h3></div><br>
+            <div class="title_area stitle"><img src="${contextPath}/resources/images/gCommon/member.png" height="40px"> 회원정보</h3></div><br>
             <div class="info_area">
                 <table>
                     <tr>
@@ -214,10 +214,10 @@
        
 
         <div class="bookmarkroom">
-            <div class="title_area stitle"><img src="img/bookmarkImg2.png" height="40px" id="bookmarkImg1"> 찜한 매물</h3></div><br>
+            <div class="title_area stitle"><img src="${contextPath}/resources/images/gCommon/bookmarkImg2.png" height="40px" id="bookmarkImg1"> 찜한 매물</h3></div><br>
             <div class="roomImg1">
                 <div class="roomImg1_1">
-                    <div id="prev"><img src="img/left.png" width="50px"></div>
+                    <div id="prev"><img src="${contextPath}/resources/images/gCommon/left.png" width="50px"></div>
                     <div class="img bookmark">
                         <img src="img/room1.jpg" width="100%">
                         <div class="roomTitle">
@@ -249,16 +249,16 @@
                         </p>
                         </div>
                     </div>
-                    <div id="next"><img src="img/right.png" width="50px"></div>
+                    <div id="next"><img src="${contextPath}/resources/images/gCommon/right.png" width="50px"></div>
                 </div>
             </div>
         </div>
 
         <div class="review">
-            <div class="title_area stitle"><img src="img/reviewstar.png" height="40px"> 후기</h3></div><br>
+            <div class="title_area stitle"><img src="${contextPath}/resources/images/gCommon/reviewstar.png" height="40px"> 후기</h3></div><br>
             <div class="roomImg2">
                 <div class="roomImg2_1">
-                    <div id="prev"><img src="img/left.png" width="50px"></div>
+                    <div id="prev"><img src="${contextPath}/resources/images/gCommon/left.png" width="50px"></div>
 
                     <div class="review_area">
                         <div class="img"><img src="img/room1.jpg" width="100%"></div>
@@ -322,7 +322,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="next"><img src="img/right.png" width="50px"></div>
+                    <div id="next"><img src="${contextPath}/resources/images/gCommon/right.png" width="50px"></div>
                 </div>
             </div>
         </div>
