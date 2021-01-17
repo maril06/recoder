@@ -2,6 +2,8 @@ package com.project.recoder.broker.controller;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,6 +45,16 @@ public class BrokerController extends HttpServlet {
 			
 			if (command.equals("/brokerInfo.do")) {
 				
+				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+				
+				Map<String, String> broker = new HashMap<String, String>();
+				broker.put("brokerNick", loginMember.getMemNick());
+				broker.put("brokderAddr", loginMember.getBrokerAddr());
+				broker.put("brokerEmail", loginMember.getMemEmail());
+				broker.put("brokerTel", loginMember.getMemTel());
+				
+				
+				request.setAttribute("broker", broker);
 				path = "/WEB-INF/views/broker/brokerInfo.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);

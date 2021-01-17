@@ -18,26 +18,26 @@
     <div class="container">
        <div class="c1">
         
-          <div id="left"><a href="아이디 찾기로 이동"><h3 class="s1class" ><span>비밀번호</span><span class="su">찾기</span>
+          <div id="left"><a id="searchPwForm" href="${contextPath}/common/searchPwForm.do"><h3 class="s1class" ><span>비밀번호</span><span class="su">찾기</span>
           </h3></a></div>
           <div id="right" class="right_hover"><h3 class="s2class"><span>아이디</span><span class="su">찾기</span></h3></div>
        </div>
        <div class="c2">
        
- 		<form class="searchId" method="get" action="${contextPath}/common/searchId.do"  onsubmit="return validate();">
+ 		<form class="searchId" method="post" action="${contextPath}/common/searchId.do"  onsubmit="return idValidate();">
             <h1 class="search2">아이디 찾기</h1>
              <div class="txt">
                  <h3>
                      본인확인 이메일로 인증 <br>
                  </h3>
-                 본인확인 이메일 주소와 입력한 이메일 주소가 같아야, <br>
+          가입하신 이메일로 <br>
                   인증번호를 받을 수 있습니다. <br>
             </div>
              <input name="username" type="text" placeholder="닉네임" class="userInfo"/><br>
              <input name="email" type="email" placeholder="이메일 주소" class="userInfo emailAdr"/>
              <button class="btn small">인증번호 받기</button>
              <input name="code" type="number" placeholder="인증번호 6자리 숫자입력"  class="userInfo">
-             <button class="btn" id="nextid">확인</button>
+             <button class="btn" id="nextid" type="submit">확인</button>
             </form>
 
       </div>

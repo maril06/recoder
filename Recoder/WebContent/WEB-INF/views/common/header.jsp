@@ -75,7 +75,7 @@
                      <a href="${contextPath}/member/memberMyPage.do" id="myPage">G마이페이지</a>
                     </c:if>
                  	<c:if test="${sessionScope.loginMember.memGrade =='B'}">
-                      <a href="${contextPath}/broker/myPage.do" id="myPage">B마이페이지</a>
+                      <a href="${contextPath}/broker/brokerInfo.do" id="myPage">B마이페이지</a>
                 	</c:if>
                      <a href="${contextPath}/common/logout.do" id="logout">Logout</a>
                  </div>
