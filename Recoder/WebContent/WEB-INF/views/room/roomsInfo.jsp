@@ -437,32 +437,33 @@ $('#report').on('click', () => {
 		Swal.fire({
 			  title: '방문 신청 하시겠습니까?',
 			  text: " ",
-			  icon: 'warning',
+			  icon: 'question',
 			  showCancelButton: true,
 			  confirmButtonColor: '#3085d6',
 			  cancelButtonColor: '#d33',
 			  confirmButtonText: '네'
 			}).then((result) => {
 			  if (result.isConfirmed) {
-				  
+				  console.log(result);
 				  $.ajax({
 				 		url : "${contextPath}/visit/visitSend.do",
 						type : "post",
-						data : {},
+						data : {"result":1 },
 						success : function(result){
-							Swal.fire('신고했습니다!', '', 'success')
+							Swal.fire(
+								'방문 신청했습니다!',
+								'방문시간을 지켜주세요',
+								'success'
+							);
 							
+							alert(result)
 						}, error : function(){
-							console.log("신고 실패");
+							console.log("신청 실패");
 						}		
 					});
 				  
 				  
-			    Swal.fire(
-			      '방문 신청했습니다!',
-			      '방문시간을 지켜주세요',
-			      'success'
-			    )
+			    
 			  }
 			})
 			

@@ -19,7 +19,7 @@ public class ReportDAO {
 	private Properties prop = null;
 	
 	public ReportDAO() {
-		String fileName = RoomDAO.class.getResource("/com/project/recoder/sql/report/report-query.xml").getPath();
+		String fileName = ReportDAO.class.getResource("/com/project/recoder/sql/report/report-query.xml").getPath();
 		try {
 			prop = new Properties();
 			prop.loadFromXML(new FileInputStream(fileName)); 

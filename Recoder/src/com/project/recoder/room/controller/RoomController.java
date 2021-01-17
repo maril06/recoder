@@ -57,19 +57,7 @@ public class RoomController extends HttpServlet {
 			
 			// 매물 등록 시작 =================================================================================================
 			else if(command.equals("/roomInsert.do")) {
-/*	
-				System.out.println("washing: " + washing);
-				System.out.println("closet: " + closet);
-				System.out.println("bed: " + bed);
-				System.out.println("airCon: " + airCon);
-				System.out.println("parking: " + parking);
-				System.out.println("tv: " + tv);
-				System.out.println("internet: " + internet);
-				System.out.println("fridge: " + fridge);
-				System.out.println("womanOnly: " + womanOnly);
-				System.out.println("pet: " + pet);
-				
-*/
+
 				// 파일
 	        	int maxSize = 20 * 1024 * 1024; // 20MB == 20 * 1024KB == 20 * 1024 * 1024Byte
 	        	String root = request.getSession().getServletContext().getRealPath("/");
@@ -453,15 +441,6 @@ public class RoomController extends HttpServlet {
 				
 				
 			}
-			// 신고 =================================================================================================
-			else if(command.equals("/viewReport.do")) {
-				String  reportTitle = request.getParameter("reportTitle");
-			}
-			
-			
-			
-			
-			
 			
 			//-------------------------------------------------------------------------------------------------------------
 			//매물 검색폼 컨트롤러
