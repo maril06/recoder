@@ -59,10 +59,6 @@ public class CommonController extends HttpServlet {
 			
 			//회원가입 버튼 눌렀을 때 회원가입 폼으로 이동 Controller------------------------------------------------
 			else if(command.equals("/signUpForm.do")) {
-				
-				if(request.getSession().getAttribute("Burl") == null) {
-					request.getSession().setAttribute("Burl", request.getHeader("referer"));
-				}
 
 				path = "/WEB-INF/views/common/signUpForm.jsp";
 				
