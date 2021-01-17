@@ -1,4 +1,4 @@
-package com.project.recoder.broker.model.controller;
+package com.project.recoder.broker.controller;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -129,7 +129,7 @@ public class BrokerController extends HttpServlet {
 				String root = request.getSession().getServletContext().getRealPath("/");
 				String filePath = root + "resources/images/brokerInfo/";
 				
-				System.out.println("filePath : "+filePath);
+				//System.out.println("filePath : "+filePath);
 				
 				MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 				

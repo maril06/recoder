@@ -12,13 +12,14 @@
    font-style: normal;
 }
 
+
 body {
    background:#FAF3EC;
    font-family: 'TmoneyRoundWindExtraBold';
    /* font-family: 'Roboto'; */
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #748194;
+  /* color: #748194; */
 }
 ::-moz-placeholder { /* Firefox 19+ */
   color: #748194;
@@ -32,60 +33,53 @@ body {
 .container{
    display:none;
    position:absolute;
-	width: auto;
-	height:auto;
-	top: calc(50% - 240px);
-	left: calc(40% - 160px);
+    width: auto;
+    height:auto;
+    top: calc(50% - 240px);
+    left: calc(40% - 160px);
    border-radius:15px 15px 15px 15px;
 }
+
+.footer{
+   height: 200px;
+}
+
 .c1{
    box-shadow:0 0 10px grey;
    background-color:white;
-   width:300px;
-   height:500px;
+   width: 700px;
+   height:700px;
    display:inline-block;
    border-radius:15px 15px 15px 15px;
 }
 
 
-.c11{
-   /* background-image:url('https://i.pinimg.com/736x/b8/09/22/b80922f6ea2daaf36a6627378662803b--deck-of-cards-phone-wallpapers.jpg');
-   */
-   background-image: url('https://veerle.duoh.com/images/inspiration/_normal/dualit-coffee-labels-ii-big.jpg');
-   background-size:300px 400px;
-   background-repeat: no-repeat;
-   background-color: wheat;
-   width:300px;
-   height:400px;
-   display:inline-block;
-   position:absolute;
-   z-index:4;
-   border-radius:15px 15px 200px 200px;
-   
-}
-#left, #right {
-   color:white;
-   display: inline-block;
-   width:150px;
-   height: 500px;
-   background-color:white;
-   cursor:pointer;
-}
 #left{
-   border-radius:15px 0px 0px 15px;
+     border-radius:15px 0px 0px 15px;
+ }
+
+#left, #right {
+   color:black;
+   display: inline-block;
+   width: 350px;
+   height: 700px;
+   cursor:pointer;
 }
 #right{
    border-radius:15px 15px 15px 0px;
-   position: absolute;
+    position: absolute;
      right: 0;
 }
 .left_hover{
-   color:#EE9BA3;
+   background-color:#EE9BA3;
+   color:#F6F7F9;
    box-shadow: 5px 0 18px -10px #333;
    z-index:1;
    position:absolute;
 }
 .right_hover{
+   background-color: #EE9BA3;
+   color:#F6F7F9;
    box-shadow: -5px 0 15px -10px #333;
    z-index:1;
    position:absolute;
@@ -93,10 +87,11 @@ body {
 .s1class{
    color:#748194;
    position:absolute;
-   bottom:0;
+   top:0;
    left:63%;
    margin-left: -50%;
 }
+
 .s1class span,  .s2class span{
    display:block;
 }
@@ -106,48 +101,50 @@ body {
 .s2class{
    color:#748194;
    position:absolute;
-   bottom:0;
+   top:0;
    right:63%;
-   margin-right: -50%;
+   margin-right: -50%; 
 }
-.mainhead{
-   color:white;
-   font-size:30px;
-   text-align:center;
-   margin-top:50px;
-}
+
 
 .c2{
    background-color:white;
-   width:300px;
-   height:500px;
+   width:700px;
+   height: 620px;
    border-radius:15px;
    position:absolute;
-   left:370px;
+   left: 0;
+   top:80px;
    display:inline-block;
+   z-index: 3;
 }
-.username{
+
+
+.userInfo{
+  /* display: block; */
    font-weight: bold;
-   width: 200px;
-   margin: 0 35px 20px ;
+   width: 300px;
+   margin: 5px 180px 5px;
    height: 35px;
    padding: 6px 15px;
    border-radius: 5px;
    outline: none;
    border: none;
    background: #F6F7F9;
-   color: black;
+   color: #748194;
    font-size: 14px;
 }
 
-input::placeholder{
-	color:#A7A7A7;
+.emailAdr{
+   margin-right: 0px;
 }
+
 
 .btn{
    font-weight: bold;
-   width: 230px;
-   margin: 0 35px 20px ;
+   width: 300px;
+   box-sizing: content-box;
+   margin: 10px 180px 30px ;
    height: 45px;
    padding: 6px 15px;
    border-radius: 5px;
@@ -157,38 +154,64 @@ input::placeholder{
    color: white;
    font-size: 14px;
 }
-.btn:hover{
-	cursor: pointer;
+
+.small{
+   width: 50px;
+   box-sizing: content-box;
+   margin-left: 10px;
+   margin-top: 5px;
+   height: 35px;
+   background: #EE9BA3;
+   color: white;
+   font-size: 12px;
+   display: inline-block;
+   position: absolute;
 }
-.signup1{
+
+.userInfo.btn {
+  
+  font-weight: bold;
+  width: 70px;
+  box-sizing: content-box;
+  margin-left: 10px;
+  margin-right: auto;
+  margin-bottom: auto;
+  height: 35px;
+  padding: 6px 15px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background: #EE9BA3;
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top : 0px;
+  left: 400px;
+}
+
+.addressArea{
+  width : 330px;
+  position : relative;
+}
+
+.search2{
    color:#748194;
    font-size:30px;
    text-align:center;
+   margin: 50px 0 50px;
 }
 a{
    text-decoration: none;
 }
-.signup2{
+.search1{
    color:#748194;
-   font-size:16px;
+   font-size:30px;
    text-align:center;
+   margin: 50px 0 50px;
 }
-.signup{
+.searchPw{
    display:initial;
-}
-.signin{
-   display:initial;
-}
-
-#rememberId{
-   width: 200px;
-   margin: 0 35px 20px ;
-   height: 20px;
-   outline: none;
-   border: none;
-   color: #748194;
-   font-size: 14px;
-   font-family: 'IBMPlexSansKR-Regular';
+   position: relative;
 }
 
 #else{
@@ -197,16 +220,17 @@ a{
    position: relative;
 }
 
-#signin{
-   color:#748194;
-   position: absolute;
-   right: 30px;
-   bottom: 40px;
-}
 
 #search{
    color: #a6a6a7;
    position: absolute;
    right: 30px;
    bottom: 10px;
+}
+
+
+.txt{
+   text-align: center;
+   font-family: 'IBMPlexSansKR-Regular';
+   margin-bottom: 20px;
 }

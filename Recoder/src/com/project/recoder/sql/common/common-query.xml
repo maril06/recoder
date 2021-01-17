@@ -18,4 +18,12 @@ WHERE MEM_NICK = ?
 AND  SCSN_FL = 'N'
 </entry>
 
+<entry key="searchId">
+SELECT MEM_ID
+FROM MEMBER
+WHERE MEM_NICK = ?
+AND MEM_EMAIL = ?
+AND  SCSN_FL = 'N'
+</entry>
+
 </properties>
