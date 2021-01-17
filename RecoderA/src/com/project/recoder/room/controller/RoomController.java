@@ -85,7 +85,7 @@ public class RoomController extends HttpServlet {
 				//System.out.println(numberList);
 				
 				int result = service.updateRoomDelete(numberList);
-				
+				System.out.println(result);
 				response.getWriter().print(result);
 			}
 			
