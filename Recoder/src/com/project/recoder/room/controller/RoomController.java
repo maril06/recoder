@@ -73,7 +73,8 @@ public class RoomController extends HttpServlet {
 				// 파일
 	        	int maxSize = 20 * 1024 * 1024; // 20MB == 20 * 1024KB == 20 * 1024 * 1024Byte
 	        	String root = request.getSession().getServletContext().getRealPath("/");
-	        	String filePath = root + "resources/images/rooms";
+	        	String filePath = root + "resources/images/rooms/";
+	        	
 	        	
 	        	MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 	        	//														요청		파일위치		크기						이름변경			
@@ -215,7 +216,7 @@ public class RoomController extends HttpServlet {
 				
 				// 매물 번호
 				//int roomNo = Integer.parseInt(request.getParameter("no"));
-				int roomNo = 41;
+				int roomNo = 62;
 				Room room = service.updateView(roomNo);
 				if(room !=null) {
 					List<RoomImg> mList = service.selectRoomImg(roomNo);
@@ -240,7 +241,7 @@ public class RoomController extends HttpServlet {
 			else if(command.equals("/roomUpdate.do")) {
 				int maxSize = 20 * 1024 * 1024; // 20MB == 20 * 1024KB == 20 * 1024 * 1024Byte
 	        	String root = request.getSession().getServletContext().getRealPath("/");
-	        	String filePath = root + "resources/images/rooms";
+	        	String filePath = root + "resources/images/rooms/";
 	        	
 	        	MultipartRequest mRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 	        	//														요청		파일위치		크기						이름변경			
@@ -272,7 +273,7 @@ public class RoomController extends HttpServlet {
 	        	
 	        	// 매물 번호 받아오기
 //	        	int roomNo = Integer.parseInt(mRequest.getParameter(""));
-	        	int roomNo = 41;
+	        	int roomNo = 62;
 	        	
 	        	
 	        	List<RoomImg> mList = new ArrayList<RoomImg>();
@@ -340,9 +341,9 @@ public class RoomController extends HttpServlet {
 				map.put("roomNo", roomNo);
 				
 				map.put("mList" ,mList);
+				map.put("memNo", memNo);
 				
 				int result = service.roomUpdate(map);
-				
 				// 8. result 값에 따라 View 연결 처리 
 	        	path = "view.do?cp=" + cp + "&no=" + roomNo ;
 	        	
@@ -385,7 +386,7 @@ public class RoomController extends HttpServlet {
 			// 매물 상세 =================================================================================================
 			else if(command.equals("/view.do")) {
 				
-				int roomNo = 41; // 임시
+				int roomNo = 62; // 임시
 				// request.getParameter로 얻어와야함!!
 				
 
@@ -439,8 +440,6 @@ public class RoomController extends HttpServlet {
 						request.setAttribute("mList", mList);
 					}
 					
-					System.out.println(room);
-					
 					path = "/WEB-INF/views/room/roomsInfo.jsp";
 					request.setAttribute("room", room);
 					request.setAttribute("options", a);
@@ -457,8 +456,6 @@ public class RoomController extends HttpServlet {
 			// 신고 =================================================================================================
 			else if(command.equals("/viewReport.do")) {
 				String  reportTitle = request.getParameter("reportTitle");
-				System.out.println(3);
-				System.out.println(reportTitle);
 			}
 			
 			

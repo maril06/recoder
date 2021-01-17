@@ -274,25 +274,10 @@ public class RoomDAO {
 		return result;
 	}
 
-	public int insertImgFile(Connection conn, RoomImg newFile) throws Exception{
-		int result = 0;
-		String query = prop.getProperty("insertImgFile");
-		
-		try {
-			
-	
-			pstmt = conn.prepareStatement(query);
-			
-			result = pstmt.executeUpdate();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
 
 	public int updateImgFile(Connection conn, RoomImg newFile) throws Exception {
 		int result = 0;
-		String query = prop.getProperty("updateAttachment");
+		String query = prop.getProperty("updateImgFile");
 		
 				
 		try {

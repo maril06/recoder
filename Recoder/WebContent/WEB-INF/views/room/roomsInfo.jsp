@@ -51,7 +51,7 @@
                     <a href=""><span class="clearfix"><i class="far fa-heart"></i>찜하기</span></a>
                 </div>
                 <div class="broker_info">
-                    <div class="visit"><button class="btn btn-primary">방문신청</button></div>
+                    <div class="visit"><button class="btn btn-primary" id="visit">방문신청</button></div>
                     <div class="broker"><a href="#">공인중개사</a></div>
                 </div>
             </div>
@@ -431,6 +431,43 @@ $('#report').on('click', () => {
 	  });
 
 	});
+	
+	
+	$("#visit").on("click",()=>{
+		Swal.fire({
+			  title: '방문 신청 하시겠습니까?',
+			  text: " ",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '네'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+				  
+				  $.ajax({
+				 		url : "${contextPath}/visit/visitSend.do",
+						type : "post",
+						data : {},
+						success : function(result){
+							Swal.fire('신고했습니다!', '', 'success')
+							
+						}, error : function(){
+							console.log("신고 실패");
+						}		
+					});
+				  
+				  
+			    Swal.fire(
+			      '방문 신청했습니다!',
+			      '방문시간을 지켜주세요',
+			      'success'
+			    )
+			  }
+			})
+			
+	})
+	
 
 
 

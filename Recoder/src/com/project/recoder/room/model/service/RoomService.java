@@ -117,7 +117,6 @@ public class RoomService {
 		int result = 0;
 		
 		
-		System.out.println(map);
 		List<RoomImg> deleteFiles = null; 
 		
 		map.put("roomTitle", replaceParameter((String)map.get("roomTitle")));
@@ -125,10 +124,8 @@ public class RoomService {
 		try {
 			result = dao.roomUpdate(conn, map);
 			List<RoomImg> newImgList = (List<RoomImg>)map.get("mList");
-			System.out.println(newImgList);
 			if(result > 0 && !newImgList.isEmpty()) {
-				
-				List<RoomImg> oldImgList = dao.selectRoomImg(conn, (int)map.get("boardNo"));
+				List<RoomImg> oldImgList = dao.selectRoomImg(conn, (int)map.get("roomNo"));
 				
 				result = 0; // result 재활용
 				deleteFiles = new ArrayList<RoomImg>();
@@ -136,8 +133,6 @@ public class RoomService {
 				
 				for(RoomImg newFile: newImgList) {
 					
-					// flag가 false인 경우 : 새 이미지와 기존 이미지의 파일 레벨이 중복되는 경우 -> update
-					// flag가 true인 경우 : 새 이미지와 기존 이미지의 파일 레벨이 중복되지 않은 경우 -> insert
 					boolean flag = true;
 					
 					// 기존 이미지 정보 반복 접근
@@ -145,7 +140,6 @@ public class RoomService {
 						
 						// 새로운 이미지와 기존 이미지의 파일레벨이 동일한 파일이 있다면 
 						if(newFile.getRoomImgLevel() == oldFile.getRoomImgLevel()	) {
-							
 							// 기존 파일을 삭제 List에 추가
 							deleteFiles.add(oldFile);
 							
@@ -176,10 +170,9 @@ public class RoomService {
 				
 			}
 			
-		}catch (Exception e) {
+		} catch (Exception e) {
 			List<RoomImg> mList = (List<RoomImg>)map.get("mList");
 			
-			System.out.println(mList);
 			
 			if (!mList.isEmpty()) {
 				for(RoomImg img : mList) {
@@ -197,30 +190,26 @@ public class RoomService {
 			
 			throw e;
 		}
-		
-				 
-		result = dao.roomUpdate(conn, map);
-		
-			if(result > 0) {
-				commit(conn);
-				
-				// DB 정보와 맞지 않는 파일 (deleteFiles) 삭제 진행
-				if(deleteFiles != null) {
-					for(RoomImg img : deleteFiles) {
-						
-						String filePath = img.getRoomImgPath();
-						String fileName = img.getRoomImgName();
-						
-						File deleteFile = new File(filePath + fileName);
-						
-						if(deleteFile.exists()) {
-							deleteFile.delete();
-						}
+		if(result > 0) {
+			commit(conn);
+			
+			// DB 정보와 맞지 않는 파일 (deleteFiles) 삭제 진행
+			if(deleteFiles != null) {
+				for(RoomImg img : deleteFiles) {
+					
+					String filePath = img.getRoomImgPath();
+					String fileName = img.getRoomImgName();
+					
+					File deleteFile = new File(filePath + fileName);
+					
+					if(deleteFile.exists()) {
+						deleteFile.delete();
 					}
 				}
-			} else {
-				rollback(conn);
 			}
+		} else {
+			rollback(conn);
+		}
 		
 		close(conn);
 		return result;
