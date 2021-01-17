@@ -104,6 +104,15 @@ public class CommonController extends HttpServlet {
 				view.forward(request, response);
 			}
 			
+			//비밀번호 찾기 폼 연결 controller---------------
+			else if(command.equals("/searchPwForm.do")) {
+
+				path = "/WEB-INF/views/common/searchPw.jsp";
+				
+				view = request.getRequestDispatcher(path);
+				
+				view.forward(request, response);
+			}
 			
 			//아이디 찾기 controller----------------
 			else if(command.equals("/searchId.do")) {
@@ -124,7 +133,13 @@ public class CommonController extends HttpServlet {
 				
 				if(memId != null) { //아이디 있을 경우
 					session.setAttribute("memId", memId);
-					response.sendRedirect(request.getHeader("referer"));
+					
+					path = "/WEB-INF/views/common/searchId_next.jsp";
+					
+					view = request.getRequestDispatcher(path);
+					
+					view.forward(request, response);
+					
 					
 				}else { //아이디 없을 경우
 					session.setAttribute("swalIcon", "error");
@@ -145,6 +160,78 @@ public class CommonController extends HttpServlet {
 				 */
 				
 			}
+			
+			//비밀번호 찾기 controller ------------------------------------------
+			else if(command.equals("/searchPw.do")) {
+				String nickname = request.getParameter("username");
+				String memId = request.getParameter("userid");
+				String email = request.getParameter("email");
+				String code = request.getParameter("code");
+				
+				//인증 코드가 보낸 코드랑 같을때 service 진행
+				Map<String, Object> map = new HashMap<String, Object>();
+				
+				map.put("nickname", nickname);
+				map.put("email", email);
+				map.put("memId", memId);
+				
+				int result = service.searchPw(map);
+				
+				//String memId = service.searchId(map);
+				
+				if(result > 0) { //회원 있을 경우 비번 변경 하기 service
+					
+					session.setAttribute("memId", memId);
+					
+					path = "/WEB-INF/views/common/searchPw_next.jsp";
+					
+					view = request.getRequestDispatcher(path);
+					
+					view.forward(request, response);
+					
+					
+				}else { //회원 없을 경우
+					session.setAttribute("swalIcon", "error");
+					session.setAttribute("swalTitle", "비밀번호 찾기 실패");
+					session.setAttribute("swalText", "닉네임 또는 이메일을 확인해주세요."); 
+					
+					response.sendRedirect(request.getHeader("referer"));
+					
+				}
+				
+			}
+			
+			//비밀번호 찾기에서 비밀번호 변경하기 controller-------------------------------
+			else if(command.equals("/setPw.do")) {
+				String password = request.getParameter("password1");
+				
+				int result = service.setPw(password);
+				
+				String swalIcon = null;
+				String swalTitle = null;
+				String swalText = null;
+				
+				String url = null;
+				
+				if(result > 0) { //회원비번 바뀌었을 때
+					// 로그인 페이지로 이동(메인 화면 재요청)
+					swalIcon = "success";
+					swalTitle = "비밀번호가 변경되었습니다.";
+					swalText = "로그인으로 돌아갑니다.";
+					url = "loginForm.do";
+				}else {
+					
+				}
+				
+				session.setAttribute("swalIcon", swalIcon);
+				session.setAttribute("swalTitle", swalTitle);
+				session.setAttribute("swalText", swalText);
+				
+				response.sendRedirect(url);
+				
+				
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			path = "/WEB-INF/views/common/errorPage.jsp"; // 수정

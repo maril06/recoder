@@ -123,4 +123,34 @@ public class commonDAO {
 		return memId;
 	}
 
+	/** 비밀번호 찾기 service
+	 * @param conn
+	 * @param map
+	 * @return result
+	 * @throws Exception
+	 */
+	public int searchPW(Connection conn, Map<String, Object> map) throws Exception{
+		int result = 0;
+		
+		String query = prop.getProperty("searchPw");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, (String) map.get("nickname"));
+			pstmt.setString(2, (String) map.get("email"));
+			pstmt.setString(3, (String) map.get("memId"));
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
