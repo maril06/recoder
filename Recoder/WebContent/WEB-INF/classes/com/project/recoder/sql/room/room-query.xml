@@ -50,11 +50,6 @@
 	</entry>
 	
 	<!--  -->
-	<entry key="updateImgFile">
-		UPDATE ROOM_IMG SET ROOM_IMG_PATH = ?, ROOM_IMG_NAME = ? WHERE ROOM_IMG_NO = ?
-	</entry>
-	
-	<!--  -->
 	<entry key="roomUpdate">
 		UPDATE ROOM SET ROOM_ADDR = ? ,TYPE_OF_RENT = ?,DEPOSIT = ? ,MONTH_RENT = ?,
 						  CARE_FEE = ?,PUB_SIZE = ?,REAL_SIZE = ?,ROOM_FLOOR = ?,ROOM_STRUC = ?,
@@ -66,8 +61,8 @@
 	</entry>
 	
 	<!--  -->
-	<entry key="">
-		
+	<entry key="updateImgFile">
+		UPDATE ROOM_IMG SET ROOM_IMG_PATH  = ?, ROOM_IMG_NAME = ? WHERE ROOM_IMG_NO = ? 
 	</entry>
 	
 	<!--  -->
