@@ -66,7 +66,7 @@
 			<table class="table table-striped table-hover" id="list-table">
 				<thead>
 					<tr>
-						<th><input type="checkbox" name="ck"
+						<th><input type="checkbox" name="allNotice"
 							onclick='selectAll(this)'></th>
 						<th>공지글 번호</th>
 						<th>공지글 제목</th>
@@ -88,8 +88,8 @@
 							<c:forEach var="notice" items="${nList}">
 								<tr>
 									<td>
-									<input type="checkbox" name="ck" class="selectNotice" value="${room.noticeNo}">
-									<input type ="hidden" value="${room.noticeNo}" class="roomNo">
+									<input type="checkbox" name="ck" class="selectNotice" value="${notice.noticeNo}">
+									<input type ="hidden" value="${notice.noticeNo}" class="noticeNo">
 									</td>
 									<td>${notice.noticeNo}</td>
 									<td>${notice.noticeTitle}</td>
@@ -222,7 +222,66 @@
                 checkbox.checked = selectAll.checked;
             })
         }
-
+		
+        
+        
+        
+			$("#deleteBtn").on("click", function(){
+        	
+        	var list = [];
+        	
+        	$("input:checkbox[name='ck']:checked").length
+            
+            $('input[type="checkbox"]:checked').each(function (index) {
+            		if($(this).val() != "on"){
+	  					list.push($(this).val());
+            		}	
+            });
+                console.log(list);
+        	
+	       $.ajax({
+				url : "${contextPath}/notice/deleteNotice.do",
+				data : {"numberList" : list.join()},
+				
+				type : "post",
+				
+				success : function(result){
+					
+					console.log(result);
+					
+					if(result > 0){ 
+						swal({icon : "success" , 
+				        	title : "삭제 성공", 
+				        	buttons : {confirm : true}}
+				        ).then((result) => {
+					        	if(result) {
+									location.reload();
+					        	}	
+					        }
+				        );
+						
+					}
+				},
+				error : function(){
+					console.log("삭제 실패");
+				}
+			}); 
+	        	
+        	
+        });
+			
+			(function(){
+				
+				var searchValue = "${param.sv}";
+				
+				
+				// 검색어 입력창에 searchValue 값 출력
+				$("input[name=sv]").val(searchValue);
+				
+			})();	
+        
+        
+        
     </script>
 </body>
 </html>

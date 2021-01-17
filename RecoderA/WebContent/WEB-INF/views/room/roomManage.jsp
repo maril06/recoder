@@ -117,6 +117,8 @@
 
 			<c:if test="${loginAdmin.adminGrade =='A' }">
 				<c:choose>
+					
+				
 					<c:when test="${param.sk == 'enrollRoom'}">
 						<button class="btn btn-primary float-right delete-btn"
 							id="deleteBtn">삭제</button>
@@ -126,6 +128,15 @@
 						<button class="btn btn-primary float-right recover-btn"
 							id="recoverBtn">복구</button>
 					</c:when>
+					
+					<c:otherwise>
+						<button class="btn btn-primary float-right delete-btn"
+							id="deleteBtn">삭제</button>
+						<button class="btn btn-primary float-right recover-btn"
+						id="recoverBtn">복구</button>
+					</c:otherwise>
+					
+					
 					
 				</c:choose>
 			</c:if>
