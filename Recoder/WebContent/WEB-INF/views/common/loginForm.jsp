@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,9 +12,9 @@
     
    <!-- jQuery -->
    <script src="http://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-   <!-- sweetalert : alertÃ¢À» ²Ù¹Ð ¼ö ÀÖ°Ô ÇØÁÖ´Â ¶óÀÌºê·¯¸® https://sweetalert.js.org/ -->
+   <!-- sweetalert : alertì°½ì„ ê¾¸ë°€ ìˆ˜ ìžˆê²Œ í•´ì£¼ëŠ” ë¼ì´ë¸ŒëŸ¬ë¦¬ https://sweetalert.js.org/ -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-   <title>·Î±×ÀÎ</title>
+   <title>ë¡œê·¸ì¸</title>
 </head>
 <body>
 
@@ -24,15 +24,15 @@
       <div class="c1">
          
          <div class="c11">
-            <h1 class="mainhead">³» ¹æ Ã£±â</h1>
+            <h1 class="mainhead">ë‚´ ë°© ì°¾ê¸°</h1>
          </div>
-         <div id="left"><h3 class="s1class"><span>°øÀÎÁß°³»ç</span><span class="su">È¸¿ø</span>
+         <div id="left"><h3 class="s1class"><span>ê³µì¸ì¤‘ê°œì‚¬</span><span class="su">íšŒì›</span>
          </h3></div>
-         <div id="right"><h3 class="s2class"><span>ÀÏ¹Ý</span><span class="su">È¸¿ø</span></h3></div>
+         <div id="right"><h3 class="s2class"><span>ì¼ë°˜</span><span class="su">íšŒì›</span></h3></div>
       </div>
       <div class="c2">
          <form class="signup" method="POST" action="${contextPath}/member/login.do" >
-            <h1 class="signup1">ÀÏ¹ÝÈ¸¿ø ·Î±×ÀÎ</h1>
+            <h1 class="signup1">ì¼ë°˜íšŒì› ë¡œê·¸ì¸</h1>
             <br><br><br><br>
             <input name="userId" type="text" placeholder="User ID*" class="username" value="${cookie.saveIdG.value}"/>
             
@@ -40,19 +40,19 @@
             <button class="btn" type="submit">Login</button>
             
             <div id="rememberId">
-               <input type="checkbox" <c:if test="${!empty cookie.saveIdG.value}">checked</c:if> name="remember" id="remember"><label for="remember">¾ÆÀÌµð ÀúÀå</label> <br>
+               <input type="checkbox" <c:if test="${!empty cookie.saveIdG.value}">checked</c:if> name="remember" id="remember"><label for="remember">ì•„ì´ë”” ì €ìž¥</label> <br>
             </div>
             
             <div id="else">
-               <a href="" id="signin">È¸¿ø°¡ÀÔ</a> <br>
-               <a href="" id="search">¾ÆÀÌµð | ºñ¹Ð¹øÈ£ Ã£±â</a> 
+               <a href="${contextPath}/common/signUpForm.do" id="signin">íšŒì›ê°€ìž…</a> <br>
+               <a href="${contextPath}/common/searchIdForm.do" id="search">ì•„ì´ë”” | ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a> 
             </div>
          </form>
          
 
          <form class="signin"  method="POST" action="${contextPath}/broker/login.do">
             
-            <h1 class="signup1">°øÀÎÁß°³»ç ·Î±×ÀÎ</h1>
+            <h1 class="signup1">ê³µì¸ì¤‘ê°œì‚¬ ë¡œê·¸ì¸</h1>
             <br><br><br><br>
             <input name="userId" type="text" placeholder="User ID*" class="username" value="${cookie.saveIdB.value}"/>
             
@@ -60,12 +60,12 @@
             <button class="btn" type="submit" id="l">Login</button>
 
             <div id="rememberId">
-               <input type="checkbox" <c:if test="${!empty cookie.saveIdB.value}">checked</c:if> name="remember" id="remember"><label for="remember">¾ÆÀÌµð ÀúÀå</label>
+               <input type="checkbox" <c:if test="${!empty cookie.saveIdB.value}">checked</c:if> name="remember" id="remember"><label for="remember">ì•„ì´ë”” ì €ìž¥</label>
             </div>
             
             <div id="else">
-               <a href="" id="signin">È¸¿ø°¡ÀÔ</a> <br>
-               <a href="" id="search">¾ÆÀÌµð | ºñ¹Ð¹øÈ£ Ã£±â</a> 
+               <a href="${contextPath}/common/signUpForm.do" id="signin">íšŒì›ê°€ìž…</a> <br>
+               <a href="${contextPath}/common/searchIdForm.do" id="search">ì•„ì´ë”” | ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a> 
             </div>
          </form>
          
@@ -83,7 +83,7 @@
 		
 		</script>
 		
-		<%-- 2) ÇÑ¹ø Ãâ·ÂÇÑ ¸Þ¼¼Áö¸¦ Session¿¡¼­ »èÁ¦ --%>
+		<%-- 2) í•œë²ˆ ì¶œë ¥í•œ ë©”ì„¸ì§€ë¥¼ Sessionì—ì„œ ì‚­ì œ --%>
 		<c:remove var="swalIcon"/>
 		<c:remove var="swalTitle"/>
 		<c:remove var="swalText"/>

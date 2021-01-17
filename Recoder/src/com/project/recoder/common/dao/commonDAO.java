@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Map;
 import java.util.Properties;
 
 import com.project.recoder.broker.model.dao.BrokerDAO;
@@ -90,6 +91,36 @@ public class commonDAO {
 		}
 		
 		return result;
+	}
+
+	/** 아이디 찾기 DAO
+	 * @param conn
+	 * @param map
+	 * @return result
+	 * @throws ex
+	 */
+	public String searchId(Connection conn, Map<String, Object> map) throws Exception{
+		String memId = null;
+		
+		String query = prop.getProperty("searchId");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, (String)map.get("nickname")); //닉네임
+			pstmt.setString(2, (String)map.get("email")); //이메일
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memId = rset.getString(1);
+			}
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return memId;
 	}
 
 }
