@@ -247,7 +247,7 @@
 				
 				success : function(result){
 					
-					console.log(result);
+					//console.log(result);
 					
 					if(result > 0){ 
 						swal({icon : "success" , 

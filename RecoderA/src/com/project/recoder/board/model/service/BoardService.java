@@ -44,4 +44,70 @@ public class BoardService {
 		return bList;
 	}
 
+	
+	
+	/** Board 삭제 Service
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoardDelete(String numberList) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateBoardDelete(conn, numberList);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
+
+	/** Board　복구 service
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoardRecover(String numberList) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateBoardRecover(conn, numberList);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
+
+	
+	
+	/** 게시글 상세조회 Service
+	 * @param boardNo
+	 * @return board
+	 * @throws Exception
+	 */
+	public Board selectBoard(int boardNo) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		Board board = dao.selectBoard(conn, boardNo);
+		
+		close(conn);
+		
+		return board;
+	}
+
 }

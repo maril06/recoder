@@ -121,10 +121,10 @@ public class NoticeController extends HttpServlet {
 				
 				String numberList = request.getParameter("numberList");
 				
-				System.out.println(numberList);
+				//System.out.println(numberList);
 				
 				int result = service.updateNoticeDelete(numberList);
-				System.out.println(result);
+				//System.out.println(result);
 				response.getWriter().print(result);
 			}
 			

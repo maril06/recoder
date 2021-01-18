@@ -42,9 +42,9 @@ public class SearchBoardController extends HttpServlet {
 			List<Board> bList = service.searchBoardList(map, pInfo);
 			
 			//System.out.println(pInfo);
-			for(Board b : bList) {
-				System.out.println(b);
-			}
+			//for(Board b : bList) {
+			//	System.out.println(b);
+			//}
 			
 			
 			String path = "/WEB-INF/views/board/boardList.jsp";
