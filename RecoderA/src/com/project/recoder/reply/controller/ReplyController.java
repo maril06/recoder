@@ -40,11 +40,37 @@ public class ReplyController extends HttpServlet {
 			}
 			
 			
+			// 댓글 삭제
+			else if(command.equals("/deleteReply.do")) {
+				
+				int replyNo= Integer.parseInt(request.getParameter("replyNo"));
+				
+				int result = service.updateReplyDelete(replyNo);
+				
+				response.getWriter().print(result);
+			}
+			
+			
+			// 댓글 복구
+			else if(command.equals("/recoverReply.do")) {
+				
+				int replyNo= Integer.parseInt(request.getParameter("replyNo"));
+				
+				int result = service.updateReplyRecover(replyNo);
+				
+				response.getWriter().print(result);
+			}
+			
+			
+			
+			
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-	
+		
+		
 	
 	
 	

@@ -14,6 +14,7 @@ import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.visit.model.service.VisitService;
+import com.project.recoder.visit.model.vo.Visit;
 
 
 
@@ -43,13 +44,22 @@ public class VisitController extends HttpServlet {
 				
 				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
 				int brokerNo =  loginMember.getMemNo();
-				System.out.println(brokerNo);
 				
 				List<Room> room = service.selectRoom(brokerNo);
+				int visitcd = 1;
+				List<Visit> visit = service.selectVisit(visitcd);
+
 				
-				System.out.println(room);
+				// 방문자 추가 해야함!!
+				/*
+				
+				
+				
+				
+				*/
 				
 				request.setAttribute("room", room);
+				request.setAttribute("visit", visit);
 				
 				path = "/WEB-INF/views/broker/visitCheck.jsp";
 			    view = request.getRequestDispatcher(path);

@@ -42,7 +42,7 @@
                         <td>
                             <div class="replyBtnArea">
                                 <button class="btn btn-primary btn-sm ml-1 recover-btn"
-                                    onclick="recoverReply(2, this)">복구</button>
+                                    onclick="recoverReply(2)">복구</button>
                                
                                 <button class="btn btn-primary btn-sm ml-1 delete-btn"
                                     onclick="deleteReply(2)">삭제</button>
@@ -93,11 +93,11 @@
      				var replyBtnArea = $("<div>").addClass("replyBtnArea");
      				
      				if(item.deleteFl =='Y'){ //삭제되었다면
-	     				var recoverBtn = $("<button>").addClass("btn btn-primary btn-sm ml-1 recover-btn").attr("onclick", "recoverReply("+item.replyNo+", this)");
+	     				var recoverBtn = $("<button>").addClass("btn btn-primary btn-sm ml-1 recover-btn").text("복구").attr("onclick", "recoverReply("+item.replyNo+" )");
      					replyBtnArea.append(recoverBtn);
      				
      				}else{ //삭제되지 않았다면, (정상 등록되어있다면)
-     					var deleteBtn = $("<button>").addClass("btn btn-primary btn-sm ml-1 delete-btn").text("삭제")..text("삭제").attr("onclick", "deleteReply("+item.replyNo+")");
+     					var deleteBtn = $("<button>").addClass("btn btn-primary btn-sm ml-1 delete-btn").text("삭제").attr("onclick", "deleteReply("+item.replyNo+")");
      					replyBtnArea.append(deleteBtn);
      				}
      				
@@ -113,6 +113,60 @@
      		}
      	});
     }
+    
+    
+    
+    // 댓글 삭제
+    function deleteReply(replyNo){
+    	
+    		var url = "${contextPath}/reply/deleteReply.do";
+    		
+    		$.ajax({
+    			url : url,
+    			data : {"replyNo" : replyNo},
+    			success : function(result){
+    				if(result > 0){
+    					selectReplyList(parentBoardNo);
+    					
+    					swal({"icon" : "success" , "title" : "댓글 삭제 성공"});
+    					
+    					
+    				}
+    				
+    			}, 
+    			error : function(){
+    				console.log("ajax 통신 실패");
+    			}
+    		});
+    	
+
+    }
+    
+    
+    // 댓글 복구
+     function recoverReply(replyNo){
+    	
+    		var url = "${contextPath}/reply/recoverReply.do";
+    		
+    		$.ajax({
+    			url : url,
+    			data : {"replyNo" : replyNo},
+    			success : function(result){
+    				if(result > 0){
+    					selectReplyList(parentBoardNo);
+    					
+    					swal({"icon" : "success" , "title" : "댓글 복구 성공"});
+    					
+    				}
+    				
+    			}, 
+    			error : function(){
+    				console.log("ajax 통신 실패");
+    			}
+    		});
+    	
+
+    } 
     
     
     

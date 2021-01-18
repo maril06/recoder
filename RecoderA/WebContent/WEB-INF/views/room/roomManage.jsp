@@ -344,7 +344,7 @@
     </script>
 
 
-	<!-- <img src="/Recoder/resources/images/rooms/20210115153738_55413.png"> -->
+	
 
 </body>
 </html>

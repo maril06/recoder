@@ -451,13 +451,20 @@ $('#report').on('click', () => {
 						type : "post",
 						data : {"result":1 },
 						success : function(result){
-							Swal.fire(
-								'방문 신청했습니다!',
-								'방문시간을 지켜주세요',
-								'success'
-							);
+							if(result > 0){
+								Swal.fire(
+									'방문 신청했습니다!',
+									'방문시간을 지켜주세요',
+									'success'
+								);
+							}else{
+								Swal.fire(
+									'이미신청했습니다',
+									'',
+									'info'
+								);
+							}
 							
-							alert(result)
 						}, error : function(){
 							console.log("신청 실패");
 						}		

@@ -70,4 +70,56 @@ public class ReplyDAO {
 		return rList;
 	}
 
+
+	/** 댓글 삭제용 DAO
+	 * @param conn
+	 * @param replyNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateReplyDelete(Connection conn, int replyNo) throws Exception {
+		int result = 0;
+		
+		String query = prop.getProperty("updateReplyDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, replyNo);
+			
+			result = pstmt.executeUpdate();
+		}finally {
+			
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	
+	/** 댓글 복구용 DAO
+	 * @param conn
+	 * @param replyNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateReplyRecover(Connection conn, int replyNo) throws Exception{
+		
+		int result = 0;
+		
+		String query = prop.getProperty("updateReplyRecover");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, replyNo);
+			
+			result = pstmt.executeUpdate();
+		}finally {
+			
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

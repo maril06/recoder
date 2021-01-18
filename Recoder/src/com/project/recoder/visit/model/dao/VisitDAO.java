@@ -1,6 +1,7 @@
 package com.project.recoder.visit.model.dao;
 
-import static com.project.recoder.common.JDBCTemplate.*;
+import static com.project.recoder.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-
-import com.project.recoder.room.model.dao.RoomDAO;
 import com.project.recoder.room.model.vo.Room;
+import com.project.recoder.visit.model.vo.Visit;
 
 public class VisitDAO {
 	
@@ -82,7 +82,39 @@ public class VisitDAO {
 			close(stmt);
 		}
 		
-		return null;
+		return rList;
+	}
+
+	public List<Visit> selectVisit(Connection conn, int visitcd) throws Exception{
+		List<Visit> vList = null;
+		String query = prop.getProperty("selectVisit");
+		try {
+			
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, visitcd);
+
+			rset = pstmt.executeQuery();
+
+			vList = new ArrayList<Visit>();
+
+			while (rset.next()) {
+				Visit visit = new Visit(
+					rset.getInt("MEM_NO"), 
+					rset.getInt("ROOM_NO"),
+					rset.getTimestamp("VISIT_DT"),
+					rset.getInt("VISIT_CODE"));
+				
+				vList.add(visit);
+			}
+			
+			
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return vList;
 	}
 
 

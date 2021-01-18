@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.common.MyFileRenamePolicy;
-import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.room.model.service.RoomService;
 import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.room.model.vo.RoomImg;
@@ -443,30 +442,23 @@ public class RoomController extends HttpServlet {
 			
 			//-------------------------------------------------------------------------------------------------------------
 			//매물 검색폼 컨트롤러
-			else if(command.equals("/searchRoom.do")){
-				PageInfo pInfo = service.getPageInfo(cp);
-				List<Room> rList = service.selectList(pInfo);
-				System.out.println(rList);
-				if(rList != null) {
-		               
-		               // 썸네일 이미지 목록 조회 서비스 호출
-		               List<RoomImg> fList = service.selectThumbnailList(pInfo);
-		               System.out.println(fList);
-		               
-		               // 썸네일 이미지 목록이 비어있지 않은 경우
-		               if(!fList.isEmpty()) {
-		                  request.setAttribute("fList", fList);
-		               }
-		            }
-		            
-		            path = "/WEB-INF/views/room/searchRoom.jsp";
-		            
-		            request.setAttribute("rList", rList);
-		            request.setAttribute("pInfo", pInfo);
-		            
-		            view = request.getRequestDispatcher(path);
-		            view.forward(request, response);
-			}
+			/*
+			 * else if(command.equals("/searchRoom.do")){ PageInfo pInfo =
+			 * service.getPageInfo(cp); List<Room> rList = service.selectList(pInfo);
+			 * System.out.println(rList); if(rList != null) {
+			 * 
+			 * // 썸네일 이미지 목록 조회 서비스 호출 List<RoomImg> fList =
+			 * service.selectThumbnailList(pInfo); System.out.println(fList);
+			 * 
+			 * // 썸네일 이미지 목록이 비어있지 않은 경우 if(!fList.isEmpty()) {
+			 * request.setAttribute("fList", fList); } }
+			 * 
+			 * path = "/WEB-INF/views/room/searchRoom.jsp";
+			 * 
+			 * request.setAttribute("rList", rList); request.setAttribute("pInfo", pInfo);
+			 * 
+			 * view = request.getRequestDispatcher(path); view.forward(request, response); }
+			 */
 			
 		} catch (Exception e) {
 			e.printStackTrace();
