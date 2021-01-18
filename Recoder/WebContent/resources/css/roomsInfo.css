@@ -457,6 +457,17 @@ a:hover{
     background-color: #795899;
 }
 
+
+/* update button */
+.update_wrapper{
+	width: 63%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 70px;
+}
+
+
 /* footer */
 .footer{
     background-color: #161e27;

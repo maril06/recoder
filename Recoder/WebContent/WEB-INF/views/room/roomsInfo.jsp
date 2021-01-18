@@ -260,7 +260,11 @@
                 
             </div>
         </section>
-        
+        <c:if test="${!empty loginMember && (loginMember.memGrade == 'B')}">
+			<div class="update_wrapper">
+				<div class="update"><a href="${contextPath }/room/roomUpdateForm.do" class="btn btn-primary" id="visit">수정</a></div>
+			</div>
+        </c:if>
 		<!-- footer -->
         <jsp:include page="../common/footer.jsp"></jsp:include>
 
@@ -276,7 +280,7 @@
 
 
 	
-// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+//마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -292,7 +296,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var ps = new kakao.maps.services.Places(); 
 
 // 키워드로 장소를 검색합니다
-ps.keywordSearch($("#area").text(), placesSearchCB); 
+ps.keywordSearch('${room.roomAddr }', placesSearchCB); 
 
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
@@ -301,14 +305,11 @@ function placesSearchCB (data, status, pagination) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         var bounds = new kakao.maps.LatLngBounds();
-
    
             bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
               
-
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
-        
         
         var markerPosition  = new kakao.maps.LatLng(map.getCenter().getLat(), map.getCenter().getLng()); 
 

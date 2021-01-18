@@ -3,8 +3,10 @@ package com.project.recoder.visit.model.service;
 import static com.project.recoder.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.project.recoder.member.model.vo.Member;
+import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.visit.model.dao.VisitDAO;
 
 
@@ -32,6 +34,15 @@ public class VisitService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public List<Room> selectRoom(int brokerNo) throws Exception{
+		Connection conn = getConnection();
+		List<Room> room = null;
+		
+		room = dao.selectRoom(conn, brokerNo);
+		close(conn);
+		return room;
 	}
 
 }
