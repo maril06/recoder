@@ -53,7 +53,7 @@
                         	<li><a href="${contextPath}/common/loginForm.do"><span><b>찜한 방</b></span></a></li>
                         </c:if>
                          <li><a href="#"><span><b>공지사항</b></span></a></li>
-                        <li><a href="${contextPath}/board/boardListForm.do"><span><b>게시판</b></span></a></li>
+                        <li><a href="${contextPath}/board/list.do"><span><b>게시판</b></span></a></li>
                          <li><a href="${contextPath}/message/message.do"><span><b>쪽지함</b></span></a></li>
                         
                     </ul>
@@ -85,3 +85,5 @@
               </c:choose> 
             </div>
         </header>
+  <script src="${contextPath}/resources/js/slick.min.js">
+  </script>

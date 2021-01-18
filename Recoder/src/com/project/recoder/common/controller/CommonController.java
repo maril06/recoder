@@ -32,7 +32,6 @@ public class CommonController extends HttpServlet {
 		String errorMsg = null;
 		HttpSession session = request.getSession();
 		// 현재 페이지를 얻어옴
-		String cp = request.getParameter("cp");
 		
 		CommonService service = new CommonService();
 		
