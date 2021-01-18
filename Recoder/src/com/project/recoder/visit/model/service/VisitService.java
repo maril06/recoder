@@ -1,11 +1,16 @@
 package com.project.recoder.visit.model.service;
 
-import static com.project.recoder.common.JDBCTemplate.*;
+import static com.project.recoder.common.JDBCTemplate.close;
+import static com.project.recoder.common.JDBCTemplate.commit;
+import static com.project.recoder.common.JDBCTemplate.getConnection;
+import static com.project.recoder.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
-import com.project.recoder.member.model.vo.Member;
+import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.visit.model.dao.VisitDAO;
+import com.project.recoder.visit.model.vo.Visit;
 
 
 public class VisitService {
@@ -23,7 +28,13 @@ public class VisitService {
 		
 		Connection conn = getConnection();
 		int result = 0;
-		result = dao.visitSend(conn, roomNo, memNo, visitCd);
+		
+		try {
+			result = dao.visitSend(conn, roomNo, memNo, visitCd);
+			
+		} catch (Exception e) {
+			result = 0;
+		}
 		
 		if (result >0) {
 			commit(conn);
@@ -32,6 +43,25 @@ public class VisitService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public List<Room> selectRoom(int brokerNo) throws Exception{
+		Connection conn = getConnection();
+		List<Room> room = null;
+		
+		room = dao.selectRoom(conn, brokerNo);
+		close(conn);
+		return room;
+	}
+
+	public List<Visit> selectVisit(int visitcd) throws Exception{
+		Connection conn = getConnection();
+		List<Visit> visit = null;
+		
+		visit = dao.selectVisit(conn, visitcd);
+		close(conn);
+		
+		return visit;
 	}
 
 }

@@ -43,4 +43,27 @@ FROM MEMBER
 WHERE MEM_NO = ?
 </entry>
 
+
+<entry key="heartInsert">
+INSERT INTO PICK_ROOM VALUES(?, ?) 
+</entry>
+
+<entry key="heartcheck">
+SELECT COUNT(*) FROM PICK_ROOM
+WHERE ROOM_NO = ?
+AND MEM_NO = ?
+</entry>
+
+<entry key="heartDelete">
+DELETE FROM PICK_ROOM
+WHERE ROOM_NO = ?
+AND MEM_NO = ?
+</entry>
+
+<entry key="nickDupCheck">
+SELECT COUNT(*)
+FROM MEMBER
+WHERE MEM_NICK = ?
+AND  SCSN_FL = 'N'
+</entry>
 </properties>

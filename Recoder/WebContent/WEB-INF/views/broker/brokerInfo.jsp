@@ -69,7 +69,7 @@
 
                     <button class="btn btn-danger" id="delete">회원 탈퇴</button>
                     <div class="broker_link clearfix">
-                        <a href=""><span>방문자 체크</span></a>
+                        <a href="${contextPath }/visit/visit.do"><span>방문자 체크</span></a>
                         <a href=""><span>내 정보 수정</span></a>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                     </div>
                 </div>
                 <div class="add_room">
-                    <a href="">매물 등록</a>
+                    <a href="${contextPath }/room/roomInsertForm.do">매물 등록${pwch }</a>
                 </div>
             </div>
         </section>
@@ -168,5 +168,103 @@
 
     <!-- index.js -->
     <script src="${contextPath}/resources/js/brokerInfo.js"></script>
+    <script type="text/javascript">
+
+    $('#delete').on('click', function(){
+        
+    	
+
+    
+    Swal.fire({
+    	  title: '비밀번호를 입력해주세요',
+    	  input: 'password',
+    	  inputAttributes: {
+    	    autocapitalize: 'off'
+    	  },
+    	  showCancelButton: true,
+    	  confirmButtonText: 'Look up',
+    	  showLoaderOnConfirm: true,
+    	  allowOutsideClick: () => !Swal.isLoading()
+    	}).then((result) => {
+    	  if (result.isConfirmed) {
+
+    		  
+    		  var inputPw = result.value;
+    		  
+    		  const swalWithBootstrapButtons = Swal.mixin({
+    			  customClass: {
+    			    confirmButton: 'btn btn-success',
+    			    cancelButton: 'btn btn-danger'
+    			  },
+    			  buttonsStyling: false
+    			})
+
+    			swalWithBootstrapButtons.fire({
+    			  title: '정말 탈퇴하시겠습니까?',
+    			  text: "탈퇴하면 계정이 삭제됩니다",
+    			  icon: 'question',
+    			  showCancelButton: true,
+    			  confirmButtonText: '네',
+    			  cancelButtonText: '아니요',
+    			  reverseButtons: true
+    			}).then((result) => {
+    			  if (result.isConfirmed) {
+    				  
+    				  
+    				  $.ajax({
+    						url : "${contextPath}/broker/brokerPwCheck.do",
+    						type : "post",
+    						data: {"userPw": inputPw},
+    						success : function(result){
+    							if(result > 0) {
+   				    			    swalWithBootstrapButtons.fire(
+   				    			      '탈퇴되었습니다',
+   				    			      '이용해주셔서 감사합니다.',
+   				    			      'success'
+   				    			    ).then((result)=>{
+   				    			    	
+	   				    			    location.href="http://localhost:8080/Recoder/";
+   				    			    })
+   				    			    
+   				    			
+   								}else {
+   									
+   									swalWithBootstrapButtons.fire(
+   				    			      '비밀번호가 일치하지 않습니다',
+   				    			      '비밀번호를 다시 확인후 입력해주세요',
+   				    			      'error'
+   				    			    )
+   								}
+    							
+   						}, error : function(){
+   							console.log("탈퇴 실패");
+   						}		
+   					});
+    				  
+    			  } else if (
+    			    /* Read more about handling dismissals below */
+    			    result.dismiss === Swal.DismissReason.cancel
+    			  ) {
+    			    swalWithBootstrapButtons.fire(
+    			      'Cancelled',
+    			      'Your imaginary file is safe :)',
+    			      'error'
+    			    )
+    			  }
+    			})
+    		  
+    	  }
+    	})
+
+    	
+    });
+    
+    
+    
+    
+    
+    
+    
+    </script>
 </body>
 </html>

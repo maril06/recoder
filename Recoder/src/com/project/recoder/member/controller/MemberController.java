@@ -250,6 +250,36 @@ public class MemberController extends HttpServlet {
 	    	        response.sendRedirect("memberMyPage.do");
 	    	}
 			
+			
+			//찜하기----------------------------------
+	    	else if(command.equals("/heart.do")){
+	    		String room_no = request.getParameter("roomNo");
+				String mem_no = request.getParameter("memNo");
+
+				int result = service.heartcheck(room_no,mem_no);
+				
+				if(result>0) {
+					result = service.heartDelete(room_no,mem_no);
+				}else {
+					result = service.heartInsert(room_no,mem_no);					
+				}
+				
+				response.getWriter().print(result);
+				
+	    	}
+			
+			
+	    	else if(command.equals("/nickDupCheck.do")) {
+				System.out.println("졸려");
+				errorMsg = "닉네임 중복검사 과정에서 오류 발생";
+				String nickname = request.getParameter("nickname");
+				
+				int result = service.nickDupCheck(nickname);
+				//0이면 사용해도 되는거
+				
+				response.getWriter().print(result);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			path = "/WEB-INF/views/common/errorPage.jsp"; // 수정

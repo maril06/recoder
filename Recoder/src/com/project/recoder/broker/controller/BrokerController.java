@@ -7,20 +7,23 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.project.recoder.common.MyFileRenamePolicy;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.project.recoder.broker.model.service.BrokerService;
 import com.project.recoder.broker.model.vo.Broker;
+<<<<<<< HEAD
 import com.project.recoder.member.model.service.MemberService;
 import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.wrapper.EncryptWrapper;
+=======
+import com.project.recoder.common.MyFileRenamePolicy;
+>>>>>>> branch 'master' of https://github.com/maril06/recoder.git
 
 @WebServlet("/broker/*")
 public class BrokerController extends HttpServlet {
@@ -38,6 +41,8 @@ public class BrokerController extends HttpServlet {
 		
 		String errorMsg = null;
 		
+		HttpSession session = request.getSession();
+		
 		// 현재 페이지를 얻어옴
 		String cp = request.getParameter("cp");
 		
@@ -49,15 +54,48 @@ public class BrokerController extends HttpServlet {
 				
 				Map<String, String> broker = new HashMap<String, String>();
 				broker.put("brokerNick", loginMember.getMemNick());
-				broker.put("brokderAddr", loginMember.getBrokerAddr());
+				broker.put("brokerAddr", loginMember.getBrokerAddr());
 				broker.put("brokerEmail", loginMember.getMemEmail());
 				broker.put("brokerTel", loginMember.getMemTel());
-				
 				
 				request.setAttribute("broker", broker);
 				path = "/WEB-INF/views/broker/brokerInfo.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
+			}
+			
+			else if(command.equals("/brokerPwCheck.do")){
+				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+				int memNo = loginMember.getMemNo();
+				
+				
+				String password = request.getParameter("userPw");
+				
+				String pw = service.selectPw(memNo);
+				
+				int pwch = 0;
+				
+				if(password.equals(pw)) {
+					pwch = 1;
+					pwch = service.brokerStatusDl(memNo);
+					session.invalidate();
+				}
+				
+				
+//				request.setAttribute("pwch", pwch);
+				
+//				path = request.getContextPath();
+				response.getWriter().print(pwch);
+//			    response.sendRedirect(path);
+				
+				
+//				path = contextPath;
+//			    response.sendRedirect(path);
+				
+//				path = "/index.jsp";
+//			    view = request.getRequestDispatcher(path);
+//			    view.forward(request, response);
+				
 			}
 			
 			//브로커 로그인 controller------------------------------------------------------------------
@@ -75,7 +113,7 @@ public class BrokerController extends HttpServlet {
 					
 					
 				// 6. Session 객체를 얻어와 로그인 정보를 추가함
-					HttpSession session = request.getSession();
+					session = request.getSession();
 					
 					String url = null;
 					

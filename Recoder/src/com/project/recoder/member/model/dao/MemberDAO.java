@@ -186,5 +186,93 @@ int result =0;
 	}
 	
 	
+	public int heartInsert(Connection conn, String room_no, String mem_no) throws Exception{
+		int result =0; 
+		String query = prop.getProperty("heartInsert");
+		
+		try {
+			// 3) PreparedStatement 객체를 얻어와 SQL구문을 세팅
+			pstmt = conn.prepareStatement(query);
+			
+			// 4)위치홀더(?)에 알맞은 값 세팅
+			pstmt.setString(1, room_no);
+			pstmt.setString(2, mem_no);
+			
+			// 5) SQL 구문 수행 후 반환값 저장
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			// 6) 사용한 JDBC 자원 반환
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int heartcheck(Connection conn, String room_no, String mem_no) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("heartcheck");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, room_no);
+			pstmt.setString(2, mem_no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int heartDelete(Connection conn, String room_no, String mem_no) throws Exception{
+		int result =0; 
+		String query = prop.getProperty("heartDelete");
+		
+		try {
+			// 3) PreparedStatement 객체를 얻어와 SQL구문을 세팅
+			pstmt = conn.prepareStatement(query);
+			
+			// 4)위치홀더(?)에 알맞은 값 세팅
+			pstmt.setString(1, room_no);
+			pstmt.setString(2, mem_no);
+			
+			// 5) SQL 구문 수행 후 반환값 저장
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			// 6) 사용한 JDBC 자원 반환
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int nickDupCheck(Connection conn, String nickname) throws Exception{
+		int result = 0;
+		
+		String query = prop.getProperty("nickDupCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, nickname);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 
 }

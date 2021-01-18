@@ -19,6 +19,11 @@ public class Visit {
 		this.visitCd = visitCd;
 	}
 
+	
+	
+	
+	
+
 	public int getMemNo() {
 		return memNo;
 	}

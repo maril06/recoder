@@ -26,6 +26,18 @@ VALUES(?,?,?,?,?,?,DEFAULT, 'B')
 <entry key="insertBrokerInfo">
 INSERT INTO BROKER
 VALUES(?,?,?,DEFAULT,?)
-
 </entry>
+
+	<!--  -->
+	<entry key="selectPw">
+		SELECT MEM_PW
+		FROM MEMBER
+		WHERE MEM_NO = ?
+	</entry>
+	
+	<!--  -->
+	<entry key="brokerStatusDl">
+		UPDATE MEMBER SET SCSN_FL = 'Y' WHERE MEM_NO = ?
+	</entry>
+
 </properties>

@@ -119,4 +119,110 @@ public class BoardDAO {
 		return bList;
 	}
 
+
+
+
+	/** Board 삭제 DAO
+	 * @param conn
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoardDelete(Connection conn, String numberList) throws Exception{
+		
+		int result = 0;
+		
+		String query = "UPDATE BOARD SET "
+				 + " DELETE_FL = 'Y' "
+				 + " WHERE BOARD_NO IN( " + numberList + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			System.out.println(result);
+		}finally {
+			
+			close(stmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+	/** Board 복구 DAO
+	 * @param conn
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoardRecover(Connection conn, String numberList) throws Exception{
+		
+		int result = 0;
+		
+		String query = "UPDATE BOARD SET "
+				 + " DELETE_FL = 'N' "
+				 + " WHERE BOARD_NO IN( " + numberList + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			System.out.println(result);
+		}finally {
+			
+			close(stmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+	/** 게시글 상세 조회 DAO
+	 * @param conn
+	 * @param boardNo
+	 * @return board
+	 * @throws Exception
+	 */
+	public Board selectBoard(Connection conn, int boardNo) throws Exception{
+		
+		Board board = null;
+		
+		String query = prop.getProperty("selectBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+		
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				board = new Board();
+				
+				board.setBoardNo(rset.getInt("BOARD_NO"));
+				board.setBoardTitle(rset.getString("TITLE"));
+				board.setBoardContent(rset.getString("CONTENT"));
+				board.setCreateDate(rset.getTimestamp("CREATE_DT"));
+				board.setReadCount(rset.getInt("READ_COUNT"));
+				board.setDeleteFl(rset.getString("DELETE_FL"));
+				board.setBoardCategory(rset.getInt("BOARD_CD"));
+				board.setMemberNo(rset.getInt("MEM_NO"));
+				board.setMemberNick(rset.getString("MEM_NICK"));
+				
+			}
+		
+			//System.out.println(board.getCreateDate());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return board;
+	}
+
 }

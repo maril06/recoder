@@ -1,6 +1,7 @@
 package com.project.recoder.visit.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.vo.Member;
+import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.visit.model.service.VisitService;
+import com.project.recoder.visit.model.vo.Visit;
 
 
 
@@ -38,9 +42,26 @@ public class VisitController extends HttpServlet {
 			
 			if (command.equals("/visit.do")) {
 				
+				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+				int brokerNo =  loginMember.getMemNo();
+				
+				List<Room> room = service.selectRoom(brokerNo);
+				int visitcd = 1;
+				List<Visit> visit = service.selectVisit(visitcd);
+
+				
+				// 방문자 추가 해야함!!
+				/*
 				
 				
-				path = "/WEB-INF/views//brokerInfo.jsp";
+				
+				
+				*/
+				
+				request.setAttribute("room", room);
+				request.setAttribute("visit", visit);
+				
+				path = "/WEB-INF/views/broker/visitCheck.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
 			

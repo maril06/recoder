@@ -77,7 +77,7 @@
 						<th>매물 번호</th>
 						<th>매물 제목</th>
 						<th>공인중개사</th>
-						<th>Y:삭제 / N:정상</th>
+						<th>상태</th>
 					</tr>
 				</thead>
 
@@ -101,7 +101,16 @@
 									<td>${room.roomNo}</td>
 									<td>${room.roomTitle}</td>
 									<td>${room.gMemNick}</td>
-									<td>${room.deleteFl}</td>
+									<td>
+									
+										<c:if test="${room.deleteFl == 'Y'}">
+										삭제
+										</c:if>
+										<c:if test="${room.deleteFl == 'N'}">
+										등록
+										</c:if>
+									
+									</td>
 								</tr>
 							</c:forEach>
 						</c:otherwise>

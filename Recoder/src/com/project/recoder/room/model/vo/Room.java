@@ -88,6 +88,17 @@ public class Room {
 		this.parking = parking;
 	}
 
+	
+
+	public Room(int roomNo, String roomTitle, String roomInfo, int gMemNo) {
+		super();
+		this.roomNo = roomNo;
+		this.roomTitle = roomTitle;
+		this.roomInfo = roomInfo;
+		this.gMemNo = gMemNo;
+	}
+
+
 	public int getRoomNo() {
 		return roomNo;
 	}

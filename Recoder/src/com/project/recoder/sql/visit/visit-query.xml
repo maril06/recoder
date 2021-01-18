@@ -7,6 +7,17 @@
 		INSERT INTO VISIT VALUES(?, ?, SYSDATE, ?)
 	</entry>
 
+	<entry key="selectRoom">
+		SELECT DISTINCT(ROOM_NO) ,ROOM_TITLE ,ROOM_INFO ,GMEM_NO 
+		FROM ROOM
+		JOIN VISIT USING(ROOM_NO)
+		WHERE DELETE_FL = 'N' AND GMEM_NO = ?
+	</entry>
 	
+	<entry key="selectVisit">
+		SELECT MEM_NO ,ROOM_NO ,VISIT_DT ,VISIT_CODE 
+		FROM VISIT
+		WHERE VISIT_CODE = ?		
+	</entry>
 
 </properties>

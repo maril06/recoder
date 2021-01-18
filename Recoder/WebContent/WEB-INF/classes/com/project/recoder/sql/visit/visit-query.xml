@@ -7,6 +7,10 @@
 		INSERT INTO VISIT VALUES(?, ?, SYSDATE, ?)
 	</entry>
 
-	
+	<entry key="selectRoom">
+		SELECT ROOM_NO ,ROOM_TITLE ,ROOM_INFO ,GMEM_NO 
+		FROM ROOM
+		WHERE DELETE_FL = 'N' AND GMEM_NO = ?
+	</entry>
 
 </properties>

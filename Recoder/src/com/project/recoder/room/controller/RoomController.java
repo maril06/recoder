@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.common.MyFileRenamePolicy;
-import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.room.model.service.RoomService;
 import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.room.model.vo.RoomImg;
@@ -203,8 +202,8 @@ public class RoomController extends HttpServlet {
 			else if(command.equals("/roomUpdateForm.do")) {
 				
 				// 매물 번호
-				//int roomNo = Integer.parseInt(request.getParameter("no"));
-				int roomNo = 62;
+//				int roomNo = Integer.parseInt(request.getParameter("no"));
+				 int roomNo = 62;
 				Room room = service.updateView(roomNo);
 				if(room !=null) {
 					List<RoomImg> mList = service.selectRoomImg(roomNo);
@@ -373,13 +372,12 @@ public class RoomController extends HttpServlet {
 			
 			// 매물 상세 =================================================================================================
 			else if(command.equals("/view.do")) {
-				
 				int roomNo = 62; // 임시
 				// request.getParameter로 얻어와야함!!
 				
 
 				Room room = service.selectRoom(roomNo);
-				
+				room.setRoomNo(roomNo);
 //				Room option = new Room(
 //					room.getTv(), room.getInternet(), room.getAirCon(), room.getWashing(), 
 //					room.getFridge(), room.getBed(), room.getCloset(), room.getWomanOnly(), 
@@ -444,11 +442,23 @@ public class RoomController extends HttpServlet {
 			
 			//-------------------------------------------------------------------------------------------------------------
 			//매물 검색폼 컨트롤러
-			else if(command.equals("/searchRoom.do")){
-				path = "/WEB-INF/views/room/searchRoom.jsp";
-	    		view = request.getRequestDispatcher(path);
-	    		view.forward(request, response);
-			}
+			/*
+			 * else if(command.equals("/searchRoom.do")){ PageInfo pInfo =
+			 * service.getPageInfo(cp); List<Room> rList = service.selectList(pInfo);
+			 * System.out.println(rList); if(rList != null) {
+			 * 
+			 * // 썸네일 이미지 목록 조회 서비스 호출 List<RoomImg> fList =
+			 * service.selectThumbnailList(pInfo); System.out.println(fList);
+			 * 
+			 * // 썸네일 이미지 목록이 비어있지 않은 경우 if(!fList.isEmpty()) {
+			 * request.setAttribute("fList", fList); } }
+			 * 
+			 * path = "/WEB-INF/views/room/searchRoom.jsp";
+			 * 
+			 * request.setAttribute("rList", rList); request.setAttribute("pInfo", pInfo);
+			 * 
+			 * view = request.getRequestDispatcher(path); view.forward(request, response); }
+			 */
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -74,5 +74,35 @@
 	<entry key="">
 		
 	</entry>
+	
+	
+	<entry key="getListCount">
+		SELECT COUNT(*) FROM ROOM
+		WHERE DELETE_FL = 'N'
+		AND SELL_FL = 'N'
+	</entry>
+	
+	<entry key="selectRoomList">
+		SELECT * FROM
+		(SELECT ROWNUM RNUM, V.*
+		FROM
+		(SELECT *
+		FROM ROOM
+		WHERE SELL_FL='N'
+		AND DELETE_FL='N'
+		ORDER BY ROOM_NO DESC) V)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectThumbnailList">
+		SELECT * FROM ROOM_IMG
+		WHERE ROOM_NO IN (SELECT ROOM_NO FROM
+		                            (SELECT ROWNUM RNUM, V.* FROM
+		                                (SELECT  ROOM_NO  FROM ROOM
+		                                WHERE DELETE_FL='N'
+		                                ORDER BY ROOM_NO DESC) V)
+		                            WHERE RNUM BETWEEN ? AND ?)
+		AND ROOM_IMG_LEVEL = 0
+	</entry>
 
 </properties>
