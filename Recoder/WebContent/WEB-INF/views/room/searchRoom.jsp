@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,7 +17,7 @@
      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
-     <style>
+       <style>
          /* div{
              border: 1px solid pink;
          } */
@@ -86,7 +88,7 @@
 
          .roomItem_area{
              width: 40%;
-             height: 90%;
+             height: 25%;
              float: left;
              margin-top: 5%;
              margin-left: 6%;
@@ -426,114 +428,125 @@
         <div class="content">
             <div class="ListWrap">
                 <div class="itemList">
-                    <div class="roomItem">
-                        <div class="roomItem_area test1">
+                	<c:forEach var="room" items="${rList}">
+                		<c:forEach var="thumbnail" items="${fList}" varStatus="status">
+									<c:if test="${room.roomNo == thumbnail.parentRoomNo}">
+                        <div class="roomItem_area test1" id="${room.roomNo }">
                             <div class="imgArea">
-                               <img src="" class="img-responsive">
+                            	
+											<!-- 현재 출력하려는 게시글 번호와 썸네일 목록 중 부모 게시글 번호가 일치하는 썸네일 정보가 잇다면 -->
+										<img src="${contextPath}/resources/images/rooms/${thumbnail.roomImgName}" alt="" id="${thumbnail.roomImgNo}" class="img-responsive">
+											
+
                             </div>
                             <div class="infoArea">
-                                <span id="rent_type">월세</span><br>
+                                <span id="rent_type">${room.typeOfRent }</span><br>
                                 <span id="fee">200/50</span>
                                 <p id="roomTitle">상세 매물 제목 구간 상세 매물 제목 구간 상세 매물 제목 구간 </p>
                             </div>
                         </div>
-                        <div class="roomItem_area">
-                            <div class="imgArea">
-                                <img src="" class="img-responsive">
-                             </div>
-                             <div class="infoArea">
-                                <span id="rent_type">월세</span><br>
-                                <span id="fee">200/50</span>
-                                <p id="roomTitle">상세 매물 제목 구간</p>
-                             </div>
-                        </div>
-                    </div>
-                    <div class="roomItem">
-                        <div class="roomItem_area">
-                            <div class="imgArea">
-                                <img src="" class="img-responsive">
-                             </div>
-                             <div class="infoArea">
-                                <span id="rent_type">월세</span><br>
-                                <span id="fee">200/50</span>
-                                <p id="roomTitle">상세 매물 제목 구간</p>
-                             </div>
-                        </div>
-                        <div class="roomItem_area">
-                            <div class="imgArea">
-                                <img src="" class="img-responsive">
-                             </div>
-                             <div class="infoArea">
-                                <span id="rent_type">월세</span><br>
-                                <span id="fee">200/50</span>
-                                <p id="roomTitle">상세 매물 제목 구간</p>
-                             </div>
-                        </div>
-                    </div>
-                    <div class="roomItem">
-                        <div class="roomItem_area">
-                            <div class="imgArea">
-                                <img src="" class="img-responsive">
-                             </div>
-                             <div class="infoArea">
-                                <span id="rent_type">월세</span><br>
-                                <span id="fee">200/50</span>
-                                <p id="roomTitle">상세 매물 제목 구간</p>
-                             </div>
-                        </div>
-                        <div class="roomItem_area">
-                            <div class="imgArea">
-                                <img src="" class="img-responsive">
-                             </div>
-                             <div class="infoArea">
-                                <span id="rent_type">월세</span><br>
-                                <span id="fee">200/50</span>
-                                <p id="roomTitle">상세 매물 제목 구간</p>
-                             </div>
-                        </div>
-                    </div>
-                    <div class="roomItem">
-                        <div class="roomItem_area">
-                            <div class="imgArea">
-                                <img src="" class="img-responsive">
-                             </div>
-                             <div class="infoArea">
-                                <span id="rent_type">월세</span><br>
-                                <span id="fee">200/50</span>
-                                <p id="roomTitle">상세 매물 제목 구간</p>
-                             </div>
-                        </div>
-                        <div class="roomItem_area">
-                            <div class="imgArea">
-                                <img src="" class="img-responsive">
-                             </div>
-                             <div class="infoArea">
-                                <span id="rent_type">월세</span><br>
-                                <span id="fee">200/50</span>
-                                <p id="roomTitle">상세 매물 제목 구간</p>
-                             </div>
-                        </div>
-                    </div>
 
-                </div>
-                <div class="paging">
-                            <nav aria-label="...">
-                                <ul class="pagination justify-content-center pagination-sm">
-                                  <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-                                  </li>
-                                  <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-                                  <li class="page-item" >
-                                    <a class="page-link" href="#">2</a>
-                                  </li>
-                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="#">&raquo;</a>
-                                  </li>
-                                </ul>
-                              </nav>
-                </div>
+									</c:if>
+						</c:forEach>
+                    </c:forEach>
+</div>
+
+<%---------------------- Pagination ----------------------%>
+		<%-- 페이징 처리 주소를 쉽게 사용할 수 있도록 미리 변수에 저장 --%>
+		<c:choose>
+			<%-- 검색 내용이 파라미터에 존재할 때 == 검색을 통해 만들어진 페이지인가? --%>
+			<c:when test="${!empty param.sk && !empty param.sv}">
+				<c:url var="pageUrl" value="/search.do" />
+
+				<!-- 쿼리스트링으로 사용할 내용을 변수에 저장 -->
+				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
+			</c:when>
+
+			<c:otherwise>
+				<c:url var="pageUrl" value="/room/searchRoom.do" />
+			</c:otherwise>
+
+		</c:choose>
+		
+		
+		
+		<!-- 화살표에 들어갈 주소를 변수로 생성 -->
+		<%-- 
+            검색을 안했을 때 : /board/list.do?cp=1
+            검색을 했을 때 :  /search.do?cp=1&sk=title&sv=49
+          --%>
+
+		<c:set var="firstPage" value="${pageUrl}?cp=1${searchStr}" />
+		<c:set var="lastPage"
+			value="${pageUrl}?cp=${pInfo.maxPage}${searchStr}" />
+
+		<%-- EL을 이용한 숫자 연산의 단점 : 연산이 자료형에 영향을 받지 않는다. --%>
+		<%--
+          <fmt : parseNumber> : 숫자 형태를 지정하여 변수 선언 
+          integerOnly="true" : 정수로만 숫자 표현(소수점 버림)
+         --%>
+
+		<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10}"
+			integerOnly="true" />
+		<fmt:parseNumber var="prev" value="${c1 * 10}" integerOnly="true" />
+		<c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr}" />
+
+		<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }"
+			integerOnly="true" />
+		<fmt:parseNumber var="next" value="${ c2 * 10 + 1}" integerOnly="true" />
+		<c:set var="nextPage" value="${pageUrl}?cp=${next}${searchStr}" />
+
+
+
+		<div class="paging">
+			<ul class="pagination justify-content-center pagination-sm">
+				<%-- 현재 페이지가 10페이지 초과인 경우 --%>
+				<c:if test="${pInfo.currentPage > 10}">
+					<li>
+						<%-- 첫 페이지로 이동(<<) --%> <a class="page-link" href="${firstPage}" tabindex="-1" aria-disabled="true">&laquo;</a>
+					</li>
+					<li>
+						<%-- 이전 페이지로 이동(<) --%> <a class="page-link" href="${prevPage}">&lt;</a>
+					</li>
+				</c:if>
+
+				<!--  페이지 목록   -->
+				<c:forEach var="page" begin="${pInfo.startPage}"
+					end="${pInfo.endPage}">
+					<c:choose>
+						<c:when test="${pInfo.currentPage == page}">
+							<li><a class="page-link">${page}</a></li>
+						</c:when>
+
+						<c:otherwise>
+							<li><a class="page-link"
+								href="${pageUrl}?cp=${page}${searchStr}">${page}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+
+
+				<%-- 다음 페이지가 마지막 페이지 미만인 경우 --%>
+				<c:if test="${ next <= pInfo.maxPage}">
+					<li>
+						<%-- 다음 페이지로 이동(>) --%> <a class="page-link" href="${nextPage}">&gt;</a>
+					</li>
+					<li>
+						<%-- 마지막 페이지로 이동(>>) --%> <a class="page-link" href="${lastPage}">&raquo;</a>
+					</li>
+				</c:if>
+
+			</ul>
+		</div>
+
+
+               
+                
             </div>
+            
+            
+            
+            
             <div class="mapArea">
                 지도 api
             </div>
@@ -600,6 +613,48 @@
         RangeSlider($("#customRange1"));
         RangeSlider($("#customRange2"));
         RangeSlider($("#customRange3"));
+        
+        
+    	// 게시글 상세보기 기능 (jquery를 통해 작업)
+
+		$(".itemList .roomItem_area")
+				.on(
+						"click",
+						function() {
+
+							// 게시글 번호 얻어오기
+							var roomNo = $(this).attr('id');
+							// 클릭이 되는지 테스트
+							console.log(roomNo);
+							var url = "${contextPath}/room/view.do?cp=${pInfo.currentPage}&no="
+									+ roomNo + "${searchStr}";
+
+							location.href = url;
+
+						});
+
+		//검색내용이 잇을경우 검색착에 해당 내용을 작성해두는 기능
+		(function() {
+			var searchKey = "${param.sk}";
+			//파라미터 중 sk가 있을 경우 ex)"49"
+			//파라미터 중 sk가 없을 경우 ex) ""
+
+			var searchValue = "${param.sv}";
+
+			//검색창 select의 option을 반복 접근
+			$("select[name=sk] > option").each(function(index, item) {
+				//index : 현재 접근중인 요소의 인덱스
+				//item : 현재 접근중인 요소
+
+				if ($(item).val() == searchKey) {
+					$(item).prop("selected", true);
+				}
+			});
+
+			//검색어 입력창에 searchValue값 출력
+			$("input[name=sv]").val(searchValue);
+
+		})();
 
     </script>
 </body>

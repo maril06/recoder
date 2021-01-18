@@ -445,9 +445,28 @@ public class RoomController extends HttpServlet {
 			//-------------------------------------------------------------------------------------------------------------
 			//매물 검색폼 컨트롤러
 			else if(command.equals("/searchRoom.do")){
-				path = "/WEB-INF/views/room/searchRoom.jsp";
-	    		view = request.getRequestDispatcher(path);
-	    		view.forward(request, response);
+				PageInfo pInfo = service.getPageInfo(cp);
+				List<Room> rList = service.selectList(pInfo);
+				System.out.println(rList);
+				if(rList != null) {
+		               
+		               // 썸네일 이미지 목록 조회 서비스 호출
+		               List<RoomImg> fList = service.selectThumbnailList(pInfo);
+		               System.out.println(fList);
+		               
+		               // 썸네일 이미지 목록이 비어있지 않은 경우
+		               if(!fList.isEmpty()) {
+		                  request.setAttribute("fList", fList);
+		               }
+		            }
+		            
+		            path = "/WEB-INF/views/room/searchRoom.jsp";
+		            
+		            request.setAttribute("rList", rList);
+		            request.setAttribute("pInfo", pInfo);
+		            
+		            view = request.getRequestDispatcher(path);
+		            view.forward(request, response);
 			}
 			
 		} catch (Exception e) {
