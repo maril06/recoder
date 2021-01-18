@@ -17,6 +17,10 @@ FROM
 WHERE BNUM BETWEEN ? AND ?
 </entry>
 
-
+<!-- 게시글 상세 조회  -->
+<entry key="selectBoard">
+SELECT * FROM AV_BOARD
+WHERE BOARD_NO = ?
+</entry>
 
 </properties>

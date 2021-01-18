@@ -76,6 +76,7 @@
                             <th>게시글 번호</th>
                             <th>게시글 제목</th>
                             <th>작성자</th>
+                            <th>상태</th>
                         </tr>
                     </thead>
 
@@ -92,12 +93,20 @@
 							<c:forEach var="board" items="${bList}">
 								<tr>
 									<td>
-									<input type="checkbox" name="ck" class="selectNotice" value="${room.noticeNo}">
-									<input type ="hidden" value="${room.noticeNo}" class="roomNo">
+									<input type="checkbox" name="ck" class="selectBoard" value="${board.boardNo}">
+									<input type ="hidden" value="${board.boardNo}" class="boardNo">
 									</td>
 									<td>${board.boardNo}</td>
 									<td>${board.boardTitle}</td>
 									<td>${board.memberNick}</td>
+									<td>
+										<c:if test="${board.deleteFl == 'Y'}">
+										삭제
+										</c:if>
+										<c:if test="${board.deleteFl == 'N'}">
+										등록
+										</c:if>
+									</td>
 								</tr>
 							</c:forEach>
 						</c:otherwise>
@@ -114,8 +123,19 @@
 				
 				
 			  <c:if test="${loginAdmin.adminGrade =='A' }">
-              <button class="btn btn-primary float-right delete-btn" id="deleteBtn">삭제</button>
-              <button class="btn btn-primary float-right recover-btn" id="recoverBtn">복구</button>
+			  	<c:choose>
+			  		<c:when test="${param.sk == 'enrollWrire'}">
+              			<button class="btn btn-primary float-right delete-btn" id="deleteBtn">삭제</button>
+              		</c:when>
+              		<c:when test="${param.sk == 'deleteWrite'}">	
+              			<button class="btn btn-primary float-right recover-btn" id="recoverBtn">복구</button>
+              		</c:when>
+              		
+              		<c:otherwise>
+              			<button class="btn btn-primary float-right delete-btn" id="deleteBtn">삭제</button>
+              			<button class="btn btn-primary float-right recover-btn" id="recoverBtn">복구</button>
+              		</c:otherwise>
+              	</c:choose>	
 		   	  </c:if>
          </div>
           
@@ -211,7 +231,113 @@
                 checkbox.checked = selectAll.checked;
             })
         }
-
+		
+        
+ $("#deleteBtn").on("click", function(){
+        	
+        	var list = [];
+        	
+        	$("input:checkbox[name='ck']:checked").length
+            
+            $('input[type="checkbox"]:checked').each(function (index) {
+            		if($(this).val() != "on"){
+	  					list.push($(this).val());
+            		}	
+            });
+                //console.log(list);
+        	
+	       $.ajax({
+				url : "${contextPath}/board/deleteBoard.do",
+				data : {"numberList" : list.join()},
+				
+				type : "post",
+				
+				success : function(result){
+					
+					if(result > 0){ 
+						swal({icon : "success" , 
+				        	title : "삭제 성공", 
+				        	buttons : {confirm : true}}
+				        ).then((result) => {
+					        	if(result) {
+									location.reload();
+					        	}	
+					        }
+				        );
+						
+					}
+				},
+				error : function(){
+					console.log("삭제 실패");
+				}
+			}); 
+	        	
+        	
+        });
+			$("#recoverBtn").on("click", function(){
+					
+				
+        	var list = [];
+        	
+        	$("input:checkbox[name='ck']:checked").length
+            
+            $('input[type="checkbox"]:checked').each(function (index) {
+            		if($(this).val() != "on"){
+	  					list.push($(this).val());
+            		}	
+            });
+                $.ajax({
+    				url : "${contextPath}/board/recoverBoard.do",
+    				data : {"numberList" : list.join()},
+    				
+    				type : "post",
+    				
+    				success : function(result){
+    					 if(result > 0){ 
+    						swal({icon : "success" , 
+    				        	title : "복구 성공", 
+    				        	buttons : {confirm : true}}
+    				        ).then((result) => {
+    					        	if(result) {
+    									location.reload();
+    					        	}	
+    					        }
+    				        );
+    						
+    					} 
+    				},
+    				error : function(){
+    					console.log("복구 실패");
+    				}
+    			}); 
+	        	
+        });
+        
+			(function(){
+				
+				var searchKey = "${param.sk}";
+				
+				$("select[name=sk] > option").each(function(index, item){
+					
+					if( $(item).val() == searchKey){
+						$(item).prop("selected", true);
+					}
+				});
+				
+				
+			})();	
+			
+			
+			// 게시글 상세 보기
+			$("#list-table td:not(:first-child)").on("click", function(){
+				
+				var boardNo = $(this).parent().children().eq(1).text();
+				//console.log(boardNo);
+				
+				var url = "${contextPath}/board/view.do?cp=${pInfo.currentPage}&no=" + boardNo + "${searchStr}";
+			
+				location.href = url;
+			});
     </script>
 
 </body>
