@@ -1,0 +1,99 @@
+
+
+.replyItem{
+    border-bottom:  0.5px solid #ccc;
+    padding: 5px;
+}
+.replyTitle{
+    padding-left: 30px;
+}
+.replyList{
+    list-style: none;
+}
+
+.replyIdBox{
+    font-weight: bolder;
+    color: #000;
+}
+
+.replyInfoBox{
+    font-size: small;
+    color: rgb(155, 155, 155);
+} 
+
+
+/*댓글*/
+.replyWrite>table {
+	width: 90%;
+	margin-top: 100px;
+}
+
+#replyContentArea {
+	width: 90%;
+}
+
+#replyContentArea > textarea {
+	resize: none;
+	width: 100%;
+}
+
+#replyBtnArea {
+	width: 100px;
+	text-align: center;
+}
+
+.rWriter {
+	display: inline-block;
+	margin-right: 30px;
+	vertical-align: top;
+}
+
+.rDate {
+	display: inline-block;
+	font-size: 0.5em;
+	color: gray;
+}
+
+#replyListArea {
+	list-style-type: none;
+}
+
+.rContent, .replyBtnArea {
+	height: 100%;
+	width: 100%;
+}
+
+.replyBtnArea {
+	text-align: right;
+}
+
+
+.reply-row{
+	border-top : 1px solid #ccc;
+	padding : 15px 0;
+}
+
+
+/* 댓글수정 테이블 */
+.replyItem>table {
+	width: 90%;
+	margin-top: 100px;
+}
+
+#replyUpdateContentArea{
+    width: 100%;
+    position: relative;
+}
+
+#replyUpdateContentArea > textarea {
+	resize: none;
+	width: 90%;
+    margin : 5px 15px;
+}
+
+#replyUpdateBtn{
+    position: absolute;
+    bottom: 34px;
+}
+
+
