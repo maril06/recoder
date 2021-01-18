@@ -41,57 +41,25 @@
             <h3>방문자 체크</h3>
             <div class="chk_wrapper">
                 <ul>
-                    <li>
-                        <div class="list_top">
-                            <p class="check_img">
-                                <a href=""><img src="images/pp3.png" alt=""></a>
-                            </p>
-                            <div class="check_info">
-                                <h3>제목</h3>
-                                <p class="text">
-                                    <span>여러가지 옵션 정보</span>
-                                    <span>
-                                        ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                                    </span>
-                                </p>
-                                <a href="#" class="more">View more</a>
-                            </div>
-                        </div>
-                        <div class="list_bottom">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                      <th scope="col">Date</th>
-                                      <th scope="col">Name</th>
-                                      <th scope="col">승낙 여부</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                        <td>2021.1.10</td>
-                                        <td>김땡이</td>
-                                        <td>
-                                            <button>승낙</button>
-                                            <button>거부</button>
-                                        </td>
-                                    </tr>
-                                  </tbody>
-                              </table>
-                        </div>
-
-                    </li>
+                
+                
+                
+                    <c:set var="aaa" value="${visit }"></c:set>
+                    <c:forEach var="room" items="${room}">
                     
                     <li>
                         <div class="list_top">
                             <p class="check_img">
                                 <a href=""><img src="images/pp3.png" alt=""></a>
                             </p>
+                            
+                            
+                            
                             <div class="check_info">
-                                <h3>제목</h3>
+                                <h3>${room.roomTitle} --${aaa}-- ${room.roomNo }</h3>
                                 <p class="text">
-                                    <span>여러가지 옵션 정보</span>
                                     <span>
-                                        ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
+                                        ${room.roomInfo }
                                     </span>
                                 </p>
                                 <a href="#" class="more">View more</a>
@@ -100,13 +68,18 @@
                         <div class="list_bottom">
                             <table class="table">
                                 <thead>
-                                    <tr>
-                                      <th scope="col">Date</th>
-                                      <th scope="col">Name</th>
-                                      <th scope="col">승낙 여부</th>
-                                    </tr>
+		                 
+		                                    <tr>
+		                                      <th scope="col">visit.visitDt</th>
+		                                      <th scope="col">Name</th>
+		                                      <th scope="col">승낙 여부</th>
+		                                    </tr>
+		                
                                   </thead>
                                   <tbody>
+                                    <c:forEach var="visit" items="${visit}" varStatus="vst">
+			                            <c:if test="${visit.roomNo == room.roomNo && visit.visitCd == 1}" var="nameHong" scope="session">
+		
                                     <tr>
                                         <td>2021.1.10</td>
                                         <td>김땡이</td>
@@ -115,11 +88,24 @@
                                             <button>거부</button>
                                         </td>
                                     </tr>
+                                        </c:if>
+	                                 </c:forEach>
                                   </tbody>
                               </table>
                         </div>
 
                     </li>
+                    
+                    
+                    </c:forEach>
+                    
+                    <c:if test="${empty room }">
+                    <li>
+                       
+                       <h1 style="text-align: center; font-size: 50px; margin: 300px 0 800px;">방문신청이 없오요</h1>
+
+                    </li>
+                    </c:if>
                 </ul>
             </div>
 
