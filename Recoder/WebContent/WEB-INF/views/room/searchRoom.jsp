@@ -265,6 +265,24 @@
         #value3{
             text-align: right;
         }
+        
+       .filter_btn_submit{
+            text-align: center;
+            height: 100PX;
+        }
+
+        #filter_btn_submit{
+            height: 50PX;
+        }
+
+        #filter_btn_submit_2{
+            height: 50%;
+            margin-top: 100px;
+        }
+
+        #layer5{
+            width:500px; height:700px;
+        }
 
      </style>
 </head>
@@ -273,40 +291,53 @@
     <div class="wrapper">
         <div class="row">
                 <div class="row2 subHeader">
+                
+                <!-- 지역 검색 기능 -->
                     <div class="search_area">
+                    <form action="${contextPath}/searchKeyword.do" method="POST" class="text-center" id="searchForm">
                         <input type="text" name="keyword" class="search_Keyword" placeholder="종로구" autocomplete="off">
-                        <svg width="18" height="18" viewBox="0 0 18 18">
+                        <svg width="18" height="18" viewBox="0 0 18 18" type="submit">
                             <g fill="none" fill-rule="evenodd" stroke="#222">
                                 <circle cx="7.5" cy="7.5" r="6.5"></circle>
                                 <path d="M12 12l5 5"></path>
                             </g>
                         </svg>
+                    </form>
                     </div>
+                    
+                    
+                    <!-- 검색필터 -->
                     <div class="filter_area">
                         <div class="filter">
                             <button class="filter_btn btn1" style="max-width: 130px;" >
                                 <p>구조(원룸,투룸)</p>
                             </button>
                             <div class="layer" id="layer1">
+                            
                                 <div class="close"><a href="#" OnClick="layer1.style.display='none'">닫기</a></div>
                                 <div class="filter_content">
                                     <h1>방종류</h1>
                                     <p>중복선택이 가능합니다.</p>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="layer1_check1">
+                                        <input class="form-check-input" type="checkbox" value="1" id="layer1_check1" name="roomType">
                                         <label class="form-check-label" for="layer1_check1">원룸</label>
                                       </div>
                                       <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="layer1_check2">
+                                        <input class="form-check-input" type="checkbox" value="2" id="layer1_check2" name="roomType">
                                         <label class="form-check-label" for="layer1_check2"> 투룸 </label>
                                       </div>
                                       <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="layer1_check3">
+                                        <input class="form-check-input" type="checkbox" value="3" id="layer1_check3" name="roomType">
                                         <label class="form-check-label" for="layer1_check3"> 쓰리룸 이상 </label>
                                       </div>
+                                      <div class="filter_btn_submit">
+                                          <button type="submit" id="filter_btn_submit" class="btn btn-primary">확인</button>
+                                      </div>
                                 </div>
+                                
                             </div>
                         </div>
+                        
                         <div class="filter">
                             <button class="filter_btn btn2" style="max-width: 130px;" >
                                 <p>월세/전세</p>
@@ -323,6 +354,9 @@
                                       <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="layer2_check2">
                                         <label class="form-check-label" for="layer2_check2"> 전세 </label>
+                                      </div>
+                                      <div class="filter_btn_submit">
+                                          <button type="submit" id="filter_btn_submit" class="btn btn-primary">확인</button>
                                       </div>
                                 </div>
                             </div>
@@ -364,6 +398,9 @@
                                         <input class="form-check-input" type="checkbox" value="" id="layer3_check7">
                                         <label class="form-check-label" for="layer3_check7"> 옷장</label>
                                       </div>
+                                      <div class="filter_btn_submit">
+                                          <button type="submit" id="filter_btn_submit" class="btn btn-primary">확인</button>
+                                      </div>
                                 </div>
                             </div>
                         </div>
@@ -387,6 +424,9 @@
                                       <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="layer4_check3">
                                         <label class="form-check-label" for="layer4_check3"> 주차 가능 </label>
+                                      </div>
+                                      <div class="filter_btn_submit">
+                                          <button type="submit" id="filter_btn_submit" class="btn btn-primary">확인</button>
                                       </div>
                                 </div>
                             </div>
@@ -419,6 +459,9 @@
                                         <span class="rangeArea">무제한</span><br>
                                         <input type="range" class="form-range" min="0" max="5000" step="100" value="5000" id="customRange3">
                                     </div>
+                                    <div class="filter_btn_submit">
+                                          <button type="submit" id="filter_btn_submit" class="btn btn-primary">확인</button>
+                                      </div>
                                 </div>
                             </div>
                         </div>
@@ -455,12 +498,12 @@
 		<%-- 페이징 처리 주소를 쉽게 사용할 수 있도록 미리 변수에 저장 --%>
 		<c:choose>
 			<%-- 검색 내용이 파라미터에 존재할 때 == 검색을 통해 만들어진 페이지인가? --%>
-			<c:when test="${!empty param.sk && !empty param.sv}">
-				<c:url var="pageUrl" value="/search.do" />
-
+			<c:when test="${!empty param.keyword}">
+				<c:url var="pageUrl" value="${contextPath}/searchKeyword.do" />
 				<!-- 쿼리스트링으로 사용할 내용을 변수에 저장 -->
-				<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}" />
+				<c:set var="searchStr" value="&keyword=${param.keyword}" />
 			</c:when>
+			
 
 			<c:otherwise>
 				<c:url var="pageUrl" value="/room/searchRoom.do" />
@@ -635,26 +678,88 @@
 
 		//검색내용이 잇을경우 검색착에 해당 내용을 작성해두는 기능
 		(function() {
-			var searchKey = "${param.sk}";
+			/* var searchKey = "${param.sk}";
 			//파라미터 중 sk가 있을 경우 ex)"49"
-			//파라미터 중 sk가 없을 경우 ex) ""
+			//파라미터 중 sk가 없을 경우 ex) "" */
 
-			var searchValue = "${param.sv}";
+			var searchValue = "${param.keyword}";
 
 			//검색창 select의 option을 반복 접근
-			$("select[name=sk] > option").each(function(index, item) {
+/* 			$("select[name=sk] > option").each(function(index, item) {
 				//index : 현재 접근중인 요소의 인덱스
 				//item : 현재 접근중인 요소
 
 				if ($(item).val() == searchKey) {
 					$(item).prop("selected", true);
 				}
-			});
+			}); */
 
 			//검색어 입력창에 searchValue값 출력
-			$("input[name=sv]").val(searchValue);
+			$("input[name=keyword]").val(searchValue);
+			
+/* 			var para2=[];
+			$("input[name='roomType']:checked").each(function(i){
+				para2.push(($this).val());
+			});
+			
+			var postData = {"para1":"para1", "chklist" : para2};
+			
+			$.ajax({
+				url : "${contextPath}/RoomFilterController.do",
+				type : 'post',
+				data : postData,
+				traditional : true,
+				error: function(){
+					alert('오류발생');
+				},
+				success : function(result){
+					if(result > 0){
+						swal.fire("성공!", 'success');
+		            }else{
+						swal.fire("실패", 'error');
+		            }
+				}
+			}); */
 
 		})();
+		
+		
+/* 		$("#layer1 #filter_btn_submit").on("click", function(){
+			console.log("아악");
+			
+			var isSeasonChk = false;
+
+
+			
+			var para2=[];
+
+	        var arr_Season = document.getElementsByName("roomType");
+	        for(var i=0;i<arr_Season.length;i++){
+	            if(arr_Season[i].checked == true) {
+	            	para2.push(arr_Season[i].value);
+	            }
+	        }
+			
+	            	console.log(para2);
+			var postData = {"para1":"para1", "chklist" : para2};
+			
+			$.ajax({
+				url : "${contextPath}/RoomFilterController.do",
+				type : 'post',
+				data : postData,
+				traditional : true,
+				error: function(){
+					alert('오류발생');
+				},
+				success : function(result){
+					if(result > 0){
+						alert('성공');
+		            }else{
+		            	alert('헉');
+		            }
+				}
+			});
+		});*/
 
     </script>
 </body>

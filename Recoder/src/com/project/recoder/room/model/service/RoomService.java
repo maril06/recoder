@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.project.recoder.room.model.dao.RoomDAO;
+import com.project.recoder.room.model.vo.PageInfo;
 import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.room.model.vo.RoomImg;
 
