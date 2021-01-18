@@ -1,5 +1,6 @@
 package com.project.recoder.reply.model.service;
 
+
 import static com.project.recoder.common.JDBCTemplate.*;
 
 import java.sql.Connection;
@@ -27,6 +28,54 @@ public class ReplyService {
 		close(conn);
 		
 		return rList;
+	}
+
+
+	
+	/** 댓글 삭제 Service
+	 * @param replyNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateReplyDelete(int replyNo) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateReplyDelete(conn, replyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+
+		close(conn);
+		
+		return result;
+	}
+
+
+
+	/** 댓글 복구 Service
+	 * @param replyNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateReplyRecover(int replyNo) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateReplyRecover(conn, replyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+
+		close(conn);
+		
+		return result;
 	}
 
 }
