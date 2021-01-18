@@ -37,6 +37,8 @@ public class BrokerController extends HttpServlet {
 		
 		String errorMsg = null;
 		
+		HttpSession session = request.getSession();
+		
 		// 현재 페이지를 얻어옴
 		String cp = request.getParameter("cp");
 		
@@ -48,15 +50,48 @@ public class BrokerController extends HttpServlet {
 				
 				Map<String, String> broker = new HashMap<String, String>();
 				broker.put("brokerNick", loginMember.getMemNick());
-				broker.put("brokderAddr", loginMember.getBrokerAddr());
+				broker.put("brokerAddr", loginMember.getBrokerAddr());
 				broker.put("brokerEmail", loginMember.getMemEmail());
 				broker.put("brokerTel", loginMember.getMemTel());
-				
 				
 				request.setAttribute("broker", broker);
 				path = "/WEB-INF/views/broker/brokerInfo.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
+			}
+			
+			else if(command.equals("/brokerPwCheck.do")){
+				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+				int memNo = loginMember.getMemNo();
+				
+				
+				String password = request.getParameter("userPw");
+				
+				String pw = service.selectPw(memNo);
+				
+				int pwch = 0;
+				
+				if(password.equals(pw)) {
+					pwch = 1;
+					pwch = service.brokerStatusDl(memNo);
+					session.invalidate();
+				}
+				
+				
+//				request.setAttribute("pwch", pwch);
+				
+//				path = request.getContextPath();
+				response.getWriter().print(pwch);
+//			    response.sendRedirect(path);
+				
+				
+//				path = contextPath;
+//			    response.sendRedirect(path);
+				
+//				path = "/index.jsp";
+//			    view = request.getRequestDispatcher(path);
+//			    view.forward(request, response);
+				
 			}
 			
 			//브로커 로그인 controller------------------------------------------------------------------
@@ -75,7 +110,7 @@ public class BrokerController extends HttpServlet {
 					
 					
 				// 6. Session 객체를 얻어와 로그인 정보를 추가함
-					HttpSession session = request.getSession();
+					session = request.getSession();
 					
 					String url = null;
 					

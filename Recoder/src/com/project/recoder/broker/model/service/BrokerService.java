@@ -79,5 +79,33 @@ public class BrokerService {
 		
 		return result;
 	}
+	
+	/**
+	 * @param memNo 
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectPw(int memNo) throws Exception{
+		Connection conn = getConnection();
+		String pw = null;
+		
+		pw = dao.selectPw(conn, memNo);
+		close(conn);
+		return pw;
+	}
+	public int brokerStatusDl(int memNo) throws Exception{
+		Connection conn = getConnection();
+		int result = 0;
+		
+		result = dao.brokerStatusDl(conn, memNo);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 }

@@ -160,4 +160,45 @@ public class BrokerDAO {
 		return result;
 	}
 
+	public String selectPw(Connection conn, int memNo) throws Exception{
+		String pw = null;
+		String query = prop.getProperty("selectPw");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pw = rset.getString("MEM_PW");
+			}
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return pw;
+	}
+
+	public int brokerStatusDl(Connection conn, int memNo) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("brokerStatusDl");
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, memNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+			
+		}
+		
+		
+		
+		return result;
+	}
+
 }
