@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
             <thead>
                 <tr>
                     <th>
-                        <input type="checkbox" name="ck" id="selectAll" onclick='selectAll(this)'>
+                        <input type="checkbox" name="ck" onclick='selectAll(this)'>
                     </th>
                     <th>회원번호</th>
                     <th>자격증 이미지</th>
@@ -47,65 +48,114 @@
             </thead>
 
             <tbody>
-
-                <tr>
-                    <td>
-                        <input type="checkbox" name="ck" id="selectAll" class="">
-                    </td>
-                    <td> 3 </td>
-                    <td> <img class="certi" src="img/certification.png"> </td>
-                    <td> 서울시 도봉구</td>
-                    <td> 마카롱공인중개사</td>
-
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <input type="checkbox" name="ck" id="selectAll" class="">
-                    </td>
-                    <td> 3 </td>
-                    <td> <img class="certi" src="img/certification.png"> </td>
-                    <td> 서울시 도봉구</td>
-                    <td> 도봉공인중개</td>
-
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <input type="checkbox" name="ck" id="selectAll" class="">
-                    </td>
-                    <td> 3 </td>
-                    <td> <img class="certi" src="img/certification.png"> </td>
-                    <td> 서울시 도봉구</td>
-                    <td> 한경닷컴부동산</td>
-                </tr>
-
+           <!--  <img src="/Recoder/resources/images/rooms/20210115153738_55413.png"> -->
+            	<c:choose>
+            		<c:when test="${empty bList}">
+						<tr>
+							<td colspan="5">승인 요청이 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>	
+						<c:forEach var ="broker" items="${bList}">
+                			<tr>
+			                   <td>
+			                       <input type="checkbox" name="ck" value="${broker.brokerNo}">
+			                       <input type ="hidden" value="${broker.brokerNo}">
+			                   </td>
+			                    <td> ${broker.brokerNo} </td>
+			                    <td> 
+			                    	<img class="certi" src="/Recoder/resources/images/rooms/20210115153738_55413.png"> </td>
+			                    <td> ${broker.brokerAddr}</td>
+			                    <td> ${broker.brokerNick}</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>			
 
             </tbody>
 
         </table>
-
+		
+		
+		
         <div class="button-area">
-            <button class="btn btn-primary btn-sm ml-1 approve-btn" onclick="">승인</button>
-            <button class="btn btn-primary btn-sm ml-1 cancel-btn" onclick="">취소</button>
+            <button class="btn btn-primary btn-sm ml-1 approve-btn" id="approveBtn">승인</button>
+            <button class="btn btn-primary btn-sm ml-1 cancel-btn" id="deleteBtn">취소</button>
         </div>
+		
+		
+		
+		
+		<%----------------- Pagination -------------------%>
+		
+		
+		<c:url var="pageUrl" value="/broker/list.do" />
+		
+		
+		
+       <%-- 첫 페이지로 돌아가는 화살표 주소 --%>
+		<c:set var="fistPage" value="${pageUrl}?cp=1"/>
+		<%-- 마지막 페이지로 돌아가는 화살표 주소 --%>
+		<c:set var="lastPage" value="${pageUrl}?cp=${pInfo.maxPage}"/>
+			
+		<fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1) / 10 }" integerOnly="true" />
+		<fmt:parseNumber var="prev" value="${ c1 * 10 }" integerOnly="true" />
+		
+		<c:set var="prevPage" value="${pageUrl}?cp=${prev}"/>
+		
+		<fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9) / 10 }" integerOnly="true"/>
+		<fmt:parseNumber var="next" value="${c2 * 10 + 1}" integerOnly="true"/>
+		
+		<c:set var="nextPage" value="${pageUrl}?cp=${next}"/>
+		
 
         <div class="my-5">
             <ul class="pagination">
-                <li><a class="page-link" href="#">&lt;</a></li>
-                <li><a class="page-link" href="#">1</a></li>
-                <li><a class="page-link" href="#">2</a></li>
-                <li><a class="page-link" href="#">3</a></li>
-                <li><a class="page-link" href="#">4</a></li>
-                <li><a class="page-link" href="#">5</a></li>
-                <li><a class="page-link" href="#">&gt;</a></li>
+            
+            	<c:if test="${pInfo.currentPage > 10}">
+				<li>
+					<a class="page-link" href="${fistPage}">&lt;&lt;</a>
+				</li>
+				<li>
+					<a class="page-link" href="${prevPage}">&lt;</a>
+				</li>
+			</c:if>
+			
+			<c:forEach var="page" begin="${pInfo.startPage}" end="${pInfo.endPage}">
+				<c:choose>						<%--page는 1부터 10까지 --%>
+					<c:when test="${pInfo.currentPage == page}"> <%--페이지가 현재페이지와 같을 경우 --%>
+						<li>		
+							<a class="page-link">${page}</a> 
+						</li>
+					</c:when>
+					
+				<c:otherwise>
+					<li>
+						<a class="page-link" href="${pageUrl}?cp=${page}">${page}</a>	
+					</li>
+				</c:otherwise>
+				</c:choose>
+					
+			</c:forEach>			
+				<c:if test="${next <= pInfo.maxPage}">
+					<li>
+						<!-- 다음 페이지로 이동 (>) -->
+						<a class="page-link" href="${nextPage}">&gt;</a>
+					</li>
+					<li>
+						<!-- 마지막 페이지로 이동(>>) -->
+						<a class="page-link" href="${lastPage}">&gt;&gt;</a>
+					</li>
+				</c:if>
+            
             </ul>
         </div>
 
 
+
     </div>
+    
+    
     <script>
         function selectAll(selectAll) {
             const selectReply = document.getElementsByName('ck');
@@ -113,6 +163,51 @@
                 checkbox.checked = selectAll.checked;
             })
         }
+        
+       
+		$("#approveBtn").on("click", function(){
+        	
+        	var list = [];
+        	
+        	$("input:checkbox[name='ck']:checked").length
+            
+            $('input[type="checkbox"]:checked').each(function (index) {
+            		if($(this).val() != "on"){
+	  					list.push($(this).val());
+            		}	
+            });
+                console.log(list);
+        	
+	       $.ajax({
+				url : "${contextPath}/broker/approveEnroll.do",
+				data : {"numberList" : list.join()},
+				
+				type : "post",
+				
+				success : function(result){
+					
+					if(result > 0){ 
+						swal({icon : "success" , 
+				        	title : "승인완료", 
+				        	buttons : {confirm : true}}
+				        ).then((result) => {
+					        	if(result) {
+									location.reload();
+					        	}	
+					        }
+				        );
+						
+					}
+				},
+				error : function(){
+					console.log("승인 실패");
+				}
+			}); 
+	        	
+        	
+        });
+        
+        
 
     </script>
 </body>

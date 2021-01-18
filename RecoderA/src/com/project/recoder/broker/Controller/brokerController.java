@@ -1,6 +1,7 @@
 package com.project.recoder.broker.Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.project.recoder.broker.model.service.BrokerService;
+import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.room.model.vo.PageInfo;
 
 
@@ -40,14 +42,37 @@ public class brokerController extends HttpServlet {
 			String cp = request.getParameter("cp");
 			
 			if(command.equals("/list.do")) {
-				errorMsg = "공인중개사 가입승인 조회 과정에서 오류 발생";
-				
+				errorMsg = "공인중개사 가입승인 리스트 조회 과정에서 오류 발생";
 				PageInfo pInfo = service.getPageInfo(cp);
 				
+				List<Broker> bList = service.selectRequestBrokerList(pInfo);
+				
+				//System.out.println(pInfo);
+				//for(Broker b : bList) {
+				//	System.out.println(b);
+				//}
+				
 				path = "/WEB-INF/views/broker/brokerList.jsp";
+				
+				request.setAttribute("bList", bList);
+				request.setAttribute("pInfo", pInfo);
+				
 				view=request.getRequestDispatcher(path);
 				view.forward(request, response);
 			}
+			
+			
+			else if(command.equals("/approveEnroll.do")){
+				errorMsg = "승인 과정에서 오류 발생";
+				String numberList = request.getParameter("numberList");
+					//System.out.println(numberList);
+				
+				int result = service.updateApproveEnroll(numberList);
+					//System.out.println(result);
+				
+				response.getWriter().print(result);
+			}
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
