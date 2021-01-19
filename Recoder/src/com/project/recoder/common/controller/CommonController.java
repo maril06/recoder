@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.project.recoder.common.SendEmail;
 import com.project.recoder.common.service.CommonService;
 import com.project.recoder.member.model.service.MemberService;
 
@@ -31,7 +32,6 @@ public class CommonController extends HttpServlet {
 		String errorMsg = null;
 		HttpSession session = request.getSession();
 		// 현재 페이지를 얻어옴
-		String cp = request.getParameter("cp");
 		
 		CommonService service = new CommonService();
 		
@@ -122,8 +122,6 @@ public class CommonController extends HttpServlet {
 				String email = request.getParameter("email");
 				String code = request.getParameter("code");
 				
-				//인증 코드가 보낸 코드랑 같을때 service 진행
-				//if문 쓰기
 				Map<String, Object> map = new HashMap<String, Object>();
 				
 				map.put("nickname", nickname);
@@ -150,16 +148,20 @@ public class CommonController extends HttpServlet {
 					
 				}
 				
-				/*
-				 * //인증코드 틀릴 때 다시 돌려보내기
-				 *  else { 
-				 * session.setAttribute("swalIcon", "error");
-				 * session.setAttribute("swalTitle", "아이디 찾기 실패");
-				 * session.setAttribute("swalText", "아이디 또는 비밀번호를 확인해주세요"); 
-				 * }
-				 */
 				
 			}
+			
+			/*
+			 * //비번찾기 이메일 보내기! else if(command.equals("/sendEmail.do")) { errorMsg =
+			 * "이메일을 보내는 중 오류 발생"; String email = request.getParameter("email");
+			 * 
+			 * SendEmail mail = new SendEmail(); mail.Email(email); //0이면 잘보낸거
+			 * 
+			 * response.getWriter().print(result);
+			 * 
+			 * }
+			 */
+			
 			
 			//비밀번호 찾기 controller ------------------------------------------
 			else if(command.equals("/searchPw.do")) {

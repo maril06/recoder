@@ -7,7 +7,6 @@ import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-
 public class EncryptWrapper extends HttpServletRequestWrapper{
 	/*HttpServletRequestWrapper
 	 - HttpServletRequestWrapper객체를 가공할 수 있는 객체
