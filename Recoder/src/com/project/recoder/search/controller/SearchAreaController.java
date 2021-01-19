@@ -26,30 +26,30 @@ public class SearchAreaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  //String searchKey = request.getParameter("sk");
-	      String searchValue = request.getParameter("keyword");
-	      String cp = request.getParameter("cp");
-	      
-	      System.out.println(searchValue);
-	      System.out.println(cp);
-	      
-	      request.setCharacterEncoding("UTF-8");
+		//String searchKey = request.getParameter("sk");
+		String searchValue = request.getParameter("keyword");
+		String cp = request.getParameter("cp");
+		  
+		System.out.println(searchValue);
+		System.out.println(cp);
+		  
+		request.setCharacterEncoding("UTF-8");
 			
-			String uri = request.getRequestURI(); // 
-			String contextPath = request.getContextPath(); // 
-			String command = uri.substring((contextPath + "/room").length()); 
-			
-			String path = null;
-			RequestDispatcher view = null;
-			
-			String errorMsg = null;
+		String uri = request.getRequestURI(); // 
+		String contextPath = request.getContextPath(); // 
+		String command = uri.substring((contextPath + "/room").length()); 
+		
+		String path = null;
+		RequestDispatcher view = null;
+		
+		String errorMsg = null;
 
 	      
 	      try {
 	         SearchService service = new SearchService();
 	         
+	         
 //	         if(command.equals("/searchKeyword.do")) {
-	        	 System.out.println("안녕");
 	         Map<String, Object> map = new HashMap<String, Object>();
 	         //map.put("searchKey", searchKey);
 	         map.put("searchValue", searchValue);
@@ -77,11 +77,25 @@ public class SearchAreaController extends HttpServlet {
 	             
 	          }
 	         
+	         
+	         List<Room> roomList = service.searchRoomList(map, pInfo);
+	         
+	         
+	         System.out.println(roomList);
+	         
+	         
+	         
+	         
+	         
+	         
+	         
+	         
 	         // 조회된 내용과 PageInfo 객체를 request객체에 담아서 요청 위임
 	         path = "/WEB-INF/views/room/searchRoom.jsp";
 	         
 	         request.setAttribute("rList", rList);
 	         request.setAttribute("pInfo", pInfo);
+	         request.setAttribute("roomList", roomList);
 	         
 	         view = request.getRequestDispatcher(path);
 	         view.forward(request, response);

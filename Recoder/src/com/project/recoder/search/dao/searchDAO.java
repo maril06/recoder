@@ -1,5 +1,5 @@
 package com.project.recoder.search.dao;
-import static com.project.recoder.common.JDBCTemplate.*;
+import static com.project.recoder.common.JDBCTemplate.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -120,6 +120,50 @@ public class searchDAO {
 			close(pstmt);
 		}
 		return fList;
+	}
+
+
+	public List<Room> searchRoomList(Connection conn, PageInfo pInfo, String condition) throws Exception{
+		List<Room> roomList = null;
+		String query = 
+	            " SELECT ROOM_ADDR, ROOM_TITLE FROM ROOM  " + 
+	            "    WHERE ROOM_NO IN (" + 
+	            "        SELECT ROOM_NO FROM " + 
+	            "        (SELECT ROWNUM RNUM, V.* FROM " + 
+	            "                (SELECT ROOM_NO  FROM ROOM " + 
+	            "                WHERE DELETE_FL='N' " + 
+	            "                AND " + condition + 
+	            "                ORDER BY ROOM_NO DESC ) V) " + 
+	            "       WHERE RNUM BETWEEN ? AND ? " + 
+	            "    ) ";
+		
+		try {
+			int startRow = (pInfo.getCurrentPage() -1) * pInfo.getLimit() + 1;
+	        int endRow = startRow + pInfo.getLimit() - 1 ;
+	        
+	        pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, startRow);
+	         pstmt.setInt(2, endRow);
+	         
+	         rset = pstmt.executeQuery();
+	         
+	         // 조회 결과를 저장할 List 생성
+	         roomList = new ArrayList<Room>();
+	         
+	         while(rset.next()) {
+	            
+	        	 Room at = new Room();
+	        	 at.setRoomTitle(rset.getString("ROOM_TITLE"));
+	             at.setRoomAddr(rset.getString("ROOM_ADDR"));
+	            
+	            roomList.add(at);
+	         }
+	         System.out.println(roomList);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return roomList;
 	}
 	
 }

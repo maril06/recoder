@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -293,15 +295,20 @@
                 <div class="row2 subHeader">
                 
                 <!-- 지역 검색 기능 -->
-                    <div class="search_area">
-                    <form action="${contextPath}/searchKeyword.do" method="POST" class="text-center" id="searchForm">
-                        <input type="text" name="keyword" class="search_Keyword" placeholder="종로구" autocomplete="off">
+                    <div class="search_area"><!-- ${contextPath}/searchKeyword.do -->
+                    <form action="${contextPath}/searchKeyword.do" method="get" class="text-center" id="searchForm">
+                        <input type="text" name="keyword" class="search_Keyword" id="keyword2" placeholder="종로구" autocomplete="off">
+                        <button id="searchBtn">검색</button>
+                        
+                        <!-- 
                         <svg width="18" height="18" viewBox="0 0 18 18" type="submit">
                             <g fill="none" fill-rule="evenodd" stroke="#222">
                                 <circle cx="7.5" cy="7.5" r="6.5"></circle>
                                 <path d="M12 12l5 5"></path>
                             </g>
                         </svg>
+                        
+                        -->
                     </form>
                     </div>
                     
@@ -581,20 +588,47 @@
 
 			</ul>
 		</div>
-
-
-               
-                
+ 
             </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
             
             <div class="mapArea">
-                지도 api
+            	<div class="map_wrap">
+				    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+				
+				    <div id="menu_wrap" class="bg_white">
+				    
+				        <ul id="placesList"></ul>
+				        <div id="pagination"></div>
+				    </div>
+				</div>
             </div>
         </div>
     </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8035352f3860f77b021b6c64824a3b93&libraries=services"></script>
 
     <script>
         var layer = document.getElementsByClassName("filter_btn");
@@ -761,6 +795,248 @@
 			});
 		});*/
 
+		
+		
+		// ----------------------------------------------------------------------------------
+
+
+	
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+/* 	
+	
+	
+	<c:forEach var="roomList" items="${roomList }">
+		console.log('${roomList.roomAddr}');
+	</c:forEach>
+	
+		console.log('${fn:length(roomList)}'*1);
+	
+ */
+	
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 6 // 지도의 확대 레벨
+	    };
+
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+	
+	
+	
+	// 장소 검색 객체를 생성합니다
+	var ps = new kakao.maps.services.Places(); 
+
+	// 키워드로 장소를 검색합니다
+	ps.keywordSearch($("input[name=keyword]").val(), placesSearchCB); 
+
+	// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+	function placesSearchCB (data, status, pagination) {
+	    if (status === kakao.maps.services.Status.OK) {
+
+	        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+	        // LatLngBounds 객체에 좌표를 추가합니다
+	        var bounds = new kakao.maps.LatLngBounds();
+	   
+	            bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+	              
+	        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+	        map.setBounds(bounds);
+	        
+	        var markerPosition  = new kakao.maps.LatLng(map.getCenter().getLat(), map.getCenter().getLng()); 
+
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+	    position: markerPosition
+	});
+	marker.setMap(map);
+	    } 
+	}
+	
+	
+	
+	
+	
+	
+	var listData =  new Array();
+	
+	<c:forEach var="roomList" items="${roomList }">
+	
+	listData.push({ groupAddress : '${roomList.roomAddr}', title : '${roomList.roomTitle}' });
+		
+	</c:forEach>
+		console.log(listData);
+	
+		console.log('${fn:length(roomList)}'*1);
+	
+
+	
+	
+	
+	
+
+	
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new daum.maps.services.Geocoder();
+
+	
+	
+	
+	
+	
+	
+	
+	var yj = [
+	    {
+	        groupAddress: '제주특별자치도 제주시 첨단로 242',
+	        name: '제주1'
+	    },
+	    {
+	        groupAddress: '제주특별자치도 제주시 첨단로 241', 
+	        name: '제주2'
+	    }
+	];
+	
+	    
+	for (let i=0; i < listData.length ; i++) {
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(listData[i].groupAddress, function(result, status) {
+
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === daum.maps.services.Status.OK) {
+
+	        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new daum.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new daum.maps.InfoWindow({
+	            content: listData[i].title
+	        });
+	        infowindow.open(map, marker);
+
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } 
+	})
+
+
+	};    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	 
+	// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+	var positions = [
+/* 	    {
+	        content: '카카오', 
+	        latlng: new kakao.maps.LatLng(37.56341845478246, 127.02054239196552)
+	    },
+	    {
+	        content: '<div>생태연못</div>', 
+	        latlng: new kakao.maps.LatLng(37.565390891471075, 127.0162029528835)
+	    },
+	    {
+	        content: '<div>텃밭</div>', 
+	        latlng: new kakao.maps.LatLng(33.450879, 126.569940)
+	    },
+	    {
+	        content: '<div>근린공원</div>',
+	        latlng: new kakao.maps.LatLng(33.451393, 126.570738)
+	    } */
+	];
+
+	for (var i = 0; i < positions.length; i ++) {
+	    // 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        map: map, // 마커를 표시할 지도
+	        position: positions[i].latlng // 마커의 위치
+	    });
+
+	    // 마커에 표시할 인포윈도우를 생성합니다 
+	    var infowindow = new kakao.maps.InfoWindow({
+	        content: positions[i].content // 인포윈도우에 표시할 내용
+	    });
+
+	    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+	    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+	    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+	    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+	    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+	}
+
+	// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+	function makeOverListener(map, marker, infowindow) {
+	    return function() {
+	        infowindow.open(map, marker);
+	    };
+	}
+
+	// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+	function makeOutListener(infowindow) {
+	    return function() {
+	        infowindow.close();
+	    };
+	}
+		
+
+
+	
+	
+
+		
+		
+		
     </script>
 </body>
 </html>

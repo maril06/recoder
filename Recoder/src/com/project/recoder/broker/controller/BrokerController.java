@@ -3,6 +3,7 @@ package com.project.recoder.broker.controller;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.project.recoder.broker.model.service.BrokerService;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.common.MyFileRenamePolicy;
+import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.wrapper.EncryptWrapper;
 
 @WebServlet("/broker/*")
@@ -46,6 +48,7 @@ public class BrokerController extends HttpServlet {
 			if (command.equals("/brokerInfo.do")) {
 				
 				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+				int brokerNo = loginMember.getMemNo();
 				
 				Map<String, String> broker = new HashMap<String, String>();
 				broker.put("brokerNick", loginMember.getMemNick());
@@ -53,6 +56,11 @@ public class BrokerController extends HttpServlet {
 				broker.put("brokerEmail", loginMember.getMemEmail());
 				broker.put("brokerTel", loginMember.getMemTel());
 				
+				
+				
+				List<Room> room = service.selectRoom(brokerNo);
+				
+				request.setAttribute("room", room);
 				request.setAttribute("broker", broker);
 				path = "/WEB-INF/views/broker/brokerInfo.jsp";
 			    view = request.getRequestDispatcher(path);

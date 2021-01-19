@@ -337,7 +337,7 @@ marker.setMap(map);
 		  confirmButtonText: '보내기',
 		  showLoaderOnConfirm: true,
 		  preConfirm: (login) => {
-			if(result.isConfirmed){
+			if(login != ''){
 		  		
 			  	$.ajax({
 			 		url : "${contextPath}/message/messageSend.do",
@@ -348,19 +348,21 @@ marker.setMap(map);
 			 			"myNo" : ${loginMember.memNo}
 						},
 					success : function(result){
-						if(result > 0){
+						if(result.length > 0){
 							
-							console.log("성공");
-		
+							Swal.fire({
+								  position: 'center',
+								  icon: 'success',
+								  title: '쪽지를 전달 했습니다!',
+								  showConfirmButton: false,
+								  timer: 1500
+							})		
 						}
 						
 					}, error : function(){
 						console.log("댓글 수정 실패");
 					}		
 				});
-			  	
-			  	
-			  	console.log(login)
 			  	
 			}
 		}
