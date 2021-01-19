@@ -10,11 +10,16 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>아이디|비밀번호 찾기</title>
    <link rel="stylesheet" href="${contextPath}/resources/css/searchId.css">
+   
+<!-- sweetalert : alert창을 꾸밀 수 있게 해주는 라이브러리 https://sweetalert.js.org/ -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
    <!-- jQuery -->
    <script src="http://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     
 </head>
 <body>
+
     <div class="container">
        <div class="c1">
         
@@ -43,11 +48,12 @@
       </div>
       <div class="footer"></div>
    </div>
-   
-    <script>
-      $(document).ready(function(){
-      $(".container").fadeIn(1000);
-});
-   </script>
+   <script src="${contextPath}/resources/js/searchIdPw.js">
+
+     $(document).ready(function(){
+     $(".container").fadeIn(1000);
+	});
+     
+  </script>
 </body>
 </html>

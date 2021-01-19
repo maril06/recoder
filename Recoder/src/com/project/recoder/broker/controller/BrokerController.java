@@ -17,7 +17,13 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.project.recoder.broker.model.service.BrokerService;
 import com.project.recoder.broker.model.vo.Broker;
+<<<<<<< HEAD
+import com.project.recoder.member.model.service.MemberService;
+import com.project.recoder.member.model.vo.Member;
+import com.project.recoder.wrapper.EncryptWrapper;
+=======
 import com.project.recoder.common.MyFileRenamePolicy;
+>>>>>>> branch 'master' of https://github.com/maril06/recoder.git
 
 @WebServlet("/broker/*")
 public class BrokerController extends HttpServlet {
@@ -102,7 +108,6 @@ public class BrokerController extends HttpServlet {
 				Broker broker = new Broker();
 				broker.setMemId(memId);
 				broker.setMemPw(memPw);
-				
 				
 					Broker loginMember = service.loginBroker(broker);
 					
@@ -203,7 +208,7 @@ public class BrokerController extends HttpServlet {
 			//나머지 파라미터 받아오기
 				//전달받은 파라미터를 모두 변수에 저장
 				String memId = multiRequest.getParameter("userid");
-				String memPw = multiRequest.getParameter("password");
+				String memPw = EncryptWrapper.getSha512( multiRequest.getParameter("password"));
 				String memEmail = multiRequest.getParameter("email");
 				String memNick = multiRequest.getParameter("nickname");
 				String memTel = multiRequest.getParameter("usertel");
