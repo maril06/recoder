@@ -97,6 +97,15 @@ public class Room {
 		this.roomInfo = roomInfo;
 		this.gMemNo = gMemNo;
 	}
+	
+	public Room(int roomNo, String typeOfRent, int deposit, int monthRent, String roomTitle) {
+		super();
+		this.roomNo = roomNo;
+		this.typeOfRent = typeOfRent;
+		this.deposit = deposit;
+		this.monthRent = monthRent;
+		this.roomTitle = roomTitle;
+	}
 
 
 	public int getRoomNo() {

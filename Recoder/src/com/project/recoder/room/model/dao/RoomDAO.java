@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.project.recoder.room.model.vo.PageInfo;
 import com.project.recoder.room.model.vo.Room;
 import com.project.recoder.room.model.vo.RoomImg;
 
@@ -359,8 +360,6 @@ public class RoomDAO {
 	         // 위치 홀더에 들어갈 시작행, 끝 행번호 계싼
 	         int startRow = (pInfo.getCurrentPage() -1) * pInfo.getLimit() + 1;
 	         int endRow = startRow + pInfo.getLimit() - 1 ;
-	         System.out.println("STR : " + startRow);
-	         System.out.println("endRow : " + endRow);
 	         
 	         pstmt = conn.prepareStatement(query);
 	         pstmt.setInt(1, startRow);
