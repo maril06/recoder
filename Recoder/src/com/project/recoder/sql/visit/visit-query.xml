@@ -20,4 +20,10 @@
 		WHERE VISIT_CODE = ?		
 	</entry>
 
+	<entry key="selectVisitMember">
+		SELECT MEM_NICK, VISIT_DT, ROOM_NO
+		FROM VISIT
+		JOIN MEMBER USING(MEM_NO)
+		WHERE VISIT_CODE = 1
+	</entry>
 </properties>

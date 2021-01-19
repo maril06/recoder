@@ -1,13 +1,18 @@
 package com.project.recoder.broker.model.service;
 
-import com.project.recoder.broker.model.dao.BrokerDAO;
-import com.project.recoder.broker.model.vo.Broker;
-import com.project.recoder.room.model.service.FileInsertFailedException;
-
-import static com.project.recoder.common.JDBCTemplate.*;
+import static com.project.recoder.common.JDBCTemplate.close;
+import static com.project.recoder.common.JDBCTemplate.commit;
+import static com.project.recoder.common.JDBCTemplate.getConnection;
+import static com.project.recoder.common.JDBCTemplate.rollback;
 
 import java.io.File;
 import java.sql.Connection;
+import java.util.List;
+
+import com.project.recoder.broker.model.dao.BrokerDAO;
+import com.project.recoder.broker.model.vo.Broker;
+import com.project.recoder.room.model.service.FileInsertFailedException;
+import com.project.recoder.room.model.vo.Room;
 
 public class BrokerService {
 	
@@ -106,6 +111,15 @@ public class BrokerService {
 		}
 		close(conn);
 		return result;
+	}
+	
+	public List<Room> selectRoom(int brokerNo) throws Exception{
+		Connection conn = getConnection();
+		List<Room> room = null;
+		
+		room = dao.selectRoom(conn, brokerNo);
+		close(conn);
+		return room;
 	}
 
 }

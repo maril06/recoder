@@ -80,76 +80,23 @@
             <h1>내 매물 관리</h1>
             <div class="room_wrapper clearfix">
                 <div class="room_list autoplay clearfix">
+                
+                
+                <c:forEach var="room" items="${room}">
+                
                     <div class="room">
                         <p class="img">
-                            <a href=""><img src="images/pp1.jpg" alt=""></a>
+                            <a href=""><img src="${contextPath}/resources/images/rooms/${room.pet}" alt=""></a>
                         </p>
-                        <h3>월세 300/28</h3>
+                        <h3>${room.roomTitle }</h3>
                         <p class="text">
-                            <span>여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보</span>
-                            <span>
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                            </span>
+                            <span>${room.roomInfo }</span>
                         </p>
                         <a href="#" class="more">View more</a>
                     </div>
-                    <div  class="room">
-                        <p class="img">
-                            <a href=""><img src="images/pp1.jpg" alt=""></a>
-                        </p>
-                        <h3>월세 300/28</h3>
-                        <p class="text">
-                            <span>여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보</span>
-                            <span>
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                            </span>
-                        </p>
-                        <a href="#" class="more">View more</a>
-                    </div>
-                    <div  class="room">
-                        <p class="img">
-                            <a href=""><img src="images/pp1.jpg" alt=""></a>
-                        </p>
-                        <h3>월세 300/28</h3>
-                        <p class="text">
-                            <span>여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보</span>
-                            <span>
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                            </span>
-                        </p>
-                        <a href="#" class="more">View more</a>
-                    </div>
-                    <div  class="room">
-                        <p class="img">
-                            <a href=""><img src="images/pp1.jpg" alt=""></a>
-                        </p>
-                        <h3>월세 300/28</h3>
-                        <p class="text">
-                            <span>여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보</span>
-                            <span>
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                            </span>
-                        </p>
-                        <a href="#" class="more">View more</a>
-                    </div>
-                    <div  class="room">
-                        <p class="img">
-                            <a href=""><img src="images/pp1.jpg" alt=""></a>
-                        </p>
-                        <h3>월세 300/28</h3>
-                        <p class="text">
-                            <span>여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보</span>
-                            <span>
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                            </span>
-                        </p>
-                        <a href="#" class="more">View more</a>
-                    </div>
+                    
+                 </c:forEach>
+
                 </div>
                 <div class="add_room">
                     <a href="${contextPath }/room/roomInsertForm.do">매물 등록${pwch }</a>
