@@ -75,7 +75,6 @@ public class VisitDAO {
 				rList.add(room);
 			}
 			
-			System.out.println(rList);
 			
 		} finally {
 			close(rset);
@@ -108,6 +107,32 @@ public class VisitDAO {
 				vList.add(visit);
 			}
 			
+			
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return vList;
+	}
+
+	public List<Visit> selectVisitMember(Connection conn) throws Exception{
+		List<Visit> vList = null;
+		String query = prop.getProperty("selectVisitMember");
+		try {
+			
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			vList = new ArrayList<Visit>();
+
+			while (rset.next()) {
+				Visit visit = new Visit(
+					rset.getString("MEM_NICK"), 
+					rset.getTimestamp("VISIT_DT"),
+					rset.getInt("ROOM_NO"));
+				
+				vList.add(visit);
+			}
 			
 		} finally {
 			close(rset);

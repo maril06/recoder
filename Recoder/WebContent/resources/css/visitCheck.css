@@ -142,7 +142,7 @@ a {
 }
 
 .wrapper .visit_check .chk_wrapper ul li .list_bottom table tbody tr td button {
-    width: 50px;
+    width: 80px;
 }
 .wrapper .visit_check .chk_wrapper ul li .list_bottom table tbody tr td button:nth-of-type(1){
     /* border-top-left-radius: 10px;

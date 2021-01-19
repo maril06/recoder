@@ -44,7 +44,6 @@
                 
                 
                 
-                    <c:set var="aaa" value="${visit }"></c:set>
                     <c:forEach var="room" items="${room}">
                     
                     <li>
@@ -70,8 +69,8 @@
                                 <thead>
 		                 
 		                                    <tr>
-		                                      <th scope="col">visit.visitDt</th>
-		                                      <th scope="col">Name</th>
+		                                      <th scope="col">신청 날짜</th>
+		                                      <th scope="col">회원 닉네임</th>
 		                                      <th scope="col">승낙 여부</th>
 		                                    </tr>
 		                
@@ -80,14 +79,18 @@
                                     <c:forEach var="visit" items="${visit}" varStatus="vst">
 			                            <c:if test="${visit.roomNo == room.roomNo && visit.visitCd == 1}" var="nameHong" scope="session">
 		
+											<c:forEach var="visitMember" items="${visitMember}" varStatus="vst">
+												<c:if test="${visitMember.roomNo == room.roomNo }">
                                     <tr>
-                                        <td>2021.1.10</td>
-                                        <td>김땡이</td>
+                                        <td>${visitMember.visitDt }</td>
+                                        <td>${visitMember.memName }</td>
                                         <td>
-                                            <button>승낙</button>
-                                            <button>거부</button>
+                                            <button>방문 승낙</button>
+                                            <button>방문 완료</button>
                                         </td>
                                     </tr>
+                                    			</c:if>
+                                    		</c:forEach>
                                         </c:if>
 	                                 </c:forEach>
                                   </tbody>

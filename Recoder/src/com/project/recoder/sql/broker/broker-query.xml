@@ -39,5 +39,11 @@ VALUES(?,?,?,DEFAULT,?)
 	<entry key="brokerStatusDl">
 		UPDATE MEMBER SET SCSN_FL = 'Y' WHERE MEM_NO = ?
 	</entry>
+	<entry key="selectRoom">
+		SELECT ROOM_NO ,ROOM_TITLE ,ROOM_INFO ,GMEM_NO, ROOM_IMG_NAME, ROOM_IMG_PATH
+		FROM ROOM
+		JOIN ROOM_IMG USING(ROOM_NO)
+		WHERE DELETE_FL = 'N' AND GMEM_NO =? AND ROOM_IMG_LEVEL = 0
+	</entry>
 
 </properties>

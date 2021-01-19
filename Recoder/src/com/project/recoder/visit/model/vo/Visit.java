@@ -8,6 +8,9 @@ public class Visit {
 	private Timestamp visitDt;
 	private int visitCd;
 	
+	private String memName;
+	
+	
 	public Visit() {
 	}
 
@@ -19,10 +22,18 @@ public class Visit {
 		this.visitCd = visitCd;
 	}
 
-	
-	
-	
-	
+	public Visit(Timestamp visitDt,  String memName) {
+		super();
+		this.visitDt = visitDt;
+		this.memName = memName;
+	}
+
+	public Visit(String memName, Timestamp visitDt, int roomNo) {
+		super();
+		this.memName= memName;
+		this.visitDt = visitDt;
+		this.roomNo = roomNo;
+	}
 
 	public int getMemNo() {
 		return memNo;
@@ -55,10 +66,22 @@ public class Visit {
 	public void setVisitCd(int visitCd) {
 		this.visitCd = visitCd;
 	}
+	
+	
+
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
 
 	@Override
 	public String toString() {
-		return "Visit [memNo=" + memNo + ", roomNo=" + roomNo + ", visitDt=" + visitDt + ", visitCd=" + visitCd + "]";
+		return "Visit [memNo=" + memNo + ", roomNo=" + roomNo + ", visitDt=" + visitDt + ", visitCd=" + visitCd
+				+ ", memName=" + memName + "]";
 	}
+
 	
 }

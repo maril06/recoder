@@ -108,6 +108,10 @@ public class Room {
 	}
 
 
+	public Room(int int1, String string, String string2, int int2, String string3, String string4) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getRoomNo() {
 		return roomNo;
 	}

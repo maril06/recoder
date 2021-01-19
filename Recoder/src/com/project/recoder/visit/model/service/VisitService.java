@@ -64,4 +64,14 @@ public class VisitService {
 		return visit;
 	}
 
+	public List<Visit> selectVisitMember() throws Exception{
+		Connection conn = getConnection();
+		List<Visit> vMember = null;
+		
+		vMember = dao.selectVisitMember(conn);
+		
+		close(conn);
+		return vMember;
+	}
+
 }
