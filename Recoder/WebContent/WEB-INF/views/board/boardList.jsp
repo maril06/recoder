@@ -80,7 +80,7 @@
                                     
                                     <%-- 글 작성일이 오늘일 경우 --%>
                                     <c:otherwise>
-                                       <fmt:formatDate value="${board.createDt}"  pattern="HH:mm"/>
+                                       <fmt:formatDate value="${board.createDate}"  pattern="HH:mm"/>
                                     </c:otherwise>
                                  </c:choose>
 		                    </td>

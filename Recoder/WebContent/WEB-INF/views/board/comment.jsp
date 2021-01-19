@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"></c:set>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,62 +23,18 @@
 </head>
 
 
-<body>
-<!-- 댓글 구역 -->
-<div id="replyArea">
-    <!-- 댓글 조회 -->
-    <h5 class="replyTitle">댓글</h5> <br>
-    <ul class="replyList">
-        <li id="댓글번호 얻어오기" class="replyItem">
-            <div class="replyBox">
-                <div class="replyIdBox">아이디</div>
-                <div class="replyTextBox">댓글내용</div>
-                <div class="replyInfoBox">
-                    <span class="replyInfoDate">2020.01.18 15:05</span> &nbsp;
-                    <!--  <a href="#" role="button" class="replyinfo_button">
-                        답글쓰기
-                    </a>  -->
-                    <a href="#" role="button" class="replyInfoButton">
-                        수정
-                    </a>
-                    <a href="#" role="button" class="replyInfoButton">
-                        삭제
-                    </a>
-                </div>
-            </div>
-        </li>
-        <br>
-        <!-- 댓글수정 -->
-        <li id="댓글번호 얻어오기" class="replyItem">
-            <div class="replyBox">
-                <div class="replyIdBox">아이디</div>
-                <div id="replyUpdateContentArea">
-                    <textarea class="replyUpdateContent" rows="3" placeholder="댓글내용 수정 테스트"></textarea>
-                    <button class="btn btn-primary" id="replyUpdateBtn">수정</button>
-                </div>
-                    <div class="replyInfoBox">
-                        <span class="replyInfoDate">2020.01.18 15:05</span> &nbsp;
-                    <!--  <a href="#" role="button" class="replyinfo_button">
-                        답글쓰기
-                    </a>  -->
-                    
-                </div>
-            </div>
-        </li>
-    </ul>
-    
-    
-    
+
+<div id="comment-area ">
 	<!-- 댓글 작성 부분 -->
-	<div class="replyWrite">
+	<div class="commentWrite">
 		<table align="center">
-			<tr >
-				<td id="replyContentArea">
-					<textArea rows="3" id="replyContent"></textArea>
+			<tr>
+				<td id="commentContentArea">
+					<textArea rows="3" id="commentContent"></textArea>
 				</td>
-				<td id="replyBtnArea">
-					<button class="btn btn-primary" id="addReply">
-						댓글등록
+				<td id="commentBtnArea">
+					<button class="btn btn-primary" id="addComment">
+						댓글<br>등록
 					</button>
 				</td>
 			</tr>
@@ -83,15 +42,44 @@
 	</div>
 
 
+	<!-- 댓글 출력 부분 -->
+	<div class="commentList mt-5 pt-2">
+		<ul id="commentListArea">
+			
+			<!-- 로그인 x 또는 댓글 작성자가 아닌 회원의 화면 -->
+			<li class="comment-row">
+				<div>
+					<p class="cWriter">작성자</p>
+					<p class="cDate">작성일 : 2021.01.11 10:30</p>
+				</div>
+				
+				<p class="cContent">댓글 내용1</p>
+			</li>
+
+			
+			<!-- 로그인한 회원이 댓글 작성자인 경우 -->
+			<li class="comment-row">
+				<div>
+					<p class="cWriter">작성자</p>
+					<p class="cDate">작성일 : 2021.01.11 10:30</p>
+				</div>
+
+				<p class="cContent">댓글 내용2</p>
+				
+				<div class="commentBtnArea">
+					<button class="btn btn-primary btn-sm ml-1" id="updateComment" onclick="showUpdateComment(2, this)">수정</button>
+					<button class="btn btn-primary btn-sm ml-1" id="deleteComment" onclick="deleteComment(2)">삭제</button>
+				</div>
+			</li>
 	
+		</ul>
+	</div>
+
+
 </div>
+
+    <script type="text/javascript" src="${contextPath}/resources/js/comment.js"></script>
     
-    
 
-<script>
-
-
-
-</script>
 </body>
 </html>

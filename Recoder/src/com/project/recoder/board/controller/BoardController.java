@@ -15,7 +15,6 @@ import com.project.recoder.board.model.service.BoardService;
 import com.project.recoder.board.model.vo.Board;
 import com.project.recoder.board.model.vo.BoardImg;
 import com.project.recoder.board.model.vo.PageInfo;
-import com.project.recoder.common.service.CommonService;
 
 @WebServlet("/board/*")
 public class BoardController extends HttpServlet {

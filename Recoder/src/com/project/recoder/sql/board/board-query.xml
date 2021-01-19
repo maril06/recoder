@@ -2,11 +2,13 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-<!-- 전체 게시글 수 조회 -->
+<!-- 자유게시판 전체 게시글 수 조회 -->
 <entry key="getListCount">
 SELECT COUNT(*)
 FROM V_BOARD
 WHERE DELETE_FL = 'N'
+AND BOARD_NM ='자유게시판'
+
 </entry>
 
  <!--지정된 페이지 게시글 목록 조회 -->

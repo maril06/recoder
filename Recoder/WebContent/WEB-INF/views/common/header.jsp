@@ -85,5 +85,5 @@
               </c:choose> 
             </div>
         </header>
-  <script src="${contextPath}/resources/js/slick.min.js">
+  <script src="${contextPath}/resources/js/index.js">
   </script>
