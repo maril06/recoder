@@ -137,7 +137,65 @@ public class BrokerDAO {
 			stmt = conn.createStatement();
 			
 			result = stmt.executeUpdate(query);
-			System.out.println(result);
+			//System.out.println(result);
+		}finally {
+			
+			close(stmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+	/**승인 반려 후 공인중개사 회원 정보 삭제.(broker에서 삭제)
+	 * @param conn
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteEnroll(Connection conn, String numberList) throws Exception {
+		
+		int result = 0;
+		
+		String query = "DELETE FROM BROKER "
+				 + " WHERE MEM_NO2 IN( " + numberList + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+		
+		}finally {
+			
+			close(stmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+	/** 승인 반려 후 공인중개사 회원 정보 삭제.(member에서 삭제)
+	 * @param conn
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteEnroll2(Connection conn, String numberList) throws Exception {
+		
+		int result = 0;
+		
+		String query = "DELETE FROM MEMBER "
+				 + " WHERE MEM_NO IN( " + numberList + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+		
 		}finally {
 			
 			close(stmt);

@@ -24,4 +24,7 @@ SELECT * FROM AV_BOARD
 WHERE BOARD_NO = ?
 </entry>
 
+
+
+
 </properties>

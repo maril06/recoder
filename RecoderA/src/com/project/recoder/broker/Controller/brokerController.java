@@ -62,6 +62,8 @@ public class brokerController extends HttpServlet {
 			}
 			
 			
+			
+			// 공인중개사 회원 가입 승인
 			else if(command.equals("/approveEnroll.do")){
 				errorMsg = "승인 과정에서 오류 발생";
 				String numberList = request.getParameter("numberList");
@@ -70,6 +72,19 @@ public class brokerController extends HttpServlet {
 				int result = service.updateApproveEnroll(numberList);
 					//System.out.println(result);
 				
+				response.getWriter().print(result);
+			}
+			
+			// 공인중개사 승인요청 반려 시 회원 정보 삭제
+			else if(command.equals("/rejectEnroll.do")){
+				errorMsg = "삭제 과정에서 오류 발생";
+				
+				String numberList = request.getParameter("numberList");
+					System.out.println(numberList);
+					
+				int result = service.deleteEnroll(numberList);
+				
+				System.out.println(result);
 				response.getWriter().print(result);
 			}
 			
