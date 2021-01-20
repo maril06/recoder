@@ -71,7 +71,7 @@
                 <!-- 버튼구역 -->
                 <div>
                <%-- 로그인된 회원과 해당 글 작성자가 같은 경우--%>
-				<c:if test="${!empty loginMember && (board.memId == loginMember.memberId)}">
+				<c:if test="${!empty loginMember && (board.memId == loginMember.memId)}">
                     <button id="deleteBtn" class="btn btn-outline-secondary float-right">삭제</button> 
                   	<!-- 상세조회, 검색 할때 cp, no, sk, sv 유지 시켜야 수정후 다시 상세조회로 돌아갈수있다 -->
 					<%-- 게시글 수정 후 상세조회 페이지로 돌아오기 위한 url조합 --%>
