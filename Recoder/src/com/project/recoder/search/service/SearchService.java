@@ -43,6 +43,8 @@ public class SearchService {
 
 		String searchValue = (String)map.get("searchValue");
 	      String condition = " ROOM_ADDR LIKE '%' || '" + searchValue + "' || '%' ";
+	      
+	      System.out.println("condition: "+ condition);
 	      return condition;
 	}
 
@@ -53,7 +55,7 @@ public class SearchService {
 	      
 	      String condition = createCondition(map);
 	      
-	      List<Room> rList = dao.searchBoardList(conn, pInfo, condition);
+	      List<Room> rList = dao.searchBoardList(conn,pInfo, condition);
 	      
 	      close(conn);
 	      
@@ -82,6 +84,15 @@ public class SearchService {
 		close(conn);
 		
 		return roomList;
+	}
+
+
+
+	public List<Room> searchSubwayList(Map<String, Object> map, PageInfo pInfo, String searchValue) throws Exception{
+		Connection conn = getConnection();
+		List<Room> subList = dao.searchSubwayList(conn, pInfo, searchValue);
+		close(conn);
+		return subList;
 	}
 	
 	
