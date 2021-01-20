@@ -102,6 +102,17 @@ public class BoardController extends HttpServlet {
 					
 				
 			}
+			
+			else if(command.equals("/search.do")) {
+				errorMsg = "검색 중 오류발생";
+				
+				String sk = request.getParameter("sk");
+				String sv = request.getParameter("sv");
+				
+				
+				
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			path = "/WEB-INF/views/common/errorPage.jsp"; // 수정
