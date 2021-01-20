@@ -19,7 +19,7 @@
         
     <link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/boardList.css">
-	<title>공지사항 게시판</title>
+	<title>자유게시판 게시판</title>
 	<style>
 		.delete-btn{
 			margin-top :20px;
@@ -30,6 +30,18 @@
 		.button-area{
 			height:80px;
 		}
+		
+		input[type="checkbox"]{
+		width:30px;
+		height:30px;
+		}
+	
+		#trList td:last-child p{
+		color : red;
+		font-weight : bold;
+		}
+		
+		
 	</style>
 </head>
 <body>
@@ -91,7 +103,7 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="board" items="${bList}">
-								<tr>
+								<tr id="trList">
 									<td>
 									<input type="checkbox" name="ck" class="selectBoard" value="${board.boardNo}">
 									<input type ="hidden" value="${board.boardNo}" class="boardNo">
@@ -101,7 +113,7 @@
 									<td>${board.memberNick}</td>
 									<td>
 										<c:if test="${board.deleteFl == 'Y'}">
-										삭제
+										<p>삭제</p>
 										</c:if>
 										<c:if test="${board.deleteFl == 'N'}">
 										등록
