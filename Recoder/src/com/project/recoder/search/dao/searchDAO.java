@@ -1,5 +1,5 @@
 package com.project.recoder.search.dao;
-import static com.project.recoder.common.JDBCTemplate.*;
+import static com.project.recoder.common.JDBCTemplate.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,18 +49,16 @@ public class searchDAO {
 	            "    FROM" + 
 	            "        (SELECT * FROM ROOM " + 
 	            "        WHERE " + condition +
-	            "        AND DELETE_FL = 'N' ORDER BY ROOM_NO DESC) V )" + 
-	            "WHERE RNUM BETWEEN ? AND ?";
-		
+	            "        AND DELETE_FL = 'N' ORDER BY ROOM_NO DESC) V )";
 		try {
 	         // SQL 구문 조건절에 대입할 변수 생성
-	         int startRow = (pInfo.getCurrentPage() - 1) * pInfo.getLimit() + 1 ; // 1
-	         int endRow = startRow + pInfo.getLimit() - 1 ; // 10 
+	       //  int startRow = (pInfo.getCurrentPage() - 1) * pInfo.getLimit() + 1 ; // 1
+	       //  int endRow = startRow + pInfo.getLimit() - 1 ; // 10 
 	         
 	         pstmt = conn.prepareStatement(query);
 	         
-	         pstmt.setInt(1, startRow);
-	         pstmt.setInt(2, endRow);
+	        // pstmt.setInt(1, startRow);
+	       //  pstmt.setInt(2, endRow);
 	         
 	         rset = pstmt.executeQuery();
 	         
@@ -90,17 +88,16 @@ public class searchDAO {
 	                    "            WHERE DELETE_FL='N' " + 
 	                    "            AND " + condition + 
 	                    "            ORDER BY ROOM_NO DESC ) V) " + 
-	                    "    WHERE RNUM BETWEEN ? AND ?" + 
 	                    ") " + 
 	                    "AND ROOM_IMG_LEVEL = 0";
 		
 		try {
-			int startRow = (pInfo.getCurrentPage() -1) * pInfo.getLimit() + 1;
-	        int endRow = startRow + pInfo.getLimit() - 1 ;
+			// int startRow = (pInfo.getCurrentPage() -1) * pInfo.getLimit() + 1;
+	        // int endRow = startRow + pInfo.getLimit() - 1 ;
 	        
 	        pstmt = conn.prepareStatement(query);
-	         pstmt.setInt(1, startRow);
-	         pstmt.setInt(2, endRow);
+	        // pstmt.setInt(1, startRow);
+	        // pstmt.setInt(2, endRow);
 	         
 	         rset = pstmt.executeQuery();
 	         
@@ -120,6 +117,96 @@ public class searchDAO {
 			close(pstmt);
 		}
 		return fList;
+	}
+
+
+	public List<Room> searchRoomList(Connection conn, PageInfo pInfo, String condition) throws Exception{
+		List<Room> roomList = null;
+		String query = ""
+				+ " SELECT ROOM_ADDR, ROOM_TITLE, ROOM_NO, ROOM_IMG_NAME, ROOM_IMG_PATH " + 
+				" FROM ROOM " + 
+				" JOIN ROOM_IMG USING(ROOM_NO) " + 
+				" WHERE ROOM_IMG_LEVEL = 0 ";
+	            
+		
+		try {
+			// int startRow = (pInfo.getCurrentPage() -1) * pInfo.getLimit() + 1;
+	        // int endRow = startRow + pInfo.getLimit() - 1 ;
+	        
+	         pstmt = conn.prepareStatement(query);
+	        // pstmt.setInt(1, startRow);
+	        // pstmt.setInt(2, endRow);
+	         
+	         rset = pstmt.executeQuery();
+	         
+	         // 조회 결과를 저장할 List 생성
+	         roomList = new ArrayList<Room>();
+	         
+	         while(rset.next()) {
+	            
+	        	 Room at = new Room();
+	        	 at.setRoomAddr(rset.getString("ROOM_ADDR"));
+	        	 at.setRoomTitle(rset.getString("ROOM_TITLE"));
+	             at.setRoomNo(rset.getInt("ROOM_NO"));
+	             at.setPet(rset.getString("ROOM_IMG_NAME"));
+	             at.setBed(rset.getString("ROOM_IMG_PATH"));
+	            
+	            roomList.add(at);
+	         }
+	         System.out.println(roomList);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return roomList;
+	}
+
+
+
+	public List<Room> searchSubwayList(Connection conn, PageInfo pInfo, String searchValue) throws Exception{
+		List<Room> subList = null;
+		
+		System.out.println(searchValue);
+		String query = 
+	            " SELECT ROOM_ADDR, ROOM_TITLE FROM ROOM  " + 
+	            "    WHERE ROOM_NO IN (" + 
+	            "        SELECT ROOM_NO FROM " + 
+	            "        (SELECT ROWNUM RNUM, V.* FROM " + 
+	            "                (SELECT ROOM_NO  FROM ROOM " + 
+	            "                WHERE DELETE_FL='N' " + 
+	            "                AND STATION_ADDR LIKE '%' || '" + searchValue + "' || '%' " + 
+	            "                ORDER BY ROOM_NO DESC ) V) " + 
+	            "       WHERE RNUM BETWEEN ? AND ? " + 
+	            "    ) ";
+		
+		try {
+			int startRow = (pInfo.getCurrentPage() -1) * pInfo.getLimit() + 1;
+	        int endRow = startRow + pInfo.getLimit() - 1 ;
+	        
+	        pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, startRow);
+	         pstmt.setInt(2, endRow);
+	         
+	         rset = pstmt.executeQuery();
+	         
+	         // 조회 결과를 저장할 List 생성
+	         subList = new ArrayList<Room>();
+	         
+	         while(rset.next()) {
+	            
+	        	 Room at = new Room();
+	        	 at.setRoomTitle(rset.getString("ROOM_TITLE"));
+	             at.setRoomAddr(rset.getString("ROOM_ADDR"));
+	            
+	             subList.add(at);
+	         }
+	         System.out.println(subList);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return subList;
+		
 	}
 	
 }

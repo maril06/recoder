@@ -221,13 +221,11 @@ public class BrokerDAO {
 					rset.getString("ROOM_TITLE"),
 					rset.getString("ROOM_INFO"),
 					rset.getInt("GMEM_NO"),
-					rset.getString("ROOM_IMG_NAME"),
-					rset.getString("ROOM_IMG_PATH"));
+					rset.getString("ROOM_IMG_NAME"));
+
 				
 				rList.add(room);
 			}
-			
-			System.out.println(rList);
 			
 		} finally {
 			close(rset);

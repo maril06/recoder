@@ -46,14 +46,10 @@ public class MessageController extends HttpServlet {
 				String msgContext = request.getParameter("msgContext");
 				int brokerNo = Integer.parseInt(request.getParameter("brokerNo"));
 				int myNo = Integer.parseInt(request.getParameter("myNo"));
-				System.out.println(msgContext);
-				System.out.println(brokerNo);
-				System.out.println(myNo);
 				
 				int result = service.messageSend(msgContext, brokerNo, myNo);
 				
 				if(result > 0) {
-					System.out.println("메시지 전달 성공");
 					
 					path = "/WEB-INF/views/message/message.jsp";
 				    view = request.getRequestDispatcher(path);

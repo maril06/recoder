@@ -84,14 +84,13 @@ public class VisitDAO {
 		return rList;
 	}
 
-	public List<Visit> selectVisit(Connection conn, int visitcd) throws Exception{
+	public List<Visit> selectVisit(Connection conn) throws Exception{
 		List<Visit> vList = null;
 		String query = prop.getProperty("selectVisit");
 		try {
 			
 			
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, visitcd);
 
 			rset = pstmt.executeQuery();
 
@@ -102,8 +101,8 @@ public class VisitDAO {
 					rset.getInt("MEM_NO"), 
 					rset.getInt("ROOM_NO"),
 					rset.getTimestamp("VISIT_DT"),
-					rset.getInt("VISIT_CODE"));
-				
+					rset.getInt("VISIT_CODE"),
+					rset.getString("MEM_NICK"));
 				vList.add(visit);
 			}
 			
@@ -116,31 +115,38 @@ public class VisitDAO {
 		return vList;
 	}
 
-	public List<Visit> selectVisitMember(Connection conn) throws Exception{
-		List<Visit> vList = null;
-		String query = prop.getProperty("selectVisitMember");
-		try {
-			
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			vList = new ArrayList<Visit>();
-
-			while (rset.next()) {
-				Visit visit = new Visit(
-					rset.getString("MEM_NICK"), 
-					rset.getTimestamp("VISIT_DT"),
-					rset.getInt("ROOM_NO"));
+	public List<Room> selectRoomImg(Connection conn, int brokerNo) throws Exception{	
+			List<Room> rImg = null;
+			String query = prop.getProperty("selectRoomImg");
+			System.out.println(brokerNo);
+			try {
 				
-				vList.add(visit);
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, brokerNo);
+				
+				rset = pstmt.executeQuery();
+				
+				rImg = new ArrayList<Room>();
+
+				
+				while (rset.next()) {
+					Room room = new Room(
+						rset.getInt("ROOM_NO"), 
+						rset.getString("ROOM_IMG_NAME"));
+					
+					rImg.add(room);
+				}
+				
+			} finally{
+				close(rset);
+				close(pstmt);
+				
 			}
-			
-		} finally {
-			close(rset);
-			close(stmt);
-		}
 		
-		return vList;
+		return rImg;
 	}
+
+
 
 
 }

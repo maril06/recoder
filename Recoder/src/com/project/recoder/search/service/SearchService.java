@@ -1,12 +1,10 @@
 package com.project.recoder.search.service;
-import static com.project.recoder.common.JDBCTemplate.*;
+import static com.project.recoder.common.JDBCTemplate.close;
+import static com.project.recoder.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-
-import javax.naming.NamingException;
 
 import com.project.recoder.room.model.vo.PageInfo;
 import com.project.recoder.room.model.vo.Room;
@@ -45,6 +43,8 @@ public class SearchService {
 
 		String searchValue = (String)map.get("searchValue");
 	      String condition = " ROOM_ADDR LIKE '%' || '" + searchValue + "' || '%' ";
+	      
+	      System.out.println("condition: "+ condition);
 	      return condition;
 	}
 
@@ -55,7 +55,7 @@ public class SearchService {
 	      
 	      String condition = createCondition(map);
 	      
-	      List<Room> rList = dao.searchBoardList(conn, pInfo, condition);
+	      List<Room> rList = dao.searchBoardList(conn,pInfo, condition);
 	      
 	      close(conn);
 	      
@@ -73,6 +73,26 @@ public class SearchService {
 		close(conn);
 		
 		return fList;
+	}
+
+
+
+	public List<Room> searchRoomList(Map<String, Object> map, PageInfo pInfo) throws Exception{
+		Connection conn = getConnection();
+		String condition = createCondition(map); 
+		List<Room> roomList = dao.searchRoomList(conn, pInfo, condition);
+		close(conn);
+		
+		return roomList;
+	}
+
+
+
+	public List<Room> searchSubwayList(Map<String, Object> map, PageInfo pInfo, String searchValue) throws Exception{
+		Connection conn = getConnection();
+		List<Room> subList = dao.searchSubwayList(conn, pInfo, searchValue);
+		close(conn);
+		return subList;
 	}
 	
 	

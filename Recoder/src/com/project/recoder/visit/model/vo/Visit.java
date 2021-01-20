@@ -14,19 +14,15 @@ public class Visit {
 	public Visit() {
 	}
 
-	public Visit(int memNo, int roomNo, Timestamp visitDt, int visitCd) {
+	public Visit(int memNo, int roomNo, Timestamp visitDt, int visitCd, String memName) {
 		super();
 		this.memNo = memNo;
 		this.roomNo = roomNo;
 		this.visitDt = visitDt;
 		this.visitCd = visitCd;
+		this.memName= memName;
 	}
 
-	public Visit(Timestamp visitDt,  String memName) {
-		super();
-		this.visitDt = visitDt;
-		this.memName = memName;
-	}
 
 	public Visit(String memName, Timestamp visitDt, int roomNo) {
 		super();
@@ -67,8 +63,6 @@ public class Visit {
 		this.visitCd = visitCd;
 	}
 	
-	
-
 	public String getMemName() {
 		return memName;
 	}

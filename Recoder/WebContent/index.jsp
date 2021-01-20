@@ -40,7 +40,7 @@
             <form action="" method="GET" class="search_form">
                 <div class="search">
                     <div>
-                        <input type="text" placeholder="원하시는 지역명, 지하철역을 입력해주세요.">
+                        <input type="text" placeholder="지하철명을 검색하시려면 #을 붙여주세요.">
                         <button><i class="fas fa-search"></i></button>
                     </div>
                 </div>

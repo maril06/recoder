@@ -54,24 +54,25 @@ public class VisitService {
 		return room;
 	}
 
-	public List<Visit> selectVisit(int visitcd) throws Exception{
+	public List<Visit> selectVisit() throws Exception{
 		Connection conn = getConnection();
 		List<Visit> visit = null;
 		
-		visit = dao.selectVisit(conn, visitcd);
+		visit = dao.selectVisit(conn);
 		close(conn);
 		
 		return visit;
 	}
 
-	public List<Visit> selectVisitMember() throws Exception{
+	public List<Room> selectRoomImg(int brokerNo) throws Exception{
 		Connection conn = getConnection();
-		List<Visit> vMember = null;
-		
-		vMember = dao.selectVisitMember(conn);
-		
+		List<Room> rImg = null;
+		rImg = dao.selectRoomImg(conn, brokerNo);
 		close(conn);
-		return vMember;
+		
+		
+		return rImg;
 	}
+
 
 }

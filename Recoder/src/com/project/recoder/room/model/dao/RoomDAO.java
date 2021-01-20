@@ -1,6 +1,6 @@
 package com.project.recoder.room.model.dao;
 
-import static com.project.recoder.common.JDBCTemplate.*;
+import static com.project.recoder.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -222,7 +222,7 @@ public class RoomDAO {
 						rset.getString("ROOM_IMG_NAME"), 
 						rset.getInt("ROOM_IMG_LEVEL"));
 				
-						rm.setRoomImgPath(rset.getNString("ROOM_IMG_PATH"));
+						rm.setRoomImgPath(rset.getString("ROOM_IMG_PATH"));
 						
 				mList.add(rm);
 			}
