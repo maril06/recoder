@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/brokerList.css">
 	<title>공지사항 게시판</title>
+	<style>
+	
+	input[type="checkbox"]{
+		width:30px;
+		height:30px;
+	}
+	
+	</style>
 </head>
 <body>
 	
@@ -58,13 +66,13 @@
 					<c:otherwise>	
 						<c:forEach var ="broker" items="${bList}">
                 			<tr>
-			                   <td>
+			                   <td id="trList">
 			                       <input type="checkbox" name="ck" value="${broker.brokerNo}">
 			                       <input type ="hidden" value="${broker.brokerNo}">
 			                   </td>
 			                    <td> ${broker.brokerNo} </td>
 			                    <td> 
-			                    	<img class="certi" src="/Recoder/resources/images/rooms/20210115153738_55413.png"> </td>
+			                    	<img class="certi" src="/Recoder/resources/images/brokerInfo/${broker.brokerFileName}"> </td>
 			                    <td> ${broker.brokerAddr}</td>
 			                    <td> ${broker.brokerNick}</td>
 							</tr>
@@ -80,7 +88,7 @@
 		
         <div class="button-area">
             <button class="btn btn-primary btn-sm ml-1 approve-btn" id="approveBtn">승인</button>
-            <button class="btn btn-primary btn-sm ml-1 cancel-btn" id="deleteBtn">취소</button>
+            <button class="btn btn-primary btn-sm ml-1 cancel-btn" id="deleteBtn">삭제</button>
         </div>
 		
 		
@@ -208,6 +216,51 @@
         });
         
         
+		
+			$("#deleteBtn").on("click", function(){
+        	
+        	var list = [];
+        	
+        	$("input:checkbox[name='ck']:checked").length
+            
+            $('input[type="checkbox"]:checked').each(function (index) {
+            		if($(this).val() != "on"){
+	  					list.push($(this).val());
+            		}	
+            });
+                console.log(list);
+		
+		 $.ajax({
+			url : "${contextPath}/broker/rejectEnroll.do",
+			data : {"numberList" : list.join()},
+			
+			type : "post",
+			
+			success : function(result){
+				
+				if(result > 0){ 
+					swal({icon : "warning" , 
+			        	title : "회원 정보 삭제", 
+			        	buttons : {confirm : true}}
+			        ).then((result) => {
+				        	if(result) {
+								location.reload();
+				        	}	
+				        }
+			        );
+					
+				}
+
+			},
+			error : function(){
+				console.log("승인 실패");
+			}
+		}); 
+        	
+    }); 
+		
+		
+		
 
     </script>
 </body>

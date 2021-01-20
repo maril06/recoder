@@ -74,4 +74,36 @@ public class BrokerService {
 		return result;
 	}
 
+
+
+	
+	
+	/** 승인 반려 후 공인중개사 회원 정보 삭제.
+	 * @param numberList
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteEnroll(String numberList) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.deleteEnroll(conn, numberList);
+		
+		if(result > 0) {
+			
+			result = dao.deleteEnroll2(conn, numberList);
+		}
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
+
 }
