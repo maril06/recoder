@@ -1,10 +1,15 @@
 package com.project.recoder.message.model.service;
 
-import static com.project.recoder.common.JDBCTemplate.*;
+import static com.project.recoder.common.JDBCTemplate.close;
+import static com.project.recoder.common.JDBCTemplate.commit;
+import static com.project.recoder.common.JDBCTemplate.getConnection;
+import static com.project.recoder.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.project.recoder.message.model.dao.MessageDAO;
+import com.project.recoder.message.model.vo.Message;
 
 public class MessageService {
 	
@@ -30,7 +35,20 @@ public class MessageService {
 			rollback(conn);
 		}
 		
+		close(conn);
 		return result;
+	}
+
+
+	public List<Message> messageList(int brokerNo) throws Exception{
+		Connection conn = getConnection();
+		List<Message> message = null;
+		
+		message = dao.messageList(conn, brokerNo);
+		
+		close(conn);
+		
+		return message;
 	}
 
 	

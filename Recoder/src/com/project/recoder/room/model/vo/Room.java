@@ -126,6 +126,16 @@ public class Room {
 		this.pet = pet;
 	}
 
+	
+
+	public Room(String bed, String pet, String roomTitle, String roomInfo) {
+		super();
+		this.bed = bed;
+		this.pet = pet;
+		this.roomTitle = roomTitle;
+		this.roomInfo = roomInfo;
+	}
+
 	public int getRoomNo() {
 		return roomNo;
 	}

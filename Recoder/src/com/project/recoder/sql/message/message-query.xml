@@ -3,15 +3,21 @@
 <properties>
 
 
-
-
-
-
-
 	<!-- 매물에서 메시지 전송 -->
 	<entry key="messageSend">
 		INSERT INTO MESSAGE VALUES(SEQ_MSGNO.NEXTVAL, ?, SYSDATE, ?, ?)
 		
 	</entry>
 
+	<!--  -->
+	<entry key="messageList">
+		SELECT MEM_NO, MSG_CONTENT, CREATE_DT, MSG_CNT, MEM_NICK
+	    FROM(
+	        SELECT A.*, ROW_NUMBER() OVER(PARTITION BY MEM_NO ORDER BY CREATE_DT DESC) AS R
+	        FROM message A
+	    )
+	    JOIN MEMBER USING(MEM_NO)
+		WHERE R = 1 and MEM_NO2 = ?
+		ORDER BY CREATE_DT DESC
+	</entry>
 </properties>

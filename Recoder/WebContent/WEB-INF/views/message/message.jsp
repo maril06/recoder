@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"></c:set>
 
 <!DOCTYPE html>
@@ -33,276 +35,30 @@
             <h1>쪽지 함</h1>
             <div class="msg_box">
                 <ul>
+                	<c:forEach var="message" items="${message}">
                     <li class="member_list clearfix">
                         <div class="msg_left">
                             <img src="${contextPath}/resources/images/homepage/mail_open.png" alt="">
                             <div class="circle"></div>
                             <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
+                            <span class="name">${message.memNick}</span>
                         </div>
 
                         <p class="msg_text" id="msgText">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
+                        	${message.msgContent}
                         </p>
 
                         <div class="msg_right">
-                            <span class="msg_date">11:54</span>
+                            <span class="msg_date">
+                            	<fmt:formatDate value="${message.createDate}" pattern="hh:mm"/>
+                            </span>
                             <div class="msg_button_check"><span>확인</span></div>
                             <div class="msg_button_delete"><span>삭제</span></div>
                         </div>
                     </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="${contextPath}/resources/images/homepage/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
-                    <li class="member_list clearfix">
-                        <div class="msg_left">
-                            <img src="images/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt">3</div>
-                            <span class="name">김이름</span>
-                        </div>
-
-                        <p class="msg_text">
-                            메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용메시지 내용
-                        </p>
-
-                        <div class="msg_right">
-                            <span class="msg_date">11:54</span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
-                        </div>
-                    </li>
+                    
+                    </c:forEach>
+                    
                     
                 </ul>
             </div>
