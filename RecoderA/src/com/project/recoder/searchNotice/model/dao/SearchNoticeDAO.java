@@ -2,6 +2,7 @@ package com.project.recoder.searchNotice.model.dao;
 
 import static com.project.recoder.common.JDBCTemplate.*;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

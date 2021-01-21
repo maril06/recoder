@@ -9,7 +9,9 @@ import java.util.List;
 
 import com.project.recoder.room.model.dao.RoomDAO;
 import com.project.recoder.room.model.vo.PageInfo;
+import com.project.recoder.room.model.vo.ReportComment;
 import com.project.recoder.room.model.vo.Room;
+import com.project.recoder.room.model.vo.FakeRoom;
 
 public class RoomService {
 	
@@ -52,11 +54,9 @@ public class RoomService {
 
 
 
-
-	public List<Room> selectFakeList(PageInfo pInfo) throws Exception{
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	
+	
 
 
 
@@ -100,6 +100,87 @@ public class RoomService {
 		}
 		
 		close(conn);
+		
+		return result;
+	}
+
+
+
+
+	/** 신고 매물 수 조회 
+	 * @param cp
+	 * @return
+	 * @throws Exception
+	 */
+	public PageInfo getPageInfo1(String cp) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		int currentPage = cp == null ? 1 : Integer.parseInt(cp);
+		
+		int listCount = dao.getListCount1(conn);
+		
+		close(conn);
+		return new PageInfo(currentPage, listCount);
+		
+		
+	}
+	
+	/** 신고 매물의 정보 조회 Service
+	 * @param pInfo
+	 * @return fList
+	 * @throws Exception
+	 */
+	public List<FakeRoom> selectFakeList(PageInfo pInfo) throws Exception{
+		Connection conn = getConnection();
+		
+		List<FakeRoom> fList = dao.selectFakeList(conn, pInfo);
+		
+		close(conn);
+		
+		return fList;
+	}
+
+
+
+
+	/** 신고 리스트 조회 Service
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ReportComment> selectReportList() throws Exception{
+		
+		Connection conn = getConnection();
+		
+		List<ReportComment> rList = dao.selectReportList(conn);
+		
+		close(conn);
+		
+		return rList;
+	}
+
+
+
+
+	/** 신고 매물 삭제
+	 * @param roomNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateFakeRoomDelete(String roomNo) throws Exception{
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateFakeRoomDelete(conn, roomNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
 		
 		return result;
 	}
