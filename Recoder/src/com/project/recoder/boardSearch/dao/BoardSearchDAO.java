@@ -72,7 +72,7 @@ public class BoardSearchDAO {
 			" AND DELETE_FL = 'N' ORDER BY BOARD_NO DESC )V ) " + 
 			" WHERE RNUM BETWEEN ? AND ?";
 			
-			System.out.println(query);
+			//System.out.println(query);
 			
 			int startRow = (pInfo.getCurrentPage()-1) * pInfo.getLimit() + 1;
 			int endRow = startRow + pInfo.getLimit() -1;
@@ -94,8 +94,9 @@ public class BoardSearchDAO {
 								rset.getString("MEM_NICK"),//memNick,
 								rset.getInt("READ_COUNT"), //readCount,
 								rset.getString("BOARD_NO"), // boardNm,
-								rset.getTimestamp("CREATE_DT") //createDate);
-								);
+								rset.getTimestamp("CREATE_DT"), //createDate);
+								rset.getInt("MEM_NO")
+						);
 				
 				bList.add(board);
 			}

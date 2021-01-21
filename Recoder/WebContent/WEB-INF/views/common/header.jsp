@@ -52,7 +52,7 @@
                         <c:if test="${empty sessionScope.loginMember}">
                         	<li><a href="${contextPath}/common/loginForm.do"><span><b>찜한 방</b></span></a></li>
                         </c:if>
-                         <li><a href="#"><span><b>공지사항</b></span></a></li>
+                         <li><a href="${contextPath}/notice/list.do""><span><b>공지사항</b></span></a></li>
                         <li><a href="${contextPath}/board/list.do"><span><b>게시판</b></span></a></li>
                          <li><a href="${contextPath}/message/message.do"><span><b>쪽지함</b></span></a></li>
                         
@@ -72,10 +72,10 @@
                 <div class="loginInfo">
                   <span id="nickName">${loginMember.memNick}님</span>
                   	<c:if test="${sessionScope.loginMember.memGrade =='G'}">
-                     <a href="${contextPath}/member/memberMyPage.do" id="myPage">G마이페이지</a>
+                     <a href="${contextPath}/member/memberMyPage.do" id="myPage">마이페이지</a>
                     </c:if>
                  	<c:if test="${sessionScope.loginMember.memGrade =='B'}">
-                      <a href="${contextPath}/broker/brokerInfo.do" id="myPage">B마이페이지</a>
+                      <a href="${contextPath}/broker/brokerInfo.do" id="myPage">마이페이지</a>
                 	</c:if>
                      <a href="${contextPath}/common/logout.do" id="logout">Logout</a>
                  </div>

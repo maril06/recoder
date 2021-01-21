@@ -18,6 +18,7 @@ import com.project.recoder.boardSearch.service.BoardSearchService;
 
 @WebServlet("/boardSearch.do")
 public class BoardSearchController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
     public BoardSearchController() {
         super();
@@ -28,7 +29,7 @@ public class BoardSearchController extends HttpServlet {
 		String searchValue = request.getParameter("sv");
 		String cp = request.getParameter("cp");
 		
-		//System.out.println(searchkey+"/" +searchValue +"/"+ cp);
+		System.out.println(searchkey+"/" +searchValue +"/"+ cp);
 		
 		try {
 			BoardSearchService service = new BoardSearchService();
