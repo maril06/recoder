@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.room.model.vo.Room;
+import com.project.recoder.room.model.vo.RoomImg;
 
 public class BrokerDAO {
 
@@ -233,6 +234,136 @@ public class BrokerDAO {
 		}
 		
 		return rList;
+	}
+	
+	
+	
+	public int chkPwd(int memNo, String password, Connection conn) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("chkPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memNo);
+			pstmt.setString(2, password);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public List<Room> selectRoomList(Connection conn, int memNo) throws Exception{
+		List<Room> roomList = null;
+		String query = prop.getProperty("selectRoomList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			roomList = new ArrayList<Room>();
+			
+			while (rset.next()) {
+	            Room room = new Room(rset.getInt(1), rset.getString(2));
+	            roomList.add(room);
+	         }
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return roomList;
+	}
+
+	
+	
+	public List<RoomImg> selectimgList(Connection conn, int memNo) throws Exception{
+		List<RoomImg> imgList = null;
+		String query = prop.getProperty("selectimgList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			imgList = new ArrayList<RoomImg>();
+			
+			while (rset.next()) {
+	            RoomImg roomImg = new RoomImg(rset.getString("ROOM_IMG_NAME"), rset.getInt("ROOM_NO"));
+	            imgList.add(roomImg);
+	         }
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return imgList;
+	}
+
+	public String currentPW(Connection conn, Broker member) throws Exception{
+		String currentPw = null;
+		String query = prop.getProperty("currentPW");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, member.getMemNo());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				currentPw = rset.getString(1);
+			}
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return currentPw;
+	}
+
+	public int updateMember(Connection conn, Broker member) throws Exception{
+		int result =0; 
+		
+		try {
+			String query = prop.getProperty("updateMember");
+
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, member.getMemEmail());
+			pstmt.setString(2, member.getMemTel());
+			pstmt.setString(3, member.getMemPw());
+			pstmt.setString(4, member.getMemNick());
+			pstmt.setInt(5, member.getMemNo());
+			result = pstmt.executeUpdate();
+			
+			if(result > 0) {
+				query = prop.getProperty("updateBroker");
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, member.getBrokerAddr());
+				pstmt.setInt(2, member.getMemNo());
+				
+				result = pstmt.executeUpdate();
+			}
+			
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
