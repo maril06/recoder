@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>자유게시판</title>
+    <title>공지사항</title>
     
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -29,7 +29,7 @@
     <div class="container my-5">
     <br>
     
-    <h1 class="title">자유게시판</h1>
+    <h1 class="title">공지사항</h1>
 
         <div class="list-wrapper">
             <table class="table table-hover my-5" id="board-table">
@@ -56,14 +56,8 @@
             		<c:otherwise>
             			<c:forEach var="board" items="${bList}">
 		                <tr>
-		                    <td>${board.boardNo}</td>
+		                    <td>${board.boardNo} </td>
 		                    <td class="boardTitle">
-		                    	<%-- <c:forEach var="thumbnail" items="${fList}">
-		                    	현재 출력하려는 게시글 번호와 썸네일 목록 중 부모게시글번호가 일치하는 썸네일 정보가 있다면
-                              		<c:if test="${board.boardNo == thumbnail.parentBoardNo}">
-                              			<img src="${contextPath}/resources/uploadImages/${thumbnail.fileName}">
-                              		</c:if>
-                              	</c:forEach> --%>
                               	 ${board.title}
 		                     </td>
 		                    <td>${board.memNick}</td>
@@ -94,13 +88,7 @@
         </table>
     </div>
     
-     <%-- 로그인이 되어있는 경우 글쓰기 버튼 --%>
-         <c:if test="${!empty loginMember}">
-         <button type="button" class="btn btn-primary float-right" id="insertBtn"
-          onclick="location.href = '${contextPath}/board/insertForm.do'">글쓰기</button>
-         </c:if>
-         
-         
+     
      <%---------------------- Pagination ----------------------%>
          <%-- 페이징 처리 주소를 쉽게 사용할 수 있도록 미리 변수에 저장 --%>
          
@@ -182,7 +170,7 @@
             </ul>
          </div>
            
-     <!-- 검색창 -->
+    <%--  <!-- 검색창 -->
     <div class="mb-5">
         <form action="${contextPath}/boardSearch.do" method="GET" class="text-center" id="searchForm">
             <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
@@ -194,7 +182,7 @@
             <input type="text" name="sv" class="form-control"  style="width: 25%; display: inline-block;">
             <button class="form-control btn btn-secondary" id="searchBtn" style="width: 100px; display: inline-block;">검색</button>
         </form>
-    </div>
+    </div> --%>
     
     
     
@@ -209,7 +197,7 @@
     	  var boardNo = $(this).parent().children().eq(0).text();
     	  console.log(boardNo);
     	  
-    	  var url = "${contextPath}/board/view.do?cp=${pInfo.currentPage}&no=" + boardNo + "${searchStr}";
+    	  var url = "${contextPath}/notice/view.do?cp=${pInfo.currentPage}&no=" + boardNo + "${searchStr}";
     	  console.log(url);
     	  location.href = url;
       });

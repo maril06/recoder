@@ -12,12 +12,15 @@ public class Board {
 	private String boardNm;
 	private Timestamp createDate;
 	private String deleteFl;
+	private int memNo;
 
 	public Board() {
 	}
 
+	
+
 	public Board(int boardNo, String title, String content, String memId, String memNick, int readCount, String boardNm,
-			Timestamp createDate, String deleteFl) {
+			Timestamp createDate, String deleteFl, int memNo) {
 		super();
 		this.boardNo = boardNo;
 		this.title = title;
@@ -28,9 +31,13 @@ public class Board {
 		this.boardNm = boardNm;
 		this.createDate = createDate;
 		this.deleteFl = deleteFl;
+		this.memNo = memNo;
 	}
 
-	public Board(int boardNo, String title, String memNick, int readCount, String boardNm, Timestamp createDate) {
+
+
+	public Board(int boardNo, String title, String memNick, int readCount, String boardNm, Timestamp createDate,
+			int memNo) {
 		super();
 		this.boardNo = boardNo;
 		this.title = title;
@@ -38,7 +45,25 @@ public class Board {
 		this.readCount = readCount;
 		this.boardNm = boardNm;
 		this.createDate = createDate;
+		this.memNo = memNo;
 	}
+
+
+
+	public Board(int boardNo, String title, String content, String memId, String memNick, int readCount,
+			Timestamp createDate, int memNo) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.memId = memId;
+		this.memNick = memNick;
+		this.readCount = readCount;
+		this.createDate = createDate;
+		this.memNo = memNo;
+	}
+
+
 
 	public int getBoardNo() {
 		return boardNo;
@@ -112,12 +137,28 @@ public class Board {
 		this.deleteFl = deleteFl;
 	}
 
+	public int getMemNo() {
+		return memNo;
+	}
+
+
+
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", memId=" + memId
 				+ ", memNick=" + memNick + ", readCount=" + readCount + ", boardNm=" + boardNm + ", createDate="
-				+ createDate + ", deleteFl=" + deleteFl + "]";
+				+ createDate + ", deleteFl=" + deleteFl + ", memNo=" + memNo + "]";
 	}
+
+
+
+	
 
 	
 
