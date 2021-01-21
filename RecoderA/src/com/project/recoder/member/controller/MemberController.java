@@ -62,6 +62,28 @@ public class MemberController extends HttpServlet {
 				view.forward(request, response);
 			}
 			
+			// 회원 정지
+			else if(command.equals("/stopMember.do")) {
+				errorMsg = "회원 정지 과정에서 오류 발생";
+				
+				String numberList = request.getParameter("numberList");
+				
+				int result = service.updateMemberStop(numberList);
+				
+				response.getWriter().print(result);
+			}
+			
+			// 회원 복구
+			else if(command.equals("/recoverMember.do")) {
+				errorMsg = "회원 정지 과정에서 오류 발생";
+				
+				String numberList = request.getParameter("numberList");
+				
+				int result = service.updateMemberRecover(numberList);
+				
+				response.getWriter().print(result);
+			}
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();

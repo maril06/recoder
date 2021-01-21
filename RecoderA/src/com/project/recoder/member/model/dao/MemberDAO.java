@@ -115,5 +115,66 @@ public class MemberDAO {
 		
 		return mList;
 	}
+
+
+
+	/**Member 정지 service
+	 * @param conn
+	 * @param numberList
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateMemberStop(Connection conn, String numberList) throws Exception{
+		
+		int result = 0;
+		
+		
+		String query = "UPDATE MEMBER SET "
+				 + " SCSN_FL = 'Y' "
+				 + " WHERE MEM_NO IN( " + numberList + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			
+		}finally {
+			
+			close(stmt);
+		}
+		
+		return result;
+	}
+
+
+
+	/** Member 복구 Service
+	 * @param conn
+	 * @param numberList
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateMemberRecover(Connection conn, String numberList) throws Exception {
+		
+		int result = 0;
+		
+		
+		String query = "UPDATE MEMBER SET "
+				 + " SCSN_FL = 'N' "
+				 + " WHERE MEM_NO IN( " + numberList + ")";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			result = stmt.executeUpdate(query);
+			
+		}finally {
+			
+			close(stmt);
+		}
+		
+		return result;
+		
+	}
 	
 }

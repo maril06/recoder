@@ -255,17 +255,28 @@
             checkbox.checked = selectAll.checked;
             })
         }
+        
+        
+        // tr 클릭 시 체크
  		
-       /*  $(document).ready(function(){
-        	
+        /*
+         
 		$("#list-table tr").click(function(){
-			
-			var checkbox = $(this).find('td:first-child : checkbox');
-			checkbox.attr('checked', !checkbox.is(':checked'));
+			//.find('td:first-child : checkbox');
+			// .attr('checked', "true")
+			//var checkbox = $(this).find('input').prop("checked")
+			var checkbox = $(this).find('input')
+			if($(this).find('input').is(":checked") == false){
+				$(this).find('input').attr('checked', true)
+			}else {
+				$(this).find('input').attr('checked', false)
+				
+			}
+			console.log(checkbox)
+			//checkbox.attr('checked', !checkbox.is(':checked'));
 		});
         	
-        }); */
-        
+       */
         
         
         $("#deleteBtn").on("click", function(){
