@@ -35,7 +35,7 @@
 
                 <!-- 지역 검색 기능 -->
                     <div class="search_area"><!-- ${contextPath}/searchKeyword.do -->
-                        <form action="${contextPath}/searchKeyword.do	" method="get" class="text-center" id="searchForm">
+                        <form action="${contextPath}/searchKeyword.do" method="get" class="text-center" id="searchForm">
                             <input type="text" name="keyword" class="search_Keyword" id="keyword2" placeholder="종로구" autocomplete="off" value="다산">
                             <button id="searchBtn"><i class="fas fa-search"></i></button>
 
@@ -225,48 +225,6 @@
 
 
 		// ----------------------------------------------------------------------------------
-/*
-		var ckList = [];
-		var opList = [];
-		var filter = [];
-		var a = [];
-		$('input[name="roomOption"]').on('click', (e) => {
-			if (e) {
-
-			}
-			 ckList = $('input[name="roomOption"]:checked').val('Y');
-			 opList.push(e.target.id)
-
-	 		 for (let i=0; i<opList.length; i++) {
-				  if (filter.indexOf(opList[i]) === -1) filter.push(opList[i]);
-				}
-
-			 $.ajax({
-			 		url : "${contextPath}/searchOption.do",
-					type : "post",
-					data : {"filter":a },
-					success : function(result){
-
-						console.log( "성공");
-
-					}, error : function(){
-						console.log(" 실패");
-					}
-				});
-
-
-			console.log(ckList)
-			console.log(filter)
-		})
-
-
-
-
-
-		 */
-
-
-
 
 
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -381,7 +339,7 @@
             '           </div>' +
             '            <div class="desc">' +
             '                <div class="ellipsis">'+listData[i].groupAddress+'</div>' +
-            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">매물 상세보기</a></div>' +
+            '                <div><a href=" !! 상세 페이지로 갈 주소 입력 !! " class="link">매물 상세보기</a></div>' +
             '            </div>' +
             '        </div>' +
             '    </div>' +
