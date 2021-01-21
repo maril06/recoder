@@ -8,18 +8,34 @@ public class Message {
 	private Timestamp createDate;
 	private int memReceive;
 	private int memSend;
+	private int msgCnt;
+	
+	private String memNick;
 	
 	public Message() {
 
 	}
 
-	public Message(int msgNo, String msgContent, Timestamp createDate, int memReceive, int memSend) {
+	public Message(int msgNo, String msgContent, Timestamp createDate, int memReceive, int memSend, int msgCnt) {
 		super();
 		this.msgNo = msgNo;
 		this.msgContent = msgContent;
 		this.createDate = createDate;
 		this.memReceive = memReceive;
 		this.memSend = memSend;
+		this.msgCnt = msgCnt;
+		
+	}
+
+	
+
+	public Message( int memReceive,String msgContent, Timestamp createDate, int msgCnt, String memNick) {
+		super();
+		this.msgContent = msgContent;
+		this.createDate = createDate;
+		this.memReceive = memReceive;
+		this.msgCnt = msgCnt;
+		this.memNick = memNick;
 	}
 
 	public int getMsgNo() {
@@ -60,6 +76,22 @@ public class Message {
 
 	public void setMemSend(int memSend) {
 		this.memSend = memSend;
+	}
+
+	public int getMsgCnt() {
+		return msgCnt;
+	}
+
+	public void setMsgCnt(int msgCnt) {
+		this.msgCnt = msgCnt;
+	}
+	
+	public String getMemNick() {
+		return memNick;
+	}
+
+	public void setMemNick(String memNick) {
+		this.memNick = memNick;
 	}
 
 	@Override
