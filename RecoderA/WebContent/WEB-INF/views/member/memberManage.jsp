@@ -36,7 +36,7 @@ input[type="checkbox"]{
 	height:70px;
 	margin-right : 15%;
 }
-#trList td:last-child p{
+#trList td:last-child span{
 		color : red;
 		font-weight : bold;
 	}
@@ -130,7 +130,7 @@ input[type="checkbox"]{
 									</td>
 									<td>
 										<c:if test="${member.memStateFl == 'Y' }">
-										<p>정지</p>
+										<span>정지</span>
 										</c:if>
 										<c:if test="${member.memStateFl == 'N' }">
 										활동
@@ -148,12 +148,19 @@ input[type="checkbox"]{
 				
 				
 				
-				<div class="button-area">
-					<button class="btn btn-primary float-right stop-btn" 
-					id="stopbtn">정지</button>
-					<button class="btn btn-primary float-right recover-btn"
-						id="recoverbtn">복구</button>
-				</div>
+		<div class="button-area">
+		
+			
+				
+				<button class="btn btn-primary float-right stop-btn" 
+				id="stopbtn">정지</button>
+								
+					
+				<button class="btn btn-primary float-right recover-btn"
+				id="recoverbtn">복구</button>
+			
+				
+		</div>
 	
 	</div>
 
@@ -165,7 +172,7 @@ input[type="checkbox"]{
 			<c:when test="${!empty param.sk}">
 				<c:url var="pageUrl" value="/searchMember.do" />
 
-				<c:set var="searchStr" value="&sk=${param.sk}" />
+				<c:set var="searchStr" value="&sk=${paramArr[0].sk}&sk=${paramArr[1].sk}" />
 			</c:when>
 
 			<c:otherwise>
@@ -244,7 +251,95 @@ input[type="checkbox"]{
                 checkbox.checked = selectAll.checked;
             })
         }
-
+	
+        
+			$("#stopbtn").on("click", function(){
+        	
+        	var list = [];
+        	
+        	$("input:checkbox[name='ck']:checked").length
+            
+            $('input[type="checkbox"]:checked').each(function (index) {
+            		if($(this).val() != "on"){
+	  					list.push($(this).val());
+            		}	
+            });
+                //console.log(list);
+        	
+	       $.ajax({
+				url : "${contextPath}/member/stopMember.do",
+				data : {"numberList" : list.join()},
+				
+				type : "post",
+				
+				success : function(result){
+					
+					if(result > 0){ 
+						swal({icon : "success" , 
+				        	title : "회원 정지 성공", 
+				        	buttons : {confirm : true}}
+				        ).then((result) => {
+					        	if(result) {
+									location.reload();
+					        	}	
+					        }
+				        );
+						
+					}
+				},
+				error : function(){
+					console.log("회원 정지 실패");
+				}
+			}); 
+	        	
+        	
+        });
+        
+        
+			
+			
+			$("#recoverbtn").on("click", function(){
+	        	
+	        	var list = [];
+	        	
+	        	$("input:checkbox[name='ck']:checked").length
+	            
+	            $('input[type="checkbox"]:checked').each(function (index) {
+	            		if($(this).val() != "on"){
+		  					list.push($(this).val());
+	            		}	
+	            });
+	                //console.log(list);
+	        	
+		       $.ajax({
+					url : "${contextPath}/member/recoverMember.do",
+					data : {"numberList" : list.join()},
+					
+					type : "post",
+					
+					success : function(result){
+						
+						if(result > 0){ 
+							swal({icon : "success" , 
+					        	title : "회원 복구 성공", 
+					        	buttons : {confirm : true}}
+					        ).then((result) => {
+						        	if(result) {
+										location.reload();
+						        	}	
+						        }
+					        );
+							
+						}
+					},
+					error : function(){
+						console.log("회원 복구 실패");
+					}
+				}); 
+		        	
+	        	
+	        });
+        
     </script>
 
 

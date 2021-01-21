@@ -43,6 +43,55 @@ public class MemberService {
 		return mList;
 	}
 
+	/**Member 정지 service
+	 * @param numberList
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateMemberStop(String numberList) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateMemberStop(conn, numberList);
+		
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
+
+	
+	
+	/** Member 복구 Service
+	 * @param numberList
+	 * @return
+	 */
+	public int updateMemberRecover(String numberList) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateMemberRecover(conn, numberList);
+		
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return result;
+	}
+
 	
 
 }
