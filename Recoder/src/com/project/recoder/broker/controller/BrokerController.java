@@ -119,6 +119,7 @@ public class BrokerController extends HttpServlet {
 					
 					//6-3. Session에 로그인 정보 추가
 						session.setAttribute("loginMember", loginMember);
+						session.setAttribute("BrokerNo", loginMember.getMemNo());
 						//System.out.println(loginMember);
 						
 					
