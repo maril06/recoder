@@ -121,7 +121,7 @@
 
     	// 게시글 상세보기 기능 (jquery를 통해 작업)
 
-		$(".itemList .roomItem_area")
+/* 		$(".infoLink")
 				.on(
 						"click",
 						function() {
@@ -131,11 +131,11 @@
 							// 클릭이 되는지 테스트
 							console.log(roomNo);
 							var url = "${contextPath}/room/view.do?cp=${pInfo.currentPage}&no="
-									+ roomNo + "${searchStr}";
+									+ roomNo;
 
 							location.href = url;
 
-						});
+						}); */
 
 		//검색내용이 잇을경우 검색착에 해당 내용을 작성해두는 기능
 		(function() {
@@ -243,6 +243,7 @@
 			groupAddress : '${roomList.roomAddr}',
 			title : '${roomList.roomTitle}',
 			img: '${roomList.pet}',
+			roomNo:'${roomList.roomNo}',
 			path: '${roomList.bed}' });
 
 	</c:forEach>
@@ -335,11 +336,12 @@
             '        </div>' +
             '        <div class="body">' +
             '            <div class="img">' +
-            '                <img src="${contextPath}/resources/images/rooms/'+listData[i].img+'" width="73" height="70">' +
+            '                <img src="${contextPath}/resources/images/rooms/'+listData[i].img+'" width="73" height="70" id="' + listData[i].roomNo + '">' +
             '           </div>' +
             '            <div class="desc">' +
             '                <div class="ellipsis">'+listData[i].groupAddress+'</div>' +
-            '                <div><a href=" !! 상세 페이지로 갈 주소 입력 !! " class="link">매물 상세보기</a></div>' +
+            '                <div><a class="link infoLink" href="${contextPath}/room/view.do?no='
+									+ listData[i].roomNo+'">매물 상세보기</a></div>' +
             '            </div>' +
             '        </div>' +
             '    </div>' +

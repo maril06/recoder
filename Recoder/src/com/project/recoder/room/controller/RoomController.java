@@ -373,7 +373,7 @@ public class RoomController extends HttpServlet {
 			
 			// 매물 상세 =================================================================================================
 			else if(command.equals("/view.do")) {
-				int roomNo = 62; // 임시
+				int roomNo = Integer.parseInt(request.getParameter("no")); // 임시
 				// request.getParameter로 얻어와야함!!
 				
 
