@@ -65,13 +65,13 @@ input[type="checkbox"]{
 
 			<form action="${contextPath}/searchMember.do" method="GET" class="search-form" id="searchForm">
 
-				<select name="sk" class="form-control"
+				<select name="sk1" class="form-control"
 					style="width: 140px; display: inline-block;">
 					<option value="gMem">일반회원</option>
 					<option value="bMem">중개사 회원</option>
 				</select> 
 				
-				<select name="sk" class="form-control"
+				<select name="sk2" class="form-control"
 					style="width: 90px; display: inline-block;">
 					<option value="stop">정지</option>
 					<option value="active">활동</option>
@@ -169,10 +169,9 @@ input[type="checkbox"]{
 		
 		<c:choose>
 
-			<c:when test="${!empty param.sk}">
+			<c:when test="${!empty param.sk1}">
 				<c:url var="pageUrl" value="/searchMember.do" />
-
-				<c:set var="searchStr" value="&sk=${paramArr[0].sk}&sk=${paramArr[1].sk}" />
+				<c:set var="searchStr" value="&sk1=${param.sk1}&sk2=${param.sk2}" />
 			</c:when>
 
 			<c:otherwise>

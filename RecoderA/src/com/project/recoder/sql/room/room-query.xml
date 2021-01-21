@@ -16,5 +16,27 @@ FROM
 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<!-- 신고 매물 수 조회   -->
+<entry key="getListCount1">
+SELECT COUNT(*) FROM RV_ROOM
+</entry>
+
+<!-- 신고 매물 정보 조회  -->
+<entry key="selectFakeList">
+SELECT * FROM
+(SELECT ROWNUM RVNUM, V.*
+FROM
+(SELECT * FROM RV_ROOM ORDER BY REPORT_COUNT DESC) V)
+WHERE RVNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="selectReportList">
+SELECT CATEGORY_NM, MEM_NICK,  RP_CONTENT, ROOM_NO
+FROM REPORT
+JOIN REPORT_CATEGORY USING(CATEGORY_CD)
+JOIN MEMBER USING(MEM_NO)
+ORDER BY PR_CREATE_DT DESC
+</entry>
+
 
 </properties>

@@ -1,4 +1,4 @@
-package com.project.recoder.searchMember.controller;
+package com.project.recoder.searchFakeRoom.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,60 +12,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.project.recoder.member.model.vo.Member;
-import com.project.recoder.room.model.vo.PageInfo;
-import com.project.recoder.searchMember.model.service.SearchMemberService;
+import com.project.recoder.notice.model.vo.PageInfo;
+import com.project.recoder.room.model.vo.FakeRoom;
+import com.project.recoder.room.model.vo.ReportComment;
+import com.project.recoder.searchFakeRoom.service.SearchFakeRoomService;
 
 
-@WebServlet("/searchMember.do")
-public class SearchMemberController extends HttpServlet {
+@WebServlet("/searchReportRoom.do")
+public class SearchFakeRoomController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 배열의 첫번째값 얻어오기
-		String searchKey1 = request.getParameter("sk1");
-		
-		// 배열의 두번째값 얻어오기
-		String searchKey2 = request.getParameter("sk2");
-				
-				
-		//System.out.println(searchKey1); //확인 ok gMem, 
-		//System.out.println(searchKey2); //확인 ok stop 출력
+	
+		String searchValue = request.getParameter("sv");
 		
 		String cp = request.getParameter("cp");
 		
 		try {
-			
-			SearchMemberService service = new SearchMemberService();
+			SearchFakeRoomService service = new SearchFakeRoomService();
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			map.put("searchKey1", searchKey1);
-			
-			map.put("searchKey2", searchKey2);
+			map.put("searchValue", searchValue);
 			
 			map.put("currentPage", cp);
 			
 			PageInfo pInfo = service.getPageInfo(map);
 			
+			List<FakeRoom> fList = service.searchFakeRoomList(map, pInfo);
+			
+			List<ReportComment> rList = service.searchReportList();
+			
+			
+			//결과확인
 				//System.out.println(pInfo);
-			
-			
-			List<Member> mList = service.searchMemberList(map, pInfo);
-			
-				//for(Member m : mList) {
-				//	System.out.println(m);
-				//}
 
-			
-			String path = "/WEB-INF/views/member/memberManage.jsp";
-			
-			request.setAttribute("mList", mList);
+				//for(FakeRoom f : fList) { System.out.println(f); }
+
+				//for(ReportComment r : rList) { System.out.println(r); }
+
+		
+			String path = "/WEB-INF/views/room/fakeRoom.jsp";
+
+			request.setAttribute("fList", fList);
+			request.setAttribute("rList", rList);
 			request.setAttribute("pInfo", pInfo);
 			
 			RequestDispatcher view = request.getRequestDispatcher(path);
 			view.forward(request, response);
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -74,9 +69,6 @@ public class SearchMemberController extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher(path);
 			view.forward(request, response);
 		}
-		
-	
-	
 	
 	
 	
