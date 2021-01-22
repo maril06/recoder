@@ -48,7 +48,7 @@
       </div>
       <div class="footer"></div>
    </div>
-   <script src="${contextPath}/resources/js/searchIdPw.js">
+   <script>
 
      $(document).ready(function(){
      $(".container").fadeIn(1000);

@@ -70,7 +70,6 @@
    $(document).ready(function(){
 	      $(".container").fadeIn(1000);
 	});</script>
-     <script src="${contextPath}/resources/js/searchIdPw.js">
    
       
    </script>
