@@ -45,5 +45,48 @@ VALUES(?,?,?,DEFAULT,?)
 		JOIN ROOM_IMG USING(ROOM_NO)
 		WHERE DELETE_FL = 'N' AND GMEM_NO =? AND ROOM_IMG_LEVEL = 0
 	</entry>
+	
+	
+<entry key="chkPwd">
+SELECT COUNT(*) FROM MEMBER
+WHERE MEM_NO = ?
+AND MEM_PW = ?
+</entry>
+
+<entry key="selectRoomList">
+SELECT ROOM_NO, ROOM_TITLE
+FROM ROOM
+WHERE GMEM_NO=?
+</entry>
+
+
+<entry key="selectimgList">
+SELECT ROOM_IMG_NAME, ROOM_NO
+FROM ROOM_IMG
+JOIN ROOM USING(ROOM_NO)
+WHERE ROOM_IMG_LEVEL=0
+AND GMEM_NO=?
+</entry>
+
+<entry key="updateMember">
+UPDATE MEMBER
+SET MEM_EMAIL=?,
+      MEM_TEL=?,
+      MEM_PW=?,
+      MEM_NICK=?
+WHERE MEM_NO=?
+</entry>
+
+<entry key="updateBroker">
+UPDATE BROKER
+SET BROKER_ADDR=?
+WHERE MEM_NO2=?
+</entry>
+
+<entry key="currentPW">
+SELECT MEM_PW
+FROM MEMBER
+WHERE MEM_NO = ?
+</entry>
 
 </properties>

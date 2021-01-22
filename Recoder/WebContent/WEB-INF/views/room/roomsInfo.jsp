@@ -48,7 +48,7 @@
                 <div class="left_btn">
                     <a id="report"><span class="clearfix"><i class="fas fa-siren-on"></i>신고</span></a>
                     <a id="msg"><span class="clearfix"><i class="fas fa-envelope"></i>쪽지</span></a>
-                    <a href=""><span class="clearfix"><i class="far fa-heart"></i>찜하기</span></a>
+                    <a href="heart"><span class="clearfix"><i class="far fa-heart"></i>찜하기</span></a>
                 </div>
                 <div class="broker_info">
                     <div class="visit"><button class="btn btn-primary" id="visit">방문신청</button></div>
@@ -479,6 +479,60 @@ $('#report').on('click', () => {
 			
 	})
 	
+	
+	
+	
+	/* 찜하기 */
+	$("#heart").on("click", function(){
+		$.ajax({
+	 		url : "${contextPath}/member/heart.do",
+			type : "post",
+			data : {
+				"roomNo" : ${room.roomNo },
+				"memNo" : ${loginMember.memNo}
+				
+				},
+			success : function(result){
+				
+				if(result>0){
+					$('.heartspan').html('<i class="fas fa-heart"></i>찜취소');
+				} else if(result < 0){
+					$('.heartspan').html('<i class="far fa-heart"></i>찜하기');
+				}else{
+					swal.fire('실패', '', 'error');
+				}
+				
+			}, error : function(){
+				console.log("실패");
+			}		
+		});
+	});
+	
+	
+	function heartChk(){
+		$.ajax({
+	 		url : "${contextPath}/member/heartChk.do",
+			type : "post",
+			data : {
+				"roomNo" : ${room.roomNo },
+				"memNo" : ${loginMember.memNo}
+				
+				},
+			success : function(result){
+				
+				if(result>0){
+					$('.heartspan').html('<i class="fas fa-heart"></i>찜취소');
+				} else{
+					$('.heartspan').html('<i class="far fa-heart"></i>찜하기');
+				}
+				
+			}, error : function(){
+				console.log("실패");
+			}		
+		});
+	}
+
+	heartChk();
 
 
 

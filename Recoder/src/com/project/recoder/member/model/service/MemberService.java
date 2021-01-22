@@ -3,9 +3,13 @@ package com.project.recoder.member.model.service;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.dao.MemberDAO;
 import com.project.recoder.member.model.vo.Member;
+import com.project.recoder.room.model.vo.Room;
+import com.project.recoder.room.model.vo.RoomImg;
+
 import static com.project.recoder.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class MemberService {
 
@@ -44,19 +48,19 @@ public class MemberService {
 		return result;
 	}
 
-	public int chkPwd(Member loginMember, String chkPw) throws Exception{
+	public int chkPwd(int memNo, String chkPw) throws Exception{
 		Connection conn = getConnection();	 
-		int result = dao.chkPwd(loginMember, chkPw, conn);
+		int result = dao.chkPwd(memNo, chkPw, conn);
 		close(conn);
 		return result;
 	}
 
-	public int updateStatus(Member loginMember, String chkPw) throws Exception{
+	public int updateStatus(int memNo, String chkPw) throws Exception{
 		Connection conn = getConnection();
-		int result = dao.chkPwd(loginMember, chkPw, conn);
+		int result = dao.chkPwd(memNo, chkPw, conn);
 		
 		if(result > 0) {
-			result = dao.updateStatus(conn, loginMember);
+			result = dao.updateStatus(conn, memNo);
 			
 			if(result > 0) commit(conn);
 			else			rollback(conn);
@@ -71,8 +75,10 @@ public class MemberService {
 
 	public int updateMember(Member member, String memberPw) throws Exception{
 		Connection conn = getConnection();
-		if(memberPw == "") {
+		System.out.println("MemberPw:" + memberPw);
+		if(memberPw.equals("z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP+DGNKHfuwvY7kxvUdBeoGlODJ6+SfaPg==")) {
 			memberPw = dao.currentPW(conn, member);
+			System.out.println("MemberPw:" + memberPw);
 		}
 		member.setMemPw(memberPw);
 
@@ -85,6 +91,7 @@ public class MemberService {
 		//5) retrun
 		return result;
 	}
+	
 	
 	public int heartInsert(String room_no, String mem_no) throws Exception{
 		Connection conn = getConnection();
@@ -116,7 +123,8 @@ public class MemberService {
 		
 		return result;
 	}
-
+	
+	
 	public int nickDupCheck(String nickname) throws Exception{
 		Connection conn = getConnection();
 		
@@ -128,6 +136,23 @@ public class MemberService {
 	}
 
 	
+	public List<RoomImg> selectimgList(int memNo) throws Exception{
+		Connection conn = getConnection();
+		
+		List<RoomImg> imgList = dao.selectimgList(conn, memNo);
+		close (conn);
+		
+		return imgList;
+	}
+
+	public List<Room> selectRoomList(int memNo) throws Exception{
+		Connection conn = getConnection();
+		
+		List<Room> roomList = dao.selectRoomList(conn, memNo);
+		close (conn);
+		
+		return roomList;
+	}
 	
 	
 	
