@@ -44,7 +44,7 @@
                 </div>
                 <div class="menu_left clearfix">
                     <ul class="menu_left_title clearfix ft">
-                        <li><a href="${contextPath}/room/searchRoom.do"><span><b>방찾기</b></span></a></li>
+                        <li><a href="${contextPath}/searchKeyword.do?keyword="><span><b>방찾기</b></span></a></li>
                         <li><a href="${contextPath}/room/roomInsertForm.do"><span><b>방 내놓기</b></span></a></li>
                         <c:if test="${!empty sessionScope.loginMember}">
                         	<li><a href="${contextPath}/member/memberMyPage.do"><span><b>찜한 방</b></span></a></li>

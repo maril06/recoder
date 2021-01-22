@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.project.recoder.broker.model.vo.Broker;
+import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.message.model.service.MessageService;
 import com.project.recoder.message.model.vo.Message;
 
@@ -39,19 +40,26 @@ public class MessageController extends HttpServlet {
 			
 			if(command.equals("/message.do")) {
 				
-				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
-				int brokerNo = loginMember.getMemNo();
+				int brokerNo = 0;
+				int memberNo = 0;
+				int memNo = 0;
+				try {
+					
+					Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+					memNo = loginMember.getMemNo();
+					
+				} catch (Exception e) {
+					Member login = (Member)request.getSession().getAttribute("loginMember");
+					memNo = login.getMemNo();
+					
+				}
+				
+				System.out.println(memNo);
 				
 				List<Message> message = new ArrayList<Message>();
-				message = service.messageList(brokerNo);
-				
-				
-				
-				
-				
-				
-				
-				
+				message = service.messageList(memNo);
+	
+
 				
 				request.setAttribute("message", message);
 				
