@@ -67,13 +67,15 @@ public class VisitController extends HttpServlet {
 			else if (command.equals("/visitSend.do")) {
 				
 				int result = 0;
-				int roomNo = 61;
+				int roomNo = Integer.parseInt(request.getParameter("no"));
 				Member loginMember = (Member)request.getSession().getAttribute("loginMember");
+				
+				System.out.println("===="+roomNo);
 				int memNo = loginMember.getMemNo();
 				int visitCd = Integer.parseInt(request.getParameter("result"));
-				
+				System.out.println("visitCd"+visitCd);
 				result = service.visitSend(roomNo, memNo, visitCd);
-				
+				System.out.println(result);
 				response.getWriter().print(result);
 				
 			}

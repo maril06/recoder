@@ -31,9 +31,10 @@ public class VisitService {
 		
 		try {
 			result = dao.visitSend(conn, roomNo, memNo, visitCd);
-			
+			System.out.println("service result"+result);
 		} catch (Exception e) {
 			result = 0;
+			e.printStackTrace();
 		}
 		
 		if (result >0) {

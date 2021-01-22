@@ -55,12 +55,11 @@ if (command.equals("/brokerInfo.do")) {
 				broker.put("brokerAddr", loginMember.getBrokerAddr());
 				broker.put("brokerEmail", loginMember.getMemEmail());
 				broker.put("brokerTel", loginMember.getMemTel());
-				// broker.put("brokerNo", loginMember.getMemNo());
+				
 				
 				
 				int memNo = loginMember.getMemNo();
 				List<Room> roomList = service.selectRoomList(memNo); //찜한매물 리스트
-				
 				if(roomList != null) {
 					List<RoomImg> imgList = service.selectimgList(memNo); //찜한 매물 이미지		
 					
@@ -71,6 +70,7 @@ if (command.equals("/brokerInfo.do")) {
 				
 				System.out.println(broker);;
 				
+				request.setAttribute("memNo", memNo);
 				request.setAttribute("broker", broker);
 				path = "/WEB-INF/views/broker/brokerInfo.jsp";
 				request.setAttribute("roomList", roomList);
