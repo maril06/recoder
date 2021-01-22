@@ -20,6 +20,7 @@ import com.project.recoder.broker.model.service.BrokerService;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.common.MyFileRenamePolicy;
 import com.project.recoder.room.model.vo.Room;
+import com.project.recoder.room.model.vo.RoomImg;
 import com.project.recoder.wrapper.EncryptWrapper;
 
 @WebServlet("/broker/*")
@@ -45,10 +46,9 @@ public class BrokerController extends HttpServlet {
 		
 		try {
 			
-			if (command.equals("/brokerInfo.do")) {
+if (command.equals("/brokerInfo.do")) {
 				
 				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
-				int brokerNo = loginMember.getMemNo();
 				
 				Map<String, String> broker = new HashMap<String, String>();
 				broker.put("brokerNick", loginMember.getMemNick());
@@ -57,12 +57,20 @@ public class BrokerController extends HttpServlet {
 				broker.put("brokerTel", loginMember.getMemTel());
 				
 				
+				int memNo = loginMember.getMemNo();
+				List<Room> roomList = service.selectRoomList(memNo); //찜한매물 리스트
 				
-				List<Room> room = service.selectRoom(brokerNo);
+				if(roomList != null) {
+					List<RoomImg> imgList = service.selectimgList(memNo); //찜한 매물 이미지		
+					
+					if(!imgList.isEmpty()) {
+						request.setAttribute("imgList", imgList);
+					}
+				}
 				
-				request.setAttribute("room", room);
 				request.setAttribute("broker", broker);
 				path = "/WEB-INF/views/broker/brokerInfo.jsp";
+				request.setAttribute("roomList", roomList);
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
 			}
@@ -260,6 +268,89 @@ public class BrokerController extends HttpServlet {
 				
 				
 			}
+
+			else if(command.equals("/checkPw.do")){
+				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+				
+				int memNo = loginMember.getMemNo();
+				
+				
+				String password = request.getParameter("userPw");
+
+		         // 비즈니스 로직 처리 후 결과 반환 받기
+		         int result = service.chkPwd(memNo, password);         
+		         System.out.println(result);
+
+		         response.getWriter().print(result);
+				
+			}
+			
+			else if(command.equals("/updateBroker.do")) {
+				
+				Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+				
+				Map<String, String> broker = new HashMap<String, String>();
+				broker.put("brokerNick", loginMember.getMemNick());
+				broker.put("brokerAddr", loginMember.getBrokerAddr());
+				broker.put("brokerEmail", loginMember.getMemEmail());
+				broker.put("brokerTel", loginMember.getMemTel());
+				
+				request.setAttribute("broker", broker);
+				path = "/WEB-INF/views/broker/updateBroker.jsp";
+			    view = request.getRequestDispatcher(path);
+			    view.forward(request, response);
+				
+				
+			}
+			
+			//정보수정 컨츠롤러---------------------------
+	    	else if(command.equals("/updateBrokerServlet.do")){
+	    		String pw1 = request.getParameter("pw1");
+	    		
+	    		
+	    		//전송된 파라미터를 변수에 저장
+	    		String memberNickname = request.getParameter("nickname");
+	    		String memberPw = request.getParameter("password");
+	    		String memberEmail = request.getParameter("email");
+	    		
+	    		String tel = request.getParameter("usertel");
+	    		String post = request.getParameter("post"); //우편번호
+				String address1 = request.getParameter("address1"); //도로명주소
+				String address2 = request.getParameter("address2"); //상세주소
+
+				String brokerAddr= post + " , " +address1 +" , "+address2;
+	    		
+	    		session = request.getSession();
+	    		Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+	    		
+	    		//얻어온 수정ㅇ 정보와 회원번호를 하나의 Member객체에 저장
+	    		Broker member = new Broker();
+	    		member.setMemNo( loginMember.getMemNo() );
+	    		member.setMemNick(memberNickname);
+	    		member.setMemEmail(memberEmail);
+	    		member.setMemTel(tel);
+	    		member.setBrokerAddr(brokerAddr);
+	    		
+	    			//비즈니스 로직 수행 후 결과 반환
+	    			int result = new BrokerService().updateMember(member, memberPw); 	 
+	    			
+	    	         if(result > 0) { // 성공
+
+	    	            
+	    	            //DB데이터가 갱신된 경우 Session에 있는 회원 정보도 갱신되어야함
+	    	            //기존 로그인 정보에서 id를 얻어와 갱신에 사용된 member 객체에 저장
+	    	            member.setMemId(loginMember.getMemId());
+	    	            member.setMemGrade(loginMember.getMemGrade());
+	    	            
+	    	            //Session에 있는 loginmember 정보를 mmember로 갱신
+	    	            session.setAttribute("loginMember", member);
+	    	            System.out.println(loginMember);
+	    	            
+	    	         }
+	    	        
+	    	        //수정 완료 후 다시 내정보 페이지로 재요청
+	    	        response.sendRedirect("brokerInfo.do");
+	    	}
 			
 			
 		} catch (Exception e) {

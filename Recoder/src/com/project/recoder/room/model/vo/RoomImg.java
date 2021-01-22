@@ -28,6 +28,13 @@ public class RoomImg {
 		this.roomImgLevel = roomImgLevel;
 	}
 
+	
+	public RoomImg(String roomImgName, int parentRoomNo) {
+		super();
+		this.roomImgName = roomImgName;
+		this.parentRoomNo = parentRoomNo;
+	}
+	
 	public int getRoomImgNo() {
 		return roomImgNo;
 	}

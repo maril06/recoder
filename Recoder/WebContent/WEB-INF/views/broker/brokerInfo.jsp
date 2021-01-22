@@ -70,7 +70,7 @@
                     <button class="btn btn-danger" id="delete">회원 탈퇴</button>
                     <div class="broker_link clearfix">
                         <a href="${contextPath }/visit/visit.do"><span>방문자 체크</span></a>
-                        <a href=""><span>내 정보 수정</span></a>
+                        <a id="modify"><span>내 정보 수정</span></a>
                     </div>
                 </div>
             </div>
@@ -82,20 +82,22 @@
                 <div class="room_list autoplay clearfix">
                 
                 
-                <c:forEach var="room" items="${room}">
-                
-                    <div class="room">
-                        <p class="img">
-                            <a href=""><img src="${contextPath}/resources/images/rooms/${room.pet}" alt=""></a>
-                        </p>
-                        <h3>${room.roomTitle }</h3>
-                        <p class="text">
-                            <span>${room.roomInfo }</span>
-                        </p>
-                        <a href="#" class="more">View more</a>
-                    </div>
-                    
-                 </c:forEach>
+                <c:forEach var="room" items="${roomList}">
+						<c:forEach var="thumbnail" items="${imgList}" varStatus="status">
+								<c:if test="${room.roomNo == thumbnail.parentRoomNo}">
+										<div class="room">
+											<p class="img">
+												<a href="${contextPath}/room/view.do?no=${room.roomNo }"><img
+													src="${contextPath}/resources/images/rooms/${thumbnail.roomImgName}" id="${room.roomNo }" alt=""></a>
+											</p>
+											<h3>${room.roomTitle}</h3>
+											
+											<a href="${contextPath}/room/view.do?no=${room.roomNo }" class="more">더보기</a>
+										</div>
+									
+								</c:if>
+						</c:forEach>
+					</c:forEach>
 
                 </div>
                 <div class="add_room">
@@ -118,10 +120,7 @@
     <script type="text/javascript">
 
     $('#delete').on('click', function(){
-        
-    	
 
-    
     Swal.fire({
     	  title: '비밀번호를 입력해주세요',
     	  input: 'password',
@@ -129,7 +128,7 @@
     	    autocapitalize: 'off'
     	  },
     	  showCancelButton: true,
-    	  confirmButtonText: 'Look up',
+    	  confirmButtonText: '확인',
     	  showLoaderOnConfirm: true,
     	  allowOutsideClick: () => !Swal.isLoading()
     	}).then((result) => {
@@ -193,9 +192,9 @@
     			    result.dismiss === Swal.DismissReason.cancel
     			  ) {
     			    swalWithBootstrapButtons.fire(
-    			      'Cancelled',
-    			      'Your imaginary file is safe :)',
-    			      'error'
+    			    	'Cancelled',
+    	    			'내방으로 오신 것을 환영합니다.',
+    	    			'success'
     			    )
     			  }
     			})
@@ -206,6 +205,67 @@
     	
     });
     
+    
+    $('#modify').on('click', function () {
+
+        Swal.fire({
+            title: '비밀번호를 입력해주세요',
+            input: 'password',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var inputPw = result.value;
+
+
+                $.ajax({
+                    url: "${contextPath}/broker/checkPw.do",
+                    type: "post",
+                    data: { "userPw": inputPw },
+                    success: function (result) {
+                    	console.log(result);
+                        if (result > 0) {
+                        	swal.fire({
+                        		title : '성공',
+                        		confirmButtonText: '확인',
+                                showLoaderOnConfirm: true,
+                                allowOutsideClick: () => !Swal.isLoading()
+                                
+                        	}).then((result) => {
+                        		if(result.isConfirmed){
+                        			location.href="http://localhost:8080/Recoder/broker/updateBroker.do";
+                        		}
+                        	}
+                        	)
+
+                        }else{
+                        	Swal.fire(
+									'비밀번호 오류!',
+									'비밀번호가 일치하지 않습니다',
+									'error'
+								);
+                        }
+
+                    }
+                });
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                )
+            }
+        })
+    });
     
     
     

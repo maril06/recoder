@@ -64,10 +64,9 @@ public class MainDAO {
 	public List<Board> boardList(Connection conn) throws Exception{
 		List<Board> bList = null;
 		String query = 
-				" SELECT BOARD_NO, TITLE, CONTENT, CREATE_DT " + 
-				" FROM BOARD " + 
-				" WHERE BOARD_CD = 20 AND ROWNUM <= 3 " + 
-				" ORDER BY CREATE_DT ";
+				" SELECT BOARD_NO, TITLE, CONTENT, CREATE_DT FROM (SELECT ROWNUM RNUM, TABLE_1.*  FROM " + 
+				" (SELECT * FROM BOARD WHERE BOARD_CD=20 ORDER BY BOARD_NO DESC) TABLE_1) " + 
+				" WHERE RNUM BETWEEN 1 AND 3";
 		try {
 			
 			stmt = conn.createStatement();

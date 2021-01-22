@@ -13,6 +13,7 @@ import com.project.recoder.broker.model.dao.BrokerDAO;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.room.model.service.FileInsertFailedException;
 import com.project.recoder.room.model.vo.Room;
+import com.project.recoder.room.model.vo.RoomImg;
 
 public class BrokerService {
 	
@@ -121,5 +122,52 @@ public class BrokerService {
 		close(conn);
 		return room;
 	}
+	
+	
+	public int chkPwd(int memNo, String password) throws Exception{
+		Connection conn = getConnection();	 
+		int result = dao.chkPwd(memNo, password, conn);
+		close(conn);
+		return result;
+	}
+	public List<Room> selectRoomList(int memNo) throws Exception{
+		Connection conn = getConnection();
+		
+		List<Room> roomList = dao.selectRoomList(conn, memNo);
+		close (conn);
+		
+		return roomList;
+	}
+	
+	
+	
+	public List<RoomImg> selectimgList(int memNo) throws Exception{
+		Connection conn = getConnection();
+		
+		List<RoomImg> imgList = dao.selectimgList(conn, memNo);
+		close (conn);
+		
+		return imgList;
+	}
+	public int updateMember(Broker member, String memberPw) throws Exception{
+		Connection conn = getConnection();
+		System.out.println("MemberPw:" + memberPw);
+		if(memberPw.equals("z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP+DGNKHfuwvY7kxvUdBeoGlODJ6+SfaPg==")) {
+			memberPw = dao.currentPW(conn, member);
+			System.out.println("MemberPw:" + memberPw);
+		}
+		member.setMemPw(memberPw);
+
+		int result = dao.updateMember(conn, member);
+		//3) 트랜잭션 처리
+		if(result >0) {commit(conn);}
+		else {rollback(conn);}
+		//4) connection 반환
+		close(conn);
+		//5) retrun
+		return result;
+	}
+	
+	
 
 }
