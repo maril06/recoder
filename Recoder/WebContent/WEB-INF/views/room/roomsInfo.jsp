@@ -48,7 +48,7 @@
                 <div class="left_btn">
                     <a id="report"><span class="clearfix"><i class="fas fa-siren-on"></i>신고</span></a>
                     <a id="msg"><span class="clearfix"><i class="fas fa-envelope"></i>쪽지</span></a>
-                    <a href="heart"><span class="clearfix"><i class="far fa-heart"></i>찜하기</span></a>
+                    <a id="heart"><span class="clearfix heartspan"><i class="far fa-heart"></i>찜하기</span></a>
                 </div>
                 <div class="broker_info">
                     <div class="visit"><button class="btn btn-primary" id="visit">방문신청</button></div>
