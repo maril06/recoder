@@ -32,6 +32,13 @@
 	.button-area{
 		margin-right: 15%;
 	}
+	input[type="checkbox"]{
+		width:30px;
+		height:30px;
+	}
+	input[type="checkbox"]:hover{
+	cursor: pointer;
+	}
 </style>
 </head>
 <body>

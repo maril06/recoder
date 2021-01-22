@@ -39,7 +39,9 @@
 		color : red;
 		font-weight : bold;
 	}
-
+	input[type="checkbox"]:hover{
+	cursor: pointer;
+	}
 </style>
 
 

@@ -43,6 +43,7 @@
        .button-area{
            height:50px;
        }
+   
     </style>
 </head>
 

@@ -26,7 +26,12 @@
 		width:30px;
 		height:30px;
 	}
-	
+	#table-body td:nth-child(3) > img:hover {
+    cursor: pointer;
+	}
+	input[type="checkbox"]:hover{
+	cursor: pointer;
+	}
 	</style>
 </head>
 <body>
@@ -55,7 +60,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="table-body">
            <!--  <img src="/Recoder/resources/images/rooms/20210115153738_55413.png"> -->
             	<c:choose>
             		<c:when test="${empty bList}">
@@ -87,8 +92,10 @@
 		
 		
         <div class="button-area">
+        <c:if test="${loginAdmin.adminGrade =='A' }">
             <button class="btn btn-primary btn-sm ml-1 approve-btn" id="approveBtn">승인</button>
             <button class="btn btn-primary btn-sm ml-1 cancel-btn" id="deleteBtn">삭제</button>
+        </c:if>    
         </div>
 		
 		
@@ -163,6 +170,7 @@
 
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     
     <script>
         function selectAll(selectAll) {
@@ -258,7 +266,23 @@
 		}); 
         	
     }); 
-		
+			
+			
+			//file:///C:/workspace/localRepository/recoder/Recoder/WebContent/resources/images/brokerInfo/20210122114414_32948.png
+			
+			$("#table-body td:nth-child(3) > img").on("click", function(){
+				
+				Swal.fire({
+					  title: '자격증',
+					  text: '공인 중개사 자격증',
+					  imageUrl: $(this).attr('src'),
+					  imageWidth: 400,
+					  imageHeight: 600,
+					  imageAlt: '이미지가 표시되지 않습니다.',
+					})
+				
+			});
+			
 		
 		
 
