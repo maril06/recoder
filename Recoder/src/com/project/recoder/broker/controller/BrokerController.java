@@ -55,6 +55,7 @@ if (command.equals("/brokerInfo.do")) {
 				broker.put("brokerAddr", loginMember.getBrokerAddr());
 				broker.put("brokerEmail", loginMember.getMemEmail());
 				broker.put("brokerTel", loginMember.getMemTel());
+				// broker.put("brokerNo", loginMember.getMemNo());
 				
 				
 				int memNo = loginMember.getMemNo();
@@ -67,6 +68,8 @@ if (command.equals("/brokerInfo.do")) {
 						request.setAttribute("imgList", imgList);
 					}
 				}
+				
+				System.out.println(broker);;
 				
 				request.setAttribute("broker", broker);
 				path = "/WEB-INF/views/broker/brokerInfo.jsp";
@@ -135,6 +138,7 @@ if (command.equals("/brokerInfo.do")) {
 					
 					//6-3. Session에 로그인 정보 추가
 						session.setAttribute("loginMember", loginMember);
+						session.setAttribute("BrokerNo", loginMember.getMemNo());
 						//System.out.println(loginMember);
 						
 					
