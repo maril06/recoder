@@ -40,10 +40,10 @@
 
         <!-- visual -->
         <section class="visual">
-            <form action="" method="GET" class="search_form">
+            <form action="${contextPath}/searchKeyword.do?" method="GET" class="search_form">
                 <div class="search">
                     <div>
-                        <input type="text" placeholder="지하철명을 검색하시려면 #을 붙여주세요.">
+                        <input type="text" placeholder="지하철명을 검색하시려면 #을 붙여주세요." name="keyword" id="keyword">
                         <button><i class="fas fa-search"></i></button>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
 	                            <p class="list_txt">
 	                            	${board.content}
 	                            </p>
-	                            <a href="#" class="more">View more</a>
+	                            <a href="notice/view.do?cp=1&no=${board.boardNo }" class="more">View more</a>
 	                        </div>
 	                    </li>
                     </c:forEach>
@@ -137,7 +137,7 @@
         <section class="popular">
             <div class="popular_list">
                 <h2>인기 매물</h2>
-                <a href="#">&nbsp;Find out more</a>
+                <a href="${contextPath}/searchKeyword.do?keyword=">&nbsp;Find out more</a>
                 <ul class="clearfix ft">
                 	<c:forEach var="room" items="${room }">
 	                    <li>
@@ -151,7 +151,7 @@
 	                                ${room.roomInfo }
 	                            </span>
 	                        </p>
-	                        <a href="#" class="more">View more</a>
+	                        <a href="room/view.do?no=${room.roomNo }" class="more">View more</a>
 	                    </li>
                     </c:forEach>
                     <%-- <li>

@@ -354,15 +354,15 @@ public class RoomController extends HttpServlet {
 			// 매물 삭제 =================================================================================================
 			else if(command.equals("/delete.do")) {
 				
-//				int roomNo = Integer.parseInt(request.getParameter("no")); // 매물 번호 받아오기
-				int roomNo = 1; // 매물 번호 임시
+				int roomNo = Integer.parseInt(request.getParameter("no")); // 매물 번호 받아오기
+				
 				
 				int result = service.updateRoomStatus(roomNo);
 				
 
 	        	if (result > 0) {
 	        		System.out.println("성공");
-	        		path = "list.do?";
+	        		path = request.getHeader("referer");
 				} else {
 					System.out.println("실패");
 	        		path = request.getHeader("referer");

@@ -90,7 +90,7 @@
 												<a href="${contextPath}/room/view.do?no=${room.roomNo }"><img
 													src="${contextPath}/resources/images/rooms/${thumbnail.roomImgName}" id="${room.roomNo }" alt=""></a>
 											</p>
-											<h3>${room.roomTitle}</h3>
+											<h3>${room.pet}</h3>
 											
 											<a href="${contextPath}/room/view.do?no=${room.roomNo }" class="more">더보기</a>
 										</div>

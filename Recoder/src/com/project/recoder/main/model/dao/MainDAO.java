@@ -24,12 +24,12 @@ public class MainDAO {
 	public List<Room> roomList(Connection conn) throws Exception{
 		List<Room> rList = null;
 		String query = 
-				" SELECT * FROM(\r\n" + 
+				" SELECT * FROM(" + 
 				"     SELECT ROOM_NO, ROOM_TITLE, ROOM_INFO, ROOM_IMG_PATH, ROOM_IMG_NAME " + 
 				"     FROM ROOM " + 
 				"     JOIN PICK_ROOM USING (ROOM_NO) " + 
 				"     JOIN ROOM_IMG USING (ROOM_NO) " + 
-				"     WHERE ROOM_IMG_LEVEL = 0 AND DELETE_FL = 'Y' AND SELL_FL = 'N' " + 
+				"     WHERE ROOM_IMG_LEVEL = 0 AND DELETE_FL = 'N' AND SELL_FL = 'N' " + 
 				"     GROUP BY ROOM_NO, ROOM_TITLE, ROOM_INFO, ROOM_IMG_PATH, ROOM_IMG_NAME " + 
 				"     ORDER BY COUNT(ROOM_NO) DESC " + 
 				"     ) " + 

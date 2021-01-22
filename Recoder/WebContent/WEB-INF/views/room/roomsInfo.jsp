@@ -44,17 +44,19 @@
         
         <!-- section menu -->
         <section class="menu">
-            <div class="info_wrapper">
-                <div class="left_btn">
-                    <a id="report"><span class="clearfix"><i class="fas fa-siren-on"></i>신고</span></a>
-                    <a id="msg"><span class="clearfix"><i class="fas fa-envelope"></i>쪽지</span></a>
-                    <a id="heart"><span class="clearfix heartspan"><i class="far fa-heart"></i>찜하기</span></a>
-                </div>
-                <div class="broker_info">
-                    <div class="visit"><button class="btn btn-primary" id="visit">방문신청</button></div>
-                    <div class="broker"><a href="">공인중개사</a></div>
-                </div>
-            </div>
+	        <c:if test="${!empty loginMember && (loginMember.memGrade == 'G')}">
+	            <div class="info_wrapper">
+	                <div class="left_btn">
+	                    <a id="report"><span class="clearfix"><i class="fas fa-siren-on"></i>신고</span></a>
+	                    <a id="msg"><span class="clearfix"><i class="fas fa-envelope"></i>쪽지</span></a>
+	                    <a id="heart"><span class="clearfix heartspan"><i class="far fa-heart"></i>찜하기</span></a>
+	                </div>
+	                <div class="broker_info">
+	                    <div class="visit"><button class="btn btn-primary" id="visit">방문신청</button></div>
+	                    <div class="broker"><a href="${contextPath }/broker/brokerInfo.do?no=${memNo}">공인중개사</a></div>
+	                </div>
+	            </div>
+			</c:if>
         </section>
         
         <!-- section image -->
@@ -262,7 +264,9 @@
         </section>
         <c:if test="${!empty loginMember && (loginMember.memGrade == 'B')}">
 			<div class="update_wrapper">
-				<div class="update"><a href="${contextPath }/room/roomUpdateForm.do?no=${room.roomNo }" class="btn btn-primary" id="visit">수정</a></div>
+				<div class="update"><a href="${contextPath }/room/roomUpdateForm.do?no=${room.roomNo }" class="btn btn-primary">수정</a></div>
+				<div class="update"><a class="btn btn-danger" id="delete">삭제</a></div>
+				
 			</div>
         </c:if>
 		<!-- footer -->
@@ -435,7 +439,7 @@ $('#report').on('click', () => {
 
 	});
 	
-	
+	// 방문신청
 	$("#visit").on("click",()=>{
 		Swal.fire({
 			  title: '방문 신청 하시겠습니까?',
@@ -449,10 +453,11 @@ $('#report').on('click', () => {
 			  if (result.isConfirmed) {
 				  console.log(result);
 				  $.ajax({
-				 		url : "${contextPath}/visit/visitSend.do",
+				 		url : "${contextPath}/visit/visitSend.do?no=${room.roomNo }",
 						type : "post",
 						data : {"result":1 },
 						success : function(result){
+							console.log(result)
 							if(result > 0){
 								Swal.fire(
 									'방문 신청했습니다!',
@@ -534,6 +539,37 @@ $('#report').on('click', () => {
 
 	heartChk();
 
+	
+	// 삭제
+	$("#delete").on('click', () => {
+		Swal.fire({
+			  title: '정말 삭제하시겠습니까??',
+			  text: "삭제 하면 끝",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+
+					
+				  $.ajax({
+				 		url : "${contextPath}/room/delete.do?no=${room.roomNo }",
+						type : "post",
+						success : function(result){
+							console.log("성공")
+							
+						}, error : function(){
+							console.log("실패");
+						}		
+					});
+				  
+				  window.location.href="${contextPath }/broker/brokerInfo.do?no=${memNo}";
+
+			  }
+			})
+	}); 
 
 
 

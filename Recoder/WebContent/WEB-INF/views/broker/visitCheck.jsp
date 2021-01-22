@@ -58,9 +58,6 @@
 	                               	</c:if>
                             	</c:forEach>
                             </p>
-                            
-                            
-                            
                             <div class="check_info">
                                 <h3>${room.roomTitle} --${aaa}-- ${room.roomNo }</h3>
                                 <p class="text">
@@ -68,42 +65,32 @@
                                         ${room.roomInfo }
                                     </span>
                                 </p>
-                                <a href="#" class="more">View more</a>
+                                <a href="${contextPath}/room/view.do?no=${room.roomNo }" class="more">View more</a>
                             </div>
                         </div>
                         <div class="list_bottom">
                             <table class="table">
                                 <thead>
-		                 
-		                                    <tr>
-		                                      <th scope="col">신청 날짜</th>
-		                                      <th scope="col">회원 닉네임</th>
-		                                      <th scope="col">승낙 여부</th>
-		                                    </tr>
-		                
+	                                <tr>
+	                                  <th scope="col">신청 날짜</th>
+	                                  <th scope="col">회원 닉네임</th>
+	                                  <th scope="col">승낙 여부</th>
+	                                </tr>
                                   </thead>
                                   <tbody>
                                     <c:forEach var="visit" items="${visit}" varStatus="vst">
-                                    	
 			                            <c:if test="${visit.roomNo == room.roomNo}" var="nameHong" scope="session">
-		
                                     <tr>
-                                    
                                         <td>
-                                        
-                                        
-                                        <fmt:formatDate value="${visit.visitDt }" pattern="yyyy년 MM월 dd일 "/>
+                                        	<fmt:formatDate value="${visit.visitDt }" pattern="yyyy년 MM월 dd일 "/>
                                         </td>
                                         <td>${visit.memName }</td>
                                         <td>
-                                        	
                                         	<c:if test="${visit.visitCd == 1}" var="nameHong" scope="session">
-                                            	<button id="visitok">방문 승낙</button>
+                                            	<button class="visitok">방문 승낙</button>
+                                            	<input type="hidden" value="${room.roomNo }">
                                             </c:if>
-                                            <c:if test="${visit.visitCd == 2}" var="nameHong" scope="session">
-                                            	<button>방문 X</button>
-                                            	<button>방문 완료</button>
-                                            </c:if>
+                                            
                                         </td>
                                     </tr>
                                         </c:if>
@@ -120,7 +107,7 @@
                     <c:if test="${empty room }">
                     <li>
                        
-                       <h1 style="text-align: center; font-size: 50px; margin: 300px 0 800px;">방문신청이 없오요</h1>
+                       <h1 style="text-align: center; font-size: 50px; margin: 300px 0 800px;">방문신청이 없습니다.</h1>
 
                     </li>
                     </c:if>
@@ -135,5 +122,11 @@
     
     <!-- index.js -->
     <script src="${contextPath}/resources/js/visitCheck.js"></script>
+    <script>
+    	$(".visitok").on('click', ()=>{
+    		alert();
+    		
+    	});
+    </script>
 </body>
 </html>

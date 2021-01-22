@@ -24,7 +24,7 @@ public class searchDAO {
 				" SELECT ROOM_ADDR, ROOM_TITLE, ROOM_NO, ROOM_IMG_NAME, ROOM_IMG_PATH " + 
 				" FROM ROOM " + 
 				" JOIN ROOM_IMG USING(ROOM_NO) " + 
-				" WHERE ROOM_ADDR LIKE '%' ||'" + searchValue + "'|| '%' "+
+				" WHERE DELETE_FL = 'N' AND SELL_FL = 'N' AND ROOM_ADDR LIKE '%' ||'" + searchValue + "'|| '%'  "+
 				" AND ROOM_IMG_LEVEL = 0";
 		
 		try {
@@ -60,7 +60,7 @@ public class searchDAO {
 				" SELECT ROOM_ADDR, ROOM_TITLE, ROOM_NO, ROOM_IMG_NAME, ROOM_IMG_PATH " + 
 				" FROM ROOM " + 
 				" JOIN ROOM_IMG USING(ROOM_NO) " + 
-				" WHERE STATION_ADDR LIKE '%' ||'" + searchValue + "'|| '%' "+
+				" WHERE DELETE_FL = 'N' AND SELL_FL = 'N' AND STATION_ADDR LIKE '%' ||'" + searchValue + "'|| '%'  "+
 				" AND ROOM_IMG_LEVEL = 0";
 		try {
 	        

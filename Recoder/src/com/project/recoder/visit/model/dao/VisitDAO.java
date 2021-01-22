@@ -44,7 +44,7 @@ public class VisitDAO {
 			
 			result = pstmt.executeUpdate();
 			
-			
+			System.out.println("dao result"+ result);
 		} finally {
 			close(pstmt);
 			

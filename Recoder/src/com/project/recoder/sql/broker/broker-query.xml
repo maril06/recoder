@@ -56,7 +56,7 @@ AND MEM_PW = ?
 <entry key="selectRoomList">
 SELECT ROOM_NO, ROOM_TITLE
 FROM ROOM
-WHERE GMEM_NO=?
+WHERE GMEM_NO=? AND DELETE_FL = 'N'
 </entry>
 
 
