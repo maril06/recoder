@@ -121,7 +121,8 @@ public class BrokerController extends HttpServlet {
 						session.setAttribute("loginMember", loginMember);
 						session.setAttribute("BrokerNo", loginMember.getMemNo());
 						//System.out.println(loginMember);
-						
+						System.out.println("브로커 로그인 확인");
+						System.out.println("뭐지");
 					
 					//6-4 아이디를 Cookie에 저장하기
 					
