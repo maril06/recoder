@@ -56,10 +56,10 @@
                   </div>
                   <input id="username"name="username" type="text" placeholder="닉네임" class="userInfo"/> <br>
                   <input id="userid"name="userid" type="text" placeholder="아이디" class="userInfo">
-                  <input name="email" id="email" type="email" placeholder="이메일 주소" class="userInfo emailAdr" />
-                 <!--  <button type="button" class="btn small" id="sendEmail" >인증번호 받기</button>
-                  <input name="code" type="text" placeholder="인증번호 6자리 숫자입력"  class="userInfo" > -->
-                  <button class="btn" id="nextPw" type="submit">확인</button>
+                  <input id="email"name="email" type="email" placeholder="이메일 주소" class="userInfo emailAdr" />
+                 <button id="sendEmail" type="button" class="btn small" >인증번호 받기</button>
+                  <input id="code" name="code" type="text" placeholder="인증번호 6자리 숫자입력"  class="userInfo" >
+                  <button id="nextPw" class="btn" type="submit">확인</button>
                </form>
 
       </div>
@@ -69,35 +69,110 @@
    <script>
      $(document).ready(function(){
      $(".container").fadeIn(1000);
-});
-     
-  </script>
-    <script src="${contextPath}/resources/js/searchIdPw.js">
-     
-     /*  //이메일 인증 보내기
+	});
+   
+       //이메일 인증 보내기
       $("#sendEmail").on("click", function(){
-    	  
-    	  var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/; // 4글자 아무단어 @ 아무단어 . * 3
-    	    
+    	  swal("이메일 보내는중...");
     	    var value = $("#email").val();
     	    
     	  	$.ajax({
     		 url: "sendEmail.do",
     		 data: {"email": value},
  			type: "post",
- 			success: function(result){
- 				if(result == 0){ // 이메일 보내기 성공한 경우
+ 			success: function(randomNum){
+ 				if(randomNum != null){ // 이메일 보내기 성공한 경우
  					swal("입력하신 주소로 이메일을 보냈습니다.");
+ 					sessionStorage.setItem("randomNum", randomNum); 
                 }
  			},
  			error: function(){
  				console.log("이메일 전송 실패");
  			}
    	    
-    	  }); */
-    	  
-    	  
-    	  
+    	  }); 
+      });
+       
+     //검사
+     var validateCheck = {
+    "username" : false,
+    "userid" : false,
+    "email" : false,
+    "code" : false,
+    "confirm" : false
+	}
+     
+     
+     
+    function PwValidate(){
+    	 
+    	 var username = $("#username").val();
+    	 var userid = $("#userid").val();
+    	 var email = $("#email").val();
+    	 var code = $("#code").val();
+    	 var randomNum = sessionStorage.getItem("randomNum");
+    	 console.log(randomNum);
+    	 
+    	 
+    	 //닉네임 미입력시
+    	if($.trim(username)==""){
+    		
+    		validateCheck.username = false;
+    	}else{
+    		validateCheck.username = true;
+
+    	}
+    	 
+    	 //아이디 미입력
+    	if($.trim(userid)==""){
+    		validateCheck.userid = false;
+    	}else{
+    		validateCheck.userid = true;
+    	}
+    	
+    	 //이메일 미입력
+    	if($.trim(email)==""){
+    		validateCheck.email = false;
+    	}else{
+    		validateCheck.email = true;
+    	}
+    	
+    	//코드 미입력
+    	if($.trim(code)==""){
+    		validateCheck.code = false;
+    	}
+    	
+    	//인증번호 확인
+    	
+    	if(code == randomNum){
+    		
+    		validateCheck.confirm = true;
+    		validateCheck.code = true;
+    	} 
+	 	
+	 	
+    	
+    	for(var key in validateCheck){
+    		
+            if(!validateCheck[key]){
+                var msg;
+                switch(key){
+                    case "username" : msg = "닉네임을 입력해주세요"; break;
+                    case "userid": msg = "아이디을 입력해주세요"; break;
+                    case "email": msg = "이메일을 입력해주세요 "; break;
+                    case "code": msg = "코드을 입력해주세요"; break;
+                    case "confirm": msg = "인증번호가 맞지 않습니다 "; break;
+                }
+                swal(msg);
+
+                $("#"+key).focus();
+
+                return false; 
+            }
+        }
+    	 
+    }	  
+</script> 
      
       
   

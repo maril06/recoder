@@ -88,5 +88,19 @@ public class CommonService {
 		
 		return result;
 	}
-
+	
+	public String random() {
+		String result = "";
+		
+		int random = 0;
+		for(int i=0; i<6; i++) {
+			
+			random = (int)(Math.random()*10 +1); //99999
+			result += random;
+		}
+		System.out.println(random);
+		
+		return result;
+		
+	}
 }

@@ -69,8 +69,8 @@ public class MemberController extends HttpServlet {
 						session.setMaxInactiveInterval(60 * 30);
 					
 						session.setAttribute("loginMember", loginMember);
-						
-						
+						session.setAttribute("MemNo", loginMember.getMemNo());		
+						System.out.println("일반회원 로그인 확인");
 						Cookie cookie = new Cookie("saveIdG", memId);
 
 						if(remember != null) {
