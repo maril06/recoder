@@ -84,12 +84,7 @@
     	  $('#summernote').summernote();
     	});
     
-    
-/*     $('#summernote').summernote({
-        placeholder: '게시글을 작성해주세요 ',
-        tabsize: 2,
-        height: 600
-      }); */
+
 
 
     $('#summernote').summernote({

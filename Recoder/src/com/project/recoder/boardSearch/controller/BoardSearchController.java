@@ -29,7 +29,6 @@ public class BoardSearchController extends HttpServlet {
 		String searchValue = request.getParameter("sv");
 		String cp = request.getParameter("cp");
 		
-		System.out.println(searchkey+"/" +searchValue +"/"+ cp);
 		
 		try {
 			BoardSearchService service = new BoardSearchService();
@@ -41,9 +40,6 @@ public class BoardSearchController extends HttpServlet {
 			
 			PageInfo pInfo = service.getPageInfo(map);
 			
-			//System.out.println(map);
-			//System.out.println("pInfo : " + pInfo);
-			
 			List<Board> bList = service.boardSearch(map, pInfo);
 			
 			String path = "WEB-INF/views/board/boardList.jsp";
@@ -51,7 +47,6 @@ public class BoardSearchController extends HttpServlet {
 			request.setAttribute("bList", bList);
 			request.setAttribute("pInfo", pInfo);
 			
-			//System.out.println("bList : "+bList);
 			RequestDispatcher view = request.getRequestDispatcher(path);
 			view.forward(request, response);
 		

@@ -267,15 +267,17 @@ public class BoardDAO {
 		
 		return boardNo;
 	}
-
+	
 
 	/** 게시글 이미지 정보 삽입 dao
 	 * @param conn
+	 * @param boardNo 
+	 * @param img 
 	 * @param img
 	 * @return result
 	 * @throws Exception
 	 */
-	public int insertImgs(Connection conn, BoardImg img) throws Exception{
+	public int insertImgs(Connection conn, BoardImg bImg) throws Exception{
 		int result = 0;
 		
 		String query = prop.getProperty("insertImgs");
@@ -283,10 +285,10 @@ public class BoardDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			// IMG_PATH, IMG_NAME, IMG_LEVEL, BOARD_NO
-			pstmt.setString(1, img.getboardImgPath());
-			pstmt.setString(2, img.getboardImgName());
-			pstmt.setInt(3, img.getboardImgLevel());
-			pstmt.setInt(4, img.getboardNo());
+			pstmt.setString(1, bImg.getboardImgPath());
+			pstmt.setString(2, bImg.getboardImgName());
+			pstmt.setInt(3, bImg.getboardImgLevel());
+			pstmt.setInt(4, bImg.getboardNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -308,6 +310,31 @@ public class BoardDAO {
 		
 		int result = 0;
 		String query = prop.getProperty("deleteBoard");
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+	/** 게시글 이미지 삭제 dao
+	 * @param conn
+	 * @param boardNo
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteBoardImg(Connection conn, int boardNo) throws Exception {
+		int result = 0;
+		
+		String query = prop.getProperty("deleteBoardImg");
 		try {
 			pstmt = conn.prepareStatement(query);
 			
@@ -384,5 +411,9 @@ public class BoardDAO {
 		
 		return result;
 	}
+
+
+
+
 
 }

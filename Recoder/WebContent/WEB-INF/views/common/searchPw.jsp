@@ -111,7 +111,6 @@
     	 var email = $("#email").val();
     	 var code = $("#code").val();
     	 var randomNum = sessionStorage.getItem("randomNum");
-    	 console.log(randomNum);
     	 
     	 
     	 //닉네임 미입력시
@@ -148,6 +147,7 @@
     		
     		validateCheck.confirm = true;
     		validateCheck.code = true;
+    		sessionStorage.removeItem("randomNum");
     	} 
 	 	
 	 	

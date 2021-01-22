@@ -48,8 +48,6 @@ public class BoardSearchService {
 		
 		String condition = createCondition(map);
 		
-		//System.out.println(condition);
-		
 		List<Board> bList = dao.boardSearch(conn, condition, pInfo);
 		
 		close(conn);

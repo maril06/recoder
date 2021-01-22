@@ -12,6 +12,14 @@ public class BoardImg {
 		// TODO Auto-generated constructor stub
 	}
 
+	public BoardImg(String boardImgPath, String boardImgName, int boardImgLevel, int boardNo) {
+		super();
+		this.boardImgPath = boardImgPath;
+		this.boardImgName = boardImgName;
+		this.boardImgLevel = boardImgLevel;
+		this.boardNo = boardNo;
+	}
+
 	public BoardImg(int boardImgNo, String boardImgName, int boardImgLevel) {
 		super();
 		boardImgNo = boardImgNo;

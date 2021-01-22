@@ -162,7 +162,7 @@ public class CommonController extends HttpServlet {
 				  String randomNum = null;
 				  randomNum = service.random();
 				  
-				  System.out.println("랜덤넘버 : "+randomNum);
+				  //System.out.println("랜덤넘버 : "+randomNum);
 				  
 				  SendEmail mail = new SendEmail(); 
 				  
@@ -182,7 +182,7 @@ public class CommonController extends HttpServlet {
 				String memId = request.getParameter("userid");
 				String email = request.getParameter("email");
 				String code = request.getParameter("code");
-				System.out.println("회원이 입력한 코드"+code);
+				//System.out.println("회원이 입력한 코드"+code);
 				
 				
 				Map<String, Object> map = new HashMap<String, Object>();
