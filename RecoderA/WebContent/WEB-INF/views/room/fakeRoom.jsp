@@ -24,6 +24,9 @@ input[type="checkbox"] {
 	width: 30px;
 	height: 30px;
 }
+input[type="checkbox"]:hover{
+	cursor: pointer;
+	}
 </style>
 </head>
 
@@ -46,7 +49,7 @@ input[type="checkbox"] {
 		<c:choose>
 			<c:when test="${empty fList}">
 
-				<h4>신고된 매물이 없습니다.</h4>
+			
 			</c:when>
 
 			<c:otherwise>
@@ -110,8 +113,9 @@ input[type="checkbox"] {
 					</div>
 
 					<div class="button-area">
-
+					<c:if test="${loginAdmin.adminGrade =='A' }">
 						<button class="btn btn-primary float-right delete-item" id="deleteBtn">삭제</button>
+					</c:if>
 					</div>
 					<br>
 					<br>

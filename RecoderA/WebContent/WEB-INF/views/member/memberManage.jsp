@@ -32,6 +32,10 @@ input[type="checkbox"]{
 		width:30px;
 		height:30px;
 	}
+	
+	input[type="checkbox"]:hover{
+	cursor: pointer;
+	}
 .button-area{
 	height:70px;
 	margin-right : 15%;
@@ -73,8 +77,8 @@ input[type="checkbox"]{
 				
 				<select name="sk2" class="form-control"
 					style="width: 90px; display: inline-block;">
-					<option value="stop">정지</option>
 					<option value="active">활동</option>
+					<option value="stop">정지</option>
 				</select> 
 				
 				<button class="form-control btn btn-primary search-btn"
@@ -150,16 +154,24 @@ input[type="checkbox"]{
 				
 		<div class="button-area">
 		
-			
-				
-				<button class="btn btn-primary float-right stop-btn" 
-				id="stopbtn">정지</button>
-								
-					
-				<button class="btn btn-primary float-right recover-btn"
-				id="recoverbtn">복구</button>
-			
-				
+			<c:if test="${loginAdmin.adminGrade =='A' }">
+				<c:choose>
+					<c:when test="${param.sk2 == 'active'}">
+						<button class="btn btn-primary float-right stop-btn" 
+						id="stopbtn">정지</button>
+					</c:when>				
+					<c:when test="${param.sk2 == 'stop'}">	
+						<button class="btn btn-primary float-right recover-btn"
+						id="recoverbtn">복구</button>
+					</c:when>
+					<c:otherwise>
+						<button class="btn btn-primary float-right stop-btn" 
+						id="stopbtn">정지</button>
+						<button class="btn btn-primary float-right recover-btn"
+						id="recoverbtn">복구</button>
+					</c:otherwise>
+				</c:choose>
+			</c:if>	
 		</div>
 	
 	</div>
@@ -339,6 +351,35 @@ input[type="checkbox"]{
 	        	
 	        });
         
+			//검색 조건값 고정하기
+		(function(){
+						
+						var searchKey1 = "${param.sk1}";
+						
+						$("select[name=sk1] > option").each(function(index, item){
+							
+							if( $(item).val() == searchKey1){
+								$(item).prop("selected", true);
+							}
+						});
+						
+						
+					})();	
+			
+		//검색 조건값 고정하기
+		(function(){
+			
+			var searchKey2 = "${param.sk2}";
+			
+			$("select[name=sk2] > option").each(function(index, item){
+				
+				if( $(item).val() == searchKey2){
+					$(item).prop("selected", true);
+				}
+			});
+			
+			
+		})();	
     </script>
 
 

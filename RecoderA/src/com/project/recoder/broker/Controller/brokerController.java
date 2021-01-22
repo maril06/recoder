@@ -47,10 +47,10 @@ public class brokerController extends HttpServlet {
 				
 				List<Broker> bList = service.selectRequestBrokerList(pInfo);
 				
-				//System.out.println(pInfo);
-				//for(Broker b : bList) {
-				//	System.out.println(b);
-				//}
+						System.out.println(pInfo);
+						for(Broker b : bList) {
+							System.out.println(b);
+						}
 				
 				path = "/WEB-INF/views/broker/brokerList.jsp";
 				
