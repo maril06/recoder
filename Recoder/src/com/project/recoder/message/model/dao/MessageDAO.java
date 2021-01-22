@@ -76,11 +76,12 @@ public class MessageDAO {
 			message = new ArrayList<Message>();
 			while(rset.next()) {
 				Message msg = new Message(
-					rset.getInt("MEM_NO"),
+					rset.getInt("ME"),
+					rset.getString("YOU"),
 					rset.getString("MSG_CONTENT"),
 					rset.getTimestamp("CREATE_DT"),
 					rset.getInt("MSG_CNT"),
-					rset.getString("MEM_NICK"));
+					rset.getInt("MEM_NO2"));
 				
 				message.add(msg);
 			}

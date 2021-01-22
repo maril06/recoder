@@ -363,16 +363,6 @@
              	$("#lst"+i).toggle(300);
          });
 
-/*
-         $(".close").on('click', function(){
-        	 overlay.setMap(null);
-         });
-          */
-
-
-
-
-
 
 	        map.setCenter(coords);
 	    }
@@ -383,25 +373,7 @@
 
 
 	};
-/*
-	 // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
-	function closeOverlay(el) {
-		 var position = $(el).parent().attr("id").split(",");
-		 console.log(position);
 
-		 $.each(overlayList, function(index, item){
-			 console.log(item.n );
-			 console.log(item.n.La );
-			 console.log(item.n.Ma );
-			 console.log(position[0] );
-			 console.log(position[1] );
-			 console.log(item.n.La == position[0].trim() );
-			 console.log(item.n.Ma == position[1].trim() );
-		});
-
-
-		 overlay.setMap(null);
-	} */
     </script>
 </body>
 </html>

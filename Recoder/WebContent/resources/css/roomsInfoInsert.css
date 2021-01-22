@@ -254,6 +254,16 @@ a:hover{
     text-align: center;
     margin-bottom: 30px;
 }
+.room_info .option .option_list ul li:hover{
+	cursor: grab;
+}
+.room_info .option .option_list ul li:active{
+	cursor: grabbing;
+}
+
+.items:hover{
+	cursor: grab;
+}
 
 .room_info .option .option_list ul li span {
     width: 150px;

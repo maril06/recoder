@@ -29,13 +29,14 @@ public class Message {
 
 	
 
-	public Message( int memReceive,String msgContent, Timestamp createDate, int msgCnt, String memNick) {
+	public Message( int memReceive, String memNick, String msgContent, Timestamp createDate, int msgCnt, int memSend ) {
 		super();
+		this.memReceive = memReceive;
+		this.memNick = memNick;
 		this.msgContent = msgContent;
 		this.createDate = createDate;
-		this.memReceive = memReceive;
 		this.msgCnt = msgCnt;
-		this.memNick = memNick;
+		this.memSend = memSend;
 	}
 
 	public int getMsgNo() {
