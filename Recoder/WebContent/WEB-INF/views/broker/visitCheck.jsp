@@ -58,9 +58,6 @@
 	                               	</c:if>
                             	</c:forEach>
                             </p>
-                            
-                            
-                            
                             <div class="check_info">
                                 <h3>${room.roomTitle} --${aaa}-- ${room.roomNo }</h3>
                                 <p class="text">
@@ -127,7 +124,7 @@
     <script src="${contextPath}/resources/js/visitCheck.js"></script>
     <script>
     	$(".visitok").on('click', ()=>{
-    		
+    		alert();
     		
     	});
     </script>
