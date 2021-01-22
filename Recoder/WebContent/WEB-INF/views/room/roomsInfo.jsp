@@ -52,7 +52,7 @@
                 </div>
                 <div class="broker_info">
                     <div class="visit"><button class="btn btn-primary" id="visit">방문신청</button></div>
-                    <div class="broker"><a href="#">공인중개사</a></div>
+                    <div class="broker"><a href="">공인중개사</a></div>
                 </div>
             </div>
         </section>
@@ -262,7 +262,7 @@
         </section>
         <c:if test="${!empty loginMember && (loginMember.memGrade == 'B')}">
 			<div class="update_wrapper">
-				<div class="update"><a href="${contextPath }/room/roomUpdateForm.do" class="btn btn-primary" id="visit">수정</a></div>
+				<div class="update"><a href="${contextPath }/room/roomUpdateForm.do?no=${room.roomNo }" class="btn btn-primary" id="visit">수정</a></div>
 			</div>
         </c:if>
 		<!-- footer -->
