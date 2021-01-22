@@ -10,8 +10,11 @@ import static com.project.recoder.common.JDBCTemplate.*;
 
 import java.io.File;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BoardService {
 
@@ -26,7 +29,6 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		int currentPage  = cp == null ? 1 : Integer.parseInt(cp);
-		//System.out.println("currentPage : "+currentPage);
 		int listCount = dao.getListCount(conn);
 		
 		close(conn);
@@ -96,58 +98,61 @@ public class BoardService {
 		
 		int result = 0;
 		
+		String boardContent = (String) map.get("boardContent");
+		
+		//이미지 태그들 이름 가져오는 service 실행
+		List<String> imageNameList  = getImgName(boardContent);
+		
+        //서버 사진 저장 주소
+		String path = "C:\\Users\\imsor\\workspace\\teamRepository\\recoder\\Recoder\\WebContent\\resources/images/boardImg/";
+		
 		int boardNo= dao.selectNextNo(conn);
 		
 		if(boardNo >0) {
 			map.put("boardNo", boardNo);
-			/*
-			 * String boardTitle = (String)map.get("boardTitle"); String boardContent =
-			 * (String)map.get("boardContent");
-			 * 
-			 * boardTitle = replaceParameter(boardTitle); boardContent =
-			 * replaceParameter(boardContent);
-			 * 
-			 * boardContent = boardContent.replaceAll("\r\n", "<br>");
-			 * 
-			 * map.put("boardTitle",boardTitle ); map.put("boardContent",boardContent );
-			 */
 		}
 		
-		try {
-			result = dao.insertBoard(conn, map); //게시글 부분만 삽입
-			/*
-			 * List<BoardImg> fList = (List<BoardImg>)map.get("fList");
-			 * 
-			 * System.out.println("나와라" +fList); if(result > 0 && !fList.isEmpty()) { result
-			 * = 0;
-			 * 
-			 * for(BoardImg img : fList) {
-			 * 
-			 * img.setboardNo(boardNo);
-			 * 
-			 * 
-			 * result = dao.insertImgs(conn, img); //삽입 성공시 1 반환
-			 * 
-			 * if(result == 0) { throw new FileInsertFailedException("파일 정보 삽입 실패"); } } }
-			 */
-		} catch (Exception e) {
-			List<BoardImg> fList = (List<BoardImg>)map.get("fList");
-			
-			if(!fList.isEmpty()) {
-				for(BoardImg img : fList) {
-					String filePath = img.getboardImgPath();
-					String fileName = img.getboardImgName();
+			try {
+				//게시글 부분만 삽입****
+				result = dao.insertBoard(conn, map); 
+				List<BoardImg> bimgs = new ArrayList<BoardImg>();
+				
+				if(result > 0 && !imageNameList.isEmpty()) {
+					result = 0;
+					int index=0;
 					
-					File deleteFile = new File(filePath + fileName);
+					//이미지 세팅..
+					for(String imgname : imageNameList) {
+						
+						//이미지정보를 boardImg에 넣기
+						BoardImg bImg = new BoardImg(path, imgname, index++, boardNo);		
+						bimgs.add(bImg);
+					}
+						for(BoardImg b : bimgs) {
+						result = dao.insertImgs(conn, b);
+						
+							if(result == 0) { 
+								throw new FileInsertFailedException("파일 정보 삽입 실패");
+							}
+						}
+					}
 					
-					if(deleteFile.exists()) {
-						deleteFile.delete();
+					
+				}catch (Exception e) {
+				
+				if(!imageNameList.isEmpty()) {
+					for(String img : imageNameList) {
+						
+						File deleteFile = new File(path + img);
+						
+						if(deleteFile.exists()) {
+							deleteFile.delete();
+						}
 					}
 				}
+				
+				throw e;
 			}
-			
-			throw e;
-		}
 		
 		if(result > 0) {
 			commit(conn);
@@ -161,24 +166,6 @@ public class BoardService {
 		return result;
 	}
 	
-	/** 크로스 사이트 스크립팅 방지
-	 * @param param
-	 * @return
-	 */
-	private String replaceParameter(String param) {
-		String result = param;
-		if(param != null) {
-			result = result.replaceAll("&", "&amp;");
-			result = result.replaceAll("<", "&lt;");
-			result = result.replaceAll(">", "&gt;");
-			result = result.replaceAll("\"", "&quot;");
-			result = result.replaceAll(" ", "&nbsp");
-		}
-		
-		return result;
-		
-	}
-
 	/** 게시글 삭제
 	 * @param boardNo
 	 * @return result
@@ -188,6 +175,10 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		int result = dao.deleteBoard(conn, boardNo);
+		
+		if(result >0) { //게시글 삭제 됬을 때 디비, 서버에서 이미지 삭제
+			result = dao.deleteBoardImg(conn, boardNo);
+		}
 		
 		if(result > 0) commit(conn);
 		else			rollback(conn);
@@ -217,12 +208,89 @@ public class BoardService {
 	 */
 	public int updateBoard(Map<String, Object> map) throws Exception{
 		Connection conn = getConnection();
+		int result = 0;
+		int boardNo = (int)map.get("boardNo");
 		
-		int result = dao.updateBoard(conn, map);
+		String boardContent = (String) map.get("boardContent");
+		List<String> imageNameList  = getImgName(boardContent);
 		
+		
+        //서버 사진 저장 주소
+		String path = "C:\\Users\\imsor\\workspace\\teamRepository\\recoder\\Recoder\\WebContent\\resources/images/boardImg/";
+		
+		try {
+			result = dao.updateBoard(conn, map); //디비에서 게시글 지우기
+		
+			if(result > 0) {//게시글 지우기 성공하면 이미지 지우기
+				result = 0;
+				result = dao.deleteBoardImg(conn, boardNo);
+			}
+		
+			if(result > 0 && !imageNameList.isEmpty()) {//이미지 지우기 성공하면 이미지 새로 넣기
+				result = 0;
+				int index=0;
+				
+				List<BoardImg> bimgs = new ArrayList<BoardImg>();
+				
+			//이미지 세팅..
+			for(String imgname : imageNameList) {
+				
+				//이미지정보를 boardImg에 넣기
+				BoardImg bImg = new BoardImg(path, imgname, index++, boardNo);		
+				bimgs.add(bImg);
+			}
+				for(BoardImg b : bimgs) {
+				result = dao.insertImgs(conn, b);
+					if(result == 0) { 
+						throw new FileInsertFailedException("파일 정보 삽입 실패");
+					}
+				}
+			}
+			
+			
+		}catch (Exception e) {
+		
+		if(!imageNameList.isEmpty()) {
+			for(String img : imageNameList) {
+				
+				File deleteFile = new File(path + img);
+				
+				if(deleteFile.exists()) {
+					deleteFile.delete();
+				}
+			}
+		}
+		
+		throw e;
+
+		}
 		if(result > 0) commit(conn);
 		else			rollback(conn);
 		
 		return result;
 	}
+	
+	
+	/** 이미지 태그들 이름 가져오는 service
+	 * @param boardContent
+	 * @param imageList
+	 * @return imageNameList
+	 * @throws Exception
+	 */
+	public List<String> getImgName(String boardContent) throws Exception{
+		List<String> imageNameList = new ArrayList<String>();
+		
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); // img 태그 src 추출 정규표현식
+        Matcher matcher = pattern.matcher(boardContent);
+        while (matcher.find()) {
+            String src = matcher.group(1).toString();
+
+            src = src.substring(src.lastIndexOf("/") + 1);
+            
+            imageNameList.add(src);
+         }
+        
+		return imageNameList;
+	}
+	
 }

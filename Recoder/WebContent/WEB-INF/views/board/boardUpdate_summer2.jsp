@@ -62,13 +62,13 @@
 				<hr>
                 
                 <!-- 썸머노트  -->
-				<textarea id="summernote" class="summernote" name="Contents"></textarea>
+				<textarea id="summernote" name="Contents"></textarea>
 
 				<hr class="mb-4">
 
 				<div class="text-center">
 					<button type="submit" class="btn btn-secondary">등록</button>
-					<button type="button" class="btn btn-outline-secondary">목록으로</button>
+					<button type="button" class="btn btn-outline-secondary" onclick = "location.href='${header.referer}'">이전으로</button>
 				</div>
 
             
@@ -77,25 +77,19 @@
 
             </div>
     </div>
-    
+
     <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <script>
-
-//썸머노트 실행
-$('#summernote').summernote();
-
-    /* $(document).ready(function() {
-    var HTMLstring = ${board.content};
-    $('.summernote').summernote('pasteHTML', HTMLstring);
+    //썸머노트 실행
+    $(document).ready(function() {
+    	  $('#summernote').summernote();
+     	$('#summernote').summernote('pasteHTML',  '${board.content}');
+ 
+    	});
     
-    	});  */
-    
- // @param {String} HTML string
-$('#summernote').summernote('pasteHTML',  '${board.content}');
-
 
     $('#summernote').summernote({
    	 toolbar: [
@@ -126,8 +120,6 @@ $('#summernote').summernote('pasteHTML',  '${board.content}');
    		}
    			
    	});
-    
-    
       
       function sendFile(file, editor) {
           // 파일 전송을 위한 폼생성
@@ -150,7 +142,7 @@ $('#summernote').summernote('pasteHTML',  '${board.content}');
 	 	    });
 	 	}
     
-/* 
+
 (function printToday(){
 			// 오늘 날짜 출력 
 	 		var today = new Date();
@@ -162,7 +154,7 @@ $('#summernote').summernote('pasteHTML',  '${board.content}');
 	        		+ (date < 10 ? "0"+date : date);
 			$("#today").html(str);
 		})();
- */
+
 
 
 
@@ -186,4 +178,4 @@ $('#summernote').summernote('pasteHTML',  '${board.content}');
 		
     </script>
 </body>
-</html>
+</html>    

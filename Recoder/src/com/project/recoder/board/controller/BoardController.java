@@ -64,7 +64,6 @@ public class BoardController extends HttpServlet {
 
 				// 1. 페이징 처리를 위한 값 계산 Service
 				PageInfo pInfo = service.getPageInfo(cp);
-				// System.out.println("p "+pInfo);
 				// 2. 게시글 목록 조회 비즈니스 로직 수행
 				List<Board> bList = service.selectBoardList(pInfo);
 
@@ -82,7 +81,6 @@ public class BoardController extends HttpServlet {
 				errorMsg = "게시글 상세조회 과정에서 오류 발생";
 
 				int boardNo = Integer.parseInt(request.getParameter("no"));
-				// System.out.println(boardNo);
 				// 상세조회 비즈니스 로직 수행 후 결과 반환받기
 				Board board = service.selectBoard(boardNo);
 
@@ -106,7 +104,6 @@ public class BoardController extends HttpServlet {
 			else if (command.equals("/insertForm.do")) {
 				// 썸머노트로 연결
 				path = "/WEB-INF/views/board/boardInsert_summer.jsp";
-				// path = "/WEB-INF/views/board/boardInsert.jsp";
 				view = request.getRequestDispatcher(path);
 				view.forward(request, response);
 			}
@@ -120,13 +117,8 @@ public class BoardController extends HttpServlet {
 				String root = request.getSession().getServletContext().getRealPath("/");
 				String filePath = root + "resources/images/boardImg/";
 
-				//System.out.println("filePath : " + filePath);
-
-
 				MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8",
 						new MyFileRenamePolicy());
-
-				// List<BoardImg> fList = new ArrayList<BoardImg>();
 
 				Enumeration<String> files = multiRequest.getFileNames();
 
@@ -134,20 +126,17 @@ public class BoardController extends HttpServlet {
 
 				String fileName = multiRequest.getFilesystemName(file);
 
-
-				//String uploadPath = filePath + fileName;
-				//System.out.println(fileName);
-				
 				response.getWriter().print(fileName);
 			}
+			
+			
 
 			// summer노트로 게시글 작성 controller ---------------------
 			else if (command.equals("/insertBoardSummer.do")) {
 				errorMsg = "게시글 작성 중 오류 발생";
-				//System.out.println(errorMsg);
 				String title = request.getParameter("boardTitle");
 				String content = request.getParameter("Contents");
-
+				
 				int boardWriter = 0; // 회원번호
 
 				if (request.getSession().getAttribute("BrokerNo") != null) {
@@ -158,6 +147,7 @@ public class BoardController extends HttpServlet {
 					boardWriter = (int) request.getSession().getAttribute("MemNo");
 				}
 
+				
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("boardTitle", title);
 				map.put("boardContent", content);
@@ -210,9 +200,6 @@ public class BoardController extends HttpServlet {
 				String content = request.getParameter("Contents");
 				int boardNo = Integer.parseInt(request.getParameter("no"));
 				
-				//System.out.println(title);
-				//System.out.println(content);
-				//System.out.println(boardNo);
 				
 				int boardWriter = 0; // 회원번호
 

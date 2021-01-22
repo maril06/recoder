@@ -98,7 +98,7 @@ public class CommonService {
 			random = (int)(Math.random()*10 +1); //99999
 			result += random;
 		}
-		System.out.println(random);
+		//System.out.println(random);
 		
 		return result;
 		
