@@ -387,4 +387,48 @@ public class RoomDAO {
 	      return fList;
 	}
 	
+	
+	
+	public double calReview(Connection conn, int roomNo) throws Exception{
+		double result = 0;
+		String query = prop.getProperty("calReview");
+			
+		try {
+			pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, roomNo);
+	         rset = pstmt.executeQuery();
+	         
+	         if(rset.next()) {
+	        	 result = rset.getInt(1);
+	         }
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+	
+	public double visitCount(Connection conn, int roomNo) throws Exception{
+		double result = 0;
+		String query = prop.getProperty("visitCount");
+			
+		try {
+			pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, roomNo);
+	         rset = pstmt.executeQuery();
+	         
+	         if(rset.next()) {
+	        	 result = rset.getInt(1);
+	         }
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 }

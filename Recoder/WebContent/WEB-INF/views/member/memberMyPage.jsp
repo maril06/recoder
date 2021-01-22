@@ -115,25 +115,22 @@
 			<h1>후기 남긴 매물</h1>
 			<div class="room_wrapper clearfix">
 				<div class="room_list autoplay clearfix">
-					<c:forEach var="room" items="${roomList}">
-						<c:forEach var="thumbnail" items="${imgList}" varStatus="status">
+					<c:forEach var="room" items="${reviewRoomList}">
+						<c:forEach var="thumbnail" items="${reviewImgList}" varStatus="status">
 								<c:if test="${room.roomNo == thumbnail.parentRoomNo}">
 										<div class="room">
 											<p class="img">
-												<a href=""><img
-													src="${contextPath}/resources/images/rooms/${thumbnail.roomImgName}" alt=""></a>
+												<a href="${contextPath}/room/view.do?no=${room.roomNo }"><img
+													src="${contextPath}/resources/images/rooms/${thumbnail.roomImgName}" id="${room.roomNo }" alt=""></a>
 											</p>
 											<h3>${room.roomTitle}</h3>
 											
-											<a href="#" class="more">더보기</a>
+											<a href="${contextPath}/room/view.do?no=${room.roomNo }" class="more">더보기</a>
 										</div>
 									
 								</c:if>
 						</c:forEach>
 					</c:forEach>
-						
-						
-						
 
 				</div>
 			</div>

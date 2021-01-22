@@ -324,7 +324,7 @@ public class MemberDAO {
 			roomList = new ArrayList<Room>();
 			
 			while (rset.next()) {
-	            Room room = new Room(rset.getInt(1), rset.getString(2));
+				Room room = new Room(rset.getInt(1), rset.getString(2), rset.getString(3));
 	            roomList.add(room);
 	         }
 			
@@ -334,6 +334,59 @@ public class MemberDAO {
 		}
 		
 		return roomList;
+	}
+	
+	
+	public List<Room> selectReviewList(Connection conn, int memNo) throws Exception{
+		List<Room> roomList = null;
+		String query = prop.getProperty("selectReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			roomList = new ArrayList<Room>();
+			
+			while (rset.next()) {
+	            Room room = new Room(rset.getInt(1), rset.getString(2), rset.getString(3));
+	            roomList.add(room);
+	         }
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return roomList;
+	}
+
+	public List<RoomImg> selectReviewimg(Connection conn, int memNo) throws Exception{
+		List<RoomImg> imgList = null;
+		String query = prop.getProperty("selectReviewimg");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			imgList = new ArrayList<RoomImg>();
+			
+			while (rset.next()) {
+	            RoomImg roomImg = new RoomImg(rset.getString("ROOM_IMG_NAME"), rset.getInt("ROOM_NO"));
+	            imgList.add(roomImg);
+	         }
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return imgList;
 	}
 	
 

@@ -304,5 +304,20 @@ public class RoomService {
 	}
 
 
+	
+	public double calReview(int roomNo) throws Exception{
+		Connection conn = getConnection();
+		double result = dao.calReview(conn, roomNo);
+		close(conn);
+		return result;
+	}
+
+
+	public double visitCount(int roomNo) throws Exception{
+		Connection conn = getConnection();
+		double result = dao.visitCount(conn, roomNo);
+		close(conn);
+		return result;
+	}
 
 }

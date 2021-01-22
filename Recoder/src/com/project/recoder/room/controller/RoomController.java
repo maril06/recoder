@@ -410,10 +410,22 @@ public class RoomController extends HttpServlet {
 						request.setAttribute("mList", mList);
 					}
 					
+					double reviewScore = service.calReview(roomNo);
+					double visitCnt = service.visitCount(roomNo);
+					System.out.println(reviewScore/visitCnt);
+					double resultScore = Math.round((reviewScore / visitCnt)*100)/100.0;
+					
+					int visitCnt2 = (int)visitCnt;
+					
+					double percent = ((resultScore * 20)*100)/100.0;
+					
 					path = "/WEB-INF/views/room/roomsInfo.jsp";
 					request.setAttribute("room", room);
 					request.setAttribute("options", a);
 					request.setAttribute("font", b);
+					request.setAttribute("reviewScore", resultScore);
+					request.setAttribute("visitCnt", visitCnt2);
+					request.setAttribute("percent", percent);
 				    view = request.getRequestDispatcher(path);
 				    view.forward(request, response);
 					

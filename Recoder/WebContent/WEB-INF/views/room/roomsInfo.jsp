@@ -33,6 +33,9 @@
 		
 		<!-- font awesome -->
 		<script src="${contextPath}/resources/js/fontawesome.js"></script>
+		
+		<!-- star rating -->
+		<script src="${contextPath}/resources/js/rating.js"></script>
     
 </head>
 <body>
@@ -198,70 +201,72 @@
                     <div class="score">
                         <div class="rank">
                             <h3>방문 만족도</h3>
-                            <span>3.2</span>
+                            <span>${reviewScore }</span>
                             <div class="graph">
-                                <span style="width: 80%">80%</span>
+                                <span style="width: ${percent}%">${percent}%</span>
                             </div>
                         </div>
                         <div class="count">
                             <h3>방문자 수</h3>
-                            <span>32</span>
+                            <span>${visitCnt }</span>
                         </div>
                     </div>
                 </div>
 
+
+
                 <div class="total_review">
-                    <ul>
-                        <li>
+                    <ul id="replyListArea">
+                    <!-- 후기 작성자가 아닌 사람이 보는 부분 -->
+                        <li class="reply-row">
                             <div class="reply_info">
-                                <span class="score">방문 만족도: 5</span>
-                                <span>닉네임</span><span>2021.01.01</span>
+                                <span class="score">후기</span>
+                                <span class="rWriter">내방 회원님</span><span class="rDate"></span>
                             </div>
-                            <p class="comment">
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
+                            <p class="comment rContent">
+                                	내 방 후기는 회원님들만 이용 가능합니다.
+                                	로그인 후 이용해주세요.
                             </p>
                         </li>
-                        <li>
+                        
+                        
+                        <%-- <!-- 후기 작성자가 보는 부분 -->
+                        <li class="reply-row">
                             <div class="reply_info">
                                 <span class="score">방문 만족도: 5</span>
-                                <span>닉네임</span><span>2021.01.01</span>
+                                <span class="rWriter">닉네임</span><span class="rDate">2021.01.01</span>
                             </div>
-                            <p class="comment">
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
+                            <p class="comment rContent">
+                                	${room.roomNo }
                             </p>
-                        </li>
-                        <li>
-                            <div class="reply_info">
-                                <span class="score">방문 만족도: 5</span>
-                                <span>닉네임</span><span>2021.01.01</span>
-                            </div>
-                            <p class="comment">
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                                방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.방이 깨끗하고 맘에안들어요.
-                            </p>
-                        </li>
+                            
+                            <div class="replyBtnArea">
+								<button class="btn btn-primary btn-sm ml-1" id="updateReply" onclick="showUpdateReply(2, this)">수정</button>
+								<button class="btn btn-primary btn-sm ml-1" id="deleteReply" onclick="deleteReply(2)">삭제</button>
+							</div>
+                        </li> --%>
+  
                     </ul>
                 </div>
 
+	
                 <div class="review_write">
                     <form action="" method="POST">
                         <div class="form-floating">
-                            <textarea class="form-control " placeholder="" id="floatingTextarea2"></textarea>
-                            <input class="btn btn-primary" type="submit" value="Submit">
+                        	<div id="review"></div>
+                            <textarea class="form-control " placeholder="" id="replyContent"></textarea>
+                            <input class="btn btn-primary" type="submit" id="addReply" value="등록">
                           </div>
                     </form>
                 </div>
                 
             </div>
         </section>
+        
+        
+        
+        
+        
         <c:if test="${!empty loginMember && (loginMember.memGrade == 'B')}">
 			<div class="update_wrapper">
 				<div class="update"><a href="${contextPath }/room/roomUpdateForm.do?no=${room.roomNo }" class="btn btn-primary">수정</a></div>
@@ -324,6 +329,137 @@ var marker = new kakao.maps.Marker({
 marker.setMap(map);
     } 
 }
+
+
+/* <!-- ----------------------댓글영역 --> */
+var loginMemberNick = "${loginMember.memNick}";
+var parentRoomNo = ${room.roomNo};
+
+// 페이지 로딩 완료 시 댓글 목록 호출
+selectReplyList();
+
+
+// 해당 게시글 댓글 목록 조회 함수(ajax)
+function selectReplyList(){
+	$.ajax({
+		url : "${contextPath}/review/selectList.do",
+		data : {"parentRoomNo" : parentRoomNo},
+		type : "post",
+		dataType : "JSON", // 응답 형태가 JSON이다. 
+		success : function(rList){ // 통신이 성공했을 때
+			//console.log(rList);
+		
+			$("#replyListArea").html("");
+		
+			$.each(rList, function(index, item){
+				
+				var li = $("<li>").addClass("reply-row");
+				var div = $("<div>").addClass("reply_info");
+				var rating = $("<span>").addClass("score").text("방문 만족도 : " + item.rating)
+				var rWriter = $("<span>").addClass("rWriter").text("닉네임 : " + item.memNick);
+				var rDate = $("<span>").addClass("rDate").text("작성일 : " + item.createDt);
+				
+				
+				div.append(rating).append(rWriter).append("<br>").append(rDate);
+				
+				var rContent = $("<p>").addClass("comment rContent").html(item.content);
+				
+				li.append(div).append(rContent);
+	
+				$("#replyListArea").append(li); 
+			});
+	
+		},
+		error : function(){
+			console.log("댓글 목록 조회 실패");
+		}
+	});
+}
+
+
+
+var rate;
+//별점
+	$("#review").rating({
+	  "color":"#EE9BA3",
+	  "emptyStar":"far fa-star",
+	  "filledStar":"fas fa-star",
+	  "click":function (e) {
+	    console.log(e.stars);
+	    rate = e.stars;
+	  }
+	});
+
+
+	// 댓글 등록 (ajax)
+$("#addReply").on("click", function(){
+
+   // 댓글 내용을 얻어와서 변수에 저장
+   var replyContent = $("#replyContent").val().trim();
+   
+   $.ajax({
+       url : "${contextPath}/review/chkVisit.do",
+       data : {
+             "parentRoomNo" : parentRoomNo},
+       type : "post",
+       
+       success : function(result){
+          if(result < 1){ // 승낙받지 않은 경우
+            	alert('후기를 남길 수 없습니다.');
+             
+          }else { // 승낙받은경우
+              
+              // 댓글 내용이 작성되어있는지 확인
+              if(replyContent.length == 0){
+                 alert("댓글 작성 후 클릭해주세요.");
+              
+              } else { // 승낙도 되어있고, 댓글도  작성되어있는 경우
+                 
+                 // 회원 번호를 얻어와서 변수에 저장
+                 var replyWriter = "${loginMember.memNo}";
+                 
+                 $.ajax({
+                    url : "${contextPath}/review/insertReply.do",
+                    data : {"replyWriter" : replyWriter,
+                          "replyContent" : replyContent,
+                          "parentRoomNo" : parentRoomNo,
+                          "rating" : rate},
+                    type : "post",
+                    
+                    success : function(result){
+                       if(result >0){ // 댓글 삽입 성공 시
+                          // 댓글 작성 내용 삭제
+                          $("#replyContent").val("");
+                       
+                          // 성공 메세지 출력
+                          swal({"icon" : "success", "title" : "댓글 등록 성공"});
+                          
+                          // 댓글 목록을 다시 조회 -> 새로 삽입한 댓글도 조회하여 화면에 출력
+                          selectReplyList();
+                          
+                       }
+                       
+                    },
+                    
+                    error : function(){
+                       console.log("댓글 등록 실패");
+                    }
+                 });
+              }
+           }
+          
+       },
+       
+       error : function(){
+          console.log("조회 실패");
+       }
+    });
+
+});
+
+
+
+
 
 
 
