@@ -180,17 +180,6 @@ public class RoomController extends HttpServlet {
 	        		path="list.do"; // 게시글 목록
 	        		System.out.println("실패");
 	        	}
-				// 2번재로 받아온 뒤
-//				for (int i = 0; i < options2.length; i++) {
-//					System.out.println(options2[i]);
-//				}
-//				
-				
-				
-				
-			
-//				request.setAttribute("");
-//				request.setAttribute("");
 
 				
 				path = "/WEB-INF/views/room/roomsInfo.jsp";
@@ -204,7 +193,6 @@ public class RoomController extends HttpServlet {
 				
 				// 매물 번호
 				int roomNo = Integer.parseInt(request.getParameter("no"));
-				// int roomNo = 62;
 				Room room = service.updateView(roomNo);
 				if(room !=null) {
 					List<RoomImg> mList = service.selectRoomImg(roomNo);
@@ -260,8 +248,7 @@ public class RoomController extends HttpServlet {
 	        	String stationAddr = mRequest.getParameter("stationAddr");
 	        	
 	        	// 매물 번호 받아오기
-//	        	int roomNo = Integer.parseInt(mRequest.getParameter(""));
-	        	int roomNo = 62;
+	        	int roomNo = Integer.parseInt(mRequest.getParameter("no"));
 	        	
 	        	
 	        	List<RoomImg> mList = new ArrayList<RoomImg>();
@@ -379,11 +366,7 @@ public class RoomController extends HttpServlet {
 
 				Room room = service.selectRoom(roomNo);
 				room.setRoomNo(roomNo);
-//				Room option = new Room(
-//					room.getTv(), room.getInternet(), room.getAirCon(), room.getWashing(), 
-//					room.getFridge(), room.getBed(), room.getCloset(), room.getWomanOnly(), 
-//					room.getPet(), room.getParking());
-//				
+				
 				Map<String, String> a = new HashMap<String, String>();
 				a.put("tv",room.getTv());
 				a.put("인터넷",room.getInternet());

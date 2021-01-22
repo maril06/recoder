@@ -43,29 +43,24 @@
             <h3>방문자 체크</h3>
             <div class="chk_wrapper">
                 <ul>
-                
-                
-                
                     <c:forEach var="room" items="${room}">
-                    
                     <li>
                         <div class="list_top">
                             <p class="check_img">
                             	<c:forEach var="rImg" items="${rImg }">
                             		<c:if test="${rImg.roomNo == room.roomNo}" var="nameHong" scope="session">
-                            		
 	                               		<a href=""><img src="${contextPath}/resources/images/rooms/${rImg.pet}" alt=""></a>
 	                               	</c:if>
                             	</c:forEach>
                             </p>
                             <div class="check_info">
-                                <h3>${room.roomTitle} --${aaa}-- ${room.roomNo }</h3>
-                                <p class="text">
-                                    <span>
-                                        ${room.roomInfo }
-                                    </span>
-                                </p>
-                                <a href="${contextPath}/room/view.do?no=${room.roomNo }" class="more">View more</a>
+                                <h3>${room.roomTitle}</h3>
+	                                <p class="text">
+	                                    <span>
+	                                        ${room.roomInfo }
+	                                    </span>
+	                                </p>
+                                <a href="${contextPath}/room/view.do?no=${room.roomNo}" class="more">View more</a>
                             </div>
                         </div>
                         <div class="list_bottom">
@@ -87,7 +82,7 @@
                                         <td>${visit.memName }</td>
                                         <td>
                                         	<c:if test="${visit.visitCd == 1}" var="nameHong" scope="session">
-                                            	<button class="visitok">방문 승낙</button>
+                                            	<button class="visitok" value="${room.roomNo }" name="${visit.memNo}">방문 승낙</button>
                                             	<input type="hidden" value="${room.roomNo }">
                                             </c:if>
                                             
@@ -98,17 +93,11 @@
                                   </tbody>
                               </table>
                         </div>
-
                     </li>
-                    
-                    
                     </c:forEach>
-                    
                     <c:if test="${empty room }">
                     <li>
-                       
                        <h1 style="text-align: center; font-size: 50px; margin: 300px 0 800px;">방문신청이 없습니다.</h1>
-
                     </li>
                     </c:if>
                 </ul>
@@ -123,8 +112,27 @@
     <!-- index.js -->
     <script src="${contextPath}/resources/js/visitCheck.js"></script>
     <script>
-    	$(".visitok").on('click', ()=>{
-    		alert();
+    	$(".visitok").on('click', function(e){
+    		var visitRoomNo = e.target.value
+    		var visitMemNo = e.target.name
+    		console.log(visitRoomNo);
+    		console.log(visitMemNo);
+    		
+    		$.ajax({
+    	 		url : "${contextPath}/visit/visitAccept.do",
+    			type : "post",
+    			data : {
+    				"roomNo" : visitRoomNo,
+    				"memNo": visitMemNo 
+    				},
+    			success : function(result){
+    				
+	    		location.reload();
+    				
+    			}, error : function(){
+    				
+    			}		
+    		});
     		
     	});
     </script>

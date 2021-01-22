@@ -75,5 +75,20 @@ public class VisitService {
 		return rImg;
 	}
 
+	public int visitRoomCheck(int roomNo, int memNo) throws Exception{
+		Connection conn = getConnection();
+		int result = 0;
+		
+		result = dao.visitRoomCheck(conn, roomNo, memNo);
+		
+		if (result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 
 }

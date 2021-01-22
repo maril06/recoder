@@ -44,7 +44,6 @@ public class VisitDAO {
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println("dao result"+ result);
 		} finally {
 			close(pstmt);
 			
@@ -144,6 +143,26 @@ public class VisitDAO {
 			}
 		
 		return rImg;
+	}
+
+	public int visitRoomCheck(Connection conn, int roomNo, int memNo) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("visitRoomCheck");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, roomNo);
+			
+			result = pstmt.executeUpdate();
+			System.out.println(result);
+		} catch (Exception e) {
+			close(pstmt);
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 
