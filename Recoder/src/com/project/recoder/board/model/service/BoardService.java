@@ -174,11 +174,14 @@ public class BoardService {
 	public int deleteBoard(int boardNo) throws Exception{
 		Connection conn = getConnection();
 		
-		int result = dao.deleteBoard(conn, boardNo);
+		int result = dao.deleteBoard(conn, boardNo); //게시글 내용 지우기
 		
-		if(result >0) { //게시글 삭제 됬을 때 디비, 서버에서 이미지 삭제
-			result = dao.deleteBoardImg(conn, boardNo);
-		}
+		int imgExist = dao.imgExist(conn, boardNo); //이미지 존재하면 0보다 큼
+			
+			if(result > 0 && imgExist > 0) { //게시글 삭제 됬을 때 이미지 존재한다면 디비에서 이미지 삭제
+				result = 0;
+				result = dao.deleteBoardImg(conn, boardNo);
+			}
 		
 		if(result > 0) commit(conn);
 		else			rollback(conn);
@@ -210,7 +213,7 @@ public class BoardService {
 		Connection conn = getConnection();
 		int result = 0;
 		int boardNo = (int)map.get("boardNo");
-		
+		//System.out.println(boardNo);
 		String boardContent = (String) map.get("boardContent");
 		List<String> imageNameList  = getImgName(boardContent);
 		
@@ -221,7 +224,7 @@ public class BoardService {
 		try {
 			result = dao.updateBoard(conn, map); //디비에서 게시글 지우기
 		
-			if(result > 0) {//게시글 지우기 성공하면 이미지 지우기
+			if(result > 0 && !imageNameList.isEmpty()) {//게시글 지우기 성공하면 이미지 지우기
 				result = 0;
 				result = dao.deleteBoardImg(conn, boardNo);
 			}

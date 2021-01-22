@@ -29,3 +29,10 @@
         display: inline-block;
         width: 80px;
     }
+
+    #btn1, #btn2{
+    display: inline-block;
+    background-color: #EE9BA3;
+    color: white;
+    border: none;
+    }

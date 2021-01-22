@@ -21,7 +21,20 @@
     .board-title{
         width: 60%;
     }
-
+    .pinkBtn{
+    display: inline-block;
+    background-color: #EE9BA3;
+    color: white;
+    border: none;
+    }
+   
+    #searchBtn, #insertBtn{
+    display: inline-block;
+    background-color: #EE9BA3;
+    color: white;
+    border: none;
+    }
+    
     /* 검색창 스타일 */
     #searchForm > * {
         top: 0;

@@ -8,9 +8,9 @@ FROM V_BROKER_LOGIN
 WHERE MEM_ID = ?
 AND MEM_PW = ?
 AND  SCSN_FL = 'N'
-AND APPROVE_FL = 'Y'
 AND MEM_GRADE = 'B'
 </entry>
+
 
 <entry key="memNo">
 SELECT SEQ_MEMNO.NEXTVAL 

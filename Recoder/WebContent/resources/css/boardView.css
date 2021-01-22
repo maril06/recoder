@@ -8,6 +8,17 @@
  .wrapper{
      background-color: white
  }
+ 
+   #btn1, #btn2, #deleteBtn{
+    display: inline-block;
+    background-color: #EE9BA3;
+    color: white;
+    border: none;
+    }
+    
+    .alert-danger{
+    color#fff;
+    }
 
        #board-main{
         font-family: 'TmoneyRoundWindExtraBold';

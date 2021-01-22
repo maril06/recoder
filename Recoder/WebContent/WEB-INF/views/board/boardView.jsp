@@ -68,14 +68,14 @@
                 <div>
                <%-- 로그인된 회원과 해당 글 작성자가 같은 경우--%>
 				<c:if test="${!empty loginMember && (board.memNo == loginMember.memNo)}">
-                    <button id="deleteBtn" class="btn btn-outline-secondary float-right">삭제</button> 
+                    <button id="deleteBtn" class="btn alert-danger float-right">삭제</button> 
                   	<!-- 상세조회, 검색 할때 cp, no, sk, sv 유지 시켜야 수정후 다시 상세조회로 돌아갈수있다 -->
 					<%-- 게시글 수정 후 상세조회 페이지로 돌아오기 위한 url조합 --%>
 					<c:if test="${!empty param.sv && !empty param.sk}">
 						<%-- 검색을 통해 들어온 상세 조회 페이지인 경우 --%>
 						<c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/>
 					</c:if>
-				<a href="updateForm.do?cp=${param.cp}&no=${param.no}${searchStr}" class="btn btn-primary float-right ml-1 mr-1">수정</a>
+				<a href="updateForm.do?cp=${param.cp}&no=${param.no}${searchStr}" class="btn alert-danger float-right ml-1 mr-1">수정</a>
 				</c:if>
 			
 			
@@ -93,7 +93,7 @@
 					</c:url>
 				</c:otherwise>
 			</c:choose>
-                    <a href="${goToList}" class="btn btn-secondary float-right" >목록으로</a>
+                    <a href="${goToList}" class="btn float-right alert-danger" id="btn2" >목록으로</a>
                 </div>
                 <br> <br>
                 <hr>

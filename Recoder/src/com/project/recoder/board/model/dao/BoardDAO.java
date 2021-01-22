@@ -404,6 +404,32 @@ public class BoardDAO {
 			pstmt.setInt(3, (int)map.get("boardNo"));
 			
 			 result = pstmt.executeUpdate();
+			System.out.println("게시글 수정 : "+ result);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	/** 이미지 존재하는지 확인
+	 * @param conn
+	 * @param boardNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int imgExist(Connection conn, int boardNo) throws Exception {
+		int result = 0;
+		
+		String query = prop.getProperty("imgExist");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
 			
 		} finally {
 			close(pstmt);
