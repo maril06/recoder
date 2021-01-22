@@ -552,8 +552,7 @@ $('#report').on('click', () => {
 			  confirmButtonText: 'Yes, delete it!'
 			}).then((result) => {
 			  if (result.isConfirmed) {
-
-					
+				  
 				  $.ajax({
 				 		url : "${contextPath}/room/delete.do?no=${room.roomNo }",
 						type : "post",

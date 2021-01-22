@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.vo.Member;
@@ -33,6 +34,8 @@ public class VisitController extends HttpServlet {
 		
 		String errorMsg = null;
 		
+		HttpSession session = request.getSession();
+		
 		// 현재 페이지를 얻어옴
 		String cp = request.getParameter("cp");
 		
@@ -48,11 +51,6 @@ public class VisitController extends HttpServlet {
 				List<Room> room = service.selectRoom(brokerNo);
 				List<Visit> visit = service.selectVisit();
 				List<Room> rImg = service.selectRoomImg(brokerNo);
-				
-				System.out.println(brokerNo);
-				System.out.println(rImg);
-				
-				
 				
 				request.setAttribute("rImg", rImg);
 				request.setAttribute("room", room);
@@ -70,14 +68,19 @@ public class VisitController extends HttpServlet {
 				int roomNo = Integer.parseInt(request.getParameter("no"));
 				Member loginMember = (Member)request.getSession().getAttribute("loginMember");
 				
-				System.out.println("===="+roomNo);
 				int memNo = loginMember.getMemNo();
 				int visitCd = Integer.parseInt(request.getParameter("result"));
-				System.out.println("visitCd"+visitCd);
 				result = service.visitSend(roomNo, memNo, visitCd);
-				System.out.println(result);
 				response.getWriter().print(result);
 				
+			}
+			else if(command.equals("/visitAccept.do")) {
+				int result = 0;
+				int roomNo = Integer.parseInt(request.getParameter("roomNo"));
+				int memNo = Integer.parseInt(request.getParameter("memNo"));
+				
+				result = service.visitRoomCheck(roomNo, memNo);
+				response.getWriter().print(result);
 			}
 			
 			
