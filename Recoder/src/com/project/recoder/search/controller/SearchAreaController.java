@@ -1,9 +1,7 @@
 package com.project.recoder.search.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.project.recoder.room.model.vo.PageInfo;
 import com.project.recoder.room.model.vo.Room;
-import com.project.recoder.room.model.vo.RoomImg;
 import com.project.recoder.search.service.SearchService;
 
 
@@ -26,62 +22,45 @@ public class SearchAreaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  //String searchKey = request.getParameter("sk");
-	      String searchValue = request.getParameter("keyword");
-	      String cp = request.getParameter("cp");
-	      
-	      System.out.println(searchValue);
-	      System.out.println(cp);
-	      
-	      request.setCharacterEncoding("UTF-8");
-			
-			String uri = request.getRequestURI(); // 
-			String contextPath = request.getContextPath(); // 
-			String command = uri.substring((contextPath + "/room").length()); 
-			
-			String path = null;
-			RequestDispatcher view = null;
-			
-			String errorMsg = null;
+		request.setCharacterEncoding("UTF-8");
+		String searchKey = request.getParameter("sk");
+		
+		String searchValue = request.getParameter("keyword");
+		  
+		System.out.println(searchValue);
+		  
+		
+		
+		String uri = request.getRequestURI(); // 
+		String contextPath = request.getContextPath(); // 
+		String command = uri.substring((contextPath + "/room").length()); 
+		
+		String path = null;
+		RequestDispatcher view = null;
+		
+		String errorMsg = null;
 
 	      
 	      try {
 	         SearchService service = new SearchService();
 	         
-//	         if(command.equals("/searchKeyword.do")) {
-	        	 System.out.println("안녕");
-	         Map<String, Object> map = new HashMap<String, Object>();
-	         //map.put("searchKey", searchKey);
-	         map.put("searchValue", searchValue);
-	         map.put("currentPage", cp);
+	         List<Room> roomList = null;
 	         
-	         // 페이징 처리를 위한 데이터를 계산하고 저장하는 객체 PageInfo 얻어오기
-	         PageInfo pInfo = service.getPageInfo(map);
-	         
-	         // 검색 게시글 목록 조회
-	         List<Room> rList = service.searchBoardList(map, pInfo);
+	         if (searchValue.length() != 0) {
+	        	 if(searchValue.substring(0,1).equals("#")) {
+	        		 roomList = service.searchSubwayList(searchValue);
+	        	 }else {
+	        		 roomList = service.searchRoomList(searchValue);
+	        	 }
+			}
+ 
 	         
 	         
-	         // 결과 확인
-	         /* System.out.println(pInfo);
-	         for(Board b : bList) {
-	            System.out.println(b);
-	         } */ 
-	         
-	         if(rList != null) {
-	             List<RoomImg> fList = service.searchThumbnailList(map, pInfo);
-	             
-	             if(!fList.isEmpty()) { // 조회된 썸네일 목록이 있다면
-	                request.setAttribute("fList", fList);
-	             }
-	             
-	          }
 	         
 	         // 조회된 내용과 PageInfo 객체를 request객체에 담아서 요청 위임
 	         path = "/WEB-INF/views/room/searchRoom.jsp";
-	         
-	         request.setAttribute("rList", rList);
-	         request.setAttribute("pInfo", pInfo);
+
+	         request.setAttribute("roomList", roomList);
 	         
 	         view = request.getRequestDispatcher(path);
 	         view.forward(request, response);

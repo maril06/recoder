@@ -108,8 +108,32 @@ public class Room {
 	}
 
 
-	public Room(int int1, String string, String string2, int int2, String string3, String string4) {
-		// TODO Auto-generated constructor stub
+
+
+
+	public Room(int roomNo, String roomTitle, String roomInfo, int gMemNo, String pet) {
+		super();
+		this.roomNo = roomNo;
+		this.roomTitle = roomTitle;
+		this.roomInfo = roomInfo;
+		this.gMemNo = gMemNo;
+		this.pet = pet;
+	}
+
+	public Room(int roomNo, String pet) {
+		super();
+		this.roomNo = roomNo;
+		this.pet = pet;
+	}
+
+	
+
+	public Room(String bed, String pet, String roomTitle, String roomInfo) {
+		super();
+		this.bed = bed;
+		this.pet = pet;
+		this.roomTitle = roomTitle;
+		this.roomInfo = roomInfo;
 	}
 
 	public int getRoomNo() {

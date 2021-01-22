@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"></c:set>
 
 <!DOCTYPE html>
@@ -49,7 +51,12 @@
                     <li>
                         <div class="list_top">
                             <p class="check_img">
-                                <a href=""><img src="images/pp3.png" alt=""></a>
+                            	<c:forEach var="rImg" items="${rImg }">
+                            		<c:if test="${rImg.roomNo == room.roomNo}" var="nameHong" scope="session">
+                            		
+	                               		<a href=""><img src="${contextPath}/resources/images/rooms/${rImg.pet}" alt=""></a>
+	                               	</c:if>
+                            	</c:forEach>
                             </p>
                             
                             
@@ -77,20 +84,28 @@
                                   </thead>
                                   <tbody>
                                     <c:forEach var="visit" items="${visit}" varStatus="vst">
-			                            <c:if test="${visit.roomNo == room.roomNo && visit.visitCd == 1}" var="nameHong" scope="session">
+                                    	
+			                            <c:if test="${visit.roomNo == room.roomNo}" var="nameHong" scope="session">
 		
-											<c:forEach var="visitMember" items="${visitMember}" varStatus="vst">
-												<c:if test="${visitMember.roomNo == room.roomNo }">
                                     <tr>
-                                        <td>${visitMember.visitDt }</td>
-                                        <td>${visitMember.memName }</td>
+                                    
                                         <td>
-                                            <button>방문 승낙</button>
-                                            <button>방문 완료</button>
+                                        
+                                        
+                                        <fmt:formatDate value="${visit.visitDt }" pattern="yyyy년 MM월 dd일 "/>
+                                        </td>
+                                        <td>${visit.memName }</td>
+                                        <td>
+                                        	
+                                        	<c:if test="${visit.visitCd == 1}" var="nameHong" scope="session">
+                                            	<button id="visitok">방문 승낙</button>
+                                            </c:if>
+                                            <c:if test="${visit.visitCd == 2}" var="nameHong" scope="session">
+                                            	<button>방문 X</button>
+                                            	<button>방문 완료</button>
+                                            </c:if>
                                         </td>
                                     </tr>
-                                    			</c:if>
-                                    		</c:forEach>
                                         </c:if>
 	                                 </c:forEach>
                                   </tbody>

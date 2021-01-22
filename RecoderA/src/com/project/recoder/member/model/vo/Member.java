@@ -3,7 +3,6 @@ package com.project.recoder.member.model.vo;
 public class Member {
 	private int memNo; // 회원번호
 	private String memId; // id
-	private String memPw; // 패스워드
 	private String memNick; // 닉네임
 	private String memTel; // 전화번호
 	private String memEmail; // 이메일
@@ -11,19 +10,22 @@ public class Member {
 	private String memGrade; //회원등급 (G,B,A)
 	
 	public Member() {}
-
-	public Member(int memNo, String memId, String memPw, String memNick, String memTel, String memEmail,
-			String memStateFl, String memGrade) {
+	
+	
+	
+	public Member(int memNo, String memId, String memNick, String memTel, String memEmail, String memStateFl,
+			String memGrade) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
-		this.memPw = memPw;
 		this.memNick = memNick;
 		this.memTel = memTel;
 		this.memEmail = memEmail;
 		this.memStateFl = memStateFl;
 		this.memGrade = memGrade;
 	}
+
+
 
 	public int getMemNo() {
 		return memNo;
@@ -39,14 +41,6 @@ public class Member {
 
 	public void setMemId(String memId) {
 		this.memId = memId;
-	}
-
-	public String getMemPw() {
-		return memPw;
-	}
-
-	public void setMemPw(String memPw) {
-		this.memPw = memPw;
 	}
 
 	public String getMemNick() {
@@ -91,9 +85,10 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPw=" + memPw + ", memNick=" + memNick + ", memTel="
-				+ memTel + ", memEmail=" + memEmail + ", memStateFl=" + memStateFl + ", memGrade=" + memGrade + "]";
+		return "Member [memNo=" + memNo + ", memId=" + memId + ", memNick=" + memNick + ", memTel=" + memTel
+				+ ", memEmail=" + memEmail + ", memStateFl=" + memStateFl + ", memGrade=" + memGrade + "]";
 	}
 	
 	
+
 }

@@ -1,6 +1,7 @@
 package com.project.recoder.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import com.project.recoder.member.model.service.MemberService;
 import com.project.recoder.member.model.vo.Member;
+import com.project.recoder.room.model.vo.Room;
+import com.project.recoder.room.model.vo.RoomImg;
 
 @WebServlet("/member/*")
 public class MemberController extends HttpServlet {
@@ -143,42 +146,56 @@ public class MemberController extends HttpServlet {
 			
 			//마이페이지폼 컨트롤러------------------
 			else if(command.equals("/memberMyPage.do")) {
-	    		path = "/WEB-INF/views/member/memberMyPage.jsp";
-	    		view = request.getRequestDispatcher(path);
-	    		view.forward(request, response);
+				int memNo = loginMember.getMemNo();
+				List<Room> roomList = service.selectRoomList(memNo); //찜한매물 리스트
+				
+				if(roomList != null) {
+					List<RoomImg> imgList = service.selectimgList(memNo); //찜한 매물 이미지		
+					
+					if(!imgList.isEmpty()) {
+						request.setAttribute("imgList", imgList);
+					}
+				}
+		            
+				path = "/WEB-INF/views/member/memberMyPage.jsp";
+				request.setAttribute("roomList", roomList);
+				
+				view = request.getRequestDispatcher(path);
+				view.forward(request, response);
 	    	}
 			
 			//정보수정폼 컨트롤러---------------------
 			else if(command.equals("/updateMember.do")) {
-	    		path = "/WEB-INF/views/member/updateMember.jsp";
+	    		path = "/WEB-INF/views/member/updateMember2.jsp";
 	    		view = request.getRequestDispatcher(path);
 	    		view.forward(request, response);
 	    	}
 			
 			//비밀번호 체크 컨트롤러-------------------------------------
 			else if (command.equals("/checkMember.do")) {
+				
+				int memNo = loginMember.getMemNo();
+				
+				
+				String password = request.getParameter("userPw");
+
 		         // 비즈니스 로직 처리 후 결과 반환 받기
-		         int result = new MemberService().chkPwd(loginMember, chkPw);
-//		         System.out.println("result : " + result);
-//		         System.out.println("chkPwd : " + chkPw);
-		         
-		         if(result > 0) { 
+		         int result = new MemberService().chkPwd(memNo, password);
 
-		            url = "updateMember.do";
-		            
-		         }else { 
+		         
+		         System.out.println(result);
+		         
 
-		            url = request.getHeader("referer");
-		         }
+		         response.getWriter().print(result);
 		         
-		         
-		         // 요청했던 페이지로 다시 돌아가라
-		         response.sendRedirect(url);
 		    	}
 			
 			//탈퇴 컨트롤러----------------------------
 			else if(command.equals("/secessionMember.do")){
-		         int result = new MemberService().updateStatus(loginMember, chkPw);
+				
+				int memNo = loginMember.getMemNo();
+				String password = request.getParameter("userPw");
+		         int result = new MemberService().updateStatus(memNo, password);
 		         
 		         if(result > 0) { // 비밀번호 변경 성공
 
@@ -187,22 +204,12 @@ public class MemberController extends HttpServlet {
 			            // 세션 무효화 시 현재 얻어온 세션을 사용할 수 없는 문제점이 있다!
 			            // -> 새로운 세션을 얻어와야한다.
 			            session = request.getSession();
-			            
-			            // 시작 주소
-			            url = request.getContextPath();
-			            
-			         }else if(result == 0) { 
-
-			            url = request.getHeader("referer");
-			            
-			         }else { // 현재 비밀번호 불일치
-
-			            url = request.getHeader("referer");
-			         }
 			         
+			         }
 
-			         response.sendRedirect(url);
+		         response.getWriter().print(result);
 	    	}
+			
 	    	
 			//정보수정 컨츠롤러---------------------------
 	    	else if(command.equals("/updateMemberServlet.do")){
@@ -210,14 +217,12 @@ public class MemberController extends HttpServlet {
 	    		
 	    		
 	    		//전송된 파라미터를 변수에 저장
-	    		String memberNickname = request.getParameter("userNickname");
-	    		String memberPw = request.getParameter("pw1");
-	    		String memberEmail = request.getParameter("userEmail");
+	    		String memberNickname = request.getParameter("nickname");
+	    		String memberPw = request.getParameter("password");
+	    		String memberEmail = request.getParameter("email");
 	    		
-	    		String phone1 = request.getParameter("phone1");
-	    		String phone2 = request.getParameter("phone2");
-	    		String phone3 = request.getParameter("phone3");
-	    		String memberPhone = phone1 + "-" + phone2 + "-" + phone3; //전화번호를 '-' 구분자로 하여 하나로 합치기
+	    		String tel = request.getParameter("usertel");
+	    		
 	    		session = request.getSession();
 	    		loginMember = (Member)session.getAttribute("loginMember");
 	    		
@@ -227,7 +232,7 @@ public class MemberController extends HttpServlet {
 	    		member.setMemNo( loginMember.getMemNo() );
 	    		member.setMemNick(memberNickname);
 	    		member.setMemEmail(memberEmail);
-	    		member.setMemTel(memberPhone);
+	    		member.setMemTel(tel);
 	    		
 	    			//비즈니스 로직 수행 후 결과 반환
 	    			int result = new MemberService().updateMember(member, memberPw); 	 
@@ -256,13 +261,33 @@ public class MemberController extends HttpServlet {
 	    		String room_no = request.getParameter("roomNo");
 				String mem_no = request.getParameter("memNo");
 
-				int result = service.heartcheck(room_no,mem_no);
+				System.out.println(room_no);
 				
+				int result = service.heartcheck(room_no,mem_no);
+				int result2 = 0;
+				
+				System.out.println(result);
 				if(result>0) {
 					result = service.heartDelete(room_no,mem_no);
+					if(result>0) result2=-1; //삭제성공
+					else result2 = 0;
 				}else {
-					result = service.heartInsert(room_no,mem_no);					
+					result = service.heartInsert(room_no,mem_no);
+					if(result>0) result2=1; //삽입성공
+					else result2 = 0;
 				}
+				
+				response.getWriter().print(result2);
+				
+	    	}
+			
+	    	else if(command.equals("/heartChk.do")){
+	    		String room_no = request.getParameter("roomNo");
+				String mem_no = request.getParameter("memNo");
+
+				System.out.println(room_no);
+				
+				int result = service.heartcheck(room_no,mem_no);
 				
 				response.getWriter().print(result);
 				

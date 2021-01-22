@@ -4,18 +4,18 @@ $('.slider-for').slick({
     arrows: false,
     fade: true,
     asNavFor: '.slider-nav'
-  });
+ });
   
-  $('.slider-nav').slick({
+$('.slider-nav').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
     asNavFor: '.slider-for',
     dots: false,
     centerMode: true,
     focusOnSelect: true,
-    arrows: false
-  });
-          
+	arrows: false
+});
+      
 
 // 헤더 이벤트
 var scrollTop = 0;
@@ -152,63 +152,12 @@ $("#addRoom").on("click", function(){
   $.each(having,  function(index, item){ 
     options[index] = item.id;
 
-	// form태그 요소 선택
-	// <input type="hidden" name="options" value="item.value">
-	// form.append(input)
-    
   })
   
   console.log(roomTitle);
   console.log(roomInfo);
   console.log(options);
 
-//  
-//	options=1&optinos=2&options=3
-
-  // 배열 받기 request.getParameterValues()
-
-			// 회원번호를 얻어와서 변수에 저장
-			// var replyWriter = "${loginMember.memberNo}";
-		
-		
-		/*
-			
-			//  js 배열 형식을 바꾸기위한 구문
-			$.ajaxSettings.traditional = true;
-			//	options=1&optinos=2&options=3
-			$.ajax({
-				url : "roomInsert.do",
-				data : {"replyWriter" : replyWriter,
-						"options" : options,
-			            "roomTitle" : roomTitle, 
-			            "roomInfo" : roomInfo,
-			            "roomAddr" : roomAddr,
-			            "careFee" : careFee,
-			            "typeOfRent" : typeOfRent,
-			            "deposit" : deposit,
-			            "monthRent" : monthRent,
-			            "roomStruc" : roomStruc,
-			            "roomFloor" : roomFloor,
-			            "pubSize" : pubSize,
-			            "realSize" : realSize,
-			            "roomCount" : roomCount,
-			            "stationAddr" : stationAddr            
-			          },
-				type : "post",
-				success : function(result){
-						console.log("성공");
-
-				},
-				error : function(){
-					console.log("댓글 등록 실패");
-				}
-					
-			});
-		
-
-*/
-// e.preventDefault(); // 임시 
-	
 });
 
 function insertteValidate(e){
@@ -247,15 +196,6 @@ function insertteValidate(e){
 	$.each(having,  function(index, item){ 
 		options[index] = item.id;
 	
-//		var input = $("<input type='hidden' name='options[index]'>").val(item.id);
-//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
-//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
-		
-		// var input = $("<input type='hidden' name='"+ yes[index] +"'>").val(item.id);
-		//  yes = $("<input type='hidden' name='"+ options[index] +"'>").val("Y");
-		
-		
-		
 		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
 		//var input = $("<input type='hidden' name='"+ options[index] +"'>").val("Y");
 		yes = $("<input type='hidden' name='"+ options[index] +"'>").val("Y");
@@ -263,9 +203,6 @@ function insertteValidate(e){
 		$("#insertForm").append(input2);
 		
 	
-		// form태그 요소 선택
-		// <input type="hidden" name="options" value="item.value">
-		// form.append(input)
 	    
 	  })
 
@@ -273,24 +210,12 @@ function insertteValidate(e){
 	$.each(none,  function(index, item){ 
 		options3[index] = item.id;
 	
-//		var input = $("<input type='hidden' name='options[index]'>").val(item.id);
-//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
-//		var input2 = $("<input type='hidden' name='options2'>").val(item.id);
-		
-		// var input = $("<input type='hidden' name='"+ yes[index] +"'>").val(item.id);
-		
 		var input3 = $("<input type='hidden' name='options3'>").val(item.id);
 		no = $("<input type='hidden' name='"+ options3[index] +"'>").val("N");
 		$("#insertForm").append(no);
 		$("#insertForm").append(input3);
 		
-	
-		// form태그 요소 선택
-		// <input type="hidden" name="options" value="item.value">
-		// form.append(input)
 	  })
-
-
 
 }
 

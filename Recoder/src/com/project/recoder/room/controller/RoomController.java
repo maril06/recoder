@@ -203,8 +203,8 @@ public class RoomController extends HttpServlet {
 			else if(command.equals("/roomUpdateForm.do")) {
 				
 				// 매물 번호
-//				int roomNo = Integer.parseInt(request.getParameter("no"));
-				 int roomNo = 62;
+				int roomNo = Integer.parseInt(request.getParameter("no"));
+				// int roomNo = 62;
 				Room room = service.updateView(roomNo);
 				if(room !=null) {
 					List<RoomImg> mList = service.selectRoomImg(roomNo);
@@ -373,7 +373,7 @@ public class RoomController extends HttpServlet {
 			
 			// 매물 상세 =================================================================================================
 			else if(command.equals("/view.do")) {
-				int roomNo = 62; // 임시
+				int roomNo = Integer.parseInt(request.getParameter("no")); // 임시
 				// request.getParameter로 얻어와야함!!
 				
 

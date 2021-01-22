@@ -2,6 +2,9 @@ package com.project.recoder.member.model.dao;
 
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.member.model.vo.Member;
+import com.project.recoder.room.model.vo.Room;
+import com.project.recoder.room.model.vo.RoomImg;
+
 import static com.project.recoder.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
@@ -9,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class MemberDAO {
@@ -103,13 +108,13 @@ public class MemberDAO {
 		return result;
 	}
 
-	public int chkPwd(Member loginMember, String chkPw, Connection conn) throws Exception{
+	public int chkPwd(int memNo, String chkPw, Connection conn) throws Exception{
 		int result = 0;
 		String query = prop.getProperty("chkPwd");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, loginMember.getMemNo());
+			pstmt.setInt(1, memNo);
 			pstmt.setString(2, chkPw);
 			
 			rset = pstmt.executeQuery();
@@ -123,14 +128,16 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	
 
-	public int updateStatus(Connection conn, Member loginMember) throws Exception{
+	public int updateStatus(Connection conn, int memNo) throws Exception{
 		int result = 0;
 		String query = prop.getProperty("updateStatus");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, loginMember.getMemNo());
+			pstmt.setInt(1, memNo);
 			
 			result = pstmt.executeUpdate();
 		}finally {
@@ -139,6 +146,8 @@ public class MemberDAO {
 		
 		return result;
 	}
+	
+	
 
 	public String currentPW(Connection conn, Member member) throws Exception{
 		String currentPw = null;
@@ -164,7 +173,7 @@ public class MemberDAO {
 	}
 
 	public int updateMember(Connection conn, Member member) throws Exception{
-int result =0; 
+		int result =0; 
 		
 		try {
 			String query = prop.getProperty("updateMember");
@@ -272,6 +281,59 @@ int result =0;
 		}
 		
 		return result;
+	}
+	
+	
+	public List<RoomImg> selectimgList(Connection conn, int memNo) throws Exception{
+		List<RoomImg> imgList = null;
+		String query = prop.getProperty("selectimgList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			imgList = new ArrayList<RoomImg>();
+			
+			while (rset.next()) {
+	            RoomImg roomImg = new RoomImg(rset.getString("ROOM_IMG_NAME"), rset.getInt("ROOM_NO"));
+	            imgList.add(roomImg);
+	         }
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return imgList;
+	}
+
+	public List<Room> selectRoomList(Connection conn, int memNo) throws Exception{
+		List<Room> roomList = null;
+		String query = prop.getProperty("selectRoomList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			roomList = new ArrayList<Room>();
+			
+			while (rset.next()) {
+	            Room room = new Room(rset.getInt(1), rset.getString(2));
+	            roomList.add(room);
+	         }
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return roomList;
 	}
 	
 

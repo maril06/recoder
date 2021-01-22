@@ -87,6 +87,11 @@ a {
     transform: translate(30%, -25%);
     
 }
+
+.message .msg_box ul > .member_list .msg_left .name{
+	font-size: 14px;
+}
+
 .message .msg_box ul > .member_list .msg_left img{
     width: 100%;
     

@@ -15,15 +15,19 @@
 	</entry>
 	
 	<entry key="selectVisit">
-		SELECT MEM_NO ,ROOM_NO ,VISIT_DT ,VISIT_CODE 
-		FROM VISIT
-		WHERE VISIT_CODE = ?		
-	</entry>
-
-	<entry key="selectVisitMember">
-		SELECT MEM_NICK, VISIT_DT, ROOM_NO
+		SELECT MEM_NO ,ROOM_NO ,VISIT_DT ,VISIT_CODE, MEM_NICK
 		FROM VISIT
 		JOIN MEMBER USING(MEM_NO)
-		WHERE VISIT_CODE = 1
+	</entry>
+
+
+	
+	
+	<!-- 이미지 가져오기 -->
+	<entry key="selectRoomImg">
+		SELECT ROOM_NO, ROOM_IMG_NAME
+		FROM ROOM
+		JOIN ROOM_IMG USING(ROOM_NO)
+		WHERE DELETE_FL = 'N' AND GMEM_NO = ? AND ROOM_IMG_LEVEL = 0
 	</entry>
 </properties>

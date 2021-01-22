@@ -1,401 +1,310 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath"
+	value="${pageContext.servletContext.contextPath }" scope="application"></c:set>
+
+
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="kr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>html문서 제목</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <!-- 부트스트랩 사용을 위한 라이브러리 추가 -->
-    <!-- 제이쿼리가 항상 먼저여야함 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
-    <style>
-        
-        .wrapper {
-            width: 70%;
-            min-width: 1100px;
-            margin: 0 auto;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        .stitle{
-            text-align: center;
-        }
+<!-- reset -->
+<link rel="stylesheet" href="${contextPath}/resources/css/reset.css">
 
-        table {
-            border-top: 3px solid gray;
-            border-collapse: collapse;
-            margin: 0 auto;
-            width: 100%;
-        }
-        td,tr {
-            border-bottom: 1px solid lightgray;
-            padding: 1%;
-        }
+<!-- bootstrap -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+	crossorigin="anonymous">
 
-        #td1 {
-            background-color: rgb(243, 243, 243);
-            text-align: center;
-        }
+<!-- brokerInfo.css -->
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/brokerInfo.css">
 
-        .bookmarkroom{
-            height: 40%;
-        }
+<!-- slick.css -->
+<link rel="stylesheet" href="${contextPath}/resources/css/slick.css">
 
-        .roomImg1{
-            width: 100%;
-            height: 400px;
-            background-color: lightgray;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
 
-        .roomImg1 div{
-            float: left;
-        }
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
 
-        .review{
-            clear: both;
-        }
+<!-- slick.js -->
+<script src="${contextPath}/resources/js/slick.min.js"></script>
 
-        .roomImg2 div{
-            float: left;
-        }
+<!-- font awesome -->
+<script src="${contextPath}/resources/js/fontawesome.js"></script>
 
-        .review_content_star, .review_content{
-            clear: both;
-        }
-
-        .roomImg1_1{
-            width: 80%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .img{
-            margin-right: 2%;
-            margin-left: 2%;
-        }
-
-        .roomImg2{
-            width: 100%;
-            height: 500px;
-            background-color: lightgray;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .roomImg2_1{
-            width: 80%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .review_area{
-            margin-right: 2%;
-            margin-left: 2%;
-            width: 100%;
-            height: 100%;
-        }
-
-        .member_info, .bookmarkroom, .review{
-            margin-top: 100px;
-        }
-
-        .review_content_star{
-            width: 100%;
-            height: 100%;
-        }
-
-        .review_content{
-            min-width: 100%;
-            height: 100%;
-            background-color: rgb(235, 235, 235);
-            margin-top: 5%;
-        }
-
-        .roomImg2 p{
-            margin-top: 5%;
-            width: 100%;
-            height: 150px;
-        }
-
-        .btn_area{
-            float: right;
-            margin-top: 3%;
-        }
-
-        .modal{
-            display: none;
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        } 
-
-        #secession{
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
-        }
-
-        #checkPwd{
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 30%;
-        }
-
-        #modal_content{
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
-        }
-
-        .m_btn_area{
-            float: right;
-            margin: 0;
-        }
-
-        .bookmark, .review_area, #prev, #next{
-            cursor: pointer;
-        }
-
-        
-    </style>
+<title>내 방</title>
 </head>
-
 <body>
-<jsp:include page="../common/header.jsp"></jsp:include>
-    <div class="wrapper">
-        <div class="member_info">
-            <div class="title_area stitle"><img src="${contextPath}/resources/images/gCommon/member.png" height="40px"> 회원정보</h3></div><br>
-            <div class="info_area">
-                <table>
-                    <tr>
-                        <td id="td1">닉네임</td>
-                        <td>${loginMember.memNick}</td>
-                    </tr>
-                    <tr>
-                        <td id="td1">이메일</td>
-                        <td>${loginMember.memEmail}</td>
-                    </tr>
-                    <tr>
-                        <td id="td1">전화번호</td>
-                        <td>${loginMember.memTel}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="btn_area">
-                <button type="button" id="modify_btn" class="btn btn-primary">정보 수정</button>
-                <button type="button" id="secession_btn" class="btn btn-primary">회원 탈퇴</button>
-            </div>
-        </div>
+	<div class="wrapper">
+		<!-- header -->
+		<!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
+		<jsp:include page="../common/header.jsp"></jsp:include>
 
 
-       
+		<section class="broker_mypage">
+			<h1>일반회원 마이 페이지</h1>
+			<div class="broker_info">
+				<div class="broker_card clearfix">
+					<table class="table table-dark">
+						<thead>
+							<tr>
+								<th colspan="4">${loginMember.memNick }님의정보</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row"><i class="fas fa-phone-office"></i></th>
+								<td colspan="3">${loginMember.memTel }</td>
+							</tr>
+							<tr>
+								<th scope="row"><i class="fas fa-at"></i></th>
+								<td colspan="3">${loginMember.memEmail }</td>
+							</tr>
+						</tbody>
+					</table>
 
-        <div class="bookmarkroom">
-            <div class="title_area stitle"><img src="${contextPath}/resources/images/gCommon/bookmarkImg2.png" height="40px" id="bookmarkImg1"> 찜한 매물</h3></div><br>
-            <div class="roomImg1">
-                <div class="roomImg1_1">
-                    <div id="prev"><img src="${contextPath}/resources/images/gCommon/left.png" width="50px"></div>
-                    <div class="img bookmark">
-                        <img src="img/room1.jpg" width="100%">
-                        <div class="roomTitle">
-                            <p>
-                                매물 게시글 제목
-                            </p>
-                        </div>
-                    </div>
-                    <div class="img bookmark">
-                        <img src="img/room1.jpg" width="100%">
-                        <div class="roomTitle">
-                            <p>
-                                매물 게시글 제목
-                            </p>
-                        </div>
-                    </div>
-                    <div class="img bookmark">
-                        <img src="img/room1.jpg" width="100%">
-                        <div class="roomTitle">
-                            <p>
-                                매물 게시글 제목
-                            </p>
-                        </div>
-                    </div>
-                    <div class="img bookmark"><img src="img/room1.jpg" width="100%">
-                        <div class="roomTitle">
-                         <p>
-                            매물 게시글 제목
-                        </p>
-                        </div>
-                    </div>
-                    <div id="next"><img src="${contextPath}/resources/images/gCommon/right.png" width="50px"></div>
-                </div>
-            </div>
-        </div>
+					<button class="btn btn-danger" id="delete">회원 탈퇴</button>
+					<div class="broker_link clearfix">
+						<a id="modify"><span>내 정보 수정</span></a>
+					</div>
+				</div>
+			</div>
+		</section>
 
-        <div class="review">
-            <div class="title_area stitle"><img src="${contextPath}/resources/images/gCommon/reviewstar.png" height="40px"> 후기</h3></div><br>
-            <div class="roomImg2">
-                <div class="roomImg2_1">
-                    <div id="prev"><img src="${contextPath}/resources/images/gCommon/left.png" width="50px"></div>
+		<section class="room_manager">
+			<h1>찜한 매물</h1>
+			<div class="room_wrapper clearfix">
+				<div class="room_list autoplay clearfix">
+					<c:forEach var="room" items="${roomList}">
+						<c:forEach var="thumbnail" items="${imgList}" varStatus="status">
+								<c:if test="${room.roomNo == thumbnail.parentRoomNo}">
+										<div class="room">
+											<p class="img">
+												<a href="${contextPath}/room/view.do?no=${room.roomNo }"><img
+													src="${contextPath}/resources/images/rooms/${thumbnail.roomImgName}" id="${room.roomNo }" alt=""></a>
+											</p>
+											<h3>${room.roomTitle}</h3>
+											
+											<a href="${contextPath}/room/view.do?no=${room.roomNo }" class="more">더보기</a>
+										</div>
+									
+								</c:if>
+						</c:forEach>
+					</c:forEach>
+						
+						
+						
 
-                    <div class="review_area">
-                        <div class="img"><img src="img/room1.jpg" width="100%"></div>
-                        <div class="review_content_star">
-                            <div id="reviewstar">
-                                <span class="reviewItems_star__2EEY8">
-                                <span class="reviewItems_star_red__1mZYz" style="width:100%">평점</span>
-                                </span>5
-                            </div>
-                            <div class="review_content">
-                                <p>
-                                    방이 엄청 깔끔하고 생각보다 넓어요 
-                                    근데 조금 추울 것 같은 기분이 들고,  
-                                    위치가 그렇게 좋지는 않았어요...ㅠㅠ
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review_area">
-                        <div class="img"><img src="img/room1.jpg" width="100%"></div>
-                        <div class="review_content_star">
-                            <div id="reviewstar">
-                                <span class="reviewItems_star__2EEY8">
-                                <span class="reviewItems_star_red__1mZYz" style="width:100%">평점</span>
-                                </span>5
-                            </div>
-                            <div class="review_content">
-                                <p>
-                                    별로임
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review_area">
-                        <div class="img"><img src="img/room1.jpg" width="100%"></div>
-                        <div class="review_content_star">
-                            <div id="reviewstar">
-                                <span class="reviewItems_star__2EEY8">
-                                <span class="reviewItems_star_red__1mZYz" style="width:100%">평점</span>
-                                </span>5
-                            </div>
-                            <div class="review_content">
-                                <p>
-                                    ......
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review_area">
-                        <div class="img"><img src="img/room1.jpg" width="100%"></div>
-                        <div class="review_content_star">
-                            <div id="reviewstar">
-                                <span class="reviewItems_star__2EEY8">
-                                <span class="reviewItems_star_red__1mZYz" style="width:100%">평점</span>
-                                </span>5
-                            </div>
-                            <div class="review_content">
-                                <p>
-                                    방 엄청 좋아요 꿈꾸던 방임 가격이 쎄요 근데
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="next"><img src="${contextPath}/resources/images/gCommon/right.png" width="50px"></div>
-                </div>
-            </div>
-        </div>
-        
-              <!-- 모달창 --><!-- 탈퇴 -->
+				</div>
+				<%-- <div class="add_room">
+					<a href="${contextPath }/room/roomInsertForm.do">매물 등록${pwch }</a>
+				</div> --%>
+			</div>
+		</section>
+		
+		
+		<section class="room_manager">
+			<h1>후기 남긴 매물</h1>
+			<div class="room_wrapper clearfix">
+				<div class="room_list autoplay clearfix">
+					<c:forEach var="room" items="${roomList}">
+						<c:forEach var="thumbnail" items="${imgList}" varStatus="status">
+								<c:if test="${room.roomNo == thumbnail.parentRoomNo}">
+										<div class="room">
+											<p class="img">
+												<a href=""><img
+													src="${contextPath}/resources/images/rooms/${thumbnail.roomImgName}" alt=""></a>
+											</p>
+											<h3>${room.roomTitle}</h3>
+											
+											<a href="#" class="more">더보기</a>
+										</div>
+									
+								</c:if>
+						</c:forEach>
+					</c:forEach>
+						
+						
+						
 
-	<!-- 비밀번호 확인 -->
-        <div id="modal2" class="modal">
-            <div id="checkPwd">
-                <form id="modal_form" method="POST" onsubmit="return checkPwdValidate();">
-                    <span class="close" onclick="closeModal();">&times;</span>  
-                    <br>
-                    <div id="title"><h1>비밀번호 확인</h1></div><br>
-                    <span>고객님의 비밀번호 확인 필요합니다. 비밀번호를 입력해주세요</span><br><br>
-                    비밀번호 : &nbsp&nbsp&nbsp<input type="password" placeholder="비밀번호를 입력하세요" id="chkPw" name = "chkPw"><br>
-                    
-                    
-                    <div class="m_btn_area">
-                        <button type="submit" class="btn btn-primary">확인</button>
-                        <button type="button" onclick="closeModal();" class="btn btn-primary">취소</button>
-                    </div><br><br>
-                </form>
-            </div>
-        </div>
-        
-        
+				</div>
+			</div>
+		</section>
 
-        <div id="modal3" class="modal">
-            <div id="modal_content">
-                <p>요청이 완료되었습니다.</p>
-                <button type="button" onclick="closeModal();" class="btn btn-primary">확인</button>
-            </div>
-        </div>
-    </div>
+		<!-- footer -->
+		<jsp:include page="../common/footer.jsp"></jsp:include>
+
+	</div>
+
+
+	<!-- sweetalert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+	<!-- index.js -->
+	<script src="${contextPath}/resources/js/brokerInfo.js"></script>
+	<script type="text/javascript">
     
-    <script>
-        var modal1 = document.getElementById("modal1");
-        var modal2 = document.getElementById("modal2");
-        var modal3 = document.getElementById("modal3");
-        var span = document.getElementsByClassName("close")[0];
-        
-        $("#modify_btn").on("click", function(){
-            $("#modal_form").attr("action", "checkMember.do");
-            modal2.style.display = "block";
-        });
-        
-        $("#secession_btn").on("click", function(){
-            $("#modal_form").attr("action", "secessionMember.do");
-            modal2.style.display = "block";
-        });
-        
-        
- 
+    
+  
+        				  
 
 
-        function openModal3(){
-            modal1.style.display = "none";
-            modal2.style.display = "none";
-            modal3.style.display = "block";
-        }
+	$('#modify').on('click', function () {
 
-        function closeModal(){
-            $(".modal").css("display", "none");
-        }
+        Swal.fire({
+            title: '비밀번호를 입력해주세요',
+            input: 'password',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var inputPw = result.value;
 
-        $("input:radio[name=reason]").on("click", function(){
-            if(!$("input:radio[id=reason4]").is(':checked')){
-                $("input[id=reason_content]").val('');
-                $("input[id=reason_content]").attr("disabled",true);
-            }else{
-                $("input[id=reason_content]").attr("disabled",false);
+
+                $.ajax({
+                    url: "${contextPath}/member/checkMember.do",
+                    type: "post",
+                    data: { "userPw": inputPw },
+                    success: function (result) {
+                    	console.log(result);
+                        if (result > 0) {
+                        	swal.fire({
+                        		title : '성공',
+                        		confirmButtonText: '확인',
+                                showLoaderOnConfirm: true,
+                                allowOutsideClick: () => !Swal.isLoading()
+                                
+                        	}).then((result) => {
+                        		if(result.isConfirmed){
+                        			location.href="http://localhost:8080/Recoder/member/updateMember.do";
+                        		}
+                        	}
+                        	)
+
+                        }else{
+                        	Swal.fire(
+									'비밀번호 오류!',
+									'비밀번호가 일치하지 않습니다',
+									'error'
+								);
+                        }
+
+                    }
+                });
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                )
             }
-        });
+        })
+    });
+        	  
+        	  
+    $('#delete').on('click', function(){
+
+    Swal.fire({
+    	  title: '비밀번호를 입력해주세요',
+    	  input: 'password',
+    	  inputAttributes: {
+    	    autocapitalize: 'off'
+    	  },
+    	  showCancelButton: true,
+    	  confirmButtonText: '확인',
+    	  showLoaderOnConfirm: true,
+    	  allowOutsideClick: () => !Swal.isLoading()
+    	}).then((result) => {
+    	  if (result.isConfirmed) {
+
+    		  
+    		  var inputPw = result.value;
+    		  
+    		  const swalWithBootstrapButtons = Swal.mixin({
+    			  customClass: {
+    			    confirmButton: 'btn btn-success',
+    			    cancelButton: 'btn btn-danger'
+    			  },
+    			  buttonsStyling: false
+    			})
+
+    			swalWithBootstrapButtons.fire({
+    			  title: '정말 탈퇴하시겠습니까?',
+    			  text: "탈퇴하면 계정이 삭제됩니다",
+    			  icon: 'question',
+    			  showCancelButton: true,
+    			  confirmButtonText: '네',
+    			  cancelButtonText: '아니요',
+    			  reverseButtons: true
+    			}).then((result) => {
+    			  if (result.isConfirmed) {
+    				  
+    				  
+    				  $.ajax({
+    						url : "${contextPath}/member/secessionMember.do",
+    						type : "post",
+    						data: {"userPw": inputPw},
+    						success : function(result){
+    							if(result > 0) {
+   				    			    swalWithBootstrapButtons.fire(
+   				    			      '탈퇴되었습니다',
+   				    			      '이용해주셔서 감사합니다.',
+   				    			      'success'
+   				    			    ).then((result)=>{
+   				    			    	
+	   				    			    location.href="http://localhost:8080/Recoder/";
+   				    			    })
+   				    			    
+   				    			
+   								}else {
+   									
+   									swalWithBootstrapButtons.fire(
+   				    			      '비밀번호가 일치하지 않습니다',
+   				    			      '비밀번호를 다시 확인후 입력해주세요',
+   				    			      'error'
+   				    			    )
+   								}
+    							
+   						}, error : function(){
+   							console.log("탈퇴 실패");
+   						}		
+   					});
+    				  
+    			  } else if (
+    			    /* Read more about handling dismissals below */
+    			    result.dismiss === Swal.DismissReason.cancel
+    			  ) {
+    			    swalWithBootstrapButtons.fire(
+    			      'Cancelled',
+    			      '내방으로 오신 것을 환영합니다.',
+    			      'success'
+    			    )
+    			  }
+    			})
+    		  
+    	  }
+    	})
+
+    	
+    });
+
     </script>
 </body>
 </html>

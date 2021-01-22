@@ -1,6 +1,8 @@
 package com.project.recoder.message.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.project.recoder.broker.model.vo.Broker;
+import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.message.model.service.MessageService;
+import com.project.recoder.message.model.vo.Message;
 
 @WebServlet("/message/*")
 public class MessageController extends HttpServlet {
@@ -35,6 +40,29 @@ public class MessageController extends HttpServlet {
 			
 			if(command.equals("/message.do")) {
 				
+				int brokerNo = 0;
+				int memberNo = 0;
+				int memNo = 0;
+				try {
+					
+					Broker loginMember = (Broker)request.getSession().getAttribute("loginMember");
+					memNo = loginMember.getMemNo();
+					
+				} catch (Exception e) {
+					Member login = (Member)request.getSession().getAttribute("loginMember");
+					memNo = login.getMemNo();
+					
+				}
+				
+				System.out.println(memNo);
+				
+				List<Message> message = new ArrayList<Message>();
+				message = service.messageList(memNo);
+	
+
+				
+				request.setAttribute("message", message);
+				
 				path = "/WEB-INF/views/message/message.jsp";
 			    view = request.getRequestDispatcher(path);
 			    view.forward(request, response);
@@ -46,33 +74,17 @@ public class MessageController extends HttpServlet {
 				String msgContext = request.getParameter("msgContext");
 				int brokerNo = Integer.parseInt(request.getParameter("brokerNo"));
 				int myNo = Integer.parseInt(request.getParameter("myNo"));
-				System.out.println(msgContext);
-				System.out.println(brokerNo);
-				System.out.println(myNo);
 				
 				int result = service.messageSend(msgContext, brokerNo, myNo);
 				
 				if(result > 0) {
-					System.out.println("메시지 전달 성공");
 					
 					path = "/WEB-INF/views/message/message.jsp";
 				    view = request.getRequestDispatcher(path);
 				    view.forward(request, response);
 				}
 
-			}
-			
-			else if(command.equals("/messageSend")) {
-				
-				
-				
-				
-				
-				
-				
-				
-			}
-			
+			}			
 			
 		}catch (Exception e) {
 			e.printStackTrace();

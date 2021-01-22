@@ -29,6 +29,20 @@
 
 
 <title>매물 삭제/복구</title>
+<style>
+	input[type="checkbox"]{
+		width:30px;
+		height:30px;
+	}
+	
+	#trList td:last-child p{
+		color : red;
+		font-weight : bold;
+	}
+
+</style>
+
+
 </head>
 <body>
 
@@ -47,7 +61,7 @@
 		<div class="search-area">
 
 			<form action="${contextPath}/searchRoom.do" method="GET"
-				class="search-form" id="searchForm">
+				class="search-form" id="searchForm" >
 
 				<select name="sk" class="form-control"
 					style="width: 140px; display: inline-block;">
@@ -73,7 +87,7 @@
 				<thead>
 					<tr>
 						<th><input type="checkbox" name="allRoom"
-							onclick='selectAll(this)'></th>
+							onclick='selectAll(this)' ></th>
 						<th>매물 번호</th>
 						<th>매물 제목</th>
 						<th>공인중개사</th>
@@ -94,7 +108,7 @@
 						<c:otherwise>
 							<%--rList가 있을 때 --%>
 							<c:forEach var="room" items="${rList}">
-								<tr>
+								<tr id="trList">
 									<td><input type="checkbox" name="ck" class="selectRoom" value="${room.roomNo}">
 									<input type ="hidden" value="${room.roomNo}" class="roomNo">
 									</td>
@@ -104,7 +118,7 @@
 									<td>
 									
 										<c:if test="${room.deleteFl == 'Y'}">
-										삭제
+										<p>삭제</p>
 										</c:if>
 										<c:if test="${room.deleteFl == 'N'}">
 										등록
@@ -241,7 +255,28 @@
             checkbox.checked = selectAll.checked;
             })
         }
- 
+        
+        
+        // tr 클릭 시 체크
+ 		
+        /*
+         
+		$("#list-table tr").click(function(){
+			//.find('td:first-child : checkbox');
+			// .attr('checked', "true")
+			//var checkbox = $(this).find('input').prop("checked")
+			var checkbox = $(this).find('input')
+			if($(this).find('input').is(":checked") == false){
+				$(this).find('input').attr('checked', true)
+			}else {
+				$(this).find('input').attr('checked', false)
+				
+			}
+			console.log(checkbox)
+			//checkbox.attr('checked', !checkbox.is(':checked'));
+		});
+        	
+       */
         
         
         $("#deleteBtn").on("click", function(){
@@ -341,6 +376,9 @@
        
          
         
+	
+		
+		
     </script>
 
 

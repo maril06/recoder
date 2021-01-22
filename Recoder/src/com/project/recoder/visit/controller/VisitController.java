@@ -46,17 +46,15 @@ public class VisitController extends HttpServlet {
 				int brokerNo =  loginMember.getMemNo();
 				
 				List<Room> room = service.selectRoom(brokerNo);
+				List<Visit> visit = service.selectVisit();
+				List<Room> rImg = service.selectRoomImg(brokerNo);
+				
+				System.out.println(brokerNo);
+				System.out.println(rImg);
 				
 				
-				int roomNo = 61; // 임시
-				int visitcd = 1;
-				List<Visit> visit = service.selectVisit(visitcd);
 				
-				List<Visit> visitMember = service.selectVisitMember();
-				
-				System.out.println(visitMember);
-				
-				request.setAttribute("visitMember", visitMember);
+				request.setAttribute("rImg", rImg);
 				request.setAttribute("room", room);
 				request.setAttribute("visit", visit);
 				

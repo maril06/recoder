@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/brokerList.css">
 	<title>공지사항 게시판</title>
+	<style>
+	
+	input[type="checkbox"]{
+		width:30px;
+		height:30px;
+	}
+	
+	</style>
 </head>
 <body>
 	
@@ -58,7 +66,7 @@
 					<c:otherwise>	
 						<c:forEach var ="broker" items="${bList}">
                 			<tr>
-			                   <td>
+			                   <td id="trList">
 			                       <input type="checkbox" name="ck" value="${broker.brokerNo}">
 			                       <input type ="hidden" value="${broker.brokerNo}">
 			                   </td>

@@ -84,4 +84,15 @@ CONTENT = ?,
 CREATE_DT = SYSDATE
 WHERE BOARD_NO = ? 
 </entry>
+
+
+	<!--  -->
+	<entry key="selectRoom">
+		select ROOM_NO ,ROOM_TITLE ,ROOM_INFO ,GMEM_NO, ROOM_IMG_NAME
+		FROM ROOM
+		JOIN ROOM_IMG USING(ROOM_NO)
+		WHERE DELETE_FL = 'N' AND GMEM_NO = ? AND ROOM_IMG_LEVEL = 0
+	</entry>
+	
+
 </properties>

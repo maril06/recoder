@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -40,7 +43,7 @@
             <form action="" method="GET" class="search_form">
                 <div class="search">
                     <div>
-                        <input type="text" placeholder="원하시는 지역명, 지하철역을 입력해주세요.">
+                        <input type="text" placeholder="지하철명을 검색하시려면 #을 붙여주세요.">
                         <button><i class="fas fa-search"></i></button>
                     </div>
                 </div>
@@ -91,24 +94,21 @@
             <div class="notice_list">
                 <h2>공지사항</h2>
                 <ul class="clearfix ft">
-                    <li class="clearfix">
-                        <span class="date">2020. 12. 25</span>
-                        <div class="textBox">
-                            <strong>공지사항공지사항공지사항공지사항공지사항공지사항공지사항공지사항공지사항공지사항공지사항공지사항</strong>
-                            <p class="list_txt">
-                                유튜브의 자막 기능 중 '자동 생성'의 경우 동영상의 음성을 인식하여 자막으로 변환하는 기능인데 여전히 영어 이외의 언어
-                                유튜브의 자막 기능 중 '자동 생성'의 경우 동영상의 음성을 인식하여 자막으로 변환하는 기능인데 여전히 영어 이외의 언어
-                                유튜브의 자막 기능 중 '자동 생성'의 경우 동영상의 음성을 인식하여 자막으로 변환하는 기능인데 여전히 영어 이외의 언어
-                                유튜브의 자막 기능 중 '자동 생성'의 경우 동영상의 음성을 인식하여 자막으로 변환하는 기능인데 여전히 영어 이외의 언어
-                                유튜브의 자막 기능 중 '자동 생성'의 경우 동영상의 음성을 인식하여 자막으로 변환하는 기능인데 여전히 영어 이외의 언어
-                                유튜브의 자막 기능 중 '자동 생성'의 경우 동영상의 음성을 인식하여 자막으로 변환하는 기능인데 여전히 영어 이외의 언어
-                                유튜브의 자막 기능 중 '자동 생성'의 경우 동영상의 음성을 인식하여 자막으로 변환하는 기능인데 여전히 영어 이외의 언어
-                                유튜브의 자막 기능 중 '자동 생성'의 경우 동영상의 음성을 인식하여 자막으로 변환하는 기능인데 여전히 영어 이외의 언어
-                            </p>
-                            <a href="#" class="more">View more</a>
-                        </div>
-                    </li>
-                    <li class="clearfix">
+                	<c:forEach var="board" items="${board }">
+	                    <li class="clearfix">
+	                        <span class="date">
+		                        <fmt:formatDate var="createDate" value="${board.createDate}"  pattern="yyyy-MM-dd"/>
+	                        </span>
+	                        <div class="textBox">
+	                            <strong>${board.title}</strong>
+	                            <p class="list_txt">
+	                            	${board.content}
+	                            </p>
+	                            <a href="#" class="more">View more</a>
+	                        </div>
+	                    </li>
+                    </c:forEach>
+                    <!-- <li class="clearfix">
                         <span class="date">2020. 12. 25</span>
                         <div class="textBox">
                             <strong>공지사항</strong>
@@ -129,7 +129,7 @@
                             </p>
                             <a href="#" class="more">View more</a>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </section>
@@ -139,21 +139,22 @@
                 <h2>인기 매물</h2>
                 <a href="#">&nbsp;Find out more</a>
                 <ul class="clearfix ft">
-                    <li>
-                        <p class="img">
-                            <a href="#"><img src="${contextPath}/resources/images/homepage/pp1.jpg" alt=""></a>
-                        </p>
-                        <h3>월세 300/28</h3>
-                        <p class="text">
-                            <span>여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보</span>
-                            <span>
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                                ㅁ계명대학교 성서캠퍼스 최신축 풀옵션원룸ㅁ동산생활관인근ㅁ먹거리촌 편의시설 집중ㅁ인테리어 이쁨
-                            </span>
-                        </p>
-                        <a href="#" class="more">View more</a>
-                    </li>
-                    <li>
+                	<c:forEach var="room" items="${room }">
+	                    <li>
+	                        <p class="img">
+	                            <a href="#"><img src="${contextPath}/resources/images/rooms/${room.pet}" alt=""></a>
+	                        </p>
+	                        <h3>${room.roomTitle }</h3>
+	                        <p class="text">
+	                            <span>여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보여러가지 옵션 정보</span>
+	                            <span>
+	                                ${room.roomInfo }
+	                            </span>
+	                        </p>
+	                        <a href="#" class="more">View more</a>
+	                    </li>
+                    </c:forEach>
+                    <%-- <li>
                         <p class="img">
                             <a href=""><img src="${contextPath}/resources/images/homepage/pp2.png" alt=""></a>
                         </p>
@@ -191,7 +192,7 @@
                             </span>
                         </p>
                         <a href="#" class="more">View more</a>
-                    </li>
+                    </li> --%>
                 </ul>
             </div>
         </section>

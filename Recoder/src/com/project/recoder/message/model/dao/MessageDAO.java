@@ -1,14 +1,17 @@
 package com.project.recoder.message.model.dao;
 
-import static com.project.recoder.common.JDBCTemplate.*;
+import static com.project.recoder.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import com.project.recoder.message.model.vo.Message;
 import com.project.recoder.room.model.dao.RoomDAO;
 
 public class MessageDAO {
@@ -56,5 +59,39 @@ public class MessageDAO {
 				
 		
 		return result;
+	}
+
+	public List<Message> messageList(Connection conn, int brokerNo) throws Exception {
+		List<Message> message = null;
+		String query = prop.getProperty("messageList");
+		
+		try {
+			
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, brokerNo);
+			
+			rset = pstmt.executeQuery();
+			
+			message = new ArrayList<Message>();
+			while(rset.next()) {
+				Message msg = new Message(
+					rset.getInt("ME"),
+					rset.getString("YOU"),
+					rset.getString("MSG_CONTENT"),
+					rset.getTimestamp("CREATE_DT"),
+					rset.getInt("MSG_CNT"),
+					rset.getInt("MEM_NO2"));
+				
+				message.add(msg);
+			}
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return message;
 	}
 }
