@@ -2,10 +2,10 @@ package com.project.recoder.board.model.vo;
 
 public class BoardImg {
 
-	private int BoardImgNo;
-	private String BoardImgPath;
-	private String BoardImgName;
-	private int BoardImgLevel;
+	private int boardImgNo;
+	private String boardImgPath;
+	private String boardImgName;
+	private int boardImgLevel;
 	private int boardNo;
 	
 	public BoardImg() {
@@ -14,64 +14,64 @@ public class BoardImg {
 
 	public BoardImg(int boardImgNo, String boardImgName, int boardImgLevel) {
 		super();
-		BoardImgNo = boardImgNo;
-		BoardImgName = boardImgName;
-		BoardImgLevel = boardImgLevel;
+		boardImgNo = boardImgNo;
+		boardImgName = boardImgName;
+		boardImgLevel = boardImgLevel;
 	}
 
 	public BoardImg(int boardImgNo, String boardImgPath, String boardImgName, int boardImgLevel, int boardNo) {
 		super();
-		BoardImgNo = boardImgNo;
-		BoardImgPath = boardImgPath;
-		BoardImgName = boardImgName;
-		BoardImgLevel = boardImgLevel;
+		boardImgNo = boardImgNo;
+		boardImgPath = boardImgPath;
+		boardImgName = boardImgName;
+		boardImgLevel = boardImgLevel;
 		this.boardNo = boardNo;
 	}
 
-	public int getBoardImgNo() {
-		return BoardImgNo;
+	public int getboardImgNo() {
+		return boardImgNo;
 	}
 
-	public void setBoardImgNo(int boardImgNo) {
-		BoardImgNo = boardImgNo;
+	public void setboardImgNo(int boardImgNo) {
+		boardImgNo = boardImgNo;
 	}
 
-	public String getBoardImgPath() {
-		return BoardImgPath;
+	public String getboardImgPath() {
+		return boardImgPath;
 	}
 
-	public void setBoardImgPath(String boardImgPath) {
-		BoardImgPath = boardImgPath;
+	public void setboardImgPath(String boardImgPath) {
+		boardImgPath = boardImgPath;
 	}
 
-	public String getBoardImgName() {
-		return BoardImgName;
+	public String getboardImgName() {
+		return boardImgName;
 	}
 
-	public void setBoardImgName(String boardImgName) {
-		BoardImgName = boardImgName;
+	public void setboardImgName(String boardImgName) {
+		boardImgName = boardImgName;
 	}
 
-	public int getBoardImgLevel() {
-		return BoardImgLevel;
+	public int getboardImgLevel() {
+		return boardImgLevel;
 	}
 
-	public void setBoardImgLevel(int boardImgLevel) {
-		BoardImgLevel = boardImgLevel;
+	public void setboardImgLevel(int boardImgLevel) {
+		boardImgLevel = boardImgLevel;
 	}
 
-	public int getBoardNo() {
+	public int getboardNo() {
 		return boardNo;
 	}
 
-	public void setBoardNo(int boardNo) {
+	public void setboardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
 
 	@Override
 	public String toString() {
-		return "BoardImg [BoardImgNo=" + BoardImgNo + ", BoardImgPath=" + BoardImgPath + ", BoardImgName="
-				+ BoardImgName + ", BoardImgLevel=" + BoardImgLevel + ", boardNo=" + boardNo + "]";
+		return "boardImg [boardImgNo=" + boardImgNo + ", boardImgPath=" + boardImgPath + ", boardImgName="
+				+ boardImgName + ", boardImgLevel=" + boardImgLevel + ", boardNo=" + boardNo + "]";
 	}
 	
 	

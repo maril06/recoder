@@ -21,6 +21,7 @@
    <script src="http://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
    
   <link rel="stylesheet" href="${contextPath}/resources/css/boardList.css">
+  
 </head>
 <body> 
 <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
@@ -47,7 +48,7 @@
             	<c:choose>
             		<c:when test="${empty bList}">
             			<tr>
-            				<td colspan="5"> 존재하는 게시글이 없습니다.</td>
+            				<td colspan="5" class="notex">존재하는 게시글이 없습니다.</td>
             			</tr>
             		</c:when>
             		
@@ -55,7 +56,7 @@
             		<c:otherwise>
             			<c:forEach var="board" items="${bList}">
 		                <tr>
-		                    <td>${board.boardNo} </td>
+		                    <td>${board.boardNo}</td>
 		                    <td class="boardTitle">
 		                    	<%-- <c:forEach var="thumbnail" items="${fList}">
 		                    	현재 출력하려는 게시글 번호와 썸네일 목록 중 부모게시글번호가 일치하는 썸네일 정보가 있다면
@@ -80,7 +81,7 @@
                                     
                                     <%-- 글 작성일이 오늘일 경우 --%>
                                     <c:otherwise>
-                                       <fmt:formatDate value="${board.createDt}"  pattern="HH:mm"/>
+                                       <fmt:formatDate value="${board.createDate}"  pattern="HH:mm"/>
                                     </c:otherwise>
                                  </c:choose>
 		                    </td>
@@ -106,7 +107,7 @@
           <c:choose>
          	<%-- 검색 내용이 파라미터에 존재할 때 == 검색을 통해 만들어진 페이지인가? --%>
          	<c:when test="${!empty param.sk && !empty param.sv }">
-		         <c:url var="pageUrl" value="/search.do"/>
+		         <c:url var="pageUrl" value="/boardSearch.do"/>
 		         
 		        <%--쿼리 스트링으로 사용할 내용을 변수에 저장--%>
 		         <c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/>
@@ -183,7 +184,7 @@
            
      <!-- 검색창 -->
     <div class="mb-5">
-        <form action="${contextPath}/search.do" method="GET" class="text-center" id="searchForm">
+        <form action="${contextPath}/boardSearch.do" method="GET" class="text-center" id="searchForm">
             <select name="sk" class="form-control" style="width: 100px; display: inline-block;">
                 <option value="title">글제목</option>
                 <option value="content">내용</option>

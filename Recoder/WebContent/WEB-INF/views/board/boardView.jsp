@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자유게시판 상세조회</title>
     
-   <!--  <!-- Bootstrap core CSS 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+     <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
     <!-- Bootstrap core JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -58,20 +58,16 @@
                           <th>조회수</th>
                           <td colspan="2" >${board.readCount}</td>
                         </tr>
-                        <tr height="400px">
-                            <td colspan="6" >
-                              <div id="board-content" >
-                              ${board.content}
-                              </div>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
-                
+                           <p>
+                              ${board.content}
+                              </p>
+					<br>                
                 <!-- 버튼구역 -->
                 <div>
                <%-- 로그인된 회원과 해당 글 작성자가 같은 경우--%>
-				<c:if test="${!empty loginMember && (board.memberId == loginMember.memberId)}">
+				<c:if test="${!empty loginMember && (board.memNo == loginMember.memNo)}">
                     <button id="deleteBtn" class="btn btn-outline-secondary float-right">삭제</button> 
                   	<!-- 상세조회, 검색 할때 cp, no, sk, sv 유지 시켜야 수정후 다시 상세조회로 돌아갈수있다 -->
 					<%-- 게시글 수정 후 상세조회 페이지로 돌아오기 위한 url조합 --%>
@@ -85,7 +81,7 @@
 			
                 <c:choose>
 				<c:when test="${!empty param.sk && !empty param.sv}">
-					<c:url var="goToList" value="../search.do">
+					<c:url var="goToList" value="../boardSearch.do">
 						<c:param name="cp">${param.cp}</c:param>
 						<c:param name="sk">${param.sk}</c:param>
 						<c:param name="sv">${param.sv}</c:param>
@@ -105,11 +101,6 @@
                 <jsp:include page="comment.jsp"></jsp:include>
                     
                     
-                    
-                    
-
-                    
-                    
                   
                    
                 </div>
@@ -121,5 +112,13 @@
 
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+	$("#deleteBtn").on("click", function(){
+		if(confirm("정말 삭제 하시겠습니까?")){
+			location.href = "delete.do?no=${board.boardNo}";
+		}
+	})
+	</script>
 </body>
 </html>

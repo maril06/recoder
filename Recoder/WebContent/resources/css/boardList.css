@@ -4,7 +4,6 @@
     font-weight: normal;
     font-style: normal;
  }
-
     .title{
         font-family: 'TmoneyRoundWindExtraBold';
         text-align: center;
@@ -57,9 +56,12 @@
 
     .page-link{
         border: none;
-        color: grey;
+        color: pink;
     }
 
+.notex{
+	text-align: center;
+}
 
 
     

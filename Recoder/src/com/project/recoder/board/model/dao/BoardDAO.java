@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.project.recoder.board.model.vo.Board;
@@ -94,7 +95,8 @@ public class BoardDAO {
 						rset.getString("MEM_NICK"),
 						rset.getInt("READ_COUNT"),
 						rset.getString("BOARD_NM"),
-						rset.getTimestamp("CREATE_DT"));
+						rset.getTimestamp("CREATE_DT"),
+						rset.getInt("MEM_NO"));
 				
 				bList.add(board);
 			}
@@ -136,8 +138,8 @@ public class BoardDAO {
 				board.setReadCount(rset.getInt("READ_COUNT"));
 				board.setCreateDate(rset.getTimestamp("CREATE_DT"));
 				board.setBoardNm(rset.getString("BOARD_NM"));
+				board.setMemNo(rset.getInt("MEM_NO"));
 			}
-			
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -187,17 +189,21 @@ public class BoardDAO {
 			
 			pstmt.setInt(1, boardNo);
 			
+			System.out.println("sb"+boardNo);
 			rset = pstmt.executeQuery();
 			
 			fList = new ArrayList<BoardImg>();
 			
 			while(rset.next()) {
-				BoardImg bi = new BoardImg(rset.getInt("BOARD_IMG_NO"), rset.getString("BOARD_IMG_NAME"), rset.getInt("BOARD_IMG_LEVEL"));
-				
-				bi.setBoardImgPath(rset.getString("BOARD_IMG_PATH"));
-				
+				BoardImg bi = new BoardImg();
+				bi.setboardImgNo(rset.getInt("BOARD_IMG_NO"));
+				bi.setboardImgName(rset.getString("BOARD_IMG_NAME"));
+				bi.setboardImgLevel(rset.getInt("BOARD_IMG_LEVEL"));
+				bi.setboardImgPath(rset.getString("BOARD_IMG_PATH"));
+				bi.setboardNo(boardNo);
+				//System.out.println(bi);
 				fList.add(bi);
-				
+				//System.out.println(fList);
 			}
 		}finally {
 			close(rset);
@@ -205,6 +211,178 @@ public class BoardDAO {
 		}
 		
 		return fList;
+	}
+
+
+	/** 게시글 작성 dao
+	 * @param conn
+	 * @param map
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertBoard(Connection conn, Map<String, Object> map) throws Exception{
+		int result = 0;
+		
+		String query = prop.getProperty("insertBoard");
+		
+		try {
+			//TITLE, CONTENT, MEM_NO 
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, (int)map.get("boardNo"));
+			pstmt.setString(2, (String)map.get("boardTitle"));
+			pstmt.setString(3, (String)map.get("boardContent"));
+			pstmt.setInt(4, (int)map.get("boardWriter"));
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	/** 게시글 번호 불러오기 dao
+	 * @param conn
+	 * @return boardNo
+	 * @throws Exception
+	 */
+	public int selectNextNo(Connection conn) throws Exception{
+		int boardNo = 0;
+		String query = prop.getProperty("selectNextNo");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				boardNo = rset.getInt(1);
+			}
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return boardNo;
+	}
+
+
+	/** 게시글 이미지 정보 삽입 dao
+	 * @param conn
+	 * @param img
+	 * @return result
+	 * @throws Exception
+	 */
+	public int insertImgs(Connection conn, BoardImg img) throws Exception{
+		int result = 0;
+		
+		String query = prop.getProperty("insertImgs");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			// IMG_PATH, IMG_NAME, IMG_LEVEL, BOARD_NO
+			pstmt.setString(1, img.getboardImgPath());
+			pstmt.setString(2, img.getboardImgName());
+			pstmt.setInt(3, img.getboardImgLevel());
+			pstmt.setInt(4, img.getboardNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	/** 게시글 삭제
+	 * @param conn
+	 * @param boardNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int deleteBoard(Connection conn, int boardNo) throws Exception{
+		
+		int result = 0;
+		String query = prop.getProperty("deleteBoard");
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	/** 게시글 수정 view dao
+	 * @param conn
+	 * @param boardNo
+	 * @return board
+	 * @throws Exception
+	 */
+	public Board updateView(Connection conn, int boardNo) throws Exception{
+		Board board = null;
+		String query = prop.getProperty("updateView");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				//CREATE_DT, TITLE, CONTENT, MEM_NICK, MEM_NO
+				board = new Board();
+				board.setCreateDate(rset.getTimestamp(1));
+				board.setTitle(rset.getString(2));
+				board.setContent(rset.getString(3));
+				board.setMemNick(rset.getString(4));
+				board.setMemNo(rset.getInt(5));
+			}
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return board;
+	}
+
+
+	/** 게시글 수정 dao
+	 * @param conn
+	 * @param map
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoard(Connection conn, Map<String, Object> map) throws Exception{
+		int result = 0;
+		
+		String query = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, (String)map.get("boardTitle"));
+			pstmt.setString(2, (String)map.get("boardContent"));
+			pstmt.setInt(3, (int)map.get("boardNo"));
+			
+			 result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

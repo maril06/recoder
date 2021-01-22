@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project.recoder.room.model.service.RoomService;
 import com.project.recoder.room.model.vo.PageInfo;
+import com.project.recoder.room.model.vo.ReportComment;
 import com.project.recoder.room.model.vo.Room;
+import com.project.recoder.room.model.vo.FakeRoom;
 
 
 @WebServlet("/room/*")
@@ -61,20 +63,6 @@ public class RoomController extends HttpServlet {
 				view.forward(request, response);
 			}
 			
-			else if(command.equals("/fakeRoom.do")){
-				errorMsg = "허위 매물 조회 과정에서 오류 발생";
-				
-				PageInfo pInfo = service.getPageInfo(cp);
-				
-				List<Room> rList = service.selectFakeList(pInfo);
-				
-				path = "/WEB-INF/views/room/fakeRoom.jsp";
-				
-				view=request.getRequestDispatcher(path);
-				view.forward(request, response);
-				
-			
-			}
 			
 			else if(command.equals("/deleteRoom.do")){
 				errorMsg = "매물 삭제 과정에서 오류 발생";
@@ -100,6 +88,54 @@ public class RoomController extends HttpServlet {
 				
 			}
 			
+			
+			// 신고 매물 조회
+			else if(command.equals("/fakeRoom.do")){
+				errorMsg = "허위 매물 조회 과정에서 오류 발생";
+				
+				PageInfo pInfo = service.getPageInfo1(cp);
+				
+				List<FakeRoom> fList = service.selectFakeList(pInfo);
+				
+				List<ReportComment> rList = service.selectReportList();
+				
+				/*
+				 * System.out.println(pInfo);
+				 * 
+				 * for(FakeRoom f : fList) { System.out.println(f); }
+				 * 
+				 * for(ReportComment r : rList) { System.out.println(r); }
+				 */
+
+				
+				path = "/WEB-INF/views/room/fakeRoom.jsp";
+				
+				request.setAttribute("pInfo", pInfo);
+				request.setAttribute("fList", fList);
+				request.setAttribute("rList", rList);
+				
+				
+				
+				view=request.getRequestDispatcher(path);
+				view.forward(request, response);
+				
+				
+			}
+			
+			
+			// 신고 매물 삭제
+			else if(command.equals("/deleteFakeRoom.do")){
+				
+				String roomNo = request.getParameter("RoomNo");
+				
+				//System.out.println(roomNo); 확인 ok
+				
+				int result = service.updateFakeRoomDelete(roomNo);
+				
+				//System.out.println(result);
+				
+				response.getWriter().print(result);
+			}
 			
 			
 		}catch(Exception e) {

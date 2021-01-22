@@ -28,19 +28,10 @@
     <div class="container  my-5">
         <h1 id="board-main">게시글 쓰기</h1>
             <div id="board-area">
-                <form action="#"  method="post" 
+                <form action="${contextPath}/board/insertBoard.do"  method="post" 
                 enctype="multipart/form-data" role="form" onsubmit="return boardValidate();">
                 <div class="mb-2">
                     <hr>
-					<!-- <label class="input-group-addon mr-3 insert-label">카테고리</label> 
-					<select	class="custom-select" id="categoryCode" name="categoryCode" style="width: 150px;">
-						<option value="10">매물정보</option>
-						<option value="20">동네정보</option>
-						<option value="30">인테리어</option>
-						<option value="40">생활</option>
-						<option value="50">부동산</option>
-						<option value="60">기타</option>
-					</select> -->
                 </div>
                 <div class="form-inline mb-2">
 					<label class="input-group-addon mr-3 insert-label">제목</label> 
@@ -63,16 +54,16 @@
                 
 				<div class="form-inline mb-2">
 					<label class="input-group-addon mr-3 insert-label">업로드<br>이미지</label>
+					<div class="mr-2 boardImg" id="contentImgArea0">
+						<img id="contentImg0" width="150" height="150">
+					</div>
+
 					<div class="mr-2 boardImg" id="contentImgArea1">
 						<img id="contentImg1" width="150" height="150">
 					</div>
 
 					<div class="mr-2 boardImg" id="contentImgArea2">
 						<img id="contentImg2" width="150" height="150">
-					</div>
-
-					<div class="mr-2 boardImg" id="contentImgArea3">
-						<img id="contentImg3" width="150" height="150">
 					</div>
 				</div>
                 <hr>
@@ -82,7 +73,6 @@
 					<input type="file" id="img0" name="img0" onchange="LoadImg(this,0)"> 
 					<input type="file" id="img1" name="img1" onchange="LoadImg(this,1)"> 
 					<input type="file" id="img2" name="img2" onchange="LoadImg(this,2)"> 
-					<input type="file" id="img3" name="img3" onchange="LoadImg(this,3)">
 				</div>
 
                 <br>

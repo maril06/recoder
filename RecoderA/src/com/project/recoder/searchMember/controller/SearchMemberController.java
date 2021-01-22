@@ -24,13 +24,13 @@ public class SearchMemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 배열의 첫번째값 얻어오기
-		String searchKey1 = request.getParameterValues("sk")[0];
+		String searchKey1 = request.getParameter("sk1");
 		
 		// 배열의 두번째값 얻어오기
-		String searchKey2 = request.getParameterValues("sk")[1];
+		String searchKey2 = request.getParameter("sk2");
 				
 				
-		//System.out.println(searchKey1); //확인 ok gMem
+		//System.out.println(searchKey1); //확인 ok gMem, 
 		//System.out.println(searchKey2); //확인 ok stop 출력
 		
 		String cp = request.getParameter("cp");
