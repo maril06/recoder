@@ -151,16 +151,29 @@ public class CommonController extends HttpServlet {
 				
 			}
 			
-			/*
-			 * //비번찾기 이메일 보내기! else if(command.equals("/sendEmail.do")) { errorMsg =
-			 * "이메일을 보내는 중 오류 발생"; String email = request.getParameter("email");
-			 * 
-			 * SendEmail mail = new SendEmail(); mail.Email(email); //0이면 잘보낸거
-			 * 
-			 * response.getWriter().print(result);
-			 * 
-			 * }
-			 */
+			
+			  //비번찾기 이메일 보내기! 
+				else if(command.equals("/sendEmail.do")) {
+				  errorMsg = "이메일을 보내는 중 오류 발생";
+				  
+				  int result = 0;
+				  
+				  String email = request.getParameter("email");
+				  String randomNum = null;
+				  randomNum = service.random();
+				  
+				  System.out.println("랜덤넘버 : "+randomNum);
+				  
+				  SendEmail mail = new SendEmail(); 
+				  
+				   mail.Email(session, email, randomNum); //1이면 잘보낸거
+				  
+			  
+				   //session.setAttribute("randomNum", randomNum);
+				   response.getWriter().print(randomNum);
+			  
+			  }
+			 
 			
 			
 			//비밀번호 찾기 controller ------------------------------------------
@@ -169,8 +182,9 @@ public class CommonController extends HttpServlet {
 				String memId = request.getParameter("userid");
 				String email = request.getParameter("email");
 				String code = request.getParameter("code");
+				System.out.println("회원이 입력한 코드"+code);
 				
-				//인증 코드가 보낸 코드랑 같을때 service 진행
+				
 				Map<String, Object> map = new HashMap<String, Object>();
 				
 				map.put("nickname", nickname);
@@ -200,9 +214,8 @@ public class CommonController extends HttpServlet {
 					response.sendRedirect(request.getHeader("referer"));
 					
 				}
-				
-			}
 			
+			}
 			//비밀번호 찾기에서 비밀번호 변경하기 controller-------------------------------
 			else if(command.equals("/setPw.do")) {
 				String password = request.getParameter("password1");
@@ -212,7 +225,6 @@ public class CommonController extends HttpServlet {
 				
 				map.put("memId", memId);
 				map.put("password", password);
-				System.out.println("memId : "+memId + "password" + password);
 				int result = service.setPw(map);
 				
 				String swalIcon = null;

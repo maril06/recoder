@@ -144,7 +144,7 @@ public class BoardController extends HttpServlet {
 			// summer노트로 게시글 작성 controller ---------------------
 			else if (command.equals("/insertBoardSummer.do")) {
 				errorMsg = "게시글 작성 중 오류 발생";
-
+				//System.out.println(errorMsg);
 				String title = request.getParameter("boardTitle");
 				String content = request.getParameter("Contents");
 
