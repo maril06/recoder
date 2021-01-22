@@ -127,7 +127,7 @@
     <script src="${contextPath}/resources/js/visitCheck.js"></script>
     <script>
     	$(".visitok").on('click', ()=>{
-    		$(this).hide();
+    		
     		
     	});
     </script>
