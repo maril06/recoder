@@ -42,6 +42,7 @@
 	input[type="checkbox"]:hover{
 	cursor: pointer;
 	}
+	
 </style>
 
 
@@ -53,14 +54,14 @@
 
 	<div class="section">
 
-		<div class="top-section">
+		<div class="top-section mainFont">
 			<h6>매물관리</h6>
 			<h2>매물 삭제/복구</h2>
 		</div>
 
 
 
-		<div class="search-area">
+		<div class="search-area ft">
 
 			<form action="${contextPath}/searchRoom.do" method="GET"
 				class="search-form" id="searchForm" >
@@ -83,9 +84,9 @@
 
 
 
-		<div class="content-area">
+		<div class="content-area ft">
 
-			<table class="table table-striped table-hover" id="list-table">
+			<table class="table table-striped table-hover ft" id="list-table">
 				<thead>
 					<tr>
 						<th><input type="checkbox" name="allRoom"

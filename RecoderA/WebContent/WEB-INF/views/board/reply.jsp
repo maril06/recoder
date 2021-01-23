@@ -12,8 +12,8 @@
        }
 
        .delete-btn {
-           background-color: rgb(174, 160, 236);
-           border: rgb(174, 160, 236);
+           background-color: #868e96;
+           border: #868e96;
        }
 
        .pagination {

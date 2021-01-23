@@ -52,22 +52,22 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	
 	
-	<div class=section>
-	    <div class=title-area>
+	<div class="section ft">
+	    <div class="title-area mainFont">
     		  <h2>공지사항</h2>
     	</div>
 
 
     <form action="insert.do" method="POST" role="form" onsubmit="return noticeValidate();">
-        <div class="form-group">
+        <div class="form-group ft">
               <label for="exampleFormControlInput1">제목</label>
             <input type="text" class="form-control" id="noticeTitle" name="noticeTitle" placeholder="제목을 작성해주세요.">
           </div>
-          <div class="form-group">
+          <div class="form-group ft">
             <label for="exampleFormControlTextarea1">내용</label>
             <textarea class="form-control" id="noticeContent" name="noticeContent" rows="10"></textarea>
           </div>
-        <button type="submit" class="btn btn-info write-btn float-right">등록</button>
+        <button type="submit" class="btn btn-primary write-btn float-right">등록</button>
         <a href="list.do" class="btn btn-primary prev-btn float-right">목록으로</a>
     </form>
 

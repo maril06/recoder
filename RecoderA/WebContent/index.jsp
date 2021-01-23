@@ -68,7 +68,7 @@
 			<div class="modal-content">
 
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">관리자 로그인</h5>
+					<h5 class="modal-title" id="exampleModalLabel loginBtn">관리자 로그인</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -78,11 +78,11 @@
 					<div class="modal-body">
 						<input type="text" id="inputId" placeholder="아이디"><br>
 						<input type="password" id="inputPw" placeholder="비밀번호"><br>
-						<button type="button" class="btn btn-primary">로그인</button>
+						<button type="button" class="btn btn-primary loginBtn">로그인</button>
 					</div>
 				</form>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
+					<button type="button" class="btn btn-secondary loginBtn"
 						data-dismiss="modal">닫기</button>
 
 				</div>
