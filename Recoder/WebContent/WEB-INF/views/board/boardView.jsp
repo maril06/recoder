@@ -28,9 +28,11 @@
  <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
 		<jsp:include page="../common/header.jsp"></jsp:include>
     <div class="container  my-5">
-
+<br><br>
+    <img alt="자유게시판" src="${contextPath}/resources/images/homepage/boardBanner.jpg" width="1100px" class="my-5">
+    
 		<div>
-            <h1 id="board-main">자유게시판</h1>
+            <!-- <h1 id="board-main">자유게시판</h1> -->
             <!-- 게시판구역 -->
             <div class="wrapper">
 

@@ -28,8 +28,8 @@
 		<jsp:include page="../common/header.jsp"></jsp:include>
     <div class="container my-5">
     <br>
-    
-    <h1 class="title">자유게시판</h1>
+    <img alt="자유게시판" src="${contextPath}/resources/images/homepage/boardBanner.jpg" width="1100px" class="mt-5">
+    <!-- <h1 class="title">자유게시판</h1> -->
 
         <div class="list-wrapper">
             <table class="table table-hover my-5" id="board-table">
