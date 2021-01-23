@@ -32,6 +32,12 @@
 	input[type="checkbox"]:hover{
 	cursor: pointer;
 	}
+	
+	.swal2-styled.swal2-confirm{
+	background-color : rgb(174, 160, 236) !important;
+	border : rgb(174, 160, 236) !important; 
+	}
+	
 	</style>
 </head>
 <body>
@@ -40,13 +46,13 @@
 	
 	<div class="section-area">
 
-        <div class="top-section">
+        <div class="top-section mainFont">
 
             <h2>중개사 회원 승인</h2>
         </div>
 
 
-        <table class="table table-striped table-hover" id="list-table">
+        <table class="table table-striped table-hover ft" id="list-table">
             <thead>
                 <tr>
                     <th>

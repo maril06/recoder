@@ -54,14 +54,14 @@
 	
 	<div class="section">
 
-        <div class="top-section">
+        <div class="top-section mainFont">
             <h6>게시판 관리</h6>
             <h2>게시글/댓글 삭제</h2>
         </div>
 
 
 
-        <div class="search-area">
+        <div class="search-area ft">
 
             <form action="${contextPath}/searchBoard.do" method="GET" class="search-form" id="searchForm">
 
@@ -81,7 +81,7 @@
 
 
 
-        <div class="content-area">
+        <div class="content-area ft">
                 <table class="table table-striped table-hover" id="list-table">
                     <thead>
                         <tr>

@@ -61,11 +61,11 @@ input[type="checkbox"]{
 
 	<div class="section">
 
-		<div class="top-section">
+		<div class="top-section mainFont">
 			<h2>회원 관리</h2>
 		</div>
 
-		<div class="search-area">
+		<div class="search-area ft">
 
 			<form action="${contextPath}/searchMember.do" method="GET" class="search-form" id="searchForm">
 
@@ -90,7 +90,7 @@ input[type="checkbox"]{
 
 
 
-		<div class="content-area">
+		<div class="content-area ft">
 				<table class="table table-striped table-hover " id="membertable">
 					<thead>
 						<tr>
@@ -157,11 +157,11 @@ input[type="checkbox"]{
 			<c:if test="${loginAdmin.adminGrade =='A' }">
 				<c:choose>
 					<c:when test="${param.sk2 == 'active'}">
-						<button class="btn btn-primary float-right stop-btn" 
+						<button class="btn btn-danger float-right stop-btn" 
 						id="stopbtn">정지</button>
 					</c:when>				
 					<c:when test="${param.sk2 == 'stop'}">	
-						<button class="btn btn-primary float-right recover-btn"
+						<button class="btn btn-danger float-right recover-btn"
 						id="recoverbtn">복구</button>
 					</c:when>
 					<c:otherwise>

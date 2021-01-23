@@ -34,11 +34,11 @@ input[type="checkbox"]:hover{
 	<jsp:include page="../common/header.jsp"></jsp:include>
 
 	<div class="section">
-		<div class="report-manage">
+		<div class="report-manage mainFont">
 			<h2>허위 매물 관리</h2>
 		</div>
 
-		<div class="search-area">
+		<div class="search-area ft">
 			<form action="${contextPath}/searchReportRoom.do" method="GET" class="search" name="searchForm" id="searchForm">
 				<input type="text" name="sv" class="search-input" placeholder="제목으로 검색">
 				<button class="search-button btn btn-primary" id="searchBtn">검색</button>
@@ -54,7 +54,7 @@ input[type="checkbox"]:hover{
 
 			<c:otherwise>
 				<c:forEach var="room" items="${fList}">
-					<div class="total-item-area">
+					<div class="total-item-area ft">
 						<div class="check-area">
 							<input type="checkbox" name="ck" id="check-item" value="${room.roomNo}">
 						</div>
@@ -67,7 +67,7 @@ input[type="checkbox"]:hover{
 								<div class="title-info-area">
 									<div class="title-area">
 										<div class="item-title">
-											<h5>매물 제목</h5>
+											매물 제목
 										</div>
 
 										<div class="item-name">
@@ -76,7 +76,7 @@ input[type="checkbox"]:hover{
 									</div>
 									<div class="info-area">
 										<div class="item-info">
-											<h5>신고회수 : ${room.reportCount}  |  등록자 : ${room.brokerNick}</h5>
+											신고회수 : ${room.reportCount}  |  등록자 : ${room.brokerNick}
 										</div>
 										<div class="item-information">
 											<span> ${room.roomInfo} </span>

@@ -54,12 +54,12 @@
 		
 	 <div class="section">
 	 	
-	 	 <div class="top-section">
+	 	 <div class="top-section mainFont">
             <h6>게시판 상세조회</h6>
             <h2>댓글 삭제</h2>
         </div>
 	 	
-        <div class="board-area">
+        <div class="board-area ft">
 
 
             <!--타이틀  -->
@@ -113,7 +113,7 @@
             
 
             <div class="button-area">
-                <a href="${goToList}" class="btn btn-primary float-right prev-btn">목록으로</a>
+                <a href="${goToList}" class="btn btn-danger float-right prev-btn">목록으로</a>
             </div>
         </div>
 	
