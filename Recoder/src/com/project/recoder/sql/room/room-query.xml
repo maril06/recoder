@@ -104,5 +104,15 @@
 		                            WHERE RNUM BETWEEN ? AND ?)
 		AND ROOM_IMG_LEVEL = 0
 	</entry>
+	
+	<entry key="calReview">
+SELECT SUM(RATING) FROM REVIEW
+WHERE ROOM_NO = ?
+</entry>
+
+<entry key="visitCount">
+SELECT COUNT(*) FROM REVIEW
+WHERE ROOM_NO=?
+</entry>
 
 </properties>

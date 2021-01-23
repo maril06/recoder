@@ -154,6 +154,24 @@ public class MemberService {
 		return roomList;
 	}
 	
+	public List<Room> selectReviewList(int memNo) throws Exception{
+		Connection conn = getConnection();
+		
+		List<Room> roomList = dao.selectReviewList(conn, memNo);
+		close (conn);
+		
+		return roomList;
+	}
+
+	public List<RoomImg> selectReviewimg(int memNo) throws Exception{
+		Connection conn = getConnection();
+		
+		List<RoomImg> imgList = dao.selectReviewimg(conn, memNo);
+		close (conn);
+		
+		return imgList;
+	}
+	
 	
 	
 }

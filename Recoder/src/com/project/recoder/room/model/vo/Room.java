@@ -127,6 +127,15 @@ public class Room {
 	}
 
 	
+	
+	
+
+	public Room(int roomNo, String roomTitle, String roomInfo) {
+		super();
+		this.roomNo = roomNo;
+		this.roomTitle = roomTitle;
+		this.roomInfo = roomInfo;
+	}
 
 	public Room(String bed, String pet, String roomTitle, String roomInfo) {
 		super();

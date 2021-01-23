@@ -156,9 +156,20 @@ public class MemberController extends HttpServlet {
 						request.setAttribute("imgList", imgList);
 					}
 				}
+				
+				
+				List<Room> reviewRoomList = service.selectReviewList(memNo);
+				if(reviewRoomList != null) {
+					List<RoomImg> reviewImgList = service.selectReviewimg(memNo); //후기 매물 이미지		
+					
+					if(!reviewImgList.isEmpty()) {
+						request.setAttribute("reviewImgList", reviewImgList);
+					}
+				}
 		            
 				path = "/WEB-INF/views/member/memberMyPage.jsp";
 				request.setAttribute("roomList", roomList);
+				request.setAttribute("reviewRoomList", reviewRoomList);
 				
 				view = request.getRequestDispatcher(path);
 				view.forward(request, response);
