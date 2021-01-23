@@ -23,14 +23,14 @@
  <link rel="stylesheet" href="${contextPath}/resources/css/boardView.css">
    
 </head>
-<body margin-top:80px;>
+<body >
 
  <!-- WEB-INF/views/common/header.jsp 여기에 삽입(포함) -->
 		<jsp:include page="../common/header.jsp"></jsp:include>
     <div class="container  my-5">
-
+	<br><br>
+             <img alt="공지사항" src="${contextPath}/resources/images/homepage/noticeBanner.png" width="1100px"  class="my-5" >
 		<div>
-            <h1 id="board-main">공지사항</h1>
             <!-- 게시판구역 -->
             <div class="wrapper">
 

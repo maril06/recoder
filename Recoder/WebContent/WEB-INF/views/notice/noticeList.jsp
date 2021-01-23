@@ -29,7 +29,7 @@
     <div class="container my-5">
     <br>
     
-    <h1 class="title">공지사항</h1>
+     <img alt="공지사항" src="${contextPath}/resources/images/homepage/noticeBanner.png" width="1100px"  class="mt-5">
 
         <div class="list-wrapper">
             <table class="table table-hover my-5" id="board-table">
