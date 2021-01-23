@@ -70,27 +70,47 @@
      $(document).ready(function(){
      $(".container").fadeIn(1000);
 	});
-   
+  	function emailVal(){
+   		 var regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/; // 4글자 아무단어 @ 아무단어 . * 3
+   		    
+   		    var value = $("#email").val();
+   		    if(!regExp.test(value)){
+   		        return false;
+   		    }else{
+   		        return true;
+   		    }
+    	 }
+   	
        //이메일 인증 보내기
       $("#sendEmail").on("click", function(){
-    	  swal("이메일 보내는중...");
-    	    var value = $("#email").val();
-    	    
-    	  	$.ajax({
-    		 url: "sendEmail.do",
-    		 data: {"email": value},
- 			type: "post",
- 			success: function(randomNum){
- 				if(randomNum != null){ // 이메일 보내기 성공한 경우
- 					swal("입력하신 주소로 이메일을 보냈습니다.");
- 					sessionStorage.setItem("randomNum", randomNum); 
-                }
- 			},
- 			error: function(){
- 				console.log("이메일 전송 실패");
- 			}
-   	    
-    	  }); 
+    	  if(emailVal()){
+    		  
+	    	  swal("이메일 보내는중...");
+	    	    var value = $("#email").val();
+	    	    
+	    	  	$.ajax({
+	    		 url: "sendEmail.do",
+	    		 data: {"email": value},
+	 			type: "post",
+	 			success: function(randomNum){
+	 				if(randomNum != null){ // 이메일 보내기 성공한 경우
+	 					swal({
+	 						icon:"success",
+	 						title:"성공",
+	 						text: "입력하신 주소로 이메일을 보냈습니다."
+	 					});
+	 					sessionStorage.setItem("randomNum", randomNum); 
+	                }
+	 			},
+	 			error: function(){
+	 				console.log("이메일 전송 실패");
+	 			}
+	   	    
+	    	  }); 
+    	  }else{
+    		  swal("유효하지 않은 이메일 형식입니다.");
+    	  }
+    	  
       });
        
      //검사
