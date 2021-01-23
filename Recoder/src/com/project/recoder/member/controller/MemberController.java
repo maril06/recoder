@@ -42,7 +42,7 @@ public class MemberController extends HttpServlet {
 		
 		String chkPw = request.getParameter("chkPw");
 		Member member = null;
-		Member loginMember = (Member)session.getAttribute("loginMember");
+		Member loginMember = null;
 
 		
 		try {
@@ -146,6 +146,7 @@ public class MemberController extends HttpServlet {
 			
 			//마이페이지폼 컨트롤러------------------
 			else if(command.equals("/memberMyPage.do")) {
+				loginMember = (Member)session.getAttribute("loginMember");
 				int memNo = loginMember.getMemNo();
 				List<Room> roomList = service.selectRoomList(memNo); //찜한매물 리스트
 				
@@ -184,7 +185,7 @@ public class MemberController extends HttpServlet {
 			
 			//비밀번호 체크 컨트롤러-------------------------------------
 			else if (command.equals("/checkMember.do")) {
-				
+				loginMember = (Member)session.getAttribute("loginMember");
 				int memNo = loginMember.getMemNo();
 				
 				
@@ -203,7 +204,7 @@ public class MemberController extends HttpServlet {
 			
 			//탈퇴 컨트롤러----------------------------
 			else if(command.equals("/secessionMember.do")){
-				
+				loginMember = (Member)session.getAttribute("loginMember");
 				int memNo = loginMember.getMemNo();
 				String password = request.getParameter("userPw");
 		         int result = new MemberService().updateStatus(memNo, password);
@@ -224,6 +225,7 @@ public class MemberController extends HttpServlet {
 	    	
 			//정보수정 컨츠롤러---------------------------
 	    	else if(command.equals("/updateMemberServlet.do")){
+	    		
 	    		String pw1 = request.getParameter("pw1");
 	    		
 	    		
@@ -245,11 +247,18 @@ public class MemberController extends HttpServlet {
 	    		member.setMemEmail(memberEmail);
 	    		member.setMemTel(tel);
 	    		
+	    		
+	    		
+	    		//swalIcon
+				String swalIcon = null;
+				String swalTitle = null;
+				String swalText = null;
+				
 	    			//비즈니스 로직 수행 후 결과 반환
 	    			int result = new MemberService().updateMember(member, memberPw); 	 
 	    			
 	    	         if(result > 0) { // 성공
-
+	    	        	 
 	    	            
 	    	            //DB데이터가 갱신된 경우 Session에 있는 회원 정보도 갱신되어야함
 	    	            //기존 로그인 정보에서 id를 얻어와 갱신에 사용된 member 객체에 저장
@@ -258,10 +267,20 @@ public class MemberController extends HttpServlet {
 	    	            
 	    	            //Session에 있는 loginmember 정보를 mmember로 갱신
 	    	            session.setAttribute("loginMember", member);
-	    	            System.out.println(loginMember);
 	    	            
+	    	            swalIcon = "success";
+						swalTitle = "정보수정 성공!";
+						swalText = "정보 수정에 성공하였습니다.";
+	    	            
+	    	         }else {
+	    	        	 swalIcon = "error";
+	 					swalTitle = "정보수정 실패!";
+	 					swalText = "문제가 지속될 경우 고객센터로 문의 바랍니다.";
 	    	         }
-	    	        
+						
+						session.setAttribute("swalIcon", swalIcon);
+						session.setAttribute("swalTitle", swalTitle);
+						session.setAttribute("swalText", swalText);
 	    	        //수정 완료 후 다시 내정보 페이지로 재요청
 	    	        response.sendRedirect("memberMyPage.do");
 	    	}

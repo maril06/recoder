@@ -50,7 +50,7 @@
 	        <c:if test="${!empty loginMember && (loginMember.memGrade == 'G')}">
 	            <div class="info_wrapper">
 	                <div class="left_btn">
-	                    <a id="report"><span class="clearfix"><i class="fas fa-siren-on"></i>신고</span></a>
+	                    <a id="report"><span class="clearfix reportspan"><i class="fas fa-siren-on"></i>신고</span></a>
 	                    <a id="msg"><span class="clearfix"><i class="fas fa-envelope"></i>쪽지</span></a>
 	                    <a id="heart"><span class="clearfix heartspan"><i class="far fa-heart"></i>찜하기</span></a>
 	                </div>
@@ -249,17 +249,18 @@
                     </ul>
                 </div>
 
-	
+		<c:if test="${!empty loginMember && (loginMember.memGrade == 'G')}">
                 <div class="review_write">
                     <form action="" method="POST">
                         <div class="form-floating">
                         	<div id="review"></div>
                             <textarea class="form-control " placeholder="" id="replyContent"></textarea>
-                            <input class="btn btn-primary" type="submit" id="addReply" value="등록">
+                            <input class="btn btn-primary" type="button" id="addReply" value="등록">
                           </div>
                     </form>
                 </div>
                 
+        </c:if>
             </div>
         </section>
         
@@ -334,6 +335,7 @@ marker.setMap(map);
 /* <!-- ----------------------댓글영역 --> */
 var loginMemberNick = "${loginMember.memNick}";
 var parentRoomNo = ${room.roomNo};
+var memNo = "${loginMember.memNo}";
 
 // 페이지 로딩 완료 시 댓글 목록 호출
 selectReplyList();
@@ -399,19 +401,28 @@ $("#addReply").on("click", function(){
    
    $.ajax({
        url : "${contextPath}/review/chkVisit.do",
-       data : {
+       data : {"memNo" : memNo,
              "parentRoomNo" : parentRoomNo},
        type : "post",
        
        success : function(result){
           if(result < 1){ // 승낙받지 않은 경우
-            	alert('후기를 남길 수 없습니다.');
-             
+        	  Swal.fire({
+    			  title: '후기를 작성할 수 없습니다.',
+    			  text: "방문 후 후기를 작성할 수 있습니다.",
+    			  icon: 'warning',
+    			  confirmButtonColor: '#EE9BA3'
+    			});
           }else { // 승낙받은경우
               
               // 댓글 내용이 작성되어있는지 확인
               if(replyContent.length == 0){
-                 alert("댓글 작성 후 클릭해주세요.");
+            	  Swal.fire({
+        			  title: '댓글 작성 후 등록해주세요',
+        			  text: "",
+        			  icon: 'warning',
+        			  confirmButtonColor: '#EE9BA3'
+        			});
               
               } else { // 승낙도 되어있고, 댓글도  작성되어있는 경우
                  
@@ -432,7 +443,12 @@ $("#addReply").on("click", function(){
                           $("#replyContent").val("");
                        
                           // 성공 메세지 출력
-                          swal({"icon" : "success", "title" : "댓글 등록 성공"});
+                          Swal.fire({
+		        			  title: '작성 성공!',
+		        			  text: "",
+		        			  icon: 'success',
+		        			  confirmButtonColor: '#EE9BA3'
+		        			});
                           
                           // 댓글 목록을 다시 조회 -> 새로 삽입한 댓글도 조회하여 화면에 출력
                           selectReplyList();
@@ -513,7 +529,9 @@ $("#addReply").on("click", function(){
 
 
 $('#report').on('click', () => {
-
+	if($('.reportspan').html() == '<i class="fas fa-siren-on" aria-hidden="true"></i>신고됨'){
+		Swal.fire('이미 신고한 매물입니다!', '', 'warning');
+	}else{
 	  Swal.fire({
 	    title: '<strong>신고하기</strong>',
 	    icon: 'warning',
@@ -559,7 +577,7 @@ $('#report').on('click', () => {
 						},
 					success : function(result){
 						Swal.fire('신고했습니다!', '', 'success')
-						
+						$('.reportspan').html('<i class="fas fa-siren-on"></i>신고됨');
 					}, error : function(){
 						console.log("신고 실패");
 					}		
@@ -570,8 +588,36 @@ $('#report').on('click', () => {
 		}
 		
 	  });
+	  
+}
 
 	});
+	
+reportChk();
+	
+function reportChk(){
+	$.ajax({
+ 		url : "${contextPath}/report/reportChk.do",
+		type : "post",
+		data : {
+			"roomNo" : ${room.roomNo },
+			"memNo" : ${loginMember.memNo}
+			
+			},
+		success : function(result){
+			
+			if(result>0){
+				$('.reportspan').html('<i class="fas fa-siren-on"></i>신고됨');
+				$('#report').unbind('click', false);
+			} else{
+				$('.reportspan').html('<i class="fas fa-siren-on"></i>신고');
+			}
+			
+		}, error : function(){
+			console.log("실패");
+		}		
+	});
+}
 	
 	// 방문신청
 	$("#visit").on("click",()=>{

@@ -29,5 +29,12 @@ public class ReportService {
 		}
 		return result;
 	}
+	
+	public int reportChk(int roomNo, int memNo) throws Exception{
+		Connection conn = getConnection();
+		int result = dao.reportChk(conn, roomNo, memNo);
+		close(conn);
+		return result;
+	}
 
 }
