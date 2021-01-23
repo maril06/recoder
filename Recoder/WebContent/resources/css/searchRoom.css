@@ -25,20 +25,20 @@ a{
     z-index: 10;
 }
 .wrapper .row .row2 .search_area .text-center{
-    width: 100%;
+    width: 15%;
     display: flex;
     border-radius: 15px;
     margin-top: 100px;
+    transition-duration: .5s;
 }
 .wrapper .row .row2 .search_area .text-center > input{
-    width: 5% ;
+    width: 100% ;
     border: none;
     box-shadow: 0px 0px 20px 3px rgb(0, 0, 0, .7) ;
     padding: 20px;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     background-color: #fff;
-    transition-duration: .5s;
 }
 
 .wrapper .row .row2 .search_area .text-center > button {
@@ -51,12 +51,23 @@ a{
     color: purple;
     font-size: 30px;
 }
+.wrapper .row .row2 .search_area .text-center > button i{
+	width:100%;
+	opacity: 0;
+    transition-duration: .3s;
+    display: block;
+}
 .wrapper .row .row2 .search_area .text-center > button:hover{
     cursor: pointer;
 }
 
-.wrapper .row .row2 .search_area .text-center > input:hover{
+.wrapper .row .row2 .search_area .text-center:hover{
     width: 80% ;
+}
+.wrapper .row .row2 .search_area .text-center:hover i{
+	opacity: 1;
+    width: 0px;
+	
 }
 
 /* 지도 */

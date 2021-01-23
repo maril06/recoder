@@ -51,5 +51,30 @@ public class MessageService {
 		return message;
 	}
 
+
+	public List<Message> messageUnI(String you, String i) throws Exception{
+		Connection conn = getConnection();
+		List<Message> mChat = null;
+		
+		mChat = dao.messageUnI(conn, you, i);
+		
+		return mChat;
+	}
+	
+	
+	public int messageDelete(String myText, String you, String i) throws Exception{
+		Connection conn = getConnection();
+		int result = 0;
+		
+		result = dao.messageDelete(conn, myText, you, i);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 	
 }
