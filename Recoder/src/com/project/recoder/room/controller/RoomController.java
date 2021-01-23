@@ -13,10 +13,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.common.MyFileRenamePolicy;
+import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.room.model.service.RoomService;
 import com.project.recoder.room.model.vo.PageInfo;
 import com.project.recoder.room.model.vo.Room;
@@ -360,8 +362,18 @@ public class RoomController extends HttpServlet {
 			
 			// 매물 상세 =================================================================================================
 			else if(command.equals("/view.do")) {
+				HttpSession session = request.getSession();
+				
 				int roomNo = Integer.parseInt(request.getParameter("no")); // 임시
 				// request.getParameter로 얻어와야함!!
+				
+				if(session.getAttribute("loginMember") == null) {
+					session.setAttribute("swalIcon", "error");
+					session.setAttribute("swalTitle", "로그인 필요");
+					session.setAttribute("swalText", "매물 상세보기를 원하신다면 로그인 해주세요");
+					response.sendRedirect(request.getHeader("referer"));
+				}
+				else {
 				
 
 				Room room = service.selectRoom(roomNo);
@@ -433,7 +445,7 @@ public class RoomController extends HttpServlet {
 					response.sendRedirect(request.getHeader("referer"));	
 				}
 				
-				
+				}
 			}
 			
 			//-------------------------------------------------------------------------------------------------------------

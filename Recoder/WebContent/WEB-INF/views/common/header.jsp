@@ -47,10 +47,10 @@
                         <li><a href="${contextPath}/searchKeyword.do?keyword="><span><b>방찾기</b></span></a></li>
                         <li><a href="${contextPath}/room/roomInsertForm.do"><span><b>방 내놓기</b></span></a></li>
                         <c:if test="${!empty sessionScope.loginMember}">
-                        	<li><a href="${contextPath}/member/memberMyPage.do"><span><b>찜한 방</b></span></a></li>
+                        	<li><a id="pickRoom"><span><b>찜한 방</b></span></a></li>
                         </c:if>
                         <c:if test="${empty sessionScope.loginMember}">
-                        	<li><a href="${contextPath}/common/loginForm.do"><span><b>찜한 방</b></span></a></li>
+                        	<li><a id="pickRoom"><span><b>찜한 방</b></span></a></li>
                         </c:if>
                          <li><a href="${contextPath}/notice/list.do""><span><b>공지사항</b></span></a></li>
                         <li><a href="${contextPath}/board/list.do"><span><b>게시판</b></span></a></li>
@@ -86,4 +86,32 @@
             </div>
         </header>
   <script src="${contextPath}/resources/js/index.js">
+  </script>
+  
+  <script>
+  $("#pickRoom").on("click", function(){
+	 if(${ !empty sessionScope.loginMember}){
+		 if (${sessionScope.loginMember.memGrade=='G'}){
+			 $(this).attr("href", "${contextPath}/member/memberMyPage.do");
+		 }else{
+			 swal({
+				    title: "입장이 불가합니다.",
+				    text: "일반 회원들만 이용 가능한 메뉴입니다.",
+				    icon: "warning" 
+				})
+		 }
+	 } else{
+		 swal({
+			    title: "로그인이 필요합니다.",
+			    text: "로그인 후 이용 가능한 메뉴입니다. 로그인 해주세요.",
+			    icon: "warning" //"info,success,warning,error" 중 택1
+			}).then(function() {
+			    window.location = "${contextPath}/common/loginForm.do";
+			});
+		/*  $(this).attr("href", "${contextPath}/common/loginForm.do"); */
+	 }
+  });
+  
+  
+  
   </script>

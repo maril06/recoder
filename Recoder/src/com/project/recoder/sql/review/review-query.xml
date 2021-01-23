@@ -28,4 +28,10 @@ AND MEM_NO=?
 INSERT INTO REVIEW VALUES(SEQ_REVIEWNO.NEXTVAL, DEFAULT, ?, ?, DEFAULT, ?, ?) 
 </entry>
 
+<entry key="reviewChk">
+SELECT COUNT(*) FROM REVIEW
+WHERE ROOM_NO = ?
+AND MEM_NO = ?
+</entry>
+
 </properties>

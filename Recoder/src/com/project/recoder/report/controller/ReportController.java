@@ -50,6 +50,17 @@ public class ReportController extends HttpServlet {
 				
 			}
 			
+			if(command.equals("/reportChk.do")) {
+				
+				int roomNo = Integer.parseInt(request.getParameter("roomNo"));
+				int memNo = Integer.parseInt(request.getParameter("memNo"));
+				
+				int result = service.reportChk(roomNo, memNo);
+				
+				response.getWriter().print(result);
+				
+			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 			path = "/WEB-INF/views/common/errorPage.jsp"; // 수정

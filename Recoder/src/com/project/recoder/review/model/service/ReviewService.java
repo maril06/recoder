@@ -74,4 +74,11 @@ public class ReviewService {
 		return result;
 	}
 
+	public int reviewChk(int memNo, int roomNo) throws Exception{
+		Connection conn = getConnection();
+		int result = dao.reviewChk(conn, roomNo, memNo);
+		close(conn);
+		return result;
+	}
+
 }

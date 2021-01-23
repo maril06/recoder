@@ -128,4 +128,25 @@ public class ReviewDAO {
 		return result;
 	}
 
+	public int reviewChk(Connection conn, int roomNo, int memNo) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("reviewChk");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, roomNo);
+			pstmt.setInt(2, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

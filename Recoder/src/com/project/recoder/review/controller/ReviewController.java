@@ -43,10 +43,11 @@ public class ReviewController extends HttpServlet {
 	         }
 	         
 	         else if(command.equals("/chkVisit.do")) {
+	        	 System.out.println("kdansghkrdls");
 	        	 int parentBoardNo = Integer.parseInt(request.getParameter("parentRoomNo"));
-	        	 HttpSession session = request.getSession();
-	        	 Member loginMember = (Member)session.getAttribute("loginMember");
-	        	 int memNo = loginMember.getMemNo();
+	        	 
+	        	 
+	        	 int memNo = Integer.parseInt(request.getParameter("memNo"));
 	        	 
 	        	 int result = service.chkVisit(parentBoardNo,memNo);
 	        	 response.getWriter().print(result);
@@ -54,7 +55,6 @@ public class ReviewController extends HttpServlet {
 	         
 	         
 	         else if(command.equals("/insertReply.do")) {
-	        	
 	        	// 오라클에서 숫자로 이루어진 문자열은 자동으로 숫자로 변환되는 특징을 사용할 예정 
 	        	int replyWriter = Integer.parseInt(request.getParameter("replyWriter"));
 				int parentRoomNo = Integer.parseInt(request.getParameter("parentRoomNo"));
@@ -74,6 +74,18 @@ public class ReviewController extends HttpServlet {
 	        	response.getWriter().print(result);
 	        	
 	         }
+	         
+	         else if(command.equals("/reviewChk.do")) {
+		        	// 오라클에서 숫자로 이루어진 문자열은 자동으로 숫자로 변환되는 특징을 사용할 예정 
+		        	int memNo = Integer.parseInt(request.getParameter("memNo"));
+					int roomNo = Integer.parseInt(request.getParameter("parentRoomNo"));
+					
+				
+		        	int result = service.reviewChk(memNo, roomNo);
+
+		        	response.getWriter().print(result);
+		        	
+		         }
 	         
 
 	      }	catch(Exception e) {
