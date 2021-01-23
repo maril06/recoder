@@ -43,7 +43,6 @@ public class MessageDAO {
 	public int messageSend(Connection conn, String msgContext, int brokerNo, int myNo) throws Exception{
 		int result = 0;
 		String query = prop.getProperty("messageSend");
-		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, msgContext);
@@ -93,5 +92,63 @@ public class MessageDAO {
 		
 		
 		return message;
+	}
+
+	public List<Message> messageUnI(Connection conn, String you, String i) throws Exception{
+		List<Message> message = null;
+		String query = prop.getProperty("messageUnI");
+		
+		try {
+			
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, you);
+			pstmt.setString(2, i);
+			pstmt.setString(3, i);
+			pstmt.setString(4, you);
+			
+			rset = pstmt.executeQuery();
+			
+			message = new ArrayList<Message>();
+			while(rset.next()) {
+				Message msg = new Message(
+					rset.getString("MSG_CONTENT"),
+					rset.getTimestamp("CREATE_DT"),
+					rset.getInt("I"),
+					rset.getInt("YOU"),
+					rset.getInt("MSG_CNT"),
+					rset.getString("MEM_NICK"));
+				message.add(msg);
+			}
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return message;
+
+	}
+
+	public int messageDelete(Connection conn, String myText, String you, String i) throws Exception{
+		int result = 0;
+		String query = prop.getProperty("messageDelete");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, you);
+			pstmt.setString(2, i);
+			pstmt.setString(3, i);
+			pstmt.setString(4, you);
+			
+			result = pstmt.executeUpdate();
+		} finally {
+			close(pstmt);
+			
+		}
+		
+		
+		return result;
 	}
 }

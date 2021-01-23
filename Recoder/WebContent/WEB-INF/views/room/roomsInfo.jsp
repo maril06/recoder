@@ -461,8 +461,6 @@ $("#addReply").on("click", function(){
 
 
 
-
-
 	// 쪽지 보내기
 	
 	$("#msg").on('click', ()=>{

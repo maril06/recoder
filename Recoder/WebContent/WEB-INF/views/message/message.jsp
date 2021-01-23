@@ -39,22 +39,24 @@
                     <li class="member_list clearfix">
                         <div class="msg_left">
                             <img src="${contextPath}/resources/images/homepage/mail_open.png" alt="">
-                            <div class="circle"></div>
-                            <div class="mcnt" id="mcnt"><i class="fas fa-comment-plus"></i></div>
+                            <!-- <div class="circle"></div> -->
+                            <c:if test="${message.msgCnt == 0}">
+	                            <div class="mcnt" id="mcnt"><i class="fas fa-comment-plus"></i></div>
+                            </c:if>
                             <span class="name">${message.memNick}</span>
                             <input type="hidden" value="${message.memSend }" name="memNo" class="aa">
                         </div>
 
                         <p class="msg_text" id="msgText">
-                        	${message.msgContent}
+                        	${message.msgContent} 
                         </p>
 
                         <div class="msg_right">
                             <span class="msg_date">
                             	<fmt:formatDate value="${message.createDate}" pattern="hh:mm"/>
                             </span>
-                            <div class="msg_button_check"><span>확인</span></div>
-                            <div class="msg_button_delete"><span>삭제</span></div>
+                            <div class="msg_button_check" id="${message.memSend}" onclick="getId(this)"><span>확인</span></div>
+                            <div class="msg_button_delete" ><span id="${message.memSend}" onclick="deleteMsg(this)">삭제</span></div>
                         </div>
                     </li>
                     
@@ -63,7 +65,7 @@
                     
                 </ul>
             </div>
-            <div class="message_his">
+            <!-- <div class="message_his">
                 <ul>
                     <li class="you clearfix">
                         <span class="name">상대방</span>
@@ -90,74 +92,118 @@
                 </ul>
                 <div class="message_send">
                     <form action="" class="input_form clearfix">
-                        <!-- <input type="textarea" placeholder="내용"> -->
+                        <input type="textarea" placeholder="내용">
                         <textarea name="" id="" cols="30" rows="10" placeholder="내용" ></textarea>
                         <button id="send">전송</button>
                     </form>
                 </div>
-            </div>
+            </div> -->
+            
+            
+            <jsp:include page="messageUnI.jsp"></jsp:include>
+            
+            
         </section>
         
-        <footer class="footer">
-            <div class="footer_wrap ft">
-                <div class="footer_top clearfix">
-                    <ul class="about">
-                        <li><a href="">회사소개</a></li>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">매물관리규정</a></li>
-                        <li><a href="">자동저장서비스</a></li>
-                    </ul>
-                    <div id="gotoTop"><i class="fas fa-arrow-up"></i>TOP</div>
-                </div>
-                <div class="footer_mid">
-                    <p>
-                        (주)스테이션3 <br>
-                        대표 : 한유순, 유형석 <br>
-                        사업자 번호: 220-88-59156 &nbsp;통신판매업신고번호 : 제2013-서울 강남-02884호<br>
-                        주소 : 서울시 서초구 서초대로 301 동익 성봉빌딩 10층 (주)스테이션3 <br>
-                    </p>
-                    <p>
-                        고객센터 : 02-1899-6840(평일 10:00 ~ 18:30 토•일요일, 공휴일 휴무) <br>
-                        팩스 : 02-554-9774프로모션/사업 제휴문의 : biz@station3.co.kr허위매물 신고 : clean@dabangapp.com
-                    </p>
-                </div>
-                <div class="footer_bottom">
-                    <span>Station3, Inc. All rights reserved.</span>
-                    <ul class="clearfix">
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fas fa-comment"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
+        <jsp:include page="../common/footer.jsp"></jsp:include>
     </div>
 
-    <script src="${contextPath}/resources/js/message.js"></script>
-    <script type="text/javascript">
-    	$(".msg_button_delete").on('click', (e)=> {
+    <script>
+    	
+    	
+    	function getId(e){
     		
-    			
+    		var you = Number(e.id)
     		
-    		/*
-    		확인 시연할 ajax
+    		if (isNaN(you)) {
+				you = e;				
+			}
+    		console.log(you);
+    		var i = ${memNo}
+
+    		$.ajax({
+    	 		url : "${contextPath}/message/messageUnI.do",
+    			type : "post",
+    			data : {
+    				"you" : you,
+    				"i" : i
+    				},
+   				dataType : "json",
+    			success : function(result){
+    				
+    				$("#mChat").html("");
+    				
+    					for(let j = 0; j <result.mChat.length; j++){
+    						
+    						if (result.mChat[j].memReceive == you) {
+    							var cnt = 0;
+		    					var li = $("<li>").addClass("you clearfix");
+		    					var p = $("<p>").text(result.mChat[j].msgContent)
+		    					var span = $("<span>").addClass("name").text(result.mChat[j].memNick);
+		    					var span2 = $("<span>").addClass("msg_date").text(result.mChat[j].createDate)
+		    					var input = $("<input>").prop("type", "hidden").prop("value", "result.mChat[j].memSend");
+		    					
+		    					li.append(span).append(p).append(input)
+		    					p.append(span2);
+	    						
+							}else{
+								
+		    					var cnt = 0;
+		    					var li = $("<li>").addClass("me clearfix");
+		    					var p = $("<p>").text(result.mChat[j].msgContent)
+		    					var span = $("<span>").addClass("name").text("나");
+		    					var span2 = $("<span>").addClass("msg_date").text(result.mChat[j].createDate);
+		    					li.append(span).append(p);
+		    					p.append(span2);
+							}
+
+	    					$("#mChat").append(li);
+    					}    				
+    				
+    			}, error : function(){
+    				console.log("실패");
+    			}		
+    		});
+    		
+    		//$("body").scrollTop($("body")[0].scrollHeight)
+    		document.body.scrollTop = document.body.scrollHeight
+
+    	}
+    	
+    	
+    	
+		function deleteMsg(e){
+    		
+			var you = Number(e.id)
+    		var i = ${memNo}
+
+    		
     		
     		$.ajax({
-				url : "",
-				type : "post",
-				data: {"userPw": inputPw},
-				success : function(result){
+    	 		url : "${contextPath}/message/messageDelete.do",
+    			type : "post",
+    			data : {
+    				"you" : you,
+    				"i" : i
+    				},
+    			success : function(result){
+    				console.log("성공");
+    				
+    				
+    				location.reload();
+    				
+    			}, error : function(){
+    				console.log("실패");
+    			}		
+    		});
+    		
+    		
 
-				}, error : function(){
-					
-				}		
-			});
-    		
-    		*/
-    		
-    	})
+    	}
+    	
+    	
     	
     </script>
+    <script src="${contextPath}/resources/js/message.js"></script>
 </body>
 </html>

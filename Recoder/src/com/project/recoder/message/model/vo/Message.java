@@ -38,6 +38,22 @@ public class Message {
 		this.msgCnt = msgCnt;
 		this.memSend = memSend;
 	}
+	
+	
+	
+	
+
+	public Message(String msgContent, Timestamp createDate, int memReceive, int memSend, int msgCnt, String memNick) {
+		super();
+		this.msgContent = msgContent;
+		this.createDate = createDate;
+		this.memReceive = memReceive;
+		this.memSend = memSend;
+		this.msgCnt = msgCnt;
+		this.memNick = memNick;
+	}
+
+
 
 	public int getMsgNo() {
 		return msgNo;
