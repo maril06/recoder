@@ -19,7 +19,15 @@
    <script src="http://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
    
    <link rel="stylesheet" href="${contextPath}/resources/css/boardInsert.css">
+   <style>
    
+   #btn1, #btn2, .pinkBtn{
+    display: inline-block;
+    background-color: #EE9BA3;
+    color: white;
+    border: none;
+    }
+    </style>
    
   	 <!-- 썸머노트 include libraries(jQuery, bootstrap) -->
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -67,8 +75,8 @@
 				<hr class="mb-4">
 
 				<div class="text-center">
-					<button type="submit" class="btn btn-secondary">등록</button>
-					<button type="button" class="btn btn-outline-secondary" onclick = "location.href='${header.referer}'">이전으로</button>
+					<button type="submit" class="btn pinkBtn">등록</button>
+					<button type="button" class="btn pinkBtn" onclick = "location.href='${header.referer}'">이전으로</button>
 				</div>
 
             

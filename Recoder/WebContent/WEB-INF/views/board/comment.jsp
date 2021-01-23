@@ -19,7 +19,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="${contextPath}/resources/css/comment.css">
-   
+   <style>
+   #updateComment, #deleteComment, #addComment , .alert-danger {
+   display: inline-block;
+    background-color: #EE9BA3;
+    color: white;
+    border: none;
+   }
+  
+   </style>
 </head>
 
 
@@ -33,7 +41,7 @@
 					<textArea rows="3" id="commentContent"></textArea>
 				</td>
 				<td id="commentBtnArea">
-					<button class="btn btn-primary" id="addComment">
+					<button class="btn" id="addComment">
 						댓글<br>등록
 					</button>
 				</td>
@@ -67,8 +75,8 @@
 				<p class="cContent">댓글 내용2</p>
 				
 				<div class="commentBtnArea">
-					<button class="btn btn-primary btn-sm ml-1" id="updateComment" onclick="showUpdateComment(2, this)">수정</button>
-					<button class="btn btn-primary btn-sm ml-1" id="deleteComment" onclick="deleteComment(2)">삭제</button>
+					<button class="btn btn-sm ml-1 alert-danger" id="updateComment" onclick="showUpdateComment(2, this)">수정</button>
+					<button class="btn btn-sm ml-1 alert-danger" id="deleteComment" onclick="deleteComment(2)">삭제</button>
 				</div>
 			</li>
 	
@@ -119,8 +127,8 @@ $.ajax({
 					var commentBtnArea = $("<div>").addClass("commentBtnArea");
 				
 				// ** 추가되는 댓글에 onclick 이벤트를 부여하여 버튼 클릭 시 수정, 삭제를 수행할 수 있는 함수를 이벤트 핸들러로 추가함. 
-				var showUpdate = $("<button>").addClass("btn btn-primary btn-sm ml-1").text("수정").attr("onclick", "showUpdateComment("+item.commentNo+", this)");
-				var deleteComment = $("<button>").addClass("btn btn-primary btn-sm ml-1").text("삭제").attr("onclick", "deleteComment("+item.commentNo+")");
+				var showUpdate = $("<button>").addClass("btn alert-danger btn-sm ml-1").text("수정").attr("onclick", "showUpdateComment("+item.commentNo+", this)");
+				var deleteComment = $("<button>").addClass("btn alert-danger btn-sm ml-1").text("삭제").attr("onclick", "deleteComment("+item.commentNo+")");
 				
 				commentBtnArea.append(showUpdate).append(deleteComment);
 				
@@ -227,17 +235,17 @@ function showUpdateComment(commentNo, el){
 	
 	// 기존 댓글 영역을 삭제하고 textarea를 추가 
 	$(el).parent().prev().remove();
-	var textarea = $("<textarea>").addClass("commentUpdateContent").attr("rows", "3").val(beforeContent);
+	var textarea = $("<textarea>").addClass("commentUpdateContent").attr("rows", "3").val(beforeContent).css("width","97%").css("resize", "none").css("margin","10px");
 	$(el).parent().before(textarea);
 	
 	//console.log(commentBtnArea);
 	
 	
 	// 수정 버튼
-	var updateComment = $("<button>").addClass("btn btn-primary btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateComment(" + commentNo + ", this)");
+	var updateComment = $("<button>").addClass("btn alert-danger btn-sm ml-1 mb-4").text("댓글 수정").attr("onclick", "updateComment(" + commentNo + ", this)");
 	
 	// 취소 버튼
-	var cancelBtn = $("<button>").addClass("btn btn-primary btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
+	var cancelBtn = $("<button>").addClass("btn alert-danger btn-sm ml-1 mb-4").text("취소").attr("onclick", "updateCancel(this)");
 	
 	var commentBtnArea = $(el).parent();
 	

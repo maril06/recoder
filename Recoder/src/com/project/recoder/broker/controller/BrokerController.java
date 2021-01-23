@@ -123,6 +123,7 @@ if (command.equals("/brokerInfo.do")) {
 				broker.setMemId(memId);
 				broker.setMemPw(memPw);
 				
+				
 					Broker loginMember = service.loginBroker(broker);
 					
 					
@@ -132,7 +133,7 @@ if (command.equals("/brokerInfo.do")) {
 					String url = null;
 					
 				// 6-1. 로그인이 성공했을 때만 Session에 로그인 정보 추가하기. 
-					if(loginMember != null) {
+					if(loginMember != null && loginMember.getApproveFl().equals("Y")) {
 					//6-2. 30분 동안 동작이 없을 경우 Session을 만료시킴
 						session.setMaxInactiveInterval(60 * 30);
 					
@@ -164,19 +165,30 @@ if (command.equals("/brokerInfo.do")) {
 						url = (String)session.getAttribute("beforeUrl");
 						
 						
-					//7. 로그인이 실패했을 때 "아이디 또는 비밀번호를 확인해주세요."라고 경고창 띄우기
-					}else {
+					}else if(loginMember != null && loginMember.getApproveFl().equals("N")) {
+						//회원가입은 하고 인증은 아직 못받은 회원 
 						session.setAttribute("swalIcon", "error");
-						session.setAttribute("swalTitle", "로그인 실패");
-						session.setAttribute("swalText", "아이디 또는 비밀번호를 확인해주세요");
-						
-						//System.out.println("실패 before Url : "+session.getAttribute("beforeUrl"));
-						//System.out.println("실패 referer : "+ request.getHeader("referer"));
+						session.setAttribute("swalTitle", "미인증 회원");
+						session.setAttribute("swalText", "관리자의 승인을 받을 때 까지 기다려주세요.");
 						
 						url = request.getHeader("referer"); 
 						
 						String beforeUrl = (String)session.getAttribute("beforeUrl");
-						//System.out.println("before url :"+beforeUrl);
+						session.setAttribute("beforeUrl",  beforeUrl);
+					}
+					
+					
+					
+					
+					else {
+						//7. 로그인이 실패했을 때 "아이디 또는 비밀번호를 확인해주세요."라고 경고창 띄우기
+						session.setAttribute("swalIcon", "error");
+						session.setAttribute("swalTitle", "로그인 실패");
+						session.setAttribute("swalText", "아이디 또는 비밀번호를 확인해주세요");
+						
+						url = request.getHeader("referer"); 
+						
+						String beforeUrl = (String)session.getAttribute("beforeUrl");
 						session.setAttribute("beforeUrl",  beforeUrl);
 					}
 					
