@@ -213,10 +213,12 @@ public class BoardService {
 		Connection conn = getConnection();
 		int result = 0;
 		int boardNo = (int)map.get("boardNo");
-		//System.out.println(boardNo);
+		//System.out.println("게시글 번호" +boardNo);
 		String boardContent = (String) map.get("boardContent");
-		List<String> imageNameList  = getImgName(boardContent);
 		
+		//콘텐트에 있는 p태그들 뽑아서 리스트에 담기
+		List<String> imageNameList  = getImgName(boardContent);
+		//System.out.println("콘텐트에 있는 이미지 리스트 : "+ imageNameList);
 		
         //서버 사진 저장 주소
 		String path = "C:\\Users\\imsor\\workspace\\teamRepository\\recoder\\Recoder\\WebContent\\resources/images/boardImg/";
@@ -224,30 +226,42 @@ public class BoardService {
 		try {
 			result = dao.updateBoard(conn, map); //디비에서 게시글 지우기
 		
-			if(result > 0 && !imageNameList.isEmpty()) {//게시글 지우기 성공하면 이미지 지우기
+			//System.out.println("게시글 지우기 성공" + result);
+			
+			//이미지 저장된거 있나 확인
+			int imgExist = dao.imgExist(conn, boardNo);
+			//있을 때 1이상 반환
+			
+			
+			//게시글 지우기 성공하면 이미지 지우기(이미지 저장된거 있을 때만)
+			if(result > 0 && imgExist>0) {
+				
 				result = 0;
+				//System.out.println("이미지 지우기 실행됨.");
 				result = dao.deleteBoardImg(conn, boardNo);
+				//System.out.println("이미지 지우기 성공 여부 : "+ result);
 			}
-		
-			if(result > 0 && !imageNameList.isEmpty()) {//이미지 지우기 성공하면 이미지 새로 넣기
+			
+			//이미지 지우기 성공하고 새로넣을 이미지가 있다면 실행
+			if(result > 0 && !imageNameList.isEmpty()) {
 				result = 0;
 				int index=0;
-				
+				//System.out.println("새로운 이미지 있을 때 이미지 넣기 기능 실행");
 				List<BoardImg> bimgs = new ArrayList<BoardImg>();
 				
 			//이미지 세팅..
-			for(String imgname : imageNameList) {
-				
-				//이미지정보를 boardImg에 넣기
-				BoardImg bImg = new BoardImg(path, imgname, index++, boardNo);		
-				bimgs.add(bImg);
-			}
-				for(BoardImg b : bimgs) {
-				result = dao.insertImgs(conn, b);
-					if(result == 0) { 
-						throw new FileInsertFailedException("파일 정보 삽입 실패");
-					}
+				for(String imgname : imageNameList) {
+					
+					//이미지정보를 boardImg에 넣기
+					BoardImg bImg = new BoardImg(path, imgname, index++, boardNo);		
+					bimgs.add(bImg);
 				}
+					for(BoardImg b : bimgs) {
+					result = dao.insertImgs(conn, b);
+						if(result == 0) { 
+							throw new FileInsertFailedException("파일 정보 삽입 실패");
+						}
+					}
 			}
 			
 			
@@ -267,6 +281,9 @@ public class BoardService {
 		throw e;
 
 		}
+		
+		
+		
 		if(result > 0) commit(conn);
 		else			rollback(conn);
 		

@@ -217,6 +217,7 @@ public class BoardController extends HttpServlet {
 				map.put("boardWriter", boardWriter);
 				map.put("boardNo", boardNo);
 
+				//map에 있는 회원정보 서비스로 넘기기
 				int result = service.updateBoard(map);
 				path = "view.do?cp="+cp+"&no=" +boardNo;
 				
