@@ -16,6 +16,7 @@ $(document).ready(function(){
     $("#right").addClass("right_hover");
     $(".signin").css({"display":"none"});
     $(".signup").css({"display":""});
+	$(".c11").css({"background-image":"url('https://veerle.duoh.com/images/inspiration/_normal/dualit-coffee-labels-ii-big.jpg')"});
  });
 
 /*(left)공인중개사 클릭시*/
@@ -26,4 +27,5 @@ $(document).ready(function(){
     $("#left").addClass("left_hover");
     $(".signup").css({"display":"none"});
     $(".signin").css({"display":""});
+	$(".c11").css({"background-image":"url('https://i.pinimg.com/736x/b8/09/22/b80922f6ea2daaf36a6627378662803b--deck-of-cards-phone-wallpapers.jpg')"});
  });
