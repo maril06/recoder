@@ -25,23 +25,20 @@
 			text-align : center;
 		}
        .board-area {
-           height: 500px;
+           height : 60%;
            width: 60%;
            margin: auto;
            margin-top: 100px;
        }
 
 
-       .board-content {
-           height: 300px;
-       }
 
        .prev-btn {
            background-color: rgb(174, 160, 236);
            border: rgb(174, 160, 236);
        }
        .button-area{
-           height:50px;
+           height:100px;
        }
    
     </style>
