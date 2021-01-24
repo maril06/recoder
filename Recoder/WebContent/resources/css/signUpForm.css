@@ -161,9 +161,13 @@
      font-family: 'IBMPlexSansKR-Regular';
      
  }
+ 
+#officeAddr{
+	margin-bottom: 10px;
+}
  .brokerImg{
  	display:inline-block;
-     margin: 0 180px;
+     margin-left: 180px;
      font-family: 'IBMPlexSansKR-Regular';
  height: 10px;
   font-size: 8px;

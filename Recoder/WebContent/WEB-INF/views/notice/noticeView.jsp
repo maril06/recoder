@@ -87,7 +87,7 @@
 					</c:url>
 				</c:otherwise>
 			</c:choose>
-                    <a href="${goToList}" class="btn btn-secondary float-right" >목록으로</a>
+                    <a href="${goToList}" class="btn float-right alert-danger" id="btn2" >목록으로</a>
                 </div>
                 <br> <br>
                 <hr>

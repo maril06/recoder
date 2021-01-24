@@ -39,9 +39,9 @@
              <div class="validate-area checkPw2" id="checkPw2" ></div>
              <input name="email" id="email" type="email" placeholder="이메일 *" class="username"/>
              <div class="validate-area checkEmail" id="checkEmail"></div>
-             <input name="nickname" id="nickname" type="text" placeholder="닉네임 " class="username"/>
+             <input name="nickname" id="nickname" type="text" placeholder="닉네임 *" class="username"/>
              <div class="validate-area checkNick" id="checkNick"></div>
-             <input name="usertel" id="usertel" type="tel" placeholder="전화번호(-포함) " class="username"/>
+             <input name="usertel" id="usertel" type="tel" placeholder="전화번호(-포함)*" class="username"/>
              <div class="validate-area checkPhone" id="checkPhone"></div>
 
              <div id="agreementDivArea" class="agreement">
@@ -96,21 +96,21 @@
              <input name="email" id="email2" type="email" placeholder="이메일 *" class="username"/>
              <div class="validate-area checkEmail" id="checkEmail2"></div>
              
-             <input name="nickname" id="nickname2" type="text" placeholder="닉네임 " class="username"/>
+             <input name="nickname" id="nickname2" type="text" placeholder="닉네임* " class="username"/>
              <div class="validate-area checkNick" id="checkNick2"></div>
              
-             <input name="usertel" id="usertel2" type="tel" placeholder="전화번호(-포함) " class="username"/>
+             <input name="usertel" id="usertel2" type="tel" placeholder="전화번호(-포함)* " class="username"/>
              <div class="validate-area checkPhone" id="checkPhone2"></div>
              
              <!-- 주소 -->
 						<div class="postcodeArea">
-							<input type="text" name="post" class="form-control postcodify_postcode5 username addr" id="postcode" placeholder="우편번호">
+							<input type="text" name="post" class="form-control postcodify_postcode5 username addr" id="postcode" placeholder="사무실 우편번호*">
 							<button type="button" class="btn btn-primary small" id="postcodify_search_button">검색</button>
 						</div>
+							<!-- <span class="brokerImg" id="officeAddr">사무실 주소</span> -->
+							<input type="text" class="form-control postcodify_address username addr" name="address1" id="address1" placeholder="사무실 도로명주소*">
 
-							<input type="text" class="form-control postcodify_address username addr" name="address1" id="address1" placeholder="도로명주소">
-
-							<input type="text" class="form-control postcodify_details username addr" name="address2" id="address2" placeholder="상세주소">
+							<input type="text" class="form-control postcodify_details username addr" name="address2" id="address2" placeholder="사무실 상세주소*">
              
              
              <input type="file" id="attachFile">
@@ -120,7 +120,7 @@
                <span name="fileselect" class="btn small" id="fileselect">파일선택</span>
                   <input type="file" id="img0" name="img0" onchange="LoadImg(this,0)"> 
 					</div>
-               <span class="brokerImg">공인중개사 파일</span>
+               <span class="brokerImg">공인중개사 자격증 사진 첨부*</span>
             </div>
             <div id="agreementDivArea" class="agreement">
                <div>
