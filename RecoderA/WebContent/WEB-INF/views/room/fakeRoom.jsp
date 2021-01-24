@@ -114,7 +114,7 @@ input[type="checkbox"]:hover{
 
 					<div class="button-area">
 					<c:if test="${loginAdmin.adminGrade =='A' }">
-						<button class="btn btn-primary float-right delete-item" id="deleteBtn">삭제</button>
+						<button class="btn btn-primary float-right delete-item delete-item" id="deleteBtn">삭제</button>
 					</c:if>
 					</div>
 					<br>
@@ -204,7 +204,7 @@ input[type="checkbox"]:hover{
 	
 	<script>
 	
-	$("#deleteBtn").on("click", function(){
+	$(".delete-item").on("click", function(){
     	
     	
     	

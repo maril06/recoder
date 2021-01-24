@@ -3,6 +3,7 @@
 <style>
        .reply-area {
            width: 60%;
+           height:30%;
            margin: auto;
        }
 

@@ -128,11 +128,11 @@ public class RoomController extends HttpServlet {
 				
 				String roomNo = request.getParameter("RoomNo");
 				
-				//System.out.println(roomNo); 확인 ok
+				System.out.println(roomNo); //확인 ok
 				
 				int result = service.updateFakeRoomDelete(roomNo);
 				
-				//System.out.println(result);
+				System.out.println(result);
 				
 				response.getWriter().print(result);
 			}
