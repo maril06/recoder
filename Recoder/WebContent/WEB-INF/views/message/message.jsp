@@ -110,7 +110,7 @@
 
     <script>
     	
-    	
+    
     	function getId(e){
     		
     		var you = Number(e.id)
@@ -165,13 +165,14 @@
     			}		
     		});
     		
-    		//$("body").scrollTop($("body")[0].scrollHeight)
-    		document.body.scrollTop = document.body.scrollHeight
-
+    		
+    		console.log($(".msg_box").scrollTop($(".msg_box")[0].scrollHeight))
+    		$(".msg_box").scrollTop($(".msg_box")[0].scrollHeight)
+    		
     	}
     	
     	
-    	
+    	// 삭제
 		function deleteMsg(e){
     		
 			var you = Number(e.id)
