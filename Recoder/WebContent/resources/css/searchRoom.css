@@ -67,7 +67,7 @@ a{
 .wrapper .row .row2 .search_area .text-center:hover i{
 	opacity: 1;
     width: 0px;
-	
+
 }
 
 /* 지도 */
@@ -99,7 +99,14 @@ a{
 .wrap * {padding: 0;margin: 0;}
 .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
 .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+.info .title {padding: 5px 0 0 10px;height: 30px;background: #ebc0d9;border-bottom: 1px solid #ebc0d9;font-size: 18px;font-weight: bold;
+        word-wrap: break-word;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display:-webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+}
 .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png'); }
 .info .close:hover {cursor: pointer;}
 .info .body {position: relative;overflow: hidden;}

@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.project.recoder.room.model.service.RoomService;
+import com.project.recoder.room.model.vo.FakeRoom;
 import com.project.recoder.room.model.vo.PageInfo;
 import com.project.recoder.room.model.vo.ReportComment;
 import com.project.recoder.room.model.vo.Room;
-import com.project.recoder.room.model.vo.FakeRoom;
 
 
 @WebServlet("/room/*")
@@ -132,7 +132,7 @@ public class RoomController extends HttpServlet {
 				
 				int result = service.updateFakeRoomDelete(roomNo);
 				
-				//System.out.println(result);
+				System.out.println(result);
 				
 				response.getWriter().print(result);
 			}

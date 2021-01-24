@@ -23,8 +23,15 @@ a:hover{
 }
 
 
+input , select, option{
+    border: none;
+    border-bottom: 1px solid rgba(22, 30, 39, .3);
+    box-shadow: 1px 1px 1px 0px rgba(22, 30, 39, .3);
+}
 
-
+select{
+    border: none;
+}
 
 
 
@@ -104,7 +111,7 @@ a:hover{
 .room_info .room_detail{
     width: 50%;
     margin: 0 auto 100px;
-    
+
 }
 .room_info .room_detail .table{
 }
@@ -115,12 +122,12 @@ a:hover{
 
 .room_info .room_detail .table thead tr th{
     border-top: none;
-    text-align: center;    
+    text-align: center;
     border:none;
 }
 
 .room_info .room_detail .table tbody tr th {
-    text-align: left;    
+    text-align: left;
 }
 
 .room_info .room_cost {
@@ -132,7 +139,7 @@ a:hover{
     width: 100%;
     display: flex;
     margin-bottom: 100px;
-    
+
 }
 .room_info .room_cost > ul > li {
     width: 100%;
@@ -159,7 +166,6 @@ a:hover{
 .room_info .option {
     width: 70%;
     margin: 70px auto 0;
-    padding-top: 100px;
     border-top: 1px solid #d1d1d1;
 }
 
@@ -203,6 +209,7 @@ a:hover{
     text-align: center;
     margin-bottom: 30px;
 }
+
 .room_info .option .option_info > ul li span{
     width: 150px;
     display: block;
@@ -214,12 +221,12 @@ a:hover{
     font-weight: 500;
     letter-spacing: 2px;
     box-shadow: 2px 0px 10px 0px rgba(0, 0, 0, .7);
-    
+
 }
 
 .room_info .option .option_info > ul li span > i {
     display: block;
-    width: 50px; 
+    width: 50px;
     line-height: 50px;
     box-sizing: border-box;
     margin-left: -1px;
@@ -280,7 +287,7 @@ a:hover{
 
 .room_info .option .option_list ul li span i{
     display: block;
-    width: 50px; 
+    width: 50px;
     line-height: 50px;
     box-sizing: border-box;
     margin-left: -1px;

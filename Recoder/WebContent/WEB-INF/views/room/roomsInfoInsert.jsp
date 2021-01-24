@@ -155,7 +155,7 @@
                                         <option value="2">투룸</option>
                                     </select>
                                 </td>
-                                <th scope="row">근쳐 지하철역</th>
+                                <th scope="row">근처 지하철역</th>
                                 <td><input type="text" id="stationAddr" name="stationAddr"></td>
                             </tr>
                         </tbody>
