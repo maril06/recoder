@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-        
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>    
     <link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 	<link rel="stylesheet" href="${contextPath}/resources/css/brokerList.css">
 	<title>공지사항 게시판</title>
@@ -176,7 +176,7 @@
 
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
     
     <script>
         function selectAll(selectAll) {
@@ -274,7 +274,7 @@
     }); 
 			
 			
-			//file:///C:/workspace/localRepository/recoder/Recoder/WebContent/resources/images/brokerInfo/20210122114414_32948.png
+		
 			
 			$("#table-body td:nth-child(3) > img").on("click", function(){
 				
