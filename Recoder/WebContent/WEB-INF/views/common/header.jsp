@@ -45,7 +45,7 @@
                 <div class="menu_left clearfix">
                     <ul class="menu_left_title clearfix ft">
                         <li><a href="${contextPath}/searchKeyword.do?keyword="><span><b>방찾기</b></span></a></li>
-                        <li><a href="${contextPath}/room/roomInsertForm.do"><span><b>방 내놓기</b></span></a></li>
+                        <li><a id="insertRoom"><span><b>방 내놓기</b></span></a></li>
                         <c:if test="${!empty sessionScope.loginMember}">
                         	<li><a id="pickRoom"><span><b>찜한 방</b></span></a></li>
                         </c:if>
@@ -110,6 +110,29 @@
 			});
 		/*  $(this).attr("href", "${contextPath}/common/loginForm.do"); */
 	 }
+  });
+  
+  $("#insertRoom").on("click", function(){
+	  if(${ !empty sessionScope.loginMember}){ 
+			 if (${sessionScope.loginMember.memGrade=='B'}){
+				 $(this).attr("href", "${contextPath}/room/roomInsertForm.do");
+			 }else{
+				 swal({
+					    title: "입장이 불가합니다.",
+					    text: "중개사 회원들만 이용 가능한 메뉴입니다.",
+					    icon: "warning" 
+					})
+			 }
+		 } else{
+			 swal({ 
+				    title: "로그인이 필요합니다.",
+				    text: "로그인 후 이용 가능한 메뉴입니다. 로그인 해주세요.",
+				    icon: "warning" //"info,success,warning,error" 중 택1
+				}).then(function() {
+				    window.location = "${contextPath}/common/loginForm.do";
+				});
+			/*  $(this).attr("href", "${contextPath}/common/loginForm.do"); */
+		 }
   });
   
   
