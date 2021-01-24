@@ -84,7 +84,7 @@ public class BoardController extends HttpServlet {
 			}
 			
 			
-			
+
 			
 			// 게시글 상세 조회
 			else if(command.equals("/view.do")) {

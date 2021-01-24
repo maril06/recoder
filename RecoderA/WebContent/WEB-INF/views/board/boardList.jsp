@@ -101,7 +101,7 @@
                      <c:choose>
 						<c:when test="${empty bList}">
 							<tr>
-								<td colspan="4">존재하는 게시글이 없습니다.</td>
+								<td colspan="5">존재하는 게시글이 없습니다.</td>
 							</tr>
 						</c:when>
 						<c:otherwise>
@@ -250,7 +250,7 @@
         
  $("#deleteBtn").on("click", function(){
         	
-        	var list = [];
+        	var list = []; //객체
         	
         	$("input:checkbox[name='ck']:checked").length
             
@@ -259,12 +259,12 @@
 	  					list.push($(this).val());
             		}	
             });
-                //console.log(list);
+                console.log(list); 81,21,32, 15,16,176
         	
 	       $.ajax({
 				url : "${contextPath}/board/deleteBoard.do",
 				data : {"numberList" : list.join()},
-				
+														 
 				type : "post",
 				
 				success : function(result){
