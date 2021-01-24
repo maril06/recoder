@@ -142,7 +142,7 @@
                 	<c:forEach var="room" items="${room }">
 	                    <li>
 	                        <p class="img">
-	                            <a href="#"><img src="${contextPath}/resources/images/rooms/${room.pet}" alt=""></a>
+	                            <a href="room/view.do?no=${room.roomNo }"><img src="${contextPath}/resources/images/rooms/${room.pet}" alt=""></a>
 	                        </p>
 	                        <h3>${room.roomTitle }</h3>
 	                        <p class="text">

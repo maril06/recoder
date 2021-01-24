@@ -41,7 +41,7 @@
 		
         <h2>매물 수정</h2>
         <!-- ${contextPath}/room/roomUpdate.do -->
-        <form action="${contextPath}/room/roomUpdate.do" id="updateForm" method="POST"  enctype="multipart/form-data" role="form"onsubmit="return updateValidate();">
+        <form action="${contextPath}/room/roomUpdate.do?no=${room.roomNo}" id="updateForm" method="POST"  enctype="multipart/form-data" role="form"onsubmit="return updateValidate();">
         
             <!-- update image -->
             <section class="images">
