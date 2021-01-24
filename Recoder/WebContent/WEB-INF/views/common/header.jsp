@@ -43,7 +43,7 @@
                     <a href="${contextPath}"><img src="${contextPath}/resources/images/homepage/logo.png" alt="로고"></a>
                 </div>
                 <div class="menu_left clearfix">
-                    <ul class="menu_left_title clearfix ft">
+                    <ul class="menu_left_title clearfix">
                         <li><a href="${contextPath}/searchKeyword.do?keyword="><span><b>방찾기</b></span></a></li>
                         <li><a id="insertRoom"><span><b>방 내놓기</b></span></a></li>
                         <c:if test="${!empty sessionScope.loginMember}">

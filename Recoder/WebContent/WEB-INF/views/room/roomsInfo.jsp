@@ -137,7 +137,7 @@
                     </li>
                     <li>
                         <span class="title">전용면적</span>
-                        <span class="info">11111평</span>
+                        <span class="info">${room.realSize }평</span>
                     </li>
                     <li>
                         <span class="title">보증금</span>

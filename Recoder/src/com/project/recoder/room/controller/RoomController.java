@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.project.recoder.broker.model.vo.Broker;
 import com.project.recoder.common.MyFileRenamePolicy;
-import com.project.recoder.member.model.vo.Member;
 import com.project.recoder.room.model.service.RoomService;
 import com.project.recoder.room.model.vo.PageInfo;
 import com.project.recoder.room.model.vo.Room;
@@ -104,8 +103,6 @@ public class RoomController extends HttpServlet {
 				} // end while
 	        	
 	        	
-//				String[] options2 = multiRequest.getParameterValues("options2");
-	        	
 	        	String roomAddr = multiRequest.getParameter("roomAddr");
 	        	String typeOfRent = multiRequest.getParameter("typeOfRent");
 	        	int deposit = Integer.parseInt(multiRequest.getParameter("deposit"));
@@ -175,18 +172,18 @@ public class RoomController extends HttpServlet {
 				// 서비스 실행 
 				int result = service.roomInsert(map);
 				
-				if(result > 0) { // DB 삽입 성공 시 result에는 삽입한 글 번홀가 저장되어있다. 
-	        		path = "view.do?cp=1&no=" + result;
-	        		System.out.println("성공");
-	        	}else {
-	        		path="list.do"; // 게시글 목록
-	        		System.out.println("실패");
-	        	}
-
+				System.out.println(map);
+				request.setAttribute("map", map);
 				
-				path = "/WEB-INF/views/room/roomsInfo.jsp";
-				view = request.getRequestDispatcher(path);
-				view.forward(request, response);
+
+
+				path = "view.do?cp=" + cp + "&no=" + result ;
+	        	
+	        	
+	        	response.sendRedirect(path);
+				
+				
+	
 				
 			}
 			
@@ -365,7 +362,6 @@ public class RoomController extends HttpServlet {
 				HttpSession session = request.getSession();
 				
 				int roomNo = Integer.parseInt(request.getParameter("no")); // 임시
-				// request.getParameter로 얻어와야함!!
 				
 				if(session.getAttribute("loginMember") == null) {
 					session.setAttribute("swalIcon", "error");
