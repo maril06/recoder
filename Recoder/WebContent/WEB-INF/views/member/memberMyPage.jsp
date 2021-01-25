@@ -92,7 +92,7 @@
 													src="${contextPath}/resources/images/rooms/${thumbnail.roomImgName}" id="${room.roomNo }" alt=""></a>
 											</p>
 											<h3>${room.roomTitle}</h3>
-											<h6>${room.roomInfo }</h6>
+											
 											
 											<a href="${contextPath}/room/view.do?no=${room.roomNo }" class="more">더보기</a>
 										</div>
