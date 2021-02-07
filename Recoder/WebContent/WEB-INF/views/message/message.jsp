@@ -166,8 +166,6 @@
     		});
     		
     		
-    		console.log($(".msg_box").scrollTop($(".msg_box")[0].scrollHeight))
-    		$(".msg_box").scrollTop($(".msg_box")[0].scrollHeight)
     		
     	}
     	

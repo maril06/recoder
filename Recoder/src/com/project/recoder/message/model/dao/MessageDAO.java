@@ -80,7 +80,7 @@ public class MessageDAO {
 					rset.getString("MSG_CONTENT"),
 					rset.getTimestamp("CREATE_DT"),
 					rset.getInt("MSG_CNT"),
-					rset.getInt("MEM_NO2"));
+					rset.getInt("MEM_NO"));
 				
 				message.add(msg);
 			}
